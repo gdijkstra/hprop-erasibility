@@ -2,33 +2,111 @@
 #+EXPORT_EXCLUDE_TAGS: noexport
 
 * [[file:proposal.pdf][Proposal PDF file]]                                                :noexport:
-* Erasability of hProps
-** isContr A := sigma (x : A) pi (a : A) Id A x y
-*** Empty type is niet contractible
-*** Unit type wel
-** isContr A <=> A heeft h-level 0
-** Id A x y heeft h-level n <=> A heeft h-level (n + 1)
-** hProp is alles wat h-level 1 heeft
-*** Unit type
-*** Empty type
-** hSet is alles wat h-level 2 heeft
-*** Bool type: Id Bool True False is empty dus h-level 1, Id True True is unit dus h-level 1.
-** Collapsible: familie D is collapsible <=> |- x, y : D ss impliceert |- x = y (convertible)
-** Verschil collapsible/contractible: lege type is ook collapsible (dus niet h-level 0).
-** Verschil collapsible/hProp
-*** lege types zijn collapsible en hProp
-*** niet leeg betekent contractible en dus hProp
-*** dus we hebben collapsible betekent hProp
-*** we hebben niet hProp betekent collapsible, omdat:
-**** ...het voor collapsible over de lege context gaat (probleem?)
-**** ...het voor collapsible over convertibility gaat en niet over Id A x y (probleem?)
-** TODO Juiste gedeelte uit thesis printen of op ereader zetten.
-** TODO Juiste gedeelte lezen en begrijpen (richt je vooral op vragen hieronder)
-** Vragen die ik beantwoord wil hebben
-*** Hoe bepaal je of iets collapsible is?
-*** Heeft collapsibility hetzelfde doel als Prop in Coq voor extractie?
-*** Waarom hebben we de lege context nodig voor collapsibility?
-*** Wat is het probleem van Prop in Coq, met name in de context van HoTT: is het hProp?
-*** Proof irrelevance?
 
+* Contributions
+** Introduction to homotopy type theory
+An introduction to the basics of homotopy type theory, specifically
+geared towards computer scientists. We will mostly be concerned what
+kind of new stuff this correspondence brings to the table in terms of
+possible applications to programming.
 
+** Comparison of collapsibility and hProp
+A comparison of Brady's concept of collapsible type families and the
+definition of hProp from homotopy type theory. We will see which of
+the optimisation techniques can be applied if we replace collapsible
+with hProp.
+
+** Comparison of hProp and Coq's Prop universe
+In Coq, Prop serves several purposes. It gives us a save way to do
+impredicative stuff?
+
+The other purpose of Prop is erasibility with respect to extraction:
+all the terms that live in Prop are erased during extraction. 
+
+*** TODO What do we mean with "live in"                          :noexport:
+*** TODO Elaborate on the ideas behind Prop.                     :noexport:
+Check Letouzey's PhD thesis.
+
+* Introduction to homotopy type theory
+
+** h-levels
+If we look at the (nested) identity types belonging to a type, we
+notice that they tend to become "simpler" the more deeply nested they
+are. 
+
+*** Definition of |Contractible : A -> Set|
+Explain how the unit type is contractible, but the empty type is
+not. Also explain the homotopic intuition and explain that this is
+definition, according to that interpretation, is really different from
+saying that a type has exactly one inhabitant. For example: the disc
+is homotopically equivalent to a one-point space, yet the disc clearly
+has more inhabitants.
+
+*** Inductive definition of h-levels
+
+#+begin_src haskell
+  h-level A 0 = Contractible Ah
+  h-level A (n + 1) = forall x, y : A, h-level (Id A x y) n
+#+end_src
+
+**** TODO Explain filtration property
+
+*** h-propositions
+
+Types of h-level 1 are also called hProp, short for
+h-proposition. Types in hProp are either empty or contractible, so
+they are homotopically equivalent to either the bottom or unit
+type. (Note that one has to be careful with this sentence when one
+tries to formally prove this.) This is also where the name
+"proposition" comes from: bottom and unit are the homotopy type
+theoretic counterparts of the truth values false and true in classical
+logic, i.e. it can be seen as the intuistionistic brother of the boolean
+algebra $\{0,1\}$. 
+
+**** TODO Show how unit is a hProp.
+
+**** TODO Constructive or intuistionistic brother?
+
+*** h-sets
+
+Another important class of types, are the hSets: the types of
+h-level 2. These correspond to discrete groupoids: the only arrows are
+the identity arrows. This means that the only equalities there are,
+are the reflexivity proofs. In other words, hSets satisfy the
+uniqueness of identity proofs property and therefore also axiom K,
+which means we can properly pattern match on them. Indeed, if we work
+in Agda (without the --without-k flag), these are the only types we
+can construct, that is, without adding extra axioms.
+
+**** TODO Show how booleans are in hSet.
+
+*** Higher inductive types
+
+**** TODO Explain that these are really new.
+
+**** TODO Example: universe of types with isomorphism as equality
+booleans are isomorphic to itself in several ways.
+
+* Collapsibility
+
+We call a type family |D : (A : Set) -> Set| collapsible if it
+satisfies the following property:
+
+if we have two inhabitants |x, y : D ss| for some index |ss : A|,
+then |x| and |y| are convertible.
+
+** Collapsibility versus hProp
+
+At first glance, we notice that the definition looks a lot like the
+definition of hProp, where the internal equality (the identity types)
+is replaced by convertibility, which is a relation external to the
+system: we cannot prove anything about the convertibility relation
+inside the system.
+
+Another important, but more subtle, difference is that we have an
+additional condition under which the equality (convertibility in this
+case) must hold, namely it must hold in the empty context. 
+
+*** TODO Explain where this condition comes from
+Something to do with it being a run-time optimisation and evaluation
+being done in the empty context in that case.

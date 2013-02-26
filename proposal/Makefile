@@ -6,12 +6,13 @@ preview : proposal.pdf
 proposal.pdf : proposal.tex outline.tex
 	pdflatex proposal.tex && pdflatex proposal.tex && pdflatex -synctex=1 proposal.tex
 
-proposal.tex : proposal.lhs
+proposal.tex : proposal.lhs outline.tex
 	lhs2TeX -o proposal.tex proposal.lhs
 
 outline.tex : outline.org
+	rm -f outline.tex
 	emacs -batch --visit=outline.org -eval "(org-export-as-latex nil nil nil nil t)"
 
 clean :
-	rm -f *.aux *.log *.nav *.out *.ptb *.toc *.snm proposal.pdf outline.tex *.synctex.gz *.bbl *.blg
+	rm -f *.aux *.log *.nav *.out *.ptb *.toc *.snm proposal.pdf outline.tex proposal.tex *.synctex.gz *.bbl *.blg
 
