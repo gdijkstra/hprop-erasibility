@@ -1,0 +1,34 @@
+#+STARTUP: showall
+#+EXPORT_EXCLUDE_TAGS: noexport
+
+* [[file:proposal.pdf][Proposal PDF file]]                                                :noexport:
+* Erasability of hProps
+** isContr A := sigma (x : A) pi (a : A) Id A x y
+*** Empty type is niet contractible
+*** Unit type wel
+** isContr A <=> A heeft h-level 0
+** Id A x y heeft h-level n <=> A heeft h-level (n + 1)
+** hProp is alles wat h-level 1 heeft
+*** Unit type
+*** Empty type
+** hSet is alles wat h-level 2 heeft
+*** Bool type: Id Bool True False is empty dus h-level 1, Id True True is unit dus h-level 1.
+** Collapsible: familie D is collapsible <=> |- x, y : D ss impliceert |- x = y (convertible)
+** Verschil collapsible/contractible: lege type is ook collapsible (dus niet h-level 0).
+** Verschil collapsible/hProp
+*** lege types zijn collapsible en hProp
+*** niet leeg betekent contractible en dus hProp
+*** dus we hebben collapsible betekent hProp
+*** we hebben niet hProp betekent collapsible, omdat:
+**** ...het voor collapsible over de lege context gaat (probleem?)
+**** ...het voor collapsible over convertibility gaat en niet over Id A x y (probleem?)
+** TODO Juiste gedeelte uit thesis printen of op ereader zetten.
+** TODO Juiste gedeelte lezen en begrijpen (richt je vooral op vragen hieronder)
+** Vragen die ik beantwoord wil hebben
+*** Hoe bepaal je of iets collapsible is?
+*** Heeft collapsibility hetzelfde doel als Prop in Coq voor extractie?
+*** Waarom hebben we de lege context nodig voor collapsibility?
+*** Wat is het probleem van Prop in Coq, met name in de context van HoTT: is het hProp?
+*** Proof irrelevance?
+
+
