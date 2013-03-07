@@ -10,8 +10,7 @@
 \usepackage{todonotes}
 \usepackage{tgpagella}
 
-\title{Master thesis proposal: \\
-Erasibility of hProp}
+\title{Erasibility of homotopy type theory}
 
 \author{Gabe Dijkstra}
 
