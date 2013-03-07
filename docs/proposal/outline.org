@@ -3,12 +3,31 @@
 
 * [[file:proposal.pdf][Proposal PDF file]]                                                :noexport:
 
+* Motivation / context
+
+Myth: dependently typed programs are inefficient. While it is true
+that we cannot erase types as easily: the syntactic distinction
+between types and terms is "gone": terms can occur in types and types
+can occur in terms. However, there is still the distinction between
+terms that are only relevant during compile-time and not during
+run-time. In fact, since the type system is so expressive, it means we
+actually have more room for optimisation, since the types dictate a
+lot more precisely what the run-time behaviour can be. For example if
+we have a term of type |Vec (S n) A -> A|, we know that the only
+pattern that will occur when calling this function is |Cons x xs|, so
+this needn't be checked at run-time. Edwin Brady's PhD thesis
+describes several optimisations one can make in Epigram.
+
 * Contributions
 ** Introduction to homotopy type theory
-An introduction to the basics of homotopy type theory, specifically
-geared towards computer scientists. We will mostly be concerned what
-kind of new stuff this correspondence brings to the table in terms of
-possible applications to programming.
+An introduction to the basics of homotopy type theory geared towards
+computer scientists, since all current introductions are written in
+mind with the mathematician without any knowledge of type
+theory. Instead, we want to introduce the subject to the computer
+scientist who has some experience programming in dependently typed
+languages such as Agda or Coq. 
+
+** Identify how HoTT can be interesting for programming
 
 ** Comparison of collapsibility and hProp
 A comparison of Brady's concept of collapsible type families and the
@@ -45,7 +64,7 @@ has more inhabitants.
 *** Inductive definition of h-levels
 
 #+begin_src haskell
-  h-level A 0 = Contractible Ah
+  h-level A 0 = Contractible A
   h-level A (n + 1) = forall x, y : A, h-level (Id A x y) n
 #+end_src
 
@@ -63,7 +82,7 @@ theoretic counterparts of the truth values false and true in classical
 logic, i.e. it can be seen as the intuistionistic brother of the boolean
 algebra $\{0,1\}$. 
 
-**** TODO Show how unit is a hProp.
+**** TODO Show how unit is an hProp.
 
 **** TODO Constructive or intuistionistic brother?
 
@@ -76,7 +95,7 @@ are the reflexivity proofs. In other words, hSets satisfy the
 uniqueness of identity proofs property and therefore also axiom K,
 which means we can properly pattern match on them. Indeed, if we work
 in Agda (without the --without-k flag), these are the only types we
-can construct, that is, without adding extra axioms.
+can construct.
 
 **** TODO Show how booleans are in hSet.
 
