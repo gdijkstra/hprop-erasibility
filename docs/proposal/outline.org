@@ -3,20 +3,7 @@
 
 * [[file:proposal.pdf][Proposal PDF file]]                                                :noexport:
 
-* Motivation / context
-
-Myth: dependently typed programs are inefficient. While it is true
-that we cannot erase types as easily: the syntactic distinction
-between types and terms is "gone": terms can occur in types and types
-can occur in terms. However, there is still the distinction between
-terms that are only relevant during compile-time and not during
-run-time. In fact, since the type system is so expressive, it means we
-actually have more room for optimisation, since the types dictate a
-lot more precisely what the run-time behaviour can be. For example if
-we have a term of type |Vec (S n) A -> A|, we know that the only
-pattern that will occur when calling this function is |Cons x xs|, so
-this needn't be checked at run-time. Edwin Brady's PhD thesis
-describes several optimisations one can make in Epigram.
+* Motivation / context / preliminaries?
 
 * Contributions
 ** Introduction to homotopy type theory
@@ -36,96 +23,6 @@ the optimisation techniques can be applied if we replace collapsible
 with hProp.
 
 ** Comparison of hProp and Coq's Prop universe
-In Coq, Prop serves several purposes. It gives us a save way to do
-impredicative stuff?
-
-The other purpose of Prop is erasibility with respect to extraction:
-all the terms that live in Prop are erased during extraction. 
-
-*** TODO What do we mean with "live in"                          :noexport:
-*** TODO Elaborate on the ideas behind Prop.                     :noexport:
-Check Letouzey's PhD thesis.
-
-* Introduction to homotopy type theory
-
-** h-levels
-If we look at the (nested) identity types belonging to a type, we
-notice that they tend to become "simpler" the more deeply nested they
-are. 
-
-*** Definition of |Contractible : A -> Set|
-Explain how the unit type is contractible, but the empty type is
-not. Also explain the homotopic intuition and explain that this is
-definition, according to that interpretation, is really different from
-saying that a type has exactly one inhabitant. For example: the disc
-is homotopically equivalent to a one-point space, yet the disc clearly
-has more inhabitants.
-
-*** Inductive definition of h-levels
-
-#+begin_src haskell
-  h-level A 0 = Contractible A
-  h-level A (n + 1) = forall x, y : A, h-level (Id A x y) n
-#+end_src
-
-**** TODO Explain filtration property
-
-*** h-propositions
-
-Types of h-level 1 are also called hProp, short for
-h-proposition. Types in hProp are either empty or contractible, so
-they are homotopically equivalent to either the bottom or unit
-type. (Note that one has to be careful with this sentence when one
-tries to formally prove this.) This is also where the name
-"proposition" comes from: bottom and unit are the homotopy type
-theoretic counterparts of the truth values false and true in classical
-logic, i.e. it can be seen as the intuistionistic brother of the boolean
-algebra $\{0,1\}$. 
-
-**** TODO Show how unit is an hProp.
-
-**** TODO Constructive or intuistionistic brother?
-
-*** h-sets
-
-Another important class of types, are the hSets: the types of
-h-level 2. These correspond to discrete groupoids: the only arrows are
-the identity arrows. This means that the only equalities there are,
-are the reflexivity proofs. In other words, hSets satisfy the
-uniqueness of identity proofs property and therefore also axiom K,
-which means we can properly pattern match on them. Indeed, if we work
-in Agda (without the --without-k flag), these are the only types we
-can construct.
-
-**** TODO Show how booleans are in hSet.
-
-*** Higher inductive types
-
-**** TODO Explain that these are really new.
-
-**** TODO Example: universe of types with isomorphism as equality
-booleans are isomorphic to itself in several ways.
-
-* Collapsibility
-
-We call a type family |D : (A : Set) -> Set| collapsible if it
-satisfies the following property:
-
-if we have two inhabitants |x, y : D ss| for some index |ss : A|,
-then |x| and |y| are convertible.
-
-** Collapsibility versus hProp
-
-At first glance, we notice that the definition looks a lot like the
-definition of hProp, where the internal equality (the identity types)
-is replaced by convertibility, which is a relation external to the
-system: we cannot prove anything about the convertibility relation
-inside the system.
-
-Another important, but more subtle, difference is that we have an
-additional condition under which the equality (convertibility in this
-case) must hold, namely it must hold in the empty context. 
-
-*** TODO Explain where this condition comes from
-Something to do with it being a run-time optimisation and evaluation
-being done in the empty context in that case.
+In Coq, Prop serves several purposes. One of these is erasibility with
+respect to extraction: all the terms that live in Prop are erased
+during extraction.
