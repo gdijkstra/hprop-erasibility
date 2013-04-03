@@ -30,6 +30,7 @@ during extraction.
 
 
 * Introduction to homotopy type theory
+** Explain some basic stuff about homotopy?
 
 ** Intensional versus extensional
 Explain the difference and how HoTT fits in this picture. Also note
@@ -65,10 +66,10 @@ notions of contractibility to make this clearer.
 
 *** Inductive definition of h-levels
 
-#+begin_src haskell
+\begin{code}
   h-level A 0 = Contractible A
   h-level A (n + 1) = forall x, y : A, h-level (Id A x y) n
-#+end_src
+\end{code}
 
 **** TODO Explain filtration property
 **** TODO Note that the h-level needn't be finite.

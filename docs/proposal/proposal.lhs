@@ -9,9 +9,10 @@
 \usepackage{amsmath,amsthm,amssymb,stmaryrd}
 \usepackage{todonotes}
 \usepackage{tgpagella}
+\usepackage[authoryear,round]{natbib}
 
 \title{Master thesis proposal: \\
-Erasibility of hProp}
+Erasibility of propositions \\ in homotopy type theory}
 
 \author{Gabe Dijkstra}
 
@@ -22,5 +23,8 @@ Erasibility of hProp}
 \maketitle
 
 %include outline.tex
+
+\bibliographystyle{plainnat}
+\bibliography{proposal}
 
 \end{document}

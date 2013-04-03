@@ -3,26 +3,144 @@
 
 * [[file:proposal.pdf][Proposal PDF file]]                                                :noexport:
 
-* Motivation / context / preliminaries?
+* Introduction
+
+Adding equality to a dependently typed language has been studied for
+a long while now.
+
+The equality one typically uses in Agda and Coq is equality as an
+inductive family, as introduced by \cite{mltt}. In Agda these so
+called /identity types/ can be implemented as follows:
+
+\begin{code}
+data Id (A : Set) (x : A) : A → Set a where
+  refl : Id A x x
+\end{code}
+
+- Identity types have a relatively simple definition
+
+- Semantics were less well understood for a long time
+
+- Something about eliminators instead of pattern matching
+
+- We cannot prove UIP from J, as shown by \cite{groupoidinterpretation}
+
+- This eventually led to the interpretation of proofs |p : Id A x y|
+  as paths between |x| and |y| as though they are points in the
+  "topological space" |A|.
+
+- Identifying types with types topological spaces (up to homotopy) and
+  the identity types on those types as path spaces (also up to
+  homotopy), leads to interesting models of intensional type theory à
+  la Martin-Löf. The study of these models is called /homotopy type
+  theory/.
 
 * Contributions
+
 ** Introduction to homotopy type theory
-An introduction to the basics of homotopy type theory geared towards
-computer scientists, since all current introductions are written in
-mind with the mathematician without any knowledge of type
-theory. Instead, we want to introduce the subject to the computer
-scientist who has some experience programming in dependently typed
-languages such as Agda or Coq. 
 
-** Identify how HoTT can be interesting for programming
+** Erasibility of propositions
 
-** Comparison of collapsibility and hProp
-A comparison of Brady's concept of collapsible type families and the
-definition of hProp from homotopy type theory. We will see which of
-the optimisation techniques can be applied if we replace collapsible
-with hProp.
+- What are propositions? Why do we want such a concept?
+- How do we characterise "propositions"
+- We identify them with (-1)-truncations:
 
-** Comparison of hProp and Coq's Prop universe
-In Coq, Prop serves several purposes. One of these is erasibility with
-respect to extraction: all the terms that live in Prop are erased
-during extraction.
+\begin{code}
+isProposition : Set -> Set
+isProposition A = (x y : A) -> Id A x y
+\end{code}
+
+- The empty type and the unit type are both propositions
+- In fact, we can prove that if it is inhabited, then it is
+  isomorphic to the unit type
+
+*** Comparison with collapsibility
+
+The definition |isProposition| looks a lot like /collapsibility/
+\citep{collapsibility}. Given some indexing type |I|, a family |D : I
+-> Set| is called /collapsible/ if for all indices |i| and
+inhabitants |x, y : D i|, |x| and |y| are definitionally equal.
+
+- Again, empty and unit type are examples of collapsible families.
+
+If we know that a family is collapsible, we can optimise its
+constructors and elimination operators by erasing certain parts, since
+we know that they are computationally irrelevant and that everything
+we need can be recovered from the index.
+
+- |isProposition| is a can be seen as an internalised version of
+  collapsibility: we have replaced definitional equality with
+  propositional equality.
+
+- Does this still work? Yes, it does, as long as we have canonicity.
+
+- Propositional equality implies definitional equality, at run-time.
+
+- Since it is establishing whether a family is collapsible is
+undecidable in general (TODO: proof), having a way for the user to
+provide a proof when the compiler fails to generate one is nice.
+
+- However, in the context of HoTT things break
+- We usually add axioms and all that, so we lose canonicity.
+- Can we find out when this still works?
+- Can we establish an optimisation in the spirit of Brady et
+  al. built around the concept of (-1)-truncations.
+
+*** Comparison with Prop in Coq
+
+In Coq we can make the distinction between informative or
+computational parts of our program (everything that lives in |Set|)
+and logical parts (everything that lives in |Prop|).
+
+ - |Prop| is impredicative: we can quantify over things in |Prop| and
+   still stay in |Prop|.
+
+ - Everything in |Prop| is deleted during extraction.
+
+ - However, in some cases, the restrictions on |Prop| lead to rather
+   involved function definitions. An example of this is writing a
+   function defined using the Bove-Capretta method. In contrast, the
+   collapsibility optimisation would in most cases (TODO: bold claim
+   here) notice that the accessibility predicate can be erased.
+
+- |Prop| does not work nicely with univalence.
+
+** Applications of homotopy type theory to programming
+
+*** Quotients
+
+Higher inductive types provide for a natural construction of
+quotients. In pseudo-Agda this would look as follows:
+
+\begin{code}
+data Quotient (A : Set) (R : A -> A -> Proposition) : Set where
+  project  : A -> Quotient A R
+  relate   : (x y : A) -> R x y -> Id (Quotient A R) (project x) (project y)
+  contr    : (x y : Quotient A R)  -> (p q : Id (Quotient A R) x y) 
+                                   -> Id (Id (Quotient A R) x y) p q
+\end{code}
+
+Quotienting out by the given relation means that we need to regard two
+terms |x| and |y| related to eachother with |R| as propositionally
+equal, which is witnessed by the |relate| constructor. In order for
+the result to be a set (in the sense of being a discrete groupoid), we
+also need to ensure that it satisfies UIP, which in turn is witnessed
+by the |contr| constructor.
+
+- Compare this to other approaches to quotients, such as Altenkirch's
+  definable quotients \citep{definablequotients}.
+
+*** Views on abstract types
+
+The univalence axiom should make it more easy to work with views in a
+dependently typed setting.
+
+- Make the sketches and computations from Dan Licata's blog post more precise
+
+There are cases where it makes sense to have an implementation that
+has more structure than we want to expose to the user using the
+view. Instead of having an isomorphism, we then have a
+section/retraction pair. Since we have quotients to our disposal, we
+can make this into an isomorphism. 
+
+- Identify examples where this is useful.
