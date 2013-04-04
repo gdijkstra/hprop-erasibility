@@ -1,8 +1,11 @@
 \documentclass[a4paper,10pt]{article}
 
-%include polycode.fmt
+%include proposal.fmt
 
 \newcommand{\todoi}[1]{\todo[inline]{#1}}
+\newcommand{\contribution}[1]{\begin{quote}
+{\bf Contribution: } #1
+\end{quote}}
 
 \usepackage[utf8x]{inputenc}
 \usepackage[parfill]{parskip}
@@ -10,9 +13,10 @@
 \usepackage{todonotes}
 \usepackage{tgpagella}
 \usepackage[authoryear,round]{natbib}
+\usepackage{url}
 
 \title{Master thesis proposal: \\
-Erasibility of propositions \\ in homotopy type theory}
+Erasing propositions \\ in homotopy type theory}
 
 \author{Gabe Dijkstra}
 

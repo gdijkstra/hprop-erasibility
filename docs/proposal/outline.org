@@ -5,105 +5,137 @@
 
 * Introduction
 
-Adding equality to a dependently typed language has been studied for
-a long while now.
+In this thesis we concern ourselves with the following notion of
+equality, the so called \emph{identity types} as introduced by
+\cite{mltt}. In Agda they can be defined as follows:
 
-The equality one typically uses in Agda and Coq is equality as an
-inductive family, as introduced by \cite{mltt}. In Agda these so
-called /identity types/ can be implemented as follows:
+definition}
 
 \begin{code}
 data Id (A : Set) (x : A) : A → Set a where
   refl : Id A x x
 \end{code}
 
-- Identity types have a relatively simple definition
+In Martin-Löf's system, the only way to do something with data, is via
+elimination operators (also called induction principles): there is no
+pattern matching. If we allow for pattern matching, we can easily
+proof that if we have two proofs |p, q : Id A x y|, then these proofs
+are also equal, i.e. we have a proof |r : Id (Id A x y) p q|. This
+property is also called \emph{uniqueness of identity proofs} (UIP).
 
-- Semantics were less well understood for a long time
+However, we cannot prove UIP from the elimination operator of the
+identity types (also called J), as has been shown by
+\cite{groupoidinterpretation}. This means that pattern matching is a
+non-conservative extension over Martin-Löf's system.
 
-- Something about eliminators instead of pattern matching
-
-- We cannot prove UIP from J, as shown by \cite{groupoidinterpretation}
-
-- This eventually led to the interpretation of proofs |p : Id A x y|
-  as paths between |x| and |y| as though they are points in the
-  "topological space" |A|.
-
-- Identifying types with types topological spaces (up to homotopy) and
-  the identity types on those types as path spaces (also up to
-  homotopy), leads to interesting models of intensional type theory à
-  la Martin-Löf. The study of these models is called /homotopy type
-  theory/.
+In fact, the structure that arises from the identity types looks a lot
+like the homotopy groupoids from homotopy theory. If we interpret a
+type |A| as a topological space (up to homotopy) and |x, y : A| as
+points in this space, then a proof |p : Id A x y| corresponds to a
+path from |x| to |y|. This interpretation of types leads to
+interesting models of intensional type theory and is the subject of
+homotopy type theory.
 
 * Contributions
 
 ** Introduction to homotopy type theory
 
+There are several introductions to homotopy type theory
+(e.g. \cite{awodeysurvey} and \cite{pelayosurvey}), but these are
+geared towards mathematicians who know about homotopy theory, but do
+not know about type theory. For the computer scientist who knows some
+type theory, but has never seen any homotopy theory, there is
+virtually no material.
+
+\contribution{We provide an introduction to homotopy type theory for
+the computer scientist who has some familiarity with type theory, but
+does not have the background in homotopy theory.}
+
 ** Erasibility of propositions
 
-- What are propositions? Why do we want such a concept?
-- How do we characterise "propositions"
-- We identify them with (-1)-truncations:
+One way to explain type theory is using the propositions-as-types
+analogy, also called the Curry-Howard correspondence. In practice,
+this identification is not precise enough. If we have two proofs of a
+proposition, we tend to regard those proofs as equal. We care more
+about the fact that we have a proof rather than how the proof is
+constructed exactly. However, there are types where we definitely do
+not want to regard all inhabitants to be equal, for example the
+natural numbers.
+
+Instead of viewing all types as propositions, we identify
+propositions only with those types whose inhabitants are all
+(propositionally) equal to eachother:
 
 \begin{code}
 isProposition : Set -> Set
 isProposition A = (x y : A) -> Id A x y
 \end{code}
 
-- The empty type and the unit type are both propositions
-- In fact, we can prove that if it is inhabited, then it is
-  isomorphic to the unit type
+In homotopy type theory a type that has this property is usually
+called /(-1)-truncated/ or a /(-1)-type/.\footnote{The somewhat strange
+numbering comes from homotopy theory, where 0-truncated intuitively
+means that we have a set, (-1)-truncated a set of at most one element
+and (-2)-truncated an empty set}
+
+Examples of propositions are the empty type |bottom| and the unit
+type |top|. In fact, we can prove that if a type is inhabitated and it
+is a proposition, it is isomorphic to the unit type.
 
 *** Comparison with collapsibility
 
 The definition |isProposition| looks a lot like /collapsibility/
 \citep{collapsibility}. Given some indexing type |I|, a family |D : I
 -> Set| is called /collapsible/ if for all indices |i| and
-inhabitants |x, y : D i|, |x| and |y| are definitionally equal.
-
-- Again, empty and unit type are examples of collapsible families.
+inhabitants |x, y : D i|, |x| and |y| are definitionally equal. In
+other words: every |D i| is either empty or has one element (up to
+definitional equality).
 
 If we know that a family is collapsible, we can optimise its
 constructors and elimination operators by erasing certain parts, since
-we know that they are computationally irrelevant and that everything
-we need can be recovered from the index.
+we know that the relevant parts (if there are any) can be recovered
+from the indices.
 
-- |isProposition| is a can be seen as an internalised version of
-  collapsibility: we have replaced definitional equality with
-  propositional equality.
+Comparing the definition of collapsible families
+to |isProposition|, we notice that they are largely the
+same. |isProposition| is a can be seen as an internalised version of
+collapsibility: we have replaced definitional equality with
+propositional equality.
 
-- Does this still work? Yes, it does, as long as we have canonicity.
+A question one might ask is whether the optimisations based on
+collapsibility also hold for propositions. If our type theory
+satisfies canonicity, propositional equality implies definitional
+equality in the empty context. This means, that we can indeed use the
+concept of propositions for the same optimisations as those for
+collapsible families.
 
-- Propositional equality implies definitional equality, at run-time.
+In homotopy type theory, one usually adds axioms such as the
+univalence axiom, or axioms to implement higher inductive types. This
+means we lose canonicity hence we no longer have that propositional
+equality always implies definitional equality.
 
-- Since it is establishing whether a family is collapsible is
-undecidable in general (TODO: proof), having a way for the user to
-provide a proof when the compiler fails to generate one is nice.
+Not all is lost: let |B| be a type for which all proofs |p : Id B x y|
+are definitionally equal to |refl| and let |A| be a (-1)-type, then
+the only functions we |f : A -> B| we can write are (definitionally)
+constant functions, hence we can at run-time ignore what value of |A|
+we get exactly.
 
-- However, in the context of HoTT things break
-- We usually add axioms and all that, so we lose canonicity.
-- Can we find out when this still works?
-- Can we establish an optimisation in the spirit of Brady et
-  al. built around the concept of (-1)-truncations.
+\contribution{We identify cases where (-1)-types can be safely erased:
+we provide an optimisation in the spirit of \cite{collapsibility}}
 
 *** Comparison with Prop in Coq
 
 In Coq we can make the distinction between informative or
 computational parts of our program (everything that lives in |Set|)
-and logical parts (everything that lives in |Prop|).
+and logical parts (everything that lives in |Prop|). This distinction
+is also used when extracting a Coq development to another language: we
+can safely erase terms of sort |Prop|.
 
- - |Prop| is impredicative: we can quantify over things in |Prop| and
-   still stay in |Prop|.
+Another property of the |Prop| universe is that it is impredicative:
+propositions can quantify over propositions. (-1)-types also have
+this property in a certain sense.
 
- - Everything in |Prop| is deleted during extraction.
-
- - However, in some cases, the restrictions on |Prop| lead to rather
-   involved function definitions. An example of this is writing a
-   function defined using the Bove-Capretta method. In contrast, the
-   collapsibility optimisation would in most cases (TODO: bold claim
-   here) notice that the accessibility predicate can be erased.
-
-- |Prop| does not work nicely with univalence.
+\contribution{We provide a comparison between Coq's |Prop| universe to
+the (-1)-types of homotopy type theory and our run-time optimisation.}
 
 ** Applications of homotopy type theory to programming
 
@@ -127,15 +159,15 @@ the result to be a set (in the sense of being a discrete groupoid), we
 also need to ensure that it satisfies UIP, which in turn is witnessed
 by the |contr| constructor.
 
-- Compare this to other approaches to quotients, such as Altenkirch's
-  definable quotients \citep{definablequotients}.
+\contribution{We compare this approach to quotients to other
+approaches, such as definable quotients \citep{definablequotients}.}
 
 *** Views on abstract types
 
 The univalence axiom should make it more easy to work with views in a
-dependently typed setting.
-
-- Make the sketches and computations from Dan Licata's blog post more precise
+dependently typed
+setting.\footnote{http://homotopytypetheory.org/2012/11/12/abstract-types-with-isomorphic-types/
+}
 
 There are cases where it makes sense to have an implementation that
 has more structure than we want to expose to the user using the
@@ -143,4 +175,5 @@ view. Instead of having an isomorphism, we then have a
 section/retraction pair. Since we have quotients to our disposal, we
 can make this into an isomorphism. 
 
-- Identify examples where this is useful.
+\contribution{Identify examples of non-isomorphic views and determine
+whether quotients are easy to work with for this use case.}

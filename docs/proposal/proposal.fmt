@@ -1,0 +1,4 @@
+%include polycode.fmt
+
+%format top = "\top"
+%format bottom = "\bot"

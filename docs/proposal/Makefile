@@ -8,7 +8,7 @@ proposal.pdf : proposal.tex outline.tex proposal.bib
 	bibtex proposal
 	pdflatex proposal.tex && pdflatex proposal.tex && pdflatex -synctex=1 proposal.tex
 
-proposal.tex : proposal.lhs outline.tex proposal.bib
+proposal.tex : proposal.lhs outline.tex proposal.bib proposal.fmt
 	lhs2TeX -o proposal.tex proposal.lhs
 
 outline.tex : outline.org
