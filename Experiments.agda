@@ -28,6 +28,14 @@ postulate
 data Id {a} (A : Set a) (x : A) : A → Set a where
   refl : Id A x x
 
+sym : {a : Level} {A : Set a} {x y : A} -> Id A x y -> Id A y x
+sym refl = refl 
+
+trans : {a : Level} {A : Set a} {x y z : A} -> Id A x y -> Id A y z -> Id A z x
+trans refl refl = refl
+
+
+
 transport : {a : Level} {B : Set a} (E : B → Set a) {b₁ b₂ : B} → Id B b₁ b₂ → E b₁ → E b₂
 transport E refl = λ x → x
 
@@ -92,6 +100,4 @@ h-levelFiltration A (S n) proof = λ x y → h-levelFiltration (Id A x y) n (pro
 UnivalenceLight : {a : Level} → Set (suc a)
 UnivalenceLight {a} = (A B : Set a) → h-set A → h-set B → Iso A B → Id (Set a) A B
 
-sym : {A : Set} {a b : A} → (Id A a b) → (Id A b a)
-sym refl = refl
 
