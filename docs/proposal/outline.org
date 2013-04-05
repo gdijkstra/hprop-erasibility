@@ -1,40 +1,202 @@
-#+STARTUP: showall
+#+STARTUP: hidestars noindent showall
 #+EXPORT_EXCLUDE_TAGS: noexport
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+
+
 
 * [[file:proposal.pdf][Proposal PDF file]]                                                :noexport:
 
 * Introduction
 
-In this thesis we concern ourselves with the following notion of
-equality, the so called \emph{identity types} as introduced by
-\cite{mltt}. In Agda they can be defined as follows:
+*************** Test this stuff
+aswoiefoisajdfoij
+*************** END
 
-definition}
+** TODO Introduce homotopy type theory as some recent development
+
+Relating results from homotopy theory to type theory and vice versa.
+
+** TODO The type theory we are interested in is Martin-Löf's
+   
+Intensional type theory \cite{mltt}.
+
+** TODO Introduce identity types and elimination principle J in Agda syntax.
+
+** TODO Footnote about how and why this is called propositional equality.
 
 \begin{code}
-data Id (A : Set) (x : A) : A → Set a where
+data Id (A : Set) (x : A) : A -> Set where
   refl : Id A x x
 \end{code}
 
-In Martin-Löf's system, the only way to do something with data, is via
-elimination operators (also called induction principles): there is no
-pattern matching. If we allow for pattern matching, we can easily
-proof that if we have two proofs |p, q : Id A x y|, then these proofs
-are also equal, i.e. we have a proof |r : Id (Id A x y) p q|. This
-property is also called \emph{uniqueness of identity proofs} (UIP).
+** TODO Introduce |==| notation as well
 
-However, we cannot prove UIP from the elimination operator of the
-identity types (also called J), as has been shown by
-\cite{groupoidinterpretation}. This means that pattern matching is a
-non-conservative extension over Martin-Löf's system.
+** TODO "Implementing" equality like this has nice properties
+such as: type checking is decidable, we have canonicity
 
-In fact, the structure that arises from the identity types looks a lot
-like the homotopy groupoids from homotopy theory. If we interpret a
-type |A| as a topological space (up to homotopy) and |x, y : A| as
-points in this space, then a proof |p : Id A x y| corresponds to a
-path from |x| to |y|. This interpretation of types leads to
-interesting models of intensional type theory and is the subject of
-homotopy type theory.
+** TODO Using J we can easily prove: |refl|, |trans|, |symm|
+
+** TODO It has its cons as well
+
+We cannot prove function extensionality even though it holds in all
+models.
+
+When we look at the definition of |Id|, it seems that there is only
+one way to construct a proof of propositional equality, namely by
+applying the |refl| constructor. In Agda, using dependent pattern
+matching, we can prove this fact, usually called /uniqueness of
+identity proofs/:
+
+\begin{code}
+UIP : (A : Set) (x y : A) (p q : Id A x y) -> Id (Id A x y) p q
+UIP A x .x refl refl = refl
+\end{code}
+
+** TODO Fix dot pattern lhs2tex
+
+However, this fact cannot be proven using only the elimination
+principle |J|.
+
+** TODO \cite{groupoidinterpretation} showed that this impossible
+
+They noticed that if we can interpret identity types as groupoids: we
+can interpret |trans| as composition, |refl| as the identity operation
+and |sym| as the inverse operation.
+
+** TODO Introduce new notation
+
+ - Associativity: Id (Id A x y) ((a * b) * c) (a * (b * c))
+ - Reft and right inverses: Id (Id A x y) ($a^{-1}$ * a) e and Id
+   (Id A x y) (a * $a^{-1}$) e 
+ - Left identity: Id (Id A x y) (e * a) a
+ - Right identity: Id (Id A x y) (a * e) a
+
+** TODO Do we really want to elaborate on all of that here, right now?
+I can always move it elsewhere I suppose.
+
+Notice that in the type theoretic formulation of the laws, the
+equalities are equalities between identity types, not definitional
+equality, but equalities /one level higher/. This nesting can be made
+arbitrarily deep, leading to a construction homotopy theorists call
+weak $\infty$-groupoids.
+
+The homotopic intuition behind weak $\infty$-groupoids leads to the
+following correspondence between homotopy and type theory:
+
+|-------------------------+----------------------|
+| type theory             | homotopy theory      |
+|-------------------------+----------------------|
+| type $A$                | space                |
+| $x, y : A$              | points in $A$        |
+| $p : Id A x y$          | path from $x$ to $y$ |
+| $w : Id (Id A x y) p q$ | homotopies           |
+|-------------------------+----------------------|
+
+** TODO Fix lhs2tex here
+
+Using this correspondence, uniqueness of identity proofs can be
+interpreted as having every path in our space to be homotopic to the
+constant path. In homotopy theory it is easy to see that this is not
+the case in general. The simplest counter example being the circle: we
+can go around the circle $n$-times (in either direction), and none of
+those loops are homotopic to the constant loop.
+
+** Truncations
+
+Looking at a type its (higher) identity types leads to an interesting
+way to classify types. The simplest possible structure we can have for
+an identity type of some type |A| is if |A| has only one element, up
+to propositional equality. A type satisfying this property is called
+/contractible/:
+
+\begin{code}
+isContractible : Set -> Set
+isContractible A = Sigma A (\ center -> (x : A) -> (Id A center x))
+\end{code}
+
+Translating this statement back to the language of homotopy theory, it
+indeed corresponds to the homotopic notion of contractibility. An
+example of a contractible type is the unit type |top|. In fact, all
+contractible types are isomorphic to |top|.
+
+Contractible types indeed have the simplest possible structure of
+identity types: all identity proofs are propositionally equal
+to |refl|, hence the same holds for the higher equalities.
+
+*** TODO Note that one should be careful with reading this type
+
+There's some hidden continuity that makes this definition different
+from simply connectedness.
+
+*** TODO Note that there are more interesting ways to build contractible types
+
+Such as the disc.
+
+For some types, if we look at the higher identity types, the structure
+eventually peters out and we end up with a contractible type. If the
+interesting identity type structure vanishes after $n$ steps, the type is
+called a $n-2$-type or $n-2$-truncated:
+
+\begin{code}
+n-truncated : Nat -> Set -> Set
+n-truncated Z     A = isContractible A
+n-truncated (S n) A = (x : A) -> (y : A) -> n-truncated n (Id A x y)
+\end{code}
+
+*** TODO Fix notation here
+
+Such that the counting in the code starts at -2 as well
+
+*** TODO Note that the weird numbering comes from homotopy theory
+
+*** TODO Note that every $n$-type is also an $n+1$-type
+
+*** Sets
+
+The most familiar types for the programmer are $0$-types, also called
+/sets/: these are types like |Nat| that lack non-trivial equalities:
+every element is only equal to itself via |refl|. In other words:
+these are the types for which axioms K and UIP hold.
+
+**** TODO Elaborate, maybe?
+
+*** Propositions
+
+$(-1)$-types are also of interest: these types are either empty or
+isomorphic to |top|, hence they are also called /propositions/. This
+might be confusing if one looks at type theory through the
+propositions as types lens. The stance we take here is that we do
+not regard every type as a proposition, but only ones that adhere
+certain properties.
+
+Usually, when you are doing mathematics, we do not really care what
+proof a proposition has: we only care whether a proposition has a
+proof. Any two proofs of a proposition are regarded as equal. If we
+translate this into type theory, we get the following:
+
+\begin{code}
+isProposition : Set -> Set
+isProposition A = (x y : A) -> Id A x y
+\end{code}
+
+This definition is equivalent to the definition of $(-1)$-types, in the
+following sense: if we can prove |isProposition A| then we can also
+prove |n-truncated (-1) A| and vice versa.
+
+Note that we have two distinct $(-1)$-types: it is either empty
+(|bottom|) or, if it is inhabited, isomorphic to |top|. Hence the
+universe of $(-1)$-types is similar to the complete Boolean algebra
+$\{t,f\}$ we know from classical logic.
+
+** Higher inductive types
+
+*** TODO So far, we haven't seen anything /new/, only new ways to look at old problems.
+
+*** TODO Also, we haven't seen any strict $1$-types.
+
+** Univalence
+
+*** TODO We cannot distinguish isomorphic types, so we want them to be equal.
 
 * Contributions
 
@@ -51,7 +213,7 @@ virtually no material.
 the computer scientist who has some familiarity with type theory, but
 does not have the background in homotopy theory.}
 
-** Erasibility of propositions
+** Erasing propositions
 
 One way to explain type theory is using the propositions-as-types
 analogy, also called the Curry-Howard correspondence. In practice,
@@ -119,7 +281,7 @@ the only functions we |f : A -> B| we can write are (definitionally)
 constant functions, hence we can at run-time ignore what value of |A|
 we get exactly.
 
-\contribution{We identify cases where (-1)-types can be safely erased:
+\contribution{We identify cases where $(-1)$-types can be safely erased:
 we provide an optimisation in the spirit of \cite{collapsibility}}
 
 *** Comparison with Prop in Coq
@@ -131,11 +293,11 @@ is also used when extracting a Coq development to another language: we
 can safely erase terms of sort |Prop|.
 
 Another property of the |Prop| universe is that it is impredicative:
-propositions can quantify over propositions. (-1)-types also have
+propositions can quantify over propositions. $(-1)$-types also have
 this property in a certain sense.
 
 \contribution{We provide a comparison between Coq's |Prop| universe to
-the (-1)-types of homotopy type theory and our run-time optimisation.}
+the $(-1)$-types of homotopy type theory and our run-time optimisation.}
 
 ** Applications of homotopy type theory to programming
 

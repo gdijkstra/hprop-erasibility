@@ -2,3 +2,6 @@
 
 %format top = "\top"
 %format bottom = "\bot"
+%format Sigma = "\Sigma"
+%format Pi = "\Pi"
+%format == = "\equiv"

@@ -1,5 +1,6 @@
-#+STARTUP: showall
+#+STARTUP: hidestars noindent showall
 #+EXPORT_EXCLUDE_TAGS: noexport
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 
 * [[file:thesis.pdf][Thesis PDF file]]                                                :noexport:
 
