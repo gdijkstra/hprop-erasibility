@@ -5,3 +5,5 @@
 %format Sigma = "\Sigma"
 %format Pi = "\Pi"
 %format == = "\equiv"
+%format ntruncated = "\mbox{$n$-truncated}"
+%format dotx = ".x"
