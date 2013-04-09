@@ -14,6 +14,7 @@ proposal.tex : proposal.lhs outline.tex proposal.bib proposal.fmt
 outline.tex : outline.org
 	rm -f outline.tex
 	emacs -batch --visit=outline.org -eval "(org-export-as-latex nil nil nil nil t)"
+	sed -i 's/¦/|/g' outline.tex
 
 clean :
 	rm -f *.aux *.log *.nav *.out *.ptb *.toc *.snm proposal.pdf outline.tex proposal.tex *.synctex.gz *.bbl *.blg
