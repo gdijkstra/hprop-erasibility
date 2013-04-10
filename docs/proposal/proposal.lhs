@@ -8,14 +8,14 @@
 {\bf Contribution: } #1
 \end{quote}}
 
-\newcommand{\contrtype}{$(-2)$-type}
-\newcommand{\contrtypes}{$(-2)$-types}
-\newcommand{\proptype}{$(-1)$-type}
-\newcommand{\proptypes}{$(-1)$-types}
+\newcommand{\contrtype}{$(-2)$-type }
+\newcommand{\contrtypes}{$(-2)$-types }
+\newcommand{\proptype}{$(-1)$-type }
+\newcommand{\proptypes}{$(-1)$-types }
 \newcommand{\ntype}[1]{$#1$-type}
 \newcommand{\ntypes}[1]{$#1$-types}
-\newcommand{\inftygrpd}[1]{$\infty$-groupoid}
-\newcommand{\inftygrpds}[1]{$\infty$-groupoids}
+\newcommand{\inftygrpd}{$\infty$-groupoid }
+\newcommand{\inftygrpds}{$\infty$-groupoids }
 
 \usepackage[utf8x]{inputenc}
 \usepackage[parfill]{parskip}

@@ -1,9 +1,15 @@
 %include polycode.fmt
 
+%format /- = "\vdash"
 %format top = "\top"
 %format bottom = "\bot"
 %format Sigma = "\Sigma"
 %format Pi = "\Pi"
 %format == = "\equiv"
+%format === = "\overset{\Delta}{=}"
 %format ntruncated = "\mbox{$n$-truncated}"
 %format dotx = ".x"
+%format Nat = "\mathbb{N}"
+%format _inv = "\_^{-1}"
+%format inv = "^{-1}"
+%format minustwo = "(-2)"
