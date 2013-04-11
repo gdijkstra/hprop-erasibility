@@ -38,6 +38,8 @@ Erasing propositions \\ in homotopy type theory}
 
 %include outline.tex
 
+\newpage
+
 \bibliographystyle{plainnat}
 \bibliography{proposal}
 
