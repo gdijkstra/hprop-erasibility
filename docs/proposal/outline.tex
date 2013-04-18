@@ -50,7 +50,7 @@ In homotopy theory, one classifies spaces along the structure of their
 can be translated to type theory, where we arrive at the notion of
 \ntypes{n} (section~\ref{sec:truncations}). The \ntypes{(-1)} (or
 h-propositions) are of particular interest in this thesis, as they
-provide a nice way to classify types of which its inhabitants only
+help us provide a way to classify types of which its inhabitants only
 serve to convince the type checker as opposed to having any
 computational relevance. In section~\ref{sec:contrib-optimisation} we
 discuss how these can be used to optimise dependently typed programs.
@@ -166,7 +166,7 @@ definitionally equal, which they are not.
 
 The canonicity property implies that if, in the empty context, we have
 two identity proofs |p q : Id A x y|, these proofs are both |refl|,
-hence they are equal to eachother. Using dependent pattern matching,
+hence they are equal to one another. Using dependent pattern matching,
 we can prove this property in Agda, called \emph{uniqueness of identity
   proofs}:
 
@@ -175,10 +175,10 @@ UIP : (A : Set) (x y : A) (p q : Id A x y) -> Id (Id A x y) p q
 UIP A x dotx refl refl = refl
 \end{code}
 
-Proving this using~|J| instead of dependent pattern matching has remained an
-open problem for a long time and has eventually been shown to be impossible
-\citep{groupoidinterpretation}. As an alternative for~|J|, Streicher
-introduced the induction principle~|K|:
+Proving this using~|J| instead of dependent pattern matching has
+remained an open problem for a long time and has eventually been shown
+to be impossible \citep{groupoidinterpretation}. As a complement
+to~|J|, Streicher introduced the induction principle~|K|:
 
 \begin{code}
   K  :   (A : Set) (x : A) (P : Id A x x -> Set)
@@ -241,28 +241,29 @@ earlier.
 \subsection{Truncations}
 \label{sec:truncations}
 
-The tower of (nested) identity types of a type can tell us all sorts
-of things. For example, for a lot of types, the identity types become
-less complicated the more deeply they are nested, until they reach a
-the point where they are isomorphic to the unit type, |top|. In
-homotopy theory, spaces homotopic to the space consisting of one
-point, are called contractible spaces. One way to formulate this in
-type theory is with the following definition:
+The tower of (iterated) identity types of a type can tell us all sorts
+of things about the type. For example, we can have a tower in which
+the identity types in a sense become simpler every iteration, until
+they reach a fixpoint, in which the identity types are isomorphic to
+the unit type, |top|. In homotopy theory, spaces isomorphic (or
+rather, homotopic) to the ``unit space'', i.e. the space consisting of
+one point, are called contractible. One way to formulate this in type
+theory is with the following definition:
 
 \begin{code}
 isContractible : Set -> Set
 isContractible A = Sigma A (\ center -> (x : A) -> (Id A center x))
 \end{code}
 
-If the structure of the identity types peters out after a nesting
-depth of $n$, we call such a type $(n-2)$-truncated, or a
+If the structure of the identity types peters out after $n$
+iterations, we call such a type $(n-2)$-truncated, or a
 \ntype{(n-2)}\footnote{The somewhat strange numbering, starting at
   $-2$ comes from homotopy theory, where they first considered
   groupoids without any higher structure to be $0$-truncated and then
   generalised backwards.}:
 
 \begin{code}
-ntruncated : Nat -> Set -> Set
+ntruncated : NatMinusTwo -> Set -> Set
 ntruncated minustwo  A = isContractible A
 ntruncated (S n)     A = (x : A) -> (y : A) -> ntruncated n (Id A x y)
 \end{code}
@@ -460,6 +461,7 @@ quotients. In pseudo-Agda this would look as follows:
 \begin{code}
 data Quotient (A : Set) (R : A -> A -> Proposition) : Set where
   project  : A -> Quotient A R
+
   relate   : (x y : A) -> R x y -> Id (Quotient A R) (project x) (project y)
   contr    : (x y : Quotient A R)  -> (p q : Id (Quotient A R) x y) 
                                    -> Id (Id (Quotient A R) x y) p q
