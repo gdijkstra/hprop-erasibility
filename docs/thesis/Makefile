@@ -3,7 +3,9 @@ default : thesis.pdf
 preview : thesis.pdf
 	if [ `uname` = 'Darwin' ]; then open -a /Applications/Skim.app thesis.pdf; fi
 
-thesis.pdf : thesis.tex erasure.lhs
+thesis.pdf : thesis.tex erasure.lhs thesis.fmt thesis.bib
+	pdflatex thesis.tex && pdflatex thesis.tex
+	bibtex thesis
 	pdflatex thesis.tex && pdflatex thesis.tex && pdflatex -synctex=1 thesis.tex
 
 thesis.tex : thesis.lhs erasure.lhs

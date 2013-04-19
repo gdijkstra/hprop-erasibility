@@ -1,15 +1,29 @@
-\section{Erasing propositions}
+\chapter{Erasing propositions}
+
+Recall that we defined \emph{\hprops} as \proptypes \todo{Refer to
+  appropriate section\\ when its there.}, i.e. types of which its
+identity types are contractible. Equivalently, we can also define
+\hprops as follows:
+
+\begin{code}
+  isprop : (A : Set) -> Set
+  isprop A = (x y : A) -> x == y
+\end{code}
+
+From this definition, it is immediate that \hprops are those types
+that satisfy \emph{proof irrelevance}. 
+
+\todoi{Explain that this is proof irrelevance}
+
+\todoi{Show some closure properties}
+
+\todoi{Impredicativity}
+
+\todoi{Relate it to collapsibility~\citep{collapsibility}}
+
+
 
 \begin{itemize}
-\item What are \hprops?
-\item What properties do they have?
-  \begin{itemize}
-  \item Proof irrelevance
-  \item Given |A B : Set| and |hProp A|, every function |f : A -> B|
-    is constant.
-  \item Closed under sum, product, dependent sum, dependent product in some way.
-  \item Impredicative in some way.
-  \end{itemize}
 \item Can we formulate erasure ``things'' on \sigmatypes and \pitypes,
   considering their elimination properties and all that. From this
   move on to general inductive data types, or maybe the other way
