@@ -2,55 +2,9 @@
 
 module Experiments where
 
--- Nats
-data ℕ : Set where
-  Z : ℕ
-  S : (n : ℕ) → ℕ
-
-{-# BUILTIN NATURAL ℕ #-}
-{-# BUILTIN ZERO    Z #-}
-{-# BUILTIN SUC     S #-}
-
--- Level stuff
-infixl 6 _⊔_
-
-postulate
-  Level : Set
-  zero  : Level
-  suc   : Level → Level
-  _⊔_   : Level → Level → Level
-
-{-# BUILTIN LEVEL     Level #-}
-{-# BUILTIN LEVELZERO zero  #-}
-{-# BUILTIN LEVELSUC  suc   #-}
-{-# BUILTIN LEVELMAX  _⊔_   #-}
-
-data Id {a} (A : Set a) (x : A) : A → Set a where
-  refl : Id A x x
-
-sym : {a : Level} {A : Set a} {x y : A} -> Id A x y -> Id A y x
-sym refl = refl 
-
-trans : {a : Level} {A : Set a} {x y z : A} -> Id A x y -> Id A y z -> Id A z x
-trans refl refl = refl
-
-
-
-transport : {a : Level} {B : Set a} (E : B → Set a) {b₁ b₂ : B} → Id B b₁ b₂ → E b₁ → E b₂
-transport E refl = λ x → x
-
--- I'm not really happy with this, as it relies on
--- dot-patterns. Conceptually, the actual resulting path lives in the
--- total space.
-apd : {a : Level} {B : Set a} {E : B → Set a} {b₁ b₂ : B} → (f : (x : B) → E x) → (β : Id B b₁ b₂)
-  → Id (E b₂) (transport E β (f b₁)) (f b₂)
-apd f refl = refl
-
-record Σ {a b} (A : Set a) (B : A → Set b) : Set (a ⊔ b)  where
-  constructor _,_ 
-  field
-    fst : A
-    snd : B fst
+open import Naturals
+open import Levels
+open import Identity
 
 Iso : {a : Level} → Set a → Set a → Set a
 Iso A B = Σ (A → B) (\f → 
@@ -64,15 +18,9 @@ TrivialIso A = (λ x → x) , ((λ x → x) , ((λ x → refl) , (λ x → refl)
 isContractible : {a : Level} → Set a → Set a
 isContractible A = Σ A (λ center → (x : A) → (Id A center x))
 
-h-level : {a : Level} → ℕ → Set a → Set a
-h-level Z     A = isContractible A
-h-level (S n) A = (x : A) → (y : A) → h-level n (Id A x y)
+-- Truncation index (isomorphic to the type of integers ≥ -2)
+-- stolen from: https://github.com/HoTT/HoTT-Agda/blob/master/Types.agda
 
-h-prop : {a : Level} → Set a → Set a
-h-prop A = h-level 1 A
-
-h-set : {a : Level} → Set a → Set a
-h-set A = h-level 2 A
 
 -- unit is contractible
 data ⊤ : Set where
@@ -89,15 +37,5 @@ ContractibleUniv = (⊤ , ⊤-contractible) , pf
   where
     pf : (x : Σ Set isContractible) → Id (Σ Set isContractible) (⊤ , ⊤-contractible) x
     pf (A , A-contractible) = {!!}
-
--- filtration property
--- Proofs left open are conceptually easy, but involves some equational reasoning.
-h-levelFiltration : {a : Level} → (A : Set a) → (n : ℕ) → h-level n A → h-level (S n) A
-h-levelFiltration A Z (center , xToCenter) = {!!}
-h-levelFiltration A (S n) proof = λ x y → h-levelFiltration (Id A x y) n (proof x y)
-
--- Univalence in the case of h-sets.
-UnivalenceLight : {a : Level} → Set (suc a)
-UnivalenceLight {a} = (A B : Set a) → h-set A → h-set B → Iso A B → Id (Set a) A B
 
 
