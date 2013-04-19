@@ -36,7 +36,7 @@ Erasing propositions \\ in homotopy type theory}
 
 \maketitle
 
-%include outline.tex
+%include outline.lhs
 
 \newpage
 
