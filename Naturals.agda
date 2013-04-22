@@ -10,3 +10,4 @@ data ℕ : Set where
 {-# BUILTIN NATURAL ℕ #-}
 {-# BUILTIN ZERO    Z #-}
 {-# BUILTIN SUC     S #-}
+
