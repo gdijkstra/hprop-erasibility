@@ -3,6 +3,7 @@
 module Quicksort where
 
 open import Naturals
+open import Identity
 
 data List (A : Set) : Set where
   [] : List A
@@ -49,4 +50,23 @@ quicksort .[] qsAccNil = []
 quicksort .(x :: xs) (qsAccCons x xs h₁ h₂) = append (quicksort (filter (gt x) xs) h₁)
                                                 (x :: quicksort (filter (le x) xs) h₂)
 
--- TODO: write recursor and inductor
+qsAccRec : 
+  (P : (xs : List ℕ) → qsAcc xs → Set)
+  (m1 : P [] qsAccNil)
+  (m2 : (x : ℕ) (xs : List ℕ) (h₁ : qsAcc (filter (gt x) xs)) (h₂ : qsAcc (filter (le x) xs))
+        → P (filter (gt x) xs) h₁
+        → P (filter (le x) xs) h₂
+        → P (x :: xs) (qsAccCons x xs h₁ h₂))
+  (xs : List ℕ)
+  (p : qsAcc xs)
+  → P xs p
+qsAccRec P m1 m2 .[]        qsAccNil               = m1
+qsAccRec P m1 m2 .(x :: xs) (qsAccCons x xs p₁ p₂) = m2 x xs p₁ p₂ (qsAccRec P m1 m2 (filter (gt x) xs) p₁) 
+                                                                   (qsAccRec P m1 m2 (filter (λ z → ¬ gt x z) xs) p₂)
+
+quicksortRec : (xs : List ℕ) → qsAcc xs → List ℕ
+quicksortRec = qsAccRec (λ _ _ → List ℕ) [] (λ x _ _ _ rec₁ rec₂ → append rec₁ (x :: rec₂))
+
+-- TODO: write proof of (xs : List ℕ) → qsAcc xs
+
+

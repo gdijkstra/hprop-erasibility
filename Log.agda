@@ -59,35 +59,4 @@ logInd = logAccInd (λ _ → ℕ) 0 (λ _ _ recVal → S recVal)
 logRec : (x : ℕ) → logAcc x → ℕ
 logRec = logAccRec (λ _ _ → ℕ) 0 (λ _ _ recVal → S recVal)
 
--- TODO: Make this into a structural recursive function.
--- logAccProof : (x : ℕ) → logAcc (S x)
--- logAccProof Z = logAcc0
--- logAccProof (S x) = logAcc1 x (logAccProof (div2 x))
-
---proofEqual : (x : ℕ) (acc : logAcc x) → log x acc ≡ logInd x acc
---proofEqual .1 logAcc0 = refl
---proofEqual .(S (S k)) (logAcc1 k acc) = proofEqual {!!} {!!}
-
--- Theorem logAcc_non_0 : forall (x0 : ℕ) , logAcc x0 -> (x0 = Z) -> Logic.False .
--- intros x0 H; case H; intros; discriminate.
--- Defined.
-
--- Theorem logAcc_inv_1_0 : forall (x0 : ℕ) (p : ℕ) , logAcc x0 -> (x0 = S (S p)) -> logAcc (S (div2 p)) .
--- intros x0 p H; case H; try (intros; discriminate). intros p' Hcall0 . intros Heq0; injection Heq0. intros Heq0_ctx_0. try (rewrite <- Heq0_ctx_0). assumption.
--- Defined.
-
--- Unset Implicit Arguments.
-
--- Fixpoint log (x0 : ℕ) (x1 : logAcc x0) : ℕ :=
---            match x0 as _y0 return (x0 = _y0) -> ℕ with
---              | S Z => fun _h0 => Z
---              | S (S p) => fun _h0 => S (log (S (div2 p)) (logAcc_inv_1_0 x1 _h0))
---              | Z => fun _h0 => False_rec ℕ (logAcc_non_0 x1 _h0)
---            end (refl_equal x0).
-
--- End Log.
-
-
--- --log : ℕ -> ℕ
--- --log (S Z) = Z
--- --log (S (S p)) = S (log (S (div2 p)))
+-- TODO: Write proof of (x : ℕ) → logAcc (S x)
