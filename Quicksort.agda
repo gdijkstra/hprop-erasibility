@@ -80,36 +80,35 @@ base qsAccNil qsAccNil = refl
 
 data qsAccIrr : List ℕ → Set where
   qsAccNil : qsAccIrr []
-  qsAccCons : (x : ℕ) → (xs : List ℕ) → (h₁ : ∣ qsAccIrr (filter (gt x) xs) ∣ₜ)
-                                      → (h₂ : ∣ qsAccIrr (filter (le x) xs) ∣ₜ)
+  qsAccCons : (x : ℕ) → (xs : List ℕ) → .(h₁ : qsAccIrr (filter (gt x) xs))
+                                      → .(h₂ : qsAccIrr (filter (le x) xs))
                                       → qsAccIrr (x :: xs)
 
 
-postulate 
-  inv₁ : (x : ℕ) (xs : List ℕ) (p : ∣ qsAccIrr (x :: xs) ∣ₜ) → ∣ qsAccIrr (filter (gt x) xs) ∣ₜ
-  inv₂ : (x : ℕ) (xs : List ℕ) (p : ∣ qsAccIrr (x :: xs) ∣ₜ) → ∣ qsAccIrr (filter (le x) xs) ∣ₜ
+-- postulate 
+--  inv₁ : (x : ℕ) (xs : List ℕ) (p : qsAccIrr (x :: xs)) → qsAccIrr (filter (gt x) xs)
+--  inv₂ : (x : ℕ) (xs : List ℕ) (p : qsAccIrr (x :: xs)) → qsAccIrr (filter (le x) xs)
 
---inv₁ x xs p = {!!}
-
+--inv₁ : (x : ℕ) (xs : List ℕ) (p : qsAccIrr (x :: xs)) → qsAccIrr (filter (gt x) xs)
+--inv₁ x xs (qsAccCons .x .xs p p₁) = p
 
 qsAccRecIrr : 
-  (P : (xs : List ℕ) → ∣ qsAccIrr xs ∣ₜ → Set)
-  (m1 : P [] ∣ qsAccNil ∣)
-  (m2 : (x : ℕ) (xs : List ℕ) (h₁ : ∣ qsAccIrr (filter (gt x) xs) ∣ₜ) (h₂ : ∣ qsAccIrr (filter (le x) xs) ∣ₜ)
+  (P : (xs : List ℕ) → .(qsAccIrr xs) → Set)
+  (m1 : P [] qsAccNil)
+  (m2 : (x : ℕ) (xs : List ℕ) .(h₁ : qsAccIrr (filter (gt x) xs)) .(h₂ : qsAccIrr (filter (le x) xs))
         → P (filter (gt x) xs) h₁
         → P (filter (le x) xs) h₂
-        → P (x :: xs) ∣ qsAccCons x xs h₁ h₂ ∣)
+        → P (x :: xs) (qsAccCons x xs h₁ h₂))
   (xs : List ℕ)
-  (p : ∣ qsAccIrr xs ∣ₜ )
+  (p : qsAccIrr xs)
   → P xs p
-qsAccRecIrr P m1 m2 [] p = m1
-qsAccRecIrr P m1 m2 (x :: xs) p = m2 x xs p₁ p₂ (qsAccRecIrr P m1 m2 (filter (gt x) xs) p₁) 
-                                                (qsAccRecIrr P m1 m2 (filter (λ z → ¬ gt x z) xs) p₂)
-  where
-    p₁ = inv₁ x xs p
-    p₂ = inv₂ x xs p
+qsAccRecIrr = {!!}
+--qsAccRecIrr P m1 m2 .[] qsAccNil = {!!}
+--qsAccRecIrr P m1 m2 .(x :: xs) (qsAccCons x xs p p₁) = {!!}
+--qsAccRecIrr P m1 m2 (x :: xs) p = m2 x xs {!!} {!!} (qsAccRecIrr P m1 m2 (filter (gt x) xs) {!!}) (qsAccRecIrr P m1 m2 (filter (le x) xs) {!!})
+
+--qsAccRecIrr P m1 m2 .[]        qsAccNil               = m1
+--qsAccRecIrr P m1 m2 .(x :: xs) (qsAccCons x xs p₁ p₂) = m2 x xs p₁ p₂ (qsAccRecIrr P m1 m2 (filter (gt x) xs) p₁) 
+--                                                                   (qsAccRecIrr P m1 m2 (filter (λ z → ¬ gt x z) xs) p₂)
 
 
--- -- qsAccRec P m1 m2 .[]        qsAccNil               = m1
--- -- qsAccRec P m1 m2 .(x :: xs) (qsAccCons x xs p₁ p₂) = m2 x xs p₁ p₂ (qsAccRec P m1 m2 (filter (gt x) xs) p₁) 
--- --                                                                    (qsAccRec P m1 m2 (filter (λ z → ¬ gt x z) xs) p₂)

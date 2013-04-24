@@ -1,7 +1,10 @@
+{-# OPTIONS --without-K #-}
+
 module Irrelevance where
 
 open import Naturals
 open import Levels
+open import Identity
 
 record Irrelevant {a} {A : Set a} : Set a where
   constructor irr
@@ -17,7 +20,6 @@ record Irrelevant {a} {A : Set a} : Set a where
 test : ∣ ℕ ∣ₜ → ℕ
 test (irr name) = 0
 
-
 -- qsAccRec : 
 --   (P : (xs : List ℕ) → ∣ qsAcc xs ∣ → Set)
 --   (m1 : P [] ∣ qsAccNil ∣)
@@ -31,3 +33,18 @@ test (irr name) = 0
 -- qsAccRec P m1 m2 .[]        qsAccNil               = m1
 -- qsAccRec P m1 m2 .(x :: xs) (qsAccCons x xs p₁ p₂) = m2 x xs p₁ p₂ (qsAccRec P m1 m2 (filter (gt x) xs) p₁) 
 
+record Squash (A : Set) : Set where
+  constructor squash
+  field
+    .proof : A
+
+squashProp : {A : Set} (x y : Squash A) → x ≡ y
+squashProp x y = refl
+
+elim-Squash : {A : Set} (P : Squash A → Set)
+            (ih : .(a : A) → P (squash a)) →
+            (a⁻ : Squash A) → P a⁻
+elim-Squash P ih (squash a) = ih a
+
+--    Note that this would not type-check with
+--    (ih : (a : A) → P (squash a)).
