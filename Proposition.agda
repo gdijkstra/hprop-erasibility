@@ -21,3 +21,10 @@ hProp⇒proofIrrelevance A p x y | x≡y , _ = x≡y
 
 --proofIrrelevance⇒hProp : {a : Level} → (A : Set a) → proofIrrelevance A → hProp A
 --proofIrrelevance⇒hProp A p = λ x y → p x y , (λ q → {!!})
+
+proofIrrelevance⇒inhabitedContractible : {a : Level} → (A : Set a) → proofIrrelevance A → (A → isContractible A)
+proofIrrelevance⇒inhabitedContractible A proofIrr a = a , proofIrr a
+
+inhabitedContractible⇒proofIrrelevance : {a : Level} → (A : Set a) → (A → isContractible A) → proofIrrelevance A
+inhabitedContractible⇒proofIrrelevance A contr x y with contr x
+inhabitedContractible⇒proofIrrelevance A contr x y | center , center≡ = trans (sym (center≡ x)) (center≡ y)

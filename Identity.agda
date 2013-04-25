@@ -7,6 +7,7 @@ open import Levels
 data Id {a} (A : Set a) (x : A) : A → Set a where
   refl : Id A x x
 
+
 _≡_ : {a : Level} {A : Set a} (x y : A) → Set a
 x ≡ y = Id _ x y
 

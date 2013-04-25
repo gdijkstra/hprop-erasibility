@@ -36,7 +36,7 @@ hSet : {a : Level} → Set a → Set a
 hSet A = isTruncated ⟨0⟩ A
 
 -- Filtration property
--- truncatedFiltration : {a : Level} → (A : Set a) → (n : ℕ₋₂) → isTruncated n A → isTruncated (S n) A
--- truncatedFiltration A ⟨-2⟩ (center , xToCenter) = {!!} -- TODO: Finish this.
--- truncatedFiltration A (S n) proof = λ x y → truncatedFiltration (Id A x y) n (proof x y)
+--truncatedFiltration : {a : Level} → (A : Set a) → (n : ℕ₋₂) → isTruncated n A → isTruncated (S n) A
+--truncatedFiltration A ⟨-2⟩ (center , xToCenter) = {!!} -- TODO: Finish this.
+--truncatedFiltration A (S n) proof = λ x y → truncatedFiltration (Id A x y) n (proof x y)
 

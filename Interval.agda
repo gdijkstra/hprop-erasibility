@@ -41,6 +41,7 @@ I-rec : {B : Set}
        -> I -> B
 I-rec a b _ #zero = a
 I-rec a b _ #one  = b
+
 -- TODO: Write I-rec using I-ind. For this we need a β-rule for
 -- transporting along seg via constant fibrations. transport is
 -- then obviously a constant function.
