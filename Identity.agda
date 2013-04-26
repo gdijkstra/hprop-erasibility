@@ -32,9 +32,9 @@ cong : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A -> B) -> x ≡ y -
 cong = ap
 
 apd : {a b : Level} {A : Set a} {B : A → Set b} {a₁ a₂ : A} → (f : (x : A) → B x) → (β : Id A a₁ a₂)
-  → Id _ (transport β (f a₁)) (f a₂)
+  → Id (B a₂) (transport β (f a₁)) (f a₂)
 apd f refl = refl
 
 cong-dep : {a b : Level} {A : Set a} {B : A → Set b} {a₁ a₂ : A} → (f : (x : A) → B x) → (β : Id A a₁ a₂)
-  → Id _ (transport β (f a₁)) (f a₂)
+  → Id (B a₂) (transport β (f a₁)) (f a₂)
 cong-dep = apd
