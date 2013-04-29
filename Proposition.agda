@@ -61,17 +61,24 @@ makeIrrelevantWorks (center , center≡) f x = ap f (center≡ x)
 makeIrrelevantDep : {a b : Level} {A : Set a} {B : A -> Set b} 
                   → (pf : isContractible A) 
                   → (f : (x : A) → B x) 
-                  → (.(x : A) → (makeIrrelevant pf B x))
+                  → (.(x : A) → (makeIrrelevant {a} {suc b} {A} {Set b} pf B x))
 makeIrrelevantDep (center , _) f x = f center
 
--- TODO: Prove the following...
--- We again want to prove that the irrelevant version yields the same
--- results for the same inputs. The proof currently does not
--- work. Maybe because the type isn't completely correct yet.
+-- In order to do the same comparison as with `makeIrrelevantWorks`,
+-- we have to transform the type first.
+fromIrrelevantType : {a b : Level} {A : Set a} {B : A → Set b} 
+                       → (pf : isContractible A) 
+                       → (x : A) 
+                       → makeIrrelevant {a} {suc b} {A} {Set b} pf B x
+                       → B x
+fromIrrelevantType (center , center≡) x bix = transport (center≡ x) bix
 
--- makeIrrelevantDepWorks : {a b : Level} {A : Set a} {B : A → Set b} 
---                        → (pf : isContractible A) 
---                        → (f : (x : A) → B x) 
---                        → (x : A) 
---                        → f x ≡ transport {B = λ x₁ → x₁} (makeIrrelevantWorks pf B x) (makeIrrelevantDep pf f x)
--- makeIrrelevantDepWorks {A = A} {B = B} (center , center≡) f x = sym (apd {A = A} {B = B} {a₁ = center} {a₂ = x} f (center≡ x))
+-- Now we can prove the dependent version of `makeIrrelevantWorks`.
+makeIrrelevantDepWorks : {a b : Level} {A : Set a} {B : A → Set b} 
+                       → (pf : isContractible A) 
+                       → (f : (x : A) → B x) 
+                       → (x : A) 
+                       → fromIrrelevantType pf x (makeIrrelevantDep pf f x) ≡ f x
+makeIrrelevantDepWorks (center , center≡) f x = apd f (center≡ x)
+
+
