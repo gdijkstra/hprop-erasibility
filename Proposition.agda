@@ -81,4 +81,8 @@ makeIrrelevantDepWorks : {a b : Level} {A : Set a} {B : A → Set b}
                        → fromIrrelevantType pf x (makeIrrelevantDep pf f x) ≡ f x
 makeIrrelevantDepWorks (center , center≡) f x = apd f (center≡ x)
 
+-- _≤_ is in hProp for every x, y in ℕ.
+x≤y-is-prop : (x y : ℕ) → proofIrrelevance (x ≤ y)
+x≤y-is-prop .0 y (leZ .y) (leZ .y) = refl
+x≤y-is-prop .(S x) .(S y) (leS x y x≤y₁) (leS .x .y x≤y₂) = ap (leS x y) (x≤y-is-prop x y x≤y₁ x≤y₂)
 
