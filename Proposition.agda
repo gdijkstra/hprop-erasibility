@@ -29,9 +29,12 @@ inhabitedContractible⇒proofIrrelevance : {a : Level} → (A : Set a) → (A �
 inhabitedContractible⇒proofIrrelevance A contr x y with contr x
 inhabitedContractible⇒proofIrrelevance A contr x y | center , center≡ = trans (sym (center≡ x)) (center≡ y)
 
+isConstant : {a b : Level} {A : Set a} {B : Set b} → (f : A → B) → Set (a ⊔ b)
+isConstant {A = A} f = (x y : A) → (f x ≡ f y)
+
 -- One thing that follows from the above is that every function out of
 -- an h-proposition is constant, up to propositional equality.
-hPropConstantFunction : {a b : Level} {A : Set a} {B : Set b} → hProp A → (f : A → B) → (x y : A) → (f x ≡ f y)
+hPropConstantFunction : {a b : Level} {A : Set a} {B : Set b} → hProp A → (f : A → B) → isConstant f
 hPropConstantFunction p f x y = ap f (hProp⇒proofIrrelevance p x y)
 
 -- This also holds for dependent functions f : (x : A) → B x, but we
@@ -48,6 +51,14 @@ hPropConstantFunctionDep {A = A} p f x y = apd f (hProp⇒proofIrrelevance p x y
 -- into an irrelevant version.
 makeIrrelevant : {a b : Level} {A : Set a} {B : Set b} → isContractible A → (f : A → B) → (.A → B)
 makeIrrelevant (center , _) f x = f center
+
+makeIrrelevant' : {a b : Level} {A : Set a} {B : Set b} → (.A → isContractible A) → (f : A → B) → (.A → B)
+makeIrrelevant' pf f x with pf x
+makeIrrelevant' pf f x | center , _ = f center
+
+makeIrrelevantWorks' : {a b : Level} {A : Set a} {B : Set b} → (pf : .A → isContractible A) → (f : A → B) → (x : A) → (makeIrrelevant' pf f x) ≡ f x
+makeIrrelevantWorks' pf f x with pf x
+makeIrrelevantWorks' pf f x | center , center≡ = ap f (center≡ x)
 
 -- This transformed function is in fact equivalent to the original
 -- function, in the following sense:
@@ -81,8 +92,16 @@ makeIrrelevantDepWorks : {a b : Level} {A : Set a} {B : A → Set b}
                        → fromIrrelevantType pf x (makeIrrelevantDep pf f x) ≡ f x
 makeIrrelevantDepWorks (center , center≡) f x = apd f (center≡ x)
 
--- _≤_ is in hProp for every x, y in ℕ.
-x≤y-is-prop : (x y : ℕ) → proofIrrelevance (x ≤ y)
-x≤y-is-prop .0 y (leZ .y) (leZ .y) = refl
-x≤y-is-prop .(S x) .(S y) (leS x y x≤y₁) (leS .x .y x≤y₂) = ap (leS x y) (x≤y-is-prop x y x≤y₁ x≤y₂)
+-- _≤_ is in hProp for every x, y in ℕ, making use of dependent
+-- pattern matching.
+x≤y-in-hprop : (x y : ℕ) → proofIrrelevance (x ≤ y)
+x≤y-in-hprop .0 y (leZ .y) (leZ .y) = refl
+x≤y-in-hprop .(S x) .(S y) (leS x y x≤y₁) (leS .x .y x≤y₂) = ap (leS x y) (x≤y-in-hprop x y x≤y₁ x≤y₂)
 
+-- TODO: The same, but now using only the eliminator.
+-- base : (x y : ℕ) (x≤y₁ : x ≤ y) (y' : ℕ) (x≡0 : Id ℕ x 0) (y≡y' : Id ℕ y y')
+--   → x≤y₁ ≡ transport (sym y≡y') (transport {B = \ x → x ≤ y'} (sym x≡0) (leZ y'))
+-- base = {!!}
+
+-- x≤y-in-hprop₂ : (x y : ℕ) → proofIrrelevance (x ≤ y)
+-- x≤y-in-hprop₂ x y x≤y₁ x≤y₂ = ≤-elim (λ x' y' x≤y' → ((x≡x' : x ≡ x') → (y≡y' : y ≡ y') → x≤y₁ ≡ transport (sym y≡y') (transport (sym x≡x') x≤y'))) (base x y x≤y₁) {!!} x y x≤y₂ refl refl
