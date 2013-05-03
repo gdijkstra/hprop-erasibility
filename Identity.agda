@@ -43,6 +43,11 @@ left-inverse-refl refl = refl
 right-inverse-refl : {a : Level} {A : Set a} {x y : A} (p : x ≡ y) → (p ∘ p ⁻¹) ≡ refl
 right-inverse-refl refl = refl
 
+-- Whisker properties
+anti-whisker-right : {a : Level} {A : Set a} {x y z : A} (p : y ≡ z) {q r : x ≡ y}
+    → (q ∘ p) ≡ (r ∘ p) → q ≡ r
+anti-whisker-right refl {q} {r} h = {!!}
+
 -- We can transport values across fibers along paths in the base
 -- space.
 transport : {a b : Level} {A : Set a} {B : A -> Set b} {x y : A} -> x ≡ y -> B x -> B y
