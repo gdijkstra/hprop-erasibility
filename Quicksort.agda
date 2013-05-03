@@ -1,3 +1,4 @@
+
 module Quicksort where
 
 open import Naturals
@@ -72,43 +73,34 @@ quicksortRec = qsAccRec (λ _ _ → List ℕ) [] (λ x _ _ _ rec₁ rec₂ → a
 -- TODO: write proof of (xs : List ℕ) → qsAcc xs
 
 -- TODO: Proof that qsAcc is in hProp.
-base : proofIrrelevance (qsAcc [])
-base qsAccNil qsAccNil = refl
+base : (xs : List ℕ) (p : Id (List ℕ) xs []) (qs₁ : qsAcc xs) → Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) qsAccNil)
+base .[] refl qsAccNil = refl
 
---qsAccIsProp : (xs : List ℕ) → proofIrrelevance (qsAcc xs)
+step : (xs : List ℕ) (qs₁ : qsAcc xs) (x : ℕ) (xs₁ : List ℕ) 
+      (h₁ : qsAcc (filter (gt x) xs₁))
+      (h₂ : qsAcc (filter (λ b → ¬ gt x b) xs₁)) →
+      (ind₁ : (p : Id (List ℕ) xs (filter (gt x) xs₁)) →
+       Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) h₁)) →
+      (ind₂ : (p : Id (List ℕ) xs (filter (λ b → ¬ gt x b) xs₁)) →
+       Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) h₂)) →
+      (p : Id (List ℕ) xs (x :: xs₁)) →
+      Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) (qsAccCons x xs₁ h₁ h₂))
+step .(x :: []) (qsAccCons .x .[] qs₁ qs₂) x [] qsAccNil qsAccNil ind₁ ind₂ refl = {!!}
+step .(x :: (x₁ :: xs₁)) qs₁ x (x₁ :: xs₁) h₁ h₂ ind₁ ind₂ refl = {!!}
 
-
-data qsAccIrr : List ℕ → Set where
-  qsAccNil : qsAccIrr []
-  qsAccCons : (x : ℕ) → (xs : List ℕ) → .(h₁ : qsAccIrr (filter (gt x) xs))
-                                      → .(h₂ : qsAccIrr (filter (le x) xs))
-                                      → qsAccIrr (x :: xs)
-
-
--- postulate 
---  inv₁ : (x : ℕ) (xs : List ℕ) (p : qsAccIrr (x :: xs)) → qsAccIrr (filter (gt x) xs)
---  inv₂ : (x : ℕ) (xs : List ℕ) (p : qsAccIrr (x :: xs)) → qsAccIrr (filter (le x) xs)
-
---inv₁ : (x : ℕ) (xs : List ℕ) (p : qsAccIrr (x :: xs)) → qsAccIrr (filter (gt x) xs)
---inv₁ x xs (qsAccCons .x .xs p p₁) = p
-
-qsAccRecIrr : 
-  (P : (xs : List ℕ) → .(qsAccIrr xs) → Set)
-  (m1 : P [] qsAccNil)
-  (m2 : (x : ℕ) (xs : List ℕ) .(h₁ : qsAccIrr (filter (gt x) xs)) .(h₂ : qsAccIrr (filter (le x) xs))
-        → P (filter (gt x) xs) h₁
-        → P (filter (le x) xs) h₂
-        → P (x :: xs) (qsAccCons x xs h₁ h₂))
-  (xs : List ℕ)
-  (p : qsAccIrr xs)
-  → P xs p
-qsAccRecIrr = {!!}
---qsAccRecIrr P m1 m2 .[] qsAccNil = {!!}
---qsAccRecIrr P m1 m2 .(x :: xs) (qsAccCons x xs p p₁) = {!!}
---qsAccRecIrr P m1 m2 (x :: xs) p = m2 x xs {!!} {!!} (qsAccRecIrr P m1 m2 (filter (gt x) xs) {!!}) (qsAccRecIrr P m1 m2 (filter (le x) xs) {!!})
-
---qsAccRecIrr P m1 m2 .[]        qsAccNil               = m1
---qsAccRecIrr P m1 m2 .(x :: xs) (qsAccCons x xs p₁ p₂) = m2 x xs p₁ p₂ (qsAccRecIrr P m1 m2 (filter (gt x) xs) p₁) 
---                                                                   (qsAccRecIrr P m1 m2 (filter (λ z → ¬ gt x z) xs) p₂)
+-- Goal: (x : ℕ) (xs₁ : List ℕ) (h₁ : qsAcc (filter (gt x) xs₁))
+--       (h₂ : qsAcc (filter (λ b → ¬ gt x b) xs₁)) →
+--       ((p : Id (List ℕ) xs (filter (gt x) xs₁)) →
+--        Id (qsAcc xs) qs₁ (transport (sym p) h₁)) →
+--       ((p : Id (List ℕ) xs (filter (λ b → ¬ gt x b) xs₁)) →
+--        Id (qsAcc xs) qs₁ (transport (sym p) h₂)) →
+--       (p : Id (List ℕ) xs (x :: xs₁)) →
+--       Id (qsAcc xs) qs₁ (transport (sym p) (qsAccCons x xs₁ h₁ h₂))
+-- ————————————————————————————————————————————————————————————
+-- qs₂ : qsAcc xs
+-- qs₁ : qsAcc xs
+-- xs  : List ℕ
 
 
+qsIrr : (xs : List ℕ) → proofIrrelevance (qsAcc xs)
+qsIrr xs qs₁ qs₂ = qsAccRec (λ xs' qs' → ((p : xs ≡ xs') → qs₁ ≡ transport (sym p) qs')) (λ p → base xs p qs₁) {!!} xs qs₂ refl
