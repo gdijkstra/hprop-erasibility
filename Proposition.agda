@@ -55,14 +55,6 @@ hPropConstantFunctionDep {A = A} p f x y = apd f (hProp⇒proofIrrelevance p x y
 makeIrrelevant : {a b : Level} {A : Set a} {B : Set b} → isContractible A → (f : A → B) → (.A → B)
 makeIrrelevant (center , _) f x = f center
 
-makeIrrelevant' : {a b : Level} {A : Set a} {B : Set b} → (.A → isContractible A) → (f : A → B) → (.A → B)
-makeIrrelevant' pf f x with pf x
-makeIrrelevant' pf f x | center , _ = f center
-
-makeIrrelevantWorks' : {a b : Level} {A : Set a} {B : Set b} → (pf : .A → isContractible A) → (f : A → B) → (x : A) → (makeIrrelevant' pf f x) ≡ f x
-makeIrrelevantWorks' pf f x with pf x
-makeIrrelevantWorks' pf f x | center , center≡ = ap f (center≡ x)
-
 -- This transformed function is in fact equivalent to the original
 -- function, in the following sense:
 makeIrrelevantWorks : {a b : Level} {A : Set a} {B : Set b} → (pf : isContractible A) → (f : A → B) → (x : A) → (makeIrrelevant pf f x) ≡ f x
@@ -95,16 +87,54 @@ makeIrrelevantDepWorks : {a b : Level} {A : Set a} {B : A → Set b}
                        → fromIrrelevantType pf x (makeIrrelevantDep pf f x) ≡ f x
 makeIrrelevantDepWorks (center , center≡) f x = apd f (center≡ x)
 
+-- Indexed versions of the above.
+makeIrrelevantIndexed : {a b c : Level} {I : Set a} {A : I → Set b} {B : Set c} → ((i : I) → isContractible (A i)) → (f : (i : I) → A i → B) → ((i : I) → .(A i) → B)
+makeIrrelevantIndexed pf f i ai with pf i
+makeIrrelevantIndexed pf f i ai | center , center≡ = f i center
+
+makeIrrelevantWorksIndexed : {a b c : Level} {I : Set a} {A : I → Set b} {B : Set c} → (pf : (i : I) → isContractible (A i)) → (f : (i : I) → A i → B) → (i : I) → (x : A i) → (makeIrrelevantIndexed pf f i x) ≡ f i x
+makeIrrelevantWorksIndexed pf f i ai with pf i
+makeIrrelevantWorksIndexed pf f i ai | center , center≡ = ap (f i) (center≡ ai)
+
+makeIrrelevantIndexedDep : {a b c : Level} {I : Set a} {A : I → Set b} {B : (i : I) → A i → Set c}
+                  → (pf : (i : I) → isContractible (A i)) 
+                  → (f : (i : I) → (x : A i) → B i x) 
+                  → ((i : I) → .(x : A i) → (makeIrrelevantIndexed pf B i x))
+makeIrrelevantIndexedDep pf f i x with pf i
+makeIrrelevantIndexedDep pf f i x | center , center≡ = f i center
+
+fromIrrelevantIndexedType : {a b c : Level} {I : Set a} {A : I → Set b} {B : (i : I) → A i → Set c}
+                       → (pf : (i : I) → isContractible (A i))
+                       → (i : I)
+                       → (x : A i)
+                       → makeIrrelevantIndexed pf B i x
+                       → B i x
+fromIrrelevantIndexedType pf i x bix with pf i
+fromIrrelevantIndexedType pf i x bix | center , center≡ = transport (center≡ x) bix
+
+makeIrrelevantIndexedDepWorks : {a b c : Level} {I : Set a} {A : I → Set b} {B : (i : I) → A i → Set c}
+                       → (pf : (i : I) → isContractible (A i)) 
+                       → (f : (i : I) → (x : A i) → B i x) 
+                       → (i : I)
+                       → (x : A i) 
+                       → fromIrrelevantIndexedType {a} {b} {c} {I} {A} {B} pf i x (makeIrrelevantIndexedDep pf f i x) ≡ f i x
+makeIrrelevantIndexedDepWorks pf f i x with pf i
+makeIrrelevantIndexedDepWorks pf f i x | center , center≡ = apd (f i) (center≡ x)
+
+-- TODO: Write all the work in terms of the indexed results.
+
+-- Trying to make it work for hProp. In this case we still need to
+-- prove that hProp implies .A → isContractible A.
+makeIrrelevant' : {a b : Level} {A : Set a} {B : Set b} → (.A → isContractible A) → (f : A → B) → (.A → B)
+makeIrrelevant' pf f x with pf x
+makeIrrelevant' pf f x | center , _ = f center
+
+makeIrrelevantWorks' : {a b : Level} {A : Set a} {B : Set b} → (pf : .A → isContractible A) → (f : A → B) → (x : A) → (makeIrrelevant' pf f x) ≡ f x
+makeIrrelevantWorks' pf f x with pf x
+makeIrrelevantWorks' pf f x | center , center≡ = ap f (center≡ x)
+
 -- _≤_ is in hProp for every x, y in ℕ, making use of dependent
 -- pattern matching.
 x≤y-in-hprop : (x y : ℕ) → proofIrrelevance (x ≤ y)
 x≤y-in-hprop .0 y (leZ .y) (leZ .y) = refl
 x≤y-in-hprop .(S x) .(S y) (leS x y x≤y₁) (leS .x .y x≤y₂) = ap (leS x y) (x≤y-in-hprop x y x≤y₁ x≤y₂)
-
--- TODO: The same, but now using only the eliminator.
--- base : (x y : ℕ) (x≤y₁ : x ≤ y) (y' : ℕ) (x≡0 : Id ℕ x 0) (y≡y' : Id ℕ y y')
---   → x≤y₁ ≡ transport (sym y≡y') (transport {B = \ x → x ≤ y'} (sym x≡0) (leZ y'))
--- base = {!!}
-
--- x≤y-in-hprop₂ : (x y : ℕ) → proofIrrelevance (x ≤ y)
--- x≤y-in-hprop₂ x y x≤y₁ x≤y₂ = ≤-elim (λ x' y' x≤y' → ((x≡x' : x ≡ x') → (y≡y' : y ≡ y') → x≤y₁ ≡ transport (sym y≡y') (transport (sym x≡x') x≤y'))) (base x y x≤y₁) {!!} x y x≤y₂ refl refl
