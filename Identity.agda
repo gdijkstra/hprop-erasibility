@@ -12,8 +12,7 @@ _≡_ : {a : Level} {A : Set a} (x y : A) → Set a
 x ≡ y = Id _ x y
 
 trans : {a : Level} {A : Set a} {x y z : A} -> Id A x y -> Id A y z -> Id A x z
-trans refl refl = refl
-
+trans refl q = q
 
 sym : {a : Level} {A : Set a} {x y : A} -> Id A x y -> Id A y x
 sym refl = refl 

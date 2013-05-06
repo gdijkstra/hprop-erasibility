@@ -15,23 +15,15 @@ hProp⇒proofIrrelevance : {a : Level} → {A : Set a} → hProp A → proofIrre
 hProp⇒proofIrrelevance p x y with p x y
 hProp⇒proofIrrelevance p x y | x≡y , _ = x≡y
 
+-- Proof from Brunerie's github.
 proofIrrelevance⇒hProp : {a : Level} → {A : Set a} → proofIrrelevance A → hProp A
-proofIrrelevance⇒hProp {A = A} p x y = p x y , canon-path
+proofIrrelevance⇒hProp {A = A} p x y = p x y , (λ q → sym (canon-path q))
   where
     lemma : {x y : A} (q : x ≡ y) → p x y ≡ (q ∘ p y y)
-    lemma {.y} {y} refl = sym (refl-left-identity (p y y))
+    lemma refl = refl
 
-    canon-path : {x y : A} (q : x ≡ y) → p x y ≡ q
-    canon-path refl = anti-whisker-right (p y y) (lemma (p y y))
-
-
-  -- all-paths-is-prop : {A : Set i} → (has-all-paths A → is-prop A)
-  -- all-paths-is-prop {A} c x y = (c x y , canon-path) where
-  --   lemma : {x y : A} (p : x ≡ y) → c x y ≡ p ∘ c y y
-  --   lemma refl = refl
-
-  --   canon-path : {x y : A} (p : x ≡ y) → p ≡ c x y
-  --   canon-path {.y} {y} refl = anti-whisker-right (c y y) (lemma (c y y))
+    canon-path : {x y : A} (q : x ≡ y) →  q ≡ p x y
+    canon-path {.y} {y} refl = anti-whisker-right (p y y) (lemma (p y y))
 
 proofIrrelevance⇒inhabitedContractible : {a : Level} → (A : Set a) → proofIrrelevance A → (A → isContractible A)
 proofIrrelevance⇒inhabitedContractible A proofIrr a = a , proofIrr a
