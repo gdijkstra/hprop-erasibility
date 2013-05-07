@@ -138,3 +138,8 @@ makeIrrelevantWorks' pf f x | center , center≡ = ap f (center≡ x)
 x≤y-in-hprop : (x y : ℕ) → proofIrrelevance (x ≤ y)
 x≤y-in-hprop .0 y (leZ .y) (leZ .y) = refl
 x≤y-in-hprop .(S x) .(S y) (leS x y x≤y₁) (leS .x .y x≤y₂) = ap (leS x y) (x≤y-in-hprop x y x≤y₁ x≤y₂)
+
+-- Similarly, for every x in ℕ, isEven x is in hProp.
+isEven-x-in-hProp : (x : ℕ) → proofIrrelevance (isEven x)
+isEven-x-in-hProp .0 isEvenZ isEvenZ = refl
+isEven-x-in-hProp .(S (S n)) (isEvenSS .n p₁) (isEvenSS n p₂) = ap (isEvenSS n) (isEven-x-in-hProp n p₁ p₂)
