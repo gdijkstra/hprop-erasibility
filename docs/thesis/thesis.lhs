@@ -23,7 +23,12 @@
 
 \maketitle
 
+\tableofcontents
+
+%include intro.lhs
+%include hottintro.lhs
 %include erasure.lhs
+%include applications.lhs
 
 \todoi{Remove this: a citation to keep stuff from complaining~\citep{mltt}}
 

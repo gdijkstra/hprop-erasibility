@@ -1,4 +1,4 @@
-lhsfiles = thesis.lhs erasure.lhs bibliography.lhs commands.lhs thesis.fmt
+lhsfiles = thesis.lhs intro.lhs hottintro.lhs erasure.lhs applications.lhs bibliography.lhs commands.lhs thesis.fmt
 
 default : thesis.pdf
 
