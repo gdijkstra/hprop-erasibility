@@ -73,6 +73,7 @@ quicksortRec = qsAccRec (λ _ _ → List ℕ) [] (λ x _ _ _ rec₁ rec₂ → a
 -- TODO: write proof of (xs : List ℕ) → qsAcc xs
 
 -- TODO: Proof that qsAcc is in hProp.
+-- Uses K.
 base : (xs : List ℕ) (p : Id (List ℕ) xs []) (qs₁ : qsAcc xs) → Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) qsAccNil)
 base .[] refl qsAccNil = refl
 
@@ -104,3 +105,8 @@ step .(x :: (x₁ :: xs₁)) qs₁ x (x₁ :: xs₁) h₁ h₂ ind₁ ind₂ ref
 
 qsIrr : (xs : List ℕ) → proofIrrelevance (qsAcc xs)
 qsIrr xs qs₁ qs₂ = qsAccRec (λ xs' qs' → ((p : xs ≡ xs') → qs₁ ≡ transport (sym p) qs')) (λ p → base xs p qs₁) {!!} xs qs₂ refl
+
+-- qsIrrWithK : (xs : List ℕ) → proofIrrelevance (qsAcc xs)
+-- qsIrrWithK .[] qsAccNil qsAccNil = refl
+-- qsIrrWithK .(x :: xs) (qsAccCons .x .xs qs₁ qs₂) (qsAccCons x xs qs₃ qs₄) = {!!}
+

@@ -26,6 +26,14 @@ data _≤_ : ℕ → ℕ → Set where
 ≤-elim P mZ mS .0 y (leZ .y) = mZ y
 ≤-elim P mZ mS .(S x) .(S y) (leS x y x≤y) = mS x y x≤y (≤-elim P mZ mS x y x≤y)
 
+-- "Less than" relation on naturals
+data _<_ : ℕ → ℕ → Set where
+  leZ : (y : ℕ)   → Z < S y
+  leS : (x y : ℕ) → x < y → S x < S y
+
+<-inv : {x y : ℕ} → S x < S y → x < y
+<-inv {x} {y} (leS .x .y pf) = pf
+
 -- Parity predicate on naturals
 data isEven : ℕ → Set where
   isEvenZ  : isEven 0
