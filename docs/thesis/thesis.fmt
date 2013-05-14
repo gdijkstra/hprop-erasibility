@@ -15,3 +15,8 @@
 %format _inv = "\_^{-1}"
 %format inv = "^{-1}"
 %format minustwo = "(-2)"
+%format Universe = "Type"
+%format h1 = "h_{1}"
+%format h2 = "h_{2}"
+%format dotnil = ".[]"
+%format dotcons = ".(x :: xs)"
