@@ -1,11 +1,14 @@
 \chapter{Erasing propositions}
 
-When writing certified programs in a dependently typed setting, the
-definition of computation is often intertwined with the the proof of
-its correctness. Consider for example the sorting of list of naturals:
-given some predicate |isSorted : List Nat -> List Nat -> Universe|
-that tells us whether the second list is a sorted permutation of the
-first one, we can write a term of the following type:
+When writing certified programs in a dependently typed setting, we can
+conceptually distinguish between the \emph{program} parts and the
+(correctness) \emph{proof} parts. (Also called the informative and
+logical parts, respectively.) In practice, these two seemingly
+separate concerns are often intertwined. Consider for example the
+sorting of lists of naturals: given some predicate |isSorted : List
+Nat -> List Nat -> Universe| that tells us whether the second list is
+a sorted permutation of the first one, we want to write a term of the
+following type:
 
 \begin{code}
   sort : (xs : List Nat) -> Sigma (ys : List Nat) (isSorted xs ys)
@@ -13,56 +16,62 @@ first one, we can write a term of the following type:
 
 To implement such a function, we need to provide for every list a
 sorted list and a proof that this is indeed a sorted version of the
-input list. To calculate the sorted list however, we do not care what
-kind of proof of |isSorted xs ys| is generated: we only care about the
-fact that such a proof can be generated. At run-time we tend to be
-more interested in a function without the correctness proofs,
-e.g. |sort' : List Nat -> List Nat|.
+input list. At run-time we tend to be more interested in a function
+without the correctness proofs, e.g. |sort' : List Nat -> List Nat|:
+we want to \emph{erase} the logical parts.
 
-\todoi{Maybe start mentioning \emph{propositions} and \emph{erasure}
-  here already, along with some description of the flow of this
-  chapter.}
-
-\todoi{Call the rest of this ``introduction'' just the first section,
-  called ``Propositions'' or something}
+Types such as |isSorted xs ys| are purely logical: we care more about
+the presence of an inhabitant than what kind of inhabitant we exactly
+have at our disposal. In section~\ref{sec:props} we give more examples
+of such types, called \emph{propositions}, and places where they can
+occur. In sections~\ref{sec:coqprop} and~\ref{sec:irragda} we review
+the methods Coq and Agda provide us to annotate
+types. Section~\ref{sec:colfam} reviews the concept of
+\emph{collapsible families} and how we can detect whether a type is a
+proposition. In section~\ref{sec:hprops} we relate all these methods
+to the concept of \hprops.
 
 \section{Propositions}
+\label{sec:props}
 
-In the |sort| example we can still separate the correctness proof from
-the sorting, i.e. write the |sort' : List Nat -> List Nat| and a proof
-of the following:
+In the |sort| example, the logical part, |isSorted xs ys|, occurs in
+the result as part of a \sigmatype. This means we can separate the
+proof of correctness from the sorting itself, i.e. we can write a
+function |sort' : List Nat -> List Nat| and a proof of the following:
 
 \begin{code}
   sortCorrect : (xs : List Nat) -> isSorted xs (sort' xs)
 \end{code}
 
-In the case of |sort|, the ``computationally irrelevant'' part asserts
-properties of the result of the computation. If we instead have
-assertions on our input, we usually cannot decouple this from the rest
-of the function. For example, suppose we have the following function,
-(safely) selecting the $n$-th element of a list:
+The logical part here asserts properties of the \emph{result} of the
+computation. If we instead have assertions on our \emph{input}, we
+cannot decouple this from the rest of the function as easily as, if it
+is at all possible. For example, suppose we have the following
+function, (safely) selecting the $n$-th element of a list:
 
 \begin{code}
  elem : (A : Universe) (xs : List A) (i : Nat) -> i < length xs -> A
 \end{code}
 
-Since we can only define total functions inside our type theory, we
-cannot write a function |elem'| that leaves out the |i < length xs|
-argument. However, at run-time, carrying these proofs around makes no
+If we were to write |elem| without the bounds check |i < length xs|,
+we would get a partial function. Since we can only define total
+functions in our type theory, we cannot write such a
+function. However, at run-time, carrying these proofs around makes no
 sense: type checking has already showed that all calls to |elem| are
-safe and the proofs do not influence the outcome of
-|elem|.\footnote{Of course, we could have written |elem| in such a way
-  that the proof of |i < length xs| \emph{does} influence the output.}
-We want to \emph{erase} terms of types such as |i < length xs| and
-|isSorted xs ys|, if we have established that they do not influence
-the run-time computational behaviour of our functions.
+safe and the proofs do not influence the outcome of |elem|. We want to
+erase terms of types such as |i < length xs|, if we have established
+that they do not influence the run-time computational behaviour of our
+functions.
 
 \subsection{Bove-Capretta method}
 
-Another source of (more involved) examples is the Bove-Capretta
-method~\citep{bcmethod}. If we try to implement quicksort in type
-theory, we notice that the recursion pattern does not fit the
-structural recursion one we are allowed to work with:
+The |elem| example showed us how we can use propositions to write
+functions that would otherwise be partial, by asserting properties of
+the input. The Bove-Capretta method~\citep{bcmethod} somewhat
+generalises this: it provides us with a way to transform any (possibly
+partial) function defined by general recursion into a total,
+structurally recursive one. The quintessential example of a definition
+that is not structurally recursive is \emph{quicksort}:
 
 \begin{code}
   qs : List Nat -> List Nat
@@ -71,10 +80,10 @@ structural recursion one we are allowed to work with:
 \end{code}
 
 The recursive calls are done on |filter (gt x) xs)| and |filter (le x)
-xs)| instead of just |xs|, hence it is not structurally recursive. One
-way to solve this is by creating an inductive family from the original
-function definition, describing the call graph of each input. Since we
-can only construct finite values, being able to produce such a call
+xs)| instead of just |xs|, hence it is not structurally recursive. To
+solve this problem, we create an inductive family from the original
+function definition, describing the call graphs for every input. Since
+we can only construct finite values, being able to produce such a call
 graph means that the function terminates for that input. We can then
 write a new function that structurally recurses on the call graph. In
 our quicksort case we get the following inductive family:
@@ -105,30 +114,13 @@ recursive version of |qs|. Just as with the |elem| example, we need
 information from the proof to be able to write this definition. In the
 case of |elem|, we need the proof of |i < length xs| to deal with the
 (impossible) case where |xs| is empty. In the |qs| case, we need
-|qsAcc xs| to guide the recursion. However, at run-time, when the type
-checker has seen that our definitions are total and our recursion is
-structural, their work is done and hence should be erased.
-
-As we have mentioned, we are interested in the fact that we have
-proofs of |isSorted xs ys| and |i < length xs| and do not care what
-proof we have exactly. In fact, if we have two inhabitants of
-|isSorted xs ys|, we may even deem them to be equal, since they do not
-influence the run-time behaviour of our sort function. If a type has
-the property that all its inhabitants are equal to eachother, then the
-type admits \emph{proof irrelevance} and the type is called a
-\emph{proposition}.
-
-\subsection{Propositions and \hprops}
-
-Note that in the definitions above we have been a bit vague about what
-kind of equality we are talking about exactly. The equality may refer
-to definitional equality or propositional equality, depending on the
-context. In order to avoid confusion, we will refer to the
-propositional version as \emph{\hprops}, in accord with previous
-definitions. In more informal passages where we do not specifically
-chose one or another, we will use \emph{propositions} instead.
+|qsAcc xs| to guide the recursion. Even though we actually pattern
+match on |qsAcc xs| and seemingly influences the computational
+behaviour of the function, erasing this argument yields the original
+|qs| definition.
 
 \section{The sort \coqprop in Coq}
+\label{sec:coqprop}
 
 \todoi{Motivating example in Coq}
 
@@ -150,10 +142,12 @@ chose one or another, we will use \emph{propositions} instead.
   the extracted version is like the original.}
 
 \section{Irrelevance in Agda}
+\label{sec:irragda}
 
 \todoi{TODO}
 
 \section{Collapsible families}
+\label{sec:colfam}
 
 Instead of letting the user annotate the programs to indicate what
 parts are irrelevant to the computation at hand, \cite{collapsibility}
@@ -186,6 +180,7 @@ hence some parts can be erased as they can recovered from other parts.
   any of the other optimisations in that paper?)}
 
 \section{\hprops}
+\label{sec:hprops}
 
 \todoi{As we have seen, \hprops admit all kinds of interesting
   properties: impredicativity and all that.}
