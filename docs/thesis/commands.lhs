@@ -21,6 +21,7 @@
 \newcommand{\defeq}{\overset{\Delta}{=}}
 \newcommand{\hott}{homotopy type theory\xspace}
 \newcommand{\coqprop}{\verb+Prop+\xspace}
+\newcommand{\coqtype}{\verb+Type+\xspace}
 
 \newcommand{\todoi}[1]{\todo[inline]{#1}}
 \newcommand{\contribution}[1]{\begin{quote}
