@@ -18,14 +18,13 @@ data logAcc : ℕ → Set where
  logAcc0 : logAcc (S Z)
  logAcc1 : (k : ℕ) → logAcc (S (div2 k)) → logAcc (S (S k))
 
-logAcc0IsEmpty : logAcc 0 → ⊥ {zero}
+logAcc0IsEmpty : logAcc 0 → ⊥
 logAcc0IsEmpty ()
 
 logAccIsProp : (x : ℕ) → proofIrrelevance (logAcc x)
 logAccIsProp Z () ()
 logAccIsProp (S .0) logAcc0 logAcc0 = refl
 logAccIsProp (S .(S k)) (logAcc1 k x) (logAcc1 .k y) = ap (logAcc1 k) (logAccIsProp (S (div2 k)) x y)
-
 
 logAccInd : 
   (P : ℕ → Set)  -- motive
@@ -46,8 +45,6 @@ logAccRec :
    → P i x
 logAccRec P m1 m2 .1 logAcc0 = m1
 logAccRec P m1 m2 .(S (S k)) (logAcc1 k x) = m2 k x (logAccRec P m1 m2 (S (div2 k)) x)
-
--- TODO: Write the proof that it is in prop using logAccRec.
 
 log : (x : ℕ) → logAcc x → ℕ
 log .1 logAcc0 = 0
