@@ -2,14 +2,15 @@
 
 %include thesis.fmt
 
-\usepackage{xspace}
-\usepackage[utf8x]{inputenc}
-\usepackage[parfill]{parskip}
-\usepackage{amsmath,amsthm,amssymb,stmaryrd}
-\usepackage[text width=10cm]{todonotes}
-\usepackage{tgpagella}
 \usepackage[authoryear,round]{natbib}
+\usepackage[parfill]{parskip}
+\usepackage[text width=10cm]{todonotes}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath,amsthm,amssymb,stmaryrd}
+\usepackage{tgpagella}
 \usepackage{url}
+\usepackage{verbatim}
+\usepackage{xspace}
 
 %include commands.lhs
 

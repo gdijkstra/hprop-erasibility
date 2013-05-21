@@ -27,3 +27,9 @@
 \newcommand{\contribution}[1]{\begin{quote}
 {\bf Contribution: } #1
 \end{quote}}
+
+\newenvironment{coq}{%
+\verbatim%
+}{%
+\endverbatim%
+}

@@ -25,11 +25,12 @@ the presence of an inhabitant than what kind of inhabitant we exactly
 have at our disposal. In section~\ref{sec:props} we give more examples
 of such types, called \emph{propositions}, and places where they can
 occur. In sections~\ref{sec:coqprop} and~\ref{sec:irragda} we review
-the methods Coq and Agda provide us to annotate
-types. Section~\ref{sec:colfam} reviews the concept of
-\emph{collapsible families} and how we can detect whether a type is a
-proposition. In section~\ref{sec:hprops} we relate all these methods
-to the concept of \hprops.
+the methods Coq and Agda provide us to annotate types as being
+propositions. Section~\ref{sec:colfam} reviews the concept of
+\emph{collapsible families} and how we, can automatically detect
+whether a type is a proposition, instead of annotating them
+ourselves. In section~\ref{sec:hprops} we relate all these methods to
+the concept of \hprops and propose optimisations based on this.
 
 \section{Propositions}
 \label{sec:props}
@@ -79,8 +80,8 @@ that is not structurally recursive is \emph{quicksort}:
   qs (x :: xs)  = qs (filter (gt x) xs) ++ x :: qs (filter (le x) xs)
 \end{code}
 
-The recursive calls are done on |filter (gt x) xs)| and |filter (le x)
-xs)| instead of just |xs|, hence it is not structurally recursive. To
+The recursive calls are done on |filter (gt x) xs| and |filter (le x)
+xs| instead of just |xs|, hence it is not structurally recursive. To
 solve this problem, we create an inductive family from the original
 function definition, describing the call graphs for every input. Since
 we can only construct finite values, being able to produce such a call
@@ -119,27 +120,49 @@ match on |qsAcc xs| and seemingly influences the computational
 behaviour of the function, erasing this argument yields the original
 |qs| definition.
 
-\section{The sort \coqprop in Coq}
+\section{The \coqprop universe in Coq}
 \label{sec:coqprop}
 
-\todoi{Motivating example in Coq}
+\begin{itemize}
+\item Apart from the \coqtype universe (or to be more precise:
+  hierarchy of universes), we have \coqprop.
+\item We can ``annotate'' types as propositions by making them of sort
+  \coqprop.
+\item When we extract our development to e.g. Haskell, everything of
+  sort \coqprop gets erased.
+\item To make sure that this does not change our remaining
+  calculations, the elimination on \coqprop is restricted. If a
+  function has an argument of sort \coqprop, whereas its result type
+  is not of sort \coqprop, we may not pattern match on that particular
+  input.
+\item Singleton elimination
+\item Both the |sort| and |elem| example work as we want them to with
+  respect to extraction.
+\end{itemize}
 
-\todoi{Show how the extracted version looks like}
-
-\todoi{Note the limitations of what we can eliminate into}
-
-\todoi{Impredicativity}
-
-\todoi{Proof irrelevance can be assumed?}
-
-\todoi{Proof irrelevance not enforced}
-
-\todoi{Example of how things can go wrong}
-
-\todoi{Singleton elimination}
+\subsection{Bove-Capretta method example}
 
 \todoi{We can get the Bove-Capretta thing to work in such a way that
   the extracted version is like the original.}
+
+\subsection{Impredicativity}
+
+\todoi{Impredicativity}
+
+\subsection{Proof irrelevance}
+We cannot prove that \coqprop admits proof irrelevance in the sense
+that we cannot prove the following:
+
+\begin{coq}
+  Theorem PropProofIrrelevance : forall P : Prop, forall x y : P, x = y.
+\end{coq}
+
+It is consistent to assume \verb+PropProofIrrelevance+ \emph{within}
+Coq, but as noted by Mike Shulman, it does not hold with respect to
+the extraction mechanism.
+
+\todoi{Example of how things can go wrong}
+
 
 \section{Irrelevance in Agda}
 \label{sec:irragda}
@@ -153,12 +176,14 @@ Instead of letting the user annotate the programs to indicate what
 parts are irrelevant to the computation at hand, \cite{collapsibility}
 propose a series of optimisations, for the language Epigram, based on
 the observation there is a lot of redundancy in well-typed programs,
-hence some parts can be erased as they can recovered from other parts.
+hence some parts can be erased as they can recovered from other parts
+relatively cheaply.
 
-\todoi{Note that we are working in Epigram, even though we can write
-  things in a dependent pattern matching style, everything gets
-  \emph{elaborated} to a smaller language, which is very close to
-  conventional \MLTT along with inductive families (Dybjer?).}
+Since we can write our definitions using (dependent) pattern matching
+in Epigram, everything gets elaborated to a smaller core language
+without pattern matching and calls to the elimination principle
+instead. In order to optimise an inductive family, we need only look
+at the constructors and the elimination principles. 
 
 \todoi{Vec example: show that we indeed have a lot of duplication,
   even though there's a lot of arguments that can be recovered from
