@@ -1,3 +1,4 @@
+\newcommand{\UIP}{uniqueness of identity proofs}
 \newcommand{\MLTT}{Martin-L\"of's type theory\xspace}
 \newcommand{\pitype}{$\Pi$-type\xspace}
 \newcommand{\pitypes}{$\Pi$-types\xspace}
@@ -22,6 +23,10 @@
 \newcommand{\hott}{homotopy type theory\xspace}
 \newcommand{\coqprop}{\verb+Prop+\xspace}
 \newcommand{\coqtype}{\verb+Type+\xspace}
+\newcommand{\coqset}{\verb+Set+\xspace}
+\newcommand{\coqprops}{\verb+Prop+s\xspace}
+\newcommand{\coqtypes}{\verb+Type+s\xspace}
+\newcommand{\coqsets}{\verb+Set+s\xspace}
 
 \newcommand{\todoi}[1]{\todo[inline]{#1}}
 \newcommand{\contribution}[1]{\begin{quote}

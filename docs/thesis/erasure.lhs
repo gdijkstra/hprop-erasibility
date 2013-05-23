@@ -2,7 +2,7 @@
 
 When writing certified programs in a dependently typed setting, we can
 conceptually distinguish between the \emph{program} parts and the
-(correctness) \emph{proof} parts. (Also called the informative and
+\emph{proof} (of correctness) parts. (Also called the informative and
 logical parts, respectively.) In practice, these two seemingly
 separate concerns are often intertwined. Consider for example the
 sorting of lists of naturals: given some predicate |isSorted : List
@@ -15,7 +15,7 @@ following type:
 \end{code}
 
 To implement such a function, we need to provide for every list a
-sorted list and a proof that this is indeed a sorted version of the
+sorted list along with a proof that this is indeed a sorted version of the
 input list. At run-time we tend to be more interested in a function
 without the correctness proofs, e.g. |sort' : List Nat -> List Nat|:
 we want to \emph{erase} the logical parts.
@@ -23,9 +23,9 @@ we want to \emph{erase} the logical parts.
 Types such as |isSorted xs ys| are purely logical: we care more about
 the presence of an inhabitant than what kind of inhabitant we exactly
 have at our disposal. In section~\ref{sec:props} we give more examples
-of such types, called \emph{propositions}, and places where they can
-occur. In sections~\ref{sec:coqprop} and~\ref{sec:irragda} we review
-the methods Coq and Agda provide us to annotate types as being
+of such types, called \emph{propositions}, and how they can occur. In
+sections~\ref{sec:coqprop} and~\ref{sec:irragda} we review the methods
+Coq and Agda provide us to annotate parts of our program as being
 propositions. Section~\ref{sec:colfam} reviews the concept of
 \emph{collapsible families} and how we, can automatically detect
 whether a type is a proposition, instead of annotating them
@@ -81,13 +81,13 @@ that is not structurally recursive is \emph{quicksort}:
 \end{code}
 
 The recursive calls are done on |filter (gt x) xs| and |filter (le x)
-xs| instead of just |xs|, hence it is not structurally recursive. To
-solve this problem, we create an inductive family from the original
-function definition, describing the call graphs for every input. Since
-we can only construct finite values, being able to produce such a call
-graph means that the function terminates for that input. We can then
-write a new function that structurally recurses on the call graph. In
-our quicksort case we get the following inductive family:
+xs| instead of just |xs|, hence |qs| is not structurally recursive. To
+solve this problem, we create an inductive family describing the call
+graphs of the original function for every input. Since we can only
+construct finite values, being able to produce such a call graph
+essentially means that the function terminates for that input. We can
+then write a new function that structurally recurses on the call
+graph. In our quicksort case we get the following inductive family:
 
 \begin{code}
   data qsAcc : List Nat -> Set where
@@ -116,52 +116,100 @@ information from the proof to be able to write this definition. In the
 case of |elem|, we need the proof of |i < length xs| to deal with the
 (impossible) case where |xs| is empty. In the |qs| case, we need
 |qsAcc xs| to guide the recursion. Even though we actually pattern
-match on |qsAcc xs| and seemingly influences the computational
-behaviour of the function, erasing this argument yields the original
-|qs| definition.
+match on |qsAcc xs| and it therefore seemingly influences the
+computational behaviour of the function, erasing this argument yields
+the original |qs| definition.
 
 \section{The \coqprop universe in Coq}
 \label{sec:coqprop}
 
+\todoi{Replace \coqtype with \coqset in the appropriate places.}
+
+Apart from the \coqtype universe (or to be more precise: hierarchy of
+universes), we have the \coqprop universe. As the name suggests, by
+defining a type to be of sort \coqprop, we ``annotate'' it to be a
+logical type, a proposition. Explicitly marking the logical parts like
+this, makes the development easier to read and understand. More
+importantly, the extraction mechanism now knows what parts are
+supposed to be logical, hence what parts are to be erased.
+
+In the |sort| example, we would define |isSorted| to be a family of
+\coqprops indexed by |List Nat|. For the \sigmatype, Coq provides two
+options: \verb+sig+ and \verb+ex+, defined as follows:
+
+\begin{verbatim}
+  Inductive sig (A : Type) (P : A -> Prop) : Type :=
+    exist : forall x : A, P x -> sig P
+
+  Inductive ex (A : Type) (P : A -> Prop) : Prop :=
+    ex_intro : forall x : A, P x -> ex P
+\end{verbatim}
+
+Since we have have an informative part in the \sigmatype that is the
+result type of |sort|, we choose the \verb+sig+ version.
+
+The extracted version of \verb+sig+ consists of a single constructor
+\verb+exist+, with a single field of type \verb+A+. Since this is
+isomorphic the type \verb+A+ itself, Coq optimises this away during
+extraction. This means |sort : (xs : List Nat) -> Sigma (ys : List
+Nat) (isSorted xs ys)| gets extracted to a function |sort' : List Nat
+-> List Nat|.
+
+When erasing all the \coqprop parts from our program, we do want to
+retain the computational behaviour of the remaining parts. Every
+function that takes an argument of sort \coqprop, but whose result
+type is not in \coqprop, needs to be invariant under choice of
+inhabitant for the \coqprop argument. To force this property, Coq
+restricts the things we can eliminate a \coqprop into. The general
+rule is that pattern matching on something of sort \coqprop is allowed
+if the result type of the function happens to be in \coqprop.
+
+There are exceptions to this rule: if the argument we are pattern
+matching on happens to be an \emph{empty} or \emph{singleton
+  definition} we may also eliminate into \coqtype. An empty definition
+is an inductive definition without any constructors. A singleton
+definition is an inductive definition with precisely one constructor,
+whose fields are all in \coqprop. Examples of such singleton
+definitions are conjunction on \coqprop (\verb+/\+) and the
+accessibility predicate \verb+Acc+ used to define functions using
+well-founded recursion.
+
+Another important example of singleton elimination is elimination on
+Coq's equality \verb+=+. In the standard library we have the following
+function:
+
+\begin{verbatim}
+eq_rec : forall (A : Type) (x : A) (P : A -> Set), 
+           P x -> forall y : A, x = y -> P y
+\end{verbatim}
+
+\verb+eq_rec+ is just the function |transport| with a slightly
+different order of arguments. The inductive family \verb+=+ is defined
+in the same way as we have defined it \todo{reference to appropriate
+  section here?}, hence it is a singleton definition, amenable to
+singleton elimination. However useful it is when programming in Coq,
+it is not a desirable feature to have when working with homotopy type
+theory. By allowing singleton elimination for identity types, we
+essentially assume some form of \UIP. 
+
+\todoi{Elaborate on how we cannot prove things about \coqprop in Coq
+  itself and how this form of \UIP leads to an ``inconsistency'' as
+  uncovered by Michael Shulman.}
+
+\subsection{Quicksort example}
+
 \begin{itemize}
-\item Apart from the \coqtype universe (or to be more precise:
-  hierarchy of universes), we have \coqprop.
-\item We can ``annotate'' types as propositions by making them of sort
-  \coqprop.
-\item When we extract our development to e.g. Haskell, everything of
-  sort \coqprop gets erased.
-\item To make sure that this does not change our remaining
-  calculations, the elimination on \coqprop is restricted. If a
-  function has an argument of sort \coqprop, whereas its result type
-  is not of sort \coqprop, we may not pattern match on that particular
-  input.
-\item Singleton elimination
-\item Both the |sort| and |elem| example work as we want them to with
-  respect to extraction.
+\item We cannot pattern match on |qsAcc xs|, but we need to, in order to have a decreasing argument.
+\item No singleton elimination, even though it is effectively a
+  (sub)singleton type for every index.
+\item We can do the pattern matching ``manually'': inversion and impossibility theorems.
+\item Extracted version is ``exactly'' the original Haskell definition |qs|.
 \end{itemize}
-
-\subsection{Bove-Capretta method example}
-
-\todoi{We can get the Bove-Capretta thing to work in such a way that
-  the extracted version is like the original.}
 
 \subsection{Impredicativity}
 
 \todoi{Impredicativity}
 
-\subsection{Proof irrelevance}
-We cannot prove that \coqprop admits proof irrelevance in the sense
-that we cannot prove the following:
-
-\begin{coq}
-  Theorem PropProofIrrelevance : forall P : Prop, forall x y : P, x = y.
-\end{coq}
-
-It is consistent to assume \verb+PropProofIrrelevance+ \emph{within}
-Coq, but as noted by Mike Shulman, it does not hold with respect to
-the extraction mechanism.
-
-\todoi{Example of how things can go wrong}
 
 
 \section{Irrelevance in Agda}
@@ -197,6 +245,9 @@ at the constructors and the elimination principles.
 
 \todoi{Needs the \emph{adequacy} property to hold, which breaks if we
   do \hott.}
+
+\todoi{We want singleton elimination on Bove-Capretta stuff: there's
+  at most one option for every index.}
 
 \todoi{Bove-Capretta works nicely, really the way we want it to, as
   opposed to the Coq thing.}
