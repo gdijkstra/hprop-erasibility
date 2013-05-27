@@ -105,9 +105,9 @@ with the following function definition\footnote{This definition uses
 
 \begin{code}
   qs : (xs : List Nat) → qsAcc xs → List Nat
-  qs dotnil         qsAccNil                =  []
-  qs dotcons        (qsAccCons x xs h1 h2)  =  qs (filter (gt x) xs) h1 ++
-                                               x :: qs (filter (le x) xs) h2
+  qs .nil         qsAccNil                =  []
+  qs .cons        (qsAccCons x xs h1 h2)  =  qs (filter (gt x) xs) h1 ++
+                                             x :: qs (filter (le x) xs) h2
 \end{code}
 
 Pattern matching on the |qsAcc xs| argument gives us a structurally
@@ -199,23 +199,138 @@ essentially assume some form of \UIP.
 \subsection{Quicksort example}
 
 \begin{itemize}
-\item We cannot pattern match on |qsAcc xs|, but we need to, in order to have a decreasing argument.
+\item We cannot pattern match on |qsAcc xs|, but we need to, in order
+  to have a decreasing argument.
 \item No singleton elimination, even though it is effectively a
   (sub)singleton type for every index.
-\item We can do the pattern matching ``manually'': inversion and impossibility theorems.
-\item Extracted version is ``exactly'' the original Haskell definition |qs|.
+\item We can do the pattern matching ``manually'': inversion and
+  impossibility theorems.
+\item Extracted version is ``exactly'' the original Haskell definition
+  |qs|.
 \end{itemize}
 
 \subsection{Impredicativity}
 
 \todoi{Impredicativity}
 
-
+\newpage
 
 \section{Irrelevance in Agda}
 \label{sec:irragda}
 
-\todoi{TODO}
+In Coq, we put the annotations of something being a proposition in the
+definition of our inductive type, by defining it to be of sort
+\coqprop. With Agda's irrelevance mechanism, we instead put the
+annotations at the places we \emph{use} the proposition, by placing a
+dot in front of it. For example, the type of the |elem| would become:
+
+\begin{code}
+  elem : (A : Universe) (xs : List A) (i : ℕ) → .(i < length xs) → A
+\end{code}
+
+We can also mark fields of a record to be irrelevant. In the case of
+|sort|, we want something similar to the \verb+sig+ type from Coq,
+where the logical part of the \sigmatype is deemed irrelevant. In Agda
+this can be done as follows:
+
+\begin{code}
+  record Sigmairr (A : Universe) (B : A → Universe) : Universe  where
+    constructor _,_ 
+    field
+      fst : A
+      .snd : B fst
+\end{code}
+
+To ensure that irrelevant arguments are indeed irrelevant to the
+computation at hand, Agda has several criteria that it checks. First
+of all, just as with \coqprop, no pattern matching may be performed on
+irrelevant arguments. (However, the absurd pattern may be used, if
+applicable.) Contrary to Coq, singleton elimination is not allowed.
+Secondly, we need to ascertain that the annotations are preserved:
+irrelevant arguments may only be passed on to irrelevant
+contexts. This is to prevent us from writing a function of type |.A ->
+A|.
+
+\todoi{Maybe elaborate on how the below intuitively does not break any
+  metatheoretical properties of Agda.}
+
+Another, more important difference with \coqprop, is that irrelevant
+arguments are ignored by the type checker when checking equality of
+terms. An important consequence of this is that we can prove
+properties about irrelevant arguments in Agda, internally. For
+example: any function out of an irrelevant type is constant:
+
+\begin{code}
+  irrelevantConstantFunction  :  {A : Universe} {B : Universe} 
+                              →  (f : .A → B) → (x y : A) → f x ≡ f y
+  irrelevantConstantFunction f x y = refl
+\end{code}
+
+There is no need to use the congruence rule for |≡|, since the |x| and
+|y| are ignored when the type checker compares |f x| to |f y|, when
+type checking the |refl|. The result can be easily generalised to
+dependent functions:
+
+\begin{code}
+  irrelevantConstantDepFunction  :  {A : Universe} {B : .A → Universe} 
+                                 →  (f : .(x : A) → B x) → (x y : A) → f x ≡ f y
+  irrelevantConstantDepFunction f x y = refl
+\end{code}
+
+In this case |f x ≡ f y| type checks, without having to transport one
+value along some path, because the types |B x| and |B y| are regarded
+as definitionally equal by the type checking, ignoring the |x| and
+|y|. Just as before, there is no need to use the (dependent)
+congruence rule; a |refl| suffices.
+
+We would also like to show that we have proof irrelevance for
+irrelevant arguments, i.e. we want to prove the following:
+
+\begin{code}
+  irrelevantProofIrrelevance : {A : Universe} .(x y : A) → x ≡ y
+\end{code}
+
+Agda does not accept this, because we use the irrelevant arguments in
+a relevant context: |x ≡ y|. If we instead package the irrelevant
+arguments in an inductive type, we can prove that the two values of
+the packaged type are propositionally equal. Consider the following
+record type with only one irrelevant field:
+
+\begin{code}
+  record Squash (A : Universe) : Universe where
+    constructor squash
+    field
+      .proof : A
+\end{code}
+
+Using this type, we can now formulate the proof irrelevance principle
+for irrelevant arguments and prove it:
+
+\begin{code}
+  squashProofIrrelevance : {A : Universe} (x y : Squash A) → x ≡ y
+  squashProofIrrelevance x y = refl
+\end{code}
+
+The name ``squash type'' comes from NuPRL:\todo{Add citation} one
+takes a type and identifies (or ``squash'') all its inhabitants. In
+\hott the process of squashing a type is called \ntruncation{(-1)} and
+can also be achieved by defining the following \hit:
+
+\begin{code}
+  data minusonetruncation (A : Universe) : Universe where
+    inhab : A
+
+    allpaths : (x y : A) → x ≡ y
+\end{code}
+
+\subsection{Impredicativity?}
+Since we are dealing with an annotation and not a type, we cannot
+really talk about impredicativity. Impredicativity would mean what
+exactly?
+
+\subsection{Quicksort example}
+
+
 
 \section{Collapsible families}
 \label{sec:colfam}
@@ -272,3 +387,5 @@ at the constructors and the elimination principles.
 \todoi{Does the \sigmatypes example work?}
 
 \todoi{How does it relate to Agda's irrelevance?}
+
+\todoi{Note the pros and cons of previously mentioned approaches}
