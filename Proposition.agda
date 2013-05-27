@@ -52,16 +52,17 @@ hPropConstantFunctionDep {A = A} p f x y = apd f (hProp⇒proofIrrelevance p x y
 
 -- Irrelevant functions are constant.
 irrelevantConstantFunction : {a b : Level} {A : Set a} {B : Set b} → (f : .A → B) → isConstant f
-irrelevantConstantFunction {a} {b} {A} {B} f x _ = ap {x = x} {y = x} f refl
+irrelevantConstantFunction {a} {b} {A} {B} f x _ = refl
 
-irrelevantAllPaths : {a : Level} {A : Set a} .(x y : A) → x ≡ y
-irrelevantAllPaths = ?
+-- We cannot do the following, because Id A _ _ is not an irrelevant
+-- context.
+-- irrelevantAllPaths : {a : Level} {A : Set a} .(x y : A) → x ≡ y
 
--- irrelevantConstantFunctionDep : {a b : Level} {A : Set a} {B : .A → Set b}
---                          → (p : hProp A) 
---                          → (f : .(x : A) → B x) 
---                          → (x y : A) 
---                          → (transport (hProp⇒proofIrrelevance p x y) (f x) ≡ f y)
+irrelevantConstantFunctionDep : {a b : Level} {A : Set a} {B : .A → Set b}
+                         → (f : .(x : A) → B x) 
+                         → .(x y : A) 
+                         → f x ≡ f y
+irrelevantConstantFunctionDep _ _ _ = refl
 
 -- Given that A is contractible, we can transform a function f : A → B
 -- into an irrelevant version.

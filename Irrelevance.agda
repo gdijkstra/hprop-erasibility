@@ -46,5 +46,13 @@ elim-Squash : {A : Set} (P : Squash A → Set)
             (a⁻ : Squash A) → P a⁻
 elim-Squash P ih (squash a) = ih a
 
---    Note that this would not type-check with
---    (ih : (a : A) → P (squash a)).
+
+record Σ-irr {a b} (A : Set a) (B : A → Set b) : Set (a ⊔ b)  where
+  constructor _,_ 
+  field
+    fst : A
+    .snd : B fst
+
+Σ-irr-irrelevant : {a b : Level} {A : Set a} {B : A → Set b}
+  (x : A) (y₁ y₂ : B x) → Id (Σ-irr A B) (x , y₁) (x , y₂)
+Σ-irr-irrelevant _ _ _ = refl 

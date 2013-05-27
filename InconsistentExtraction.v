@@ -1,5 +1,19 @@
 Module InconsistentExtraction.
 
+(* "Squash" type *)
+
+Inductive squashType (A : Type) : Prop :=
+  | squash : A -> squashType A.
+
+Check (squash Type Type).
+
+(* Singleton elimination test *)
+
+Inductive singletonThing : Prop :=
+  | SingleCons : singletonThing.
+
+Check singletonThing_rect.
+
 (* Assuming univalence and an extra axiom relating "transport" to
 univalence, we can write a term "x : bool" that is propositionally
 equal to "false", yet if we evaluate its extracted version, then the
