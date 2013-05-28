@@ -330,45 +330,79 @@ exactly?
 
 \subsection{Quicksort example}
 
-
+\newpage
 
 \section{Collapsible families}
 \label{sec:colfam}
 
-Instead of letting the user annotate the programs to indicate what
-parts are irrelevant to the computation at hand, \cite{collapsibility}
-propose a series of optimisations, for the language Epigram, based on
-the observation there is a lot of redundancy in well-typed programs,
-hence some parts can be erased as they can recovered from other parts
-relatively cheaply.
+The approaches we have seen so far let the user indicate what the
+logical parts of the program are and are amenable for
+erasure. \cite{collapsibility} propose that we let the compiler figure
+that out by itself instead. They introduce the concept of
+\emph{collapsible families} and a subset of those that can be
+automatically be detected by a compiler, called \emph{concrete
+  collapsible families}. The optimisations are based on the
+observation that one often has a lot of redundancy in well-typed
+terms. If it is the case that one part of our term has to be
+definitionally equal to another part in order to be well-typed, we can
+leave out the latter part if we know the term is well-typed. 
 
-Since we can write our definitions using (dependent) pattern matching
-in Epigram, everything gets elaborated to a smaller core language
-without pattern matching and calls to the elimination principle
-instead. In order to optimise an inductive family, we need only look
-at the constructors and the elimination principles. 
+The authors describe their optimisations in the context of Epigram. In
+Epigram, the user writes the program in a high-level language that
+gets elaborated to a program in a small type theory language. This has
+the advantage that if we can describe a translation for high-level
+features, such as dependent pattern matching, to a simple core type
+theory, the metatheory becomes a lot simpler. The smaller type theory
+also allows us to specify optimisations more easily, because we do not
+have to deal with the more intricate, high-level features.
 
-\todoi{Vec example: show that we indeed have a lot of duplication,
-  even though there's a lot of arguments that can be recovered from
-  others, so we can leave stuff out.}
+As such, the only things we need to look at, if our goal is to
+optimise a certain inductive family, are its constructors and its
+elimination principle. Going back to the |elem| example, we had |i <
+length xs| argument. The smaller-than relation can be defined as the
+following inductive family:
 
-\todoi{Not a language construct: instead of marking things as being a
-  \coqprop or as irrelevant, the compiler itself figures out whether
-  it is irrelevant or not.}
+\begin{code}
+data _<_ : ℕ → ℕ → Universe where
+  leZ : (y : ℕ)            → Z    < S y
+  leS : (x y : ℕ) → x < y  → S x  < S y
+\end{code}
 
-\todoi{Recover values of inductive families via their indices.}
+with elimination operator
 
-\todoi{Needs the \emph{adequacy} property to hold, which breaks if we
-  do \hott.}
+\begin{code}
+  ltelim  :  (P : (x y : ℕ) → x < y → Universe)
+             (mZ : (y : ℕ) → P 0 (S y) (leZ y))
+             (mS : (x y : ℕ) → (pf : x < y) → P x y pf → P (S x) (S y) (leS x y pf))
+             (x y : ℕ)
+             (pf : x < y)
+          →  P x y pf
+\end{code}
 
-\todoi{We want singleton elimination on Bove-Capretta stuff: there's
-  at most one option for every index.}
+and computation rules
 
-\todoi{Bove-Capretta works nicely, really the way we want it to, as
-  opposed to the Coq thing.}
+\begin{code}
+  ltelim P mZ mS 0      (S y)  (leZ y)        ~>  mZ y
+  ltelim P mZ mS (S x)  (S y)  (leS x y pf)   ~>  mS x y x<y (ltelim P mZ mS x y pf)
+\end{code}
 
-\todoi{How about \sigmatypes? It does not apply to that. (Neither do
-  any of the other optimisations in that paper?)}
+\todoi{Explain how we can optimise stuff here and how we detect it as
+  being a collapsible family.}
+
+\todoi{Explain that this means the |elem| example works nicely}
+
+\begin{itemize}
+\item Collapsible family definition
+\item Note that for correctness we need the adequacy property
+\item What has it to do with propositions: looks like an indexed
+  version of \hprops with propositional equality replaced by
+  definitional equality. Since with optimisations we want to preserve
+  definitional equality.
+\item |sort| example: \sigmatypes : not possible?
+\item Bove-Capretta example: works wonderfully.
+\end{itemize}
+
+\newpage
 
 \section{\hprops}
 \label{sec:hprops}
