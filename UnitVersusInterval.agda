@@ -34,8 +34,8 @@ left : (t : ⊤) → (Interval⇒⊤ (⊤⇒Interval t)) ≡ t
 left tt = refl
 
 -- TODO: Finish this proof.
-right : (i : I) → (⊤⇒Interval (Interval⇒⊤ i)) ≡ i
-right i = I-ind {B = λ i₁ → ⊤-ind {B = \ _ → I} zer (I-rec {B = ⊤} tt tt refl i₁) ≡ i₁} refl seg {!!} i
+-- right : (i : I) → (⊤⇒Interval (Interval⇒⊤ i)) ≡ i
+-- right i = I-ind {B = λ i₁ → ⊤-ind {B = \ _ → I} zer (I-rec {B = ⊤} tt tt refl i₁) ≡ i₁} refl seg {!!} i
 
 
 -- ⊤ is contractible, hence an h-proposition
@@ -43,8 +43,8 @@ right i = I-ind {B = λ i₁ → ⊤-ind {B = \ _ → I} zer (I-rec {B = ⊤} tt
 ⊤-is-contractible = tt , (λ x → ⊤-ind {B = λ t → Id ⊤ tt t} refl x)
 
 -- I is proof irrelevant and inhabited, hence contractible, hence an h-proposition
-I-is-proof-irrelevant : proofIrrelevance I
-I-is-proof-irrelevant = λ x y → I-ind {B = λ i → x ≡ i} {!!} {!!} {!!} y
+--I-is-proof-irrelevant : proofIrrelevance I
+--I-is-proof-irrelevant = λ x y → I-ind {B = λ i → x ≡ i} {!!} {!!} {!!} y
 
 
 
