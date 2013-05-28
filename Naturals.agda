@@ -34,6 +34,16 @@ data _<_ : ℕ → ℕ → Set where
 <-inv : {x y : ℕ} → S x < S y → x < y
 <-inv {x} {y} (leS .x .y pf) = pf
 
+<-elim : 
+  (P : (x y : ℕ) → x < y → Set)
+  (mZ : (y : ℕ) → P 0 (S y) (leZ y))
+  (mS : (x y : ℕ) → (x<y : x < y) → P x y x<y → P (S x) (S y) (leS x y x<y))
+  (x y : ℕ)
+  (x<y : (x < y))
+  → P x y x<y
+<-elim P mZ mS .0 .(S y) (leZ y) = mZ y
+<-elim P mZ mS .(S x) .(S y) (leS x y x<y) = mS x y x<y (<-elim P mZ mS x y x<y)
+
 -- Parity predicate on naturals
 data isEven : ℕ → Set where
   isEvenZ  : isEven 0
