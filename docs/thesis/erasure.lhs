@@ -123,15 +123,13 @@ the original |qs| definition.
 \section{The \coqprop universe in Coq}
 \label{sec:coqprop}
 
-\todoi{Replace \coqtype with \coqset in the appropriate places.}
-
-Apart from the \coqtype universe (or to be more precise: hierarchy of
-universes), we have the \coqprop universe. As the name suggests, by
-defining a type to be of sort \coqprop, we ``annotate'' it to be a
-logical type, a proposition. Explicitly marking the logical parts like
-this, makes the development easier to read and understand. More
-importantly, the extraction mechanism now knows what parts are
-supposed to be logical, hence what parts are to be erased.
+Apart from the \coqset universe, we have the \coqprop universe. As the
+name suggests, by defining a type to be of sort \coqprop, we
+``annotate'' it to be a logical type, a proposition. Explicitly
+marking the logical parts like this, makes the development easier to
+read and understand. More importantly, the extraction mechanism now
+knows what parts are supposed to be logical, hence what parts are to
+be erased.
 
 In the |sort| example, we would define |isSorted| to be a family of
 \coqprops indexed by |List Nat|. For the \sigmatype, Coq provides two
@@ -164,6 +162,7 @@ restricts the things we can eliminate a \coqprop into. The general
 rule is that pattern matching on something of sort \coqprop is allowed
 if the result type of the function happens to be in \coqprop.
 
+\subsection{Singleton elimination and \hott}
 There are exceptions to this rule: if the argument we are pattern
 matching on happens to be an \emph{empty} or \emph{singleton
   definition} we may also eliminate into \coqtype. An empty definition
@@ -175,43 +174,104 @@ accessibility predicate \verb+Acc+ used to define functions using
 well-founded recursion.
 
 Another important example of singleton elimination is elimination on
-Coq's equality \verb+=+. In the standard library we have the following
+Coq's equality \verb+=+, which is defined to be in \coqprop. The
+inductive family \verb+=+ is defined in the same way as we have
+defined identity types, hence it is a singleton definition, amenable
+to singleton elimination. Consider for example the |transport|
 function:
 
 \begin{verbatim}
-eq_rec : forall (A : Type) (x : A) (P : A -> Set), 
-           P x -> forall y : A, x = y -> P y
+Definition transport : forall A, forall (P : A -> Type), 
+  forall (x y : A),
+  forall (path : x = y),
+  P x -> P y.
 \end{verbatim}
 
-\verb+eq_rec+ is just the function |transport| with a slightly
-different order of arguments. The inductive family \verb+=+ is defined
-in the same way as we have defined it \todo{reference to appropriate
-  section here?}, hence it is a singleton definition, amenable to
-singleton elimination. However useful it is when programming in Coq,
-it is not a desirable feature to have when working with homotopy type
-theory. By allowing singleton elimination for identity types, we
-essentially assume some form of \UIP. 
+Singleton elimination allows us to pattern match on \verb+path+ and
+and eliminate into something of sort \verb+Type+. In the extracted
+version, the \verb+path+ argument gets erased and the \verb+P x+
+argument is returned. In \hott, we know that the identity types need
+not be singletons and can have other inhabitants than just the
+canonical \verb+refl+, so throwing away the identity proof is not
+correct. As has been discovered by Michael
+Shulman\footnote{\url{http://homotopytypetheory.org/2012/01/22/univalence-versus-extraction/}},
+if we assume the univalence axiom, we can construct a value
+\verb+x : bool+ such that we can prove \verb+x = false+, even though
+in the extracted version \verb+x+ normalises to \verb+true+. Assuming
+univalence, we have two distinct proofs of \verb+bool = bool+:
+\verb+refl+ and the proof we get from applying univalence to the
+isomorphism \verb+not : bool -> bool+. Transporting a value along a
+path we have obtained from using univalence, is the same as applying
+the isomorphism. Defining \verb+x+ to be \verb+true+ transported along
+the path obtained from applying univalence to the isomorphism
+\verb+not+, yields something that is propositionally equal to
+\verb+false+. If we extract the development, we get a definition of
+\verb+x+ that ignores the proof of \verb+bool = bool+ and returns
+\verb+true+.
 
-\todoi{Elaborate on how we cannot prove things about \coqprop in Coq
-  itself and how this form of \UIP leads to an ``inconsistency'' as
-  uncovered by Michael Shulman.}
+In other words, Coq does not enforce or check proof irrelevance of the
+types we define to be of sort \coqprop. The extraction mechanism does
+assume that everything admits proof irrelevance. The combination of
+this along with singleton elimination, means that we can prove
+properties about our programs that no longer hold in the extracted
+version. It also goes to show that the design decision to define the
+identity types to be in \coqprop is not compatible with \hott.
 
 \subsection{Quicksort example}
 
-\begin{itemize}
-\item We cannot pattern match on |qsAcc xs|, but we need to, in order
-  to have a decreasing argument.
-\item No singleton elimination, even though it is effectively a
-  (sub)singleton type for every index.
-\item We can do the pattern matching ``manually'': inversion and
-  impossibility theorems.
-\item Extracted version is ``exactly'' the original Haskell definition
-  |qs|.
-\end{itemize}
+In the case of |qs|, we actually want to pattern match on the logical
+part |qsAcc xs|. Coq does not allow this if we define the family
+|qsAcc| to be in \coqprop. However, we can do the pattern matching
+``manually''. We know that we have exactly one inhabitant of |qsAcc
+xs| for each |xs|, as they represent the call graph of |qs| for the
+input |xs|, and the pattern matches of the original definition do not
+overlap, hence each |xs| has a unique call graph. We can therefore
+easily define and prove the following inversion theorems, that roughly
+look as follows:
+
+\begin{code}
+  qsAccInv0 : (x : Nat) (xs : List Nat) (qsAcc (x :: xs)) -> qsAcc (filter (le x) xs)
+
+  qsAccInv1 : (x : Nat) (xs : List Nat) (qsAcc (x :: xs)) -> qsAcc (filter (gt x) xs)
+\end{code}
+
+We define the |qs| just as we originally intended to, add the |qsAcc
+xs| argument to every pattern match. We then call the inversion
+theorems for the appropriate recursive calls. Coq still notices that
+there is a decreasing argument, namely |qsAcc xs|. If we follow this
+approach, we can define |qsAcc| to be a family in \coqprop and recover
+the original |qs| definition without the |qsAcc xs| argument using
+extraction.
+
+In the case of partial functions, we still have to add the missing
+pattern matches and define impossibility theorems: if we reach that
+pattern match and we have a proof of our Bove-Capretta predicate for
+that particular pattern match, we can prove falsity, hence we can use
+\verb+False_rect+ do deal with the missing pattern match.
 
 \subsection{Impredicativity}
 
-\todoi{Impredicativity}
+So far we have seen how \coqprop differs from \coqset with respect to
+its restricted elimination rules and its erasure during extraction,
+but it \coqprop has another property that sets it apart from \coqset:
+\emph{impredicativity}. Impredicativity means that we are able to
+quantify over something which contains the thing currently being
+defined. In set theory unrestricted use of this principle leads us to
+Russell's paradox: $\{x || x \in x \}$ is an impredicative definition,
+we quantify over $x$, while we are also defining $x$. In type theory,
+an analogous paradox, Girard's paradox, arises if we allow for
+impredicativity via the |Universe : Universe| rule. However,
+impredicative definitions are sometimes very useful and benign, in
+particularly when dealing with propositions: we want to be able to
+write propositions that quantify over propositions, for example:
+
+\begin{verbatim}
+  Definition demorgan : Prop := forall P Q : Prop, 
+    ~(P /\ Q) -> ~P \/ ~Q.
+\end{verbatim}
+
+Coq allows for such definitions as the restrictions on \coqprop
+prevent us from proving Girard's paradox.
 
 \newpage
 
@@ -251,14 +311,18 @@ irrelevant arguments may only be passed on to irrelevant
 contexts. This is to prevent us from writing a function of type |.A ->
 A|.
 
-\todoi{Maybe elaborate on how the below intuitively does not break any
-  metatheoretical properties of Agda.}
-
 Another, more important difference with \coqprop, is that irrelevant
 arguments are ignored by the type checker when checking equality of
-terms. An important consequence of this is that we can prove
-properties about irrelevant arguments in Agda, internally. For
-example: any function out of an irrelevant type is constant:
+terms. These arguments can be regarded as equal, even though they may
+be in fact different definitionally, as we never need to appeal to the
+structure of the value: we cannot pattern match on it. The only thing
+that we can do with irrelevant arguments is either ignore them or pass
+them around to another irrelevant context. 
+
+An important consequence of the type checker ignoring irrelevant
+arguments, is that we can prove properties about irrelevant arguments
+in Agda, internally. For example: any function out of an irrelevant
+type is constant:
 
 \begin{code}
   irrelevantConstantFunction  :  {A : Universe} {B : Universe} 
@@ -311,7 +375,7 @@ for irrelevant arguments and prove it:
   squashProofIrrelevance x y = refl
 \end{code}
 
-The name ``squash type'' comes from NuPRL:\todo{Add citation} one
+The name ``squash type'' comes from Nuprl~\citep{nuprl}: one
 takes a type and identifies (or ``squash'') all its inhabitants. In
 \hott the process of squashing a type is called \ntruncation{(-1)} and
 can also be achieved by defining the following \hit:
@@ -323,12 +387,15 @@ can also be achieved by defining the following \hit:
     allpaths : (x y : A) → x ≡ y
 \end{code}
 
-\subsection{Impredicativity?}
-Since we are dealing with an annotation and not a type, we cannot
-really talk about impredicativity. Impredicativity would mean what
-exactly?
-
 \subsection{Quicksort example}
+
+If we want to mark the |qsAcc xs| argument as irrelevant, we run into
+the same problems as we did when we tried to define |qsAcc| as a
+family in \coqprop: we can no longer pattern match on it. In Coq, we
+did have a way around this, by using inversion and impossibility
+theorems to do the pattern matching ``manually''. However, if we try
+such an approach in Agda, its termination checker cannot see that
+|qsAcc xs| is indeed a decreasing argument and refuses the definition.
 
 \newpage
 

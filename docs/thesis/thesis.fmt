@@ -30,3 +30,5 @@
 %format mZ	                = "m_{Z}"
 %format mS	                = "m_{S}"
 %format ltelim                  = "<\mbox{-}elim"
+%format qsAccInv0               = "qsAccInv_0"
+%format qsAccInv1               = "qsAccInv_1"
