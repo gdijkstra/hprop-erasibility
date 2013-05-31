@@ -11,6 +11,8 @@
 \usepackage{url}
 \usepackage{verbatim}
 \usepackage{xspace}
+\usepackage{setspace} 
+\onehalfspacing
 
 %include commands.lhs
 

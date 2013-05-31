@@ -1,33 +1,34 @@
-\chapter{Erasing propositions}
+T\chapter{Erasing propositions}
 
 When writing certified programs in a dependently typed setting, we can
 conceptually distinguish between the \emph{program} parts and the
-\emph{proof} (of correctness) parts. (Also called the informative and
-logical parts, respectively.) In practice, these two seemingly
-separate concerns are often intertwined. Consider for example the
-sorting of lists of naturals: given some predicate |isSorted : List
-Nat -> List Nat -> Universe| that tells us whether the second list is
-a sorted permutation of the first one, we want to write a term of the
-following type:
+\emph{proof} (of correctness) parts. These are sometimes also referred
+to as the informative and logical parts, respectively. In practice,
+these two seemingly separate concerns are often intertwined. Consider
+for example the sorting of lists of naturals: given some predicate
+|isSorted : List Nat -> List Nat -> Universe| that tells us whether
+the second list is a sorted permutation of the first one, we can to
+write a term of the following type:
 
 \begin{code}
   sort : (xs : List Nat) -> Sigma (ys : List Nat) (isSorted xs ys)
 \end{code}
 
 To implement such a function, we need to provide for every list a
-sorted list along with a proof that this is indeed a sorted version of the
-input list. At run-time we tend to be more interested in a function
-without the correctness proofs, e.g. |sort' : List Nat -> List Nat|:
-we want to \emph{erase} the logical parts.
+sorted list along with a proof that this is indeed a sorted version of
+the input list. At run-time the type checking has been done, hence the
+proof of correctness has already been verified: we want to
+\emph{erase} the logical parts.
 
 Types such as |isSorted xs ys| are purely logical: we care more about
 the presence of an inhabitant than what kind of inhabitant we exactly
 have at our disposal. In section~\ref{sec:props} we give more examples
-of such types, called \emph{propositions}, and how they can occur. In
-sections~\ref{sec:coqprop} and~\ref{sec:irragda} we review the methods
-Coq and Agda provide us to annotate parts of our program as being
+of such types, called \emph{propositions}, and how they can occur in
+various places in certified programs. In sections~\ref{sec:coqprop}
+and~\ref{sec:irragda} we review the methods Coq and Agda provide us to
+annotate parts of our program as being
 propositions. Section~\ref{sec:colfam} reviews the concept of
-\emph{collapsible families} and how we, can automatically detect
+\emph{collapsible families} and how we can automatically detect
 whether a type is a proposition, instead of annotating them
 ourselves. In section~\ref{sec:hprops} we relate all these methods to
 the concept of \hprops and propose optimisations based on this.
@@ -35,7 +36,7 @@ the concept of \hprops and propose optimisations based on this.
 \section{Propositions}
 \label{sec:props}
 
-In the |sort| example, the logical part, |isSorted xs ys|, occurs in
+In the |sort| example, the logical part |isSorted xs ys| occurs in
 the result as part of a \sigmatype. This means we can separate the
 proof of correctness from the sorting itself, i.e. we can write a
 function |sort' : List Nat -> List Nat| and a proof of the following:
@@ -47,8 +48,8 @@ function |sort' : List Nat -> List Nat| and a proof of the following:
 The logical part here asserts properties of the \emph{result} of the
 computation. If we instead have assertions on our \emph{input}, we
 cannot decouple this from the rest of the function as easily as, if it
-is at all possible. For example, suppose we have the following
-function, (safely) selecting the $n$-th element of a list:
+is at all possible. For example, suppose we have a function, safely
+selecting the $n$-th element of a list:
 
 \begin{code}
  elem : (A : Universe) (xs : List A) (i : Nat) -> i < length xs -> A
@@ -58,7 +59,7 @@ If we were to write |elem| without the bounds check |i < length xs|,
 we would get a partial function. Since we can only define total
 functions in our type theory, we cannot write such a
 function. However, at run-time, carrying these proofs around makes no
-sense: type checking has already showed that all calls to |elem| are
+sense: type checking has already shown that all calls to |elem| are
 safe and the proofs do not influence the outcome of |elem|. We want to
 erase terms of types such as |i < length xs|, if we have established
 that they do not influence the run-time computational behaviour of our
@@ -68,8 +69,8 @@ functions.
 
 The |elem| example showed us how we can use propositions to write
 functions that would otherwise be partial, by asserting properties of
-the input. The Bove-Capretta method~\citep{bcmethod} somewhat
-generalises this: it provides us with a way to transform any (possibly
+the input. The Bove-Capretta method~\citep{bcmethod} generalises this
+and more: it provides us with a way to transform any (possibly
 partial) function defined by general recursion into a total,
 structurally recursive one. The quintessential example of a definition
 that is not structurally recursive is \emph{quicksort}:
@@ -112,24 +113,24 @@ with the following function definition\footnote{This definition uses
 
 Pattern matching on the |qsAcc xs| argument gives us a structurally
 recursive version of |qs|. Just as with the |elem| example, we need
-information from the proof to be able to write this definition. In the
-case of |elem|, we need the proof of |i < length xs| to deal with the
-(impossible) case where |xs| is empty. In the |qs| case, we need
-|qsAcc xs| to guide the recursion. Even though we actually pattern
-match on |qsAcc xs| and it therefore seemingly influences the
-computational behaviour of the function, erasing this argument yields
-the original |qs| definition.
+information from the proof to be able to write this definition in our
+type theory. In the case of |elem|, we need the proof of |i < length
+xs| to deal with the (impossible) case where |xs| is empty. In the
+|qs| case, we need |qsAcc xs| to guide the recursion. Even though we
+actually pattern match on |qsAcc xs| and it therefore seemingly
+influences the computational behaviour of the function, erasing this
+argument yields the original |qs| definition.
 
 \section{The \coqprop universe in Coq}
 \label{sec:coqprop}
 
-Apart from the \coqset universe, we have the \coqprop universe. As the
-name suggests, by defining a type to be of sort \coqprop, we
-``annotate'' it to be a logical type, a proposition. Explicitly
-marking the logical parts like this, makes the development easier to
-read and understand. More importantly, the extraction mechanism now
-knows what parts are supposed to be logical, hence what parts are to
-be erased.
+In Coq we have have the \coqprop universe, apart from the \coqset
+universe. As the name suggests, by defining a type to be of sort
+\coqprop, we ``annotate'' it to be a logical type, a
+proposition. Explicitly marking the logical parts like this, makes the
+development easier to read and understand. More importantly, the
+extraction mechanism~\citep{letouzeyextraction} now knows what parts
+are supposed to be logical, hence what parts are to be erased.
 
 In the |sort| example, we would define |isSorted| to be a family of
 \coqprops indexed by |List Nat|. For the \sigmatype, Coq provides two
@@ -143,8 +144,12 @@ options: \verb+sig+ and \verb+ex+, defined as follows:
     ex_intro : forall x : A, P x -> ex P
 \end{verbatim}
 
-Since we have have an informative part in the \sigmatype that is the
-result type of |sort|, we choose the \verb+sig+ version.
+As can be seen above, \verb+sig+ differs from \verb+ex+ in that the
+latter is completely logical, whereas \verb+sig+ has one informative
+and one logical field and in its entirety is informative. Since we are
+interested in the |list Nat| part of the \sigmatype that is the result
+type of |sort|, but not the |isSorted| part, we choose the \verb+sig+
+version.
 
 The extracted version of \verb+sig+ consists of a single constructor
 \verb+exist+, with a single field of type \verb+A+. Since this is
@@ -165,13 +170,13 @@ if the result type of the function happens to be in \coqprop.
 \subsection{Singleton elimination and \hott}
 There are exceptions to this rule: if the argument we are pattern
 matching on happens to be an \emph{empty} or \emph{singleton
-  definition} we may also eliminate into \coqtype. An empty definition
-is an inductive definition without any constructors. A singleton
-definition is an inductive definition with precisely one constructor,
-whose fields are all in \coqprop. Examples of such singleton
-definitions are conjunction on \coqprop (\verb+/\+) and the
-accessibility predicate \verb+Acc+ used to define functions using
-well-founded recursion.
+  definition} of sort \coqprop, we may also eliminate into
+\coqtype. An empty definition is an inductive definition without any
+constructors. A singleton definition is an inductive definition with
+precisely one constructor, whose fields are all in \coqprop. Examples
+of such singleton definitions are conjunction on \coqprop (\verb+/\+)
+and the accessibility predicate \verb+Acc+ used to define functions
+using well-founded recursion.
 
 Another important example of singleton elimination is elimination on
 Coq's equality \verb+=+, which is defined to be in \coqprop. The
@@ -195,39 +200,47 @@ not be singletons and can have other inhabitants than just the
 canonical \verb+refl+, so throwing away the identity proof is not
 correct. As has been discovered by Michael
 Shulman\footnote{\url{http://homotopytypetheory.org/2012/01/22/univalence-versus-extraction/}},
-if we assume the univalence axiom, we can construct a value
-\verb+x : bool+ such that we can prove \verb+x = false+, even though
-in the extracted version \verb+x+ normalises to \verb+true+. Assuming
-univalence, we have two distinct proofs of \verb+bool = bool+:
-\verb+refl+ and the proof we get from applying univalence to the
-isomorphism \verb+not : bool -> bool+. Transporting a value along a
-path we have obtained from using univalence, is the same as applying
-the isomorphism. Defining \verb+x+ to be \verb+true+ transported along
-the path obtained from applying univalence to the isomorphism
-\verb+not+, yields something that is propositionally equal to
-\verb+false+. If we extract the development, we get a definition of
-\verb+x+ that ignores the proof of \verb+bool = bool+ and returns
-\verb+true+.
+singleton elimination leads to some sort of inconsistency, if we
+assume the univalence axiom: we can construct a value \verb+x : bool+
+such that we can prove \verb+x = false+, even though in the extracted
+version \verb+x+ normalises to \verb+true+. Assuming univalence, we
+have two distinct proofs of \verb+bool = bool+, namely \verb+refl+ and
+the proof we get from applying univalence to the isomorphism
+\verb+not : bool -> bool+. Transporting a value along a path we have
+obtained from using univalence, is the same as applying the
+isomorphism. Defining \verb+x+ to be \verb+true+ transported along the
+path obtained from applying univalence to the isomorphism \verb+not+,
+yields something that is propositionally equal to \verb+false+. If we
+extract the development, we get a definition of \verb+x+ that ignores
+the proof of \verb+bool = bool+ and just returns \verb+true+.
 
 In other words, Coq does not enforce or check proof irrelevance of the
-types we define to be of sort \coqprop. The extraction mechanism does
-assume that everything admits proof irrelevance. The combination of
-this along with singleton elimination, means that we can prove
-properties about our programs that no longer hold in the extracted
-version. It also goes to show that the design decision to define the
-identity types to be in \coqprop is not compatible with \hott.
+types we define to be of sort \coqprop, which internally is fine: it
+does not allow us to derive falsity using this fact. The extraction
+mechanism however, does assume that everything admits proof
+irrelevance. The combination of this along with singleton elimination
+means that we can prove properties about our programs that no longer
+hold in the extracted version. It also goes to show that the design
+decision to define the identity types to be in \coqprop is not
+compatible with \hott.
 
 \subsection{Quicksort example}
 
-In the case of |qs|, we actually want to pattern match on the logical
-part |qsAcc xs|. Coq does not allow this if we define the family
-|qsAcc| to be in \coqprop. However, we can do the pattern matching
-``manually''. We know that we have exactly one inhabitant of |qsAcc
-xs| for each |xs|, as they represent the call graph of |qs| for the
-input |xs|, and the pattern matches of the original definition do not
-overlap, hence each |xs| has a unique call graph. We can therefore
-easily define and prove the following inversion theorems, that roughly
-look as follows:
+\todoi{Should the following be explained in so much detail? It is
+  important that we can apply the Bove-Capretta method in such a way
+  that the extracted version has non of the predicates around, but its
+  details are rather technical. I also wonder if the idea comes across
+  well enough if I explain it in prose like this.}
+
+In the case of |qs| defined using the Bove-Capretta method, we
+actually want to pattern match on the logical part: |qsAcc xs|. Coq
+does not allow this if we define the family |qsAcc| to be in
+\coqprop. However, we can do the pattern matching ``manually''. We
+know that we have exactly one inhabitant of |qsAcc xs| for each |xs|,
+as they represent the call graph of |qs| for the input |xs|, and the
+pattern matches of the original definition do not overlap, hence each
+|xs| has a unique call graph. We can therefore easily define and prove
+the following inversion theorems, that roughly look as follows:
 
 \begin{code}
   qsAccInv0 : (x : Nat) (xs : List Nat) (qsAcc (x :: xs)) -> qsAcc (filter (le x) xs)
@@ -235,13 +248,14 @@ look as follows:
   qsAccInv1 : (x : Nat) (xs : List Nat) (qsAcc (x :: xs)) -> qsAcc (filter (gt x) xs)
 \end{code}
 
-We define the |qs| just as we originally intended to, add the |qsAcc
-xs| argument to every pattern match. We then call the inversion
-theorems for the appropriate recursive calls. Coq still notices that
-there is a decreasing argument, namely |qsAcc xs|. If we follow this
-approach, we can define |qsAcc| to be a family in \coqprop and recover
-the original |qs| definition without the |qsAcc xs| argument using
-extraction.
+We define the function |qs| just as we originally intended to and add
+the |qsAcc xs| argument to every pattern match. We then call the
+inversion theorems for the appropriate recursive calls. Coq still
+notices that there is a decreasing argument, namely |qsAcc xs|. If we
+follow this approach, we can define |qsAcc| to be a family in \coqprop
+and recover the original |qs| definition without the |qsAcc xs|
+argument using extraction.
+
 
 In the case of partial functions, we still have to add the missing
 pattern matches and define impossibility theorems: if we reach that
@@ -253,17 +267,19 @@ that particular pattern match, we can prove falsity, hence we can use
 
 So far we have seen how \coqprop differs from \coqset with respect to
 its restricted elimination rules and its erasure during extraction,
-but it \coqprop has another property that sets it apart from \coqset:
+but \coqprop has another property that sets it apart from \coqset:
 \emph{impredicativity}. Impredicativity means that we are able to
 quantify over something which contains the thing currently being
 defined. In set theory unrestricted use of this principle leads us to
-Russell's paradox: $\{x || x \in x \}$ is an impredicative definition,
-we quantify over $x$, while we are also defining $x$. In type theory,
-an analogous paradox, Girard's paradox, arises if we allow for
-impredicativity via the |Universe : Universe| rule. However,
-impredicative definitions are sometimes very useful and benign, in
-particularly when dealing with propositions: we want to be able to
-write propositions that quantify over propositions, for example:
+being able to construct Russell's paradox: the set $R = \{x || x \in x
+\}$ is an impredicative definition, we quantify over $x$, while we are
+also defining $x$. Using this definition we can prove that $R \in R$
+if and only if $R \not\in R$. In type theory, an analogous paradox,
+Girard's paradox, arises if we allow for impredicativity via the
+|Universe : Universe| rule. However, impredicative definitions are
+sometimes very useful and benign, in particularly when dealing with
+propositions: we want to be able to write propositions that quantify
+over propositions, for example:
 
 \begin{verbatim}
   Definition demorgan : Prop := forall P Q : Prop, 
@@ -271,9 +287,7 @@ write propositions that quantify over propositions, for example:
 \end{verbatim}
 
 Coq allows for such definitions as the restrictions on \coqprop
-prevent us from proving Girard's paradox.
-
-\newpage
+prevent us from constructing paradoxes such as Girard's.
 
 \section{Irrelevance in Agda}
 \label{sec:irragda}
@@ -282,7 +296,8 @@ In Coq, we put the annotations of something being a proposition in the
 definition of our inductive type, by defining it to be of sort
 \coqprop. With Agda's irrelevance mechanism, we instead put the
 annotations at the places we \emph{use} the proposition, by placing a
-dot in front of it. For example, the type of the |elem| would become:
+dot in front of the corresponding type. For example, the type of the
+|elem| becomes:
 
 \begin{code}
   elem : (A : Universe) (xs : List A) (i : ℕ) → .(i < length xs) → A
@@ -290,39 +305,39 @@ dot in front of it. For example, the type of the |elem| would become:
 
 We can also mark fields of a record to be irrelevant. In the case of
 |sort|, we want something similar to the \verb+sig+ type from Coq,
-where the logical part of the \sigmatype is deemed irrelevant. In Agda
+where second field of the \sigmatype is deemed irrelevant. In Agda
 this can be done as follows:
 
 \begin{code}
   record Sigmairr (A : Universe) (B : A → Universe) : Universe  where
     constructor _,_ 
     field
-      fst : A
-      .snd : B fst
+      fst   : A
+      .snd  : B fst
 \end{code}
 
 To ensure that irrelevant arguments are indeed irrelevant to the
 computation at hand, Agda has several criteria that it checks. First
-of all, just as with \coqprop, no pattern matching may be performed on
-irrelevant arguments. (However, the absurd pattern may be used, if
-applicable.) Contrary to Coq, singleton elimination is not allowed.
-Secondly, we need to ascertain that the annotations are preserved:
-irrelevant arguments may only be passed on to irrelevant
-contexts. This is to prevent us from writing a function of type |.A ->
+of all, no pattern matching may be performed on irrelevant arguments,
+just as is the case with \coqprop. (However, the absurd pattern may
+be used, if applicable.)  Contrary to Coq, singleton elimination is
+not allowed.  Secondly, we need to ascertain that the annotations are
+preserved: irrelevant arguments may only be passed on to irrelevant
+contexts. This prevents us from writing a function of type |.A ->
 A|.
 
-Another, more important difference with \coqprop, is that irrelevant
+Another, more important, difference with \coqprop is that irrelevant
 arguments are ignored by the type checker when checking equality of
-terms. These arguments can be regarded as equal, even though they may
-be in fact different definitionally, as we never need to appeal to the
+terms. This can be done safely, even though the terms at hand may in
+fact be definitionally different, as we never need to appeal to the
 structure of the value: we cannot pattern match on it. The only thing
 that we can do with irrelevant arguments is either ignore them or pass
-them around to another irrelevant context. 
+them around to other irrelevant contexts.
 
-An important consequence of the type checker ignoring irrelevant
-arguments, is that we can prove properties about irrelevant arguments
-in Agda, internally. For example: any function out of an irrelevant
-type is constant:
+The reason why the type checker ignoring irrelevant arguments is
+important, is that it allows us to` prove properties about irrelevant
+arguments in Agda, internally. For example: any function out of an
+irrelevant type is constant:
 
 \begin{code}
   irrelevantConstantFunction  :  {A : Universe} {B : Universe} 
@@ -341,9 +356,13 @@ dependent functions:
   irrelevantConstantDepFunction f x y = refl
 \end{code}
 
-In this case |f x ≡ f y| type checks, without having to transport one
-value along some path, because the types |B x| and |B y| are regarded
-as definitionally equal by the type checking, ignoring the |x| and
+Note that we do not only annotate |(x : A)| with a dot, but also
+occurrence of |A| in the type |B : A -> Universe|, otherwise we are
+not allowed to write |B x| as we would use an irrelevant argument in a
+relevant context. When checking |irrelevantConstantDepFunction|, the
+term |f x ≡ f y| type checks, without having to transport one value
+along some path, because the types |B x| and |B y| are regarded as
+definitionally equal by the type checking, ignoring the |x| and
 |y|. Just as before, there is no need to use the (dependent)
 congruence rule; a |refl| suffices.
 
@@ -354,11 +373,11 @@ irrelevant arguments, i.e. we want to prove the following:
   irrelevantProofIrrelevance : {A : Universe} .(x y : A) → x ≡ y
 \end{code}
 
-Agda does not accept this, because we use the irrelevant arguments in
-a relevant context: |x ≡ y|. If we instead package the irrelevant
-arguments in an inductive type, we can prove that the two values of
-the packaged type are propositionally equal. Consider the following
-record type with only one irrelevant field:
+Agda does not accept this, because the term |x == y| uses irrelevant
+arguments in a relevant context: |x ≡ y|. If we instead package the
+irrelevant arguments in an inductive type, we can prove that the two
+values of the packaged type are propositionally equal. Consider the
+following record type with only one irrelevant field:
 
 \begin{code}
   record Squash (A : Universe) : Universe where
@@ -375,10 +394,11 @@ for irrelevant arguments and prove it:
   squashProofIrrelevance x y = refl
 \end{code}
 
-The name ``squash type'' comes from Nuprl~\citep{nuprl}: one
-takes a type and identifies (or ``squash'') all its inhabitants. In
-\hott the process of squashing a type is called \ntruncation{(-1)} and
-can also be achieved by defining the following \hit:
+The name ``squash type'' comes from Nuprl~\citep{nuprl}: one takes a
+type and identifies (or ``squashes'') all its inhabitants into one
+unique (up to propositional equality) inhabitant. In \hott the process
+of squashing a type is called \ntruncation{(-1)} and can also be
+achieved by defining the following \hit:
 
 \begin{code}
   data minusonetruncation (A : Universe) : Universe where
@@ -389,32 +409,32 @@ can also be achieved by defining the following \hit:
 
 \subsection{Quicksort example}
 
-If we want to mark the |qsAcc xs| argument as irrelevant, we run into
-the same problems as we did when we tried to define |qsAcc| as a
-family in \coqprop: we can no longer pattern match on it. In Coq, we
-did have a way around this, by using inversion and impossibility
-theorems to do the pattern matching ``manually''. However, if we try
-such an approach in Agda, its termination checker cannot see that
-|qsAcc xs| is indeed a decreasing argument and refuses the definition.
-
-\newpage
+If we want to mark the |qsAcc xs| argument of the |qs| function as
+irrelevant, we run into the same problems as we did when we tried to
+define |qsAcc| as a family in \coqprop: we can no longer pattern match
+on it. In Coq, we did have a way around this, by using inversion and
+impossibility theorems to do the pattern matching
+``manually''. However, if we try such an approach in Agda, its
+termination checker cannot see that |qsAcc xs| is indeed a decreasing
+argument and refuses the definition.
 
 \section{Collapsible families}
 \label{sec:colfam}
 
-The approaches we have seen so far let the user indicate what the
-logical parts of the program are and are amenable for
-erasure. \cite{collapsibility} show that we can also let the compiler
+The approaches we have seen so far let the user indicate what parts of
+the program are the logical parts and are amenable for
+erasure. \cite{collapsibility} show that we can let the compiler
 figure that out by itself instead. The authors propose a series of
 optimisations for the Epigram system, based on the observation that
 one often has a lot of redundancy in well-typed terms. If it is the
-case that one part of our term has to be definitionally equal to
-another part in order to be well-typed, we can leave out (presuppose)
-the latter part if we know the term is well-typed.
+case that one part of a term has to be definitionally equal to another
+part in order to be well-typed, we can leave out (presuppose) the
+latter part if we have already established that the term is
+well-typed.
 
 The authors describe their optimisations in the context of Epigram. In
-Epigram, the user writes the program in a high-level language that
-gets elaborated to a program in a small type theory language. This has
+this system, the user writes programs in a high-level language that
+gets elaborated to programs in a small type theory language. This has
 the advantage that if we can describe a translation for high-level
 features, such as dependent pattern matching, to a simple core type
 theory, the metatheory becomes a lot simpler. The smaller type theory
@@ -423,22 +443,22 @@ have to deal with the more intricate, high-level features.
 
 As such, the only things we need to look at, if our goal is to
 optimise a certain inductive family, are its constructors and its
-elimination principle. Going back to the |elem| example, we had |i <
-length xs| argument. The smaller-than relation can be defined as the
+elimination principle. Going back to the |elem| example, we had the |i
+< length xs| argument. The smaller-than relation can be defined as the
 following inductive family (in Agda syntax):
 
 \begin{code}
-data _<_ : ℕ → ℕ → Universe where
-  leZ : (y : ℕ)            → Z    < S y
-  leS : (x y : ℕ) → x < y  → S x  < S y
+data ltfam : ℕ → ℕ → Universe where
+  ltZ : (y : ℕ)            → Z    < S y
+  ltS : (x y : ℕ) → x < y  → S x  < S y
 \end{code}
 
 with elimination operator
 
 \begin{code}
   ltelim  :  (P : (x y : ℕ) → x < y → Universe)
-             (mZ : (y : ℕ) → P 0 (S y) (leZ y))
-             (mS : (x y : ℕ) → (pf : x < y) → P x y pf → P (S x) (S y) (leS x y pf))
+             (mZ : (y : ℕ) → P 0 (S y) (ltZ y))
+             (mS : (x y : ℕ) → (pf : x < y) → P x y pf → P (S x) (S y) (ltS x y pf))
              (x y : ℕ)
              (pf : x < y)
           →  P x y pf
@@ -447,32 +467,33 @@ with elimination operator
 and computation rules
 
 \begin{code}
-  ltelim P mZ mS 0      (S y)  (leZ y)        ~>  mZ y
-  ltelim P mZ mS (S x)  (S y)  (leS x y pf)   ~>  mS x y pf (ltelim P mZ mS x y pf)
+  ltelim P mZ mS 0      (S y)  (ltZ y)        ~>  mZ y
+  ltelim P mZ mS (S x)  (S y)  (ltS x y pf)   ~>  mS x y pf (ltelim P mZ mS x y pf)
 \end{code}
 
 If we look at the computation rules, we see that we can presuppose
 several things. The first rule has a repeated occurrence of |y|, so we
-can presuppose the latter one, the argument of the constructor. In the
-second rule, the same can be done for |x| and |y|. The |pf| argument
-can also be erased, as it is never inspected: the only way to inspect
-|pf| is via another call the |ltelim|, so by induction it is never
-inspected. Another thing we observe is that the pattern matches on the
-indices are disjoint, so we can presuppose the entire target:
-everything can be recovered from the indices given to the call of
-|ltelim|.
+can presuppose the latter occurrence, the argument of the
+constructor. In the second rule, the same can be done for |x| and
+|y|. The |pf| argument can also be erased, as it is never inspected:
+the only way to inspect |pf| is via another call the |ltelim|, so by
+induction it is never inspected. Another thing we observe is that the
+pattern matches on the indices are disjoint, so we can presuppose the
+entire target: everything can be recovered from the indices given to
+the call of |ltelim|.
 
 We have to be careful when making assumptions about values, given
 their indices. Suppose we have written a function that takes |p : 1 <
 1| as an argument and contains a call to |ltelim| on |p|. If we look
 at the pattern matches on the indices, we may be led to believe that
-|p| is of form |leS 0 0 p'| for some |p' : 0 < 0| and reduce
+|p| is of form |ltS 0 0 p'| for some |p' : 0 < 0| and reduce
 accordingly. The presupposing only works for \emph{canonical} values,
 hence we restrict our optimisations to the run-time (evaluation in the
 empty context), as we know we do not perform reductions under binders
-there and every value is canonical. The property that every term that
-is well-typed in the empty context, reduces to a canonical form is
-called \emph{adequacy} and is a property that is satisfied by \MLTT.
+in that case and every value is canonical after reduction. The
+property that every term that is well-typed in the empty context,
+reduces to a canonical form is called \emph{adequacy} and is a
+property that is satisfied by \MLTT.
 
 The family |ltelim| has the property that for indices |x y : Nat|, its
 inhabitants |p : x < y| are uniquely determined by these indices. To
@@ -482,14 +503,14 @@ Universe| such as |ltelim| are called \emph{collapsible} if they
 satisfy that for every |i0 : I0, dots, in : In|, if |/- p q : D i0
 dots in|, then |/- p === q|.
 
-Of course, checking collapsibility of a family is in general
-undecidable, so instead we limit ourselves to a subset that we can
+Checking collapsibility of an inductive family is undecidable in
+general, so instead we limit ourselves to a subset that we can
 recognise, called \emph{concretely} collapsible families. A family |D
 : I0 -> dots -> In -> Universe| is concretely collapsible if satisfies
 the following two properties:
 
 \begin{itemize}
-\item If we have |/- x : D i0 dots in|, for some |i0 : I0|, dots, |in
+\item If we have |/- x : D i0 dots in|, for some |i0 : I0|, |dots|, |in
   : In|, then we can recover its constructor tag by pattern matching
   on the indices.
 \item All the non-recursive arguments to the constructors of |D| can
@@ -506,16 +527,16 @@ definition, so we can indeed recover the constructor tags from the
 indices. Also, the non-recursive arguments of |qsAcc| are precisely
 those given as indices, hence |qsAcc| is indeed a (concretely)
 collapsible family. By the same reasoning, any Bove-Capretta predicate
-is concretely collapsible, given that the original definition we are
-deriving the predicate from, has disjoint pattern matches.
+is concretely collapsible, given that the original definition we
+derived the predicate from, has disjoint pattern matches.
 
 The most important aspect of the collapsibility optimisation is that
-we have established that we everything we need from the value that is
+we have established that everything we need from the value that is
 to be erased, can be (cheaply) \emph{recovered} from its indices
 passed to the call to its elimination operator. This means that we
 have no restrictions on the elimination of collapsible families: we
 can just write our definition of |qs| by pattern matching on the
-|qsAcc xs| argument. At run-time, the |qsAcc xs| has been erased and
+|qsAcc xs| argument. At run-time, the |qsAcc xs| argument has been erased and
 the relevant parts are recovered from the indices.
 
 \newpage

@@ -37,5 +37,6 @@
 %format I0			= "I_0"
 %format In			= "I_n"
 %format ltelim                  = "<\mbox{-}elim"
+%format ltfam                   = "\textunderscore < \textunderscore"
 %format qsAccInv0               = "qsAccInv_0"
 %format qsAccInv1               = "qsAccInv_1"
