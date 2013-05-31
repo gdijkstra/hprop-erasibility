@@ -404,15 +404,13 @@ such an approach in Agda, its termination checker cannot see that
 
 The approaches we have seen so far let the user indicate what the
 logical parts of the program are and are amenable for
-erasure. \cite{collapsibility} propose that we let the compiler figure
-that out by itself instead. They introduce the concept of
-\emph{collapsible families} and a subset of those that can be
-automatically be detected by a compiler, called \emph{concrete
-  collapsible families}. The optimisations are based on the
-observation that one often has a lot of redundancy in well-typed
-terms. If it is the case that one part of our term has to be
-definitionally equal to another part in order to be well-typed, we can
-leave out the latter part if we know the term is well-typed. 
+erasure. \cite{collapsibility} show that we can also let the compiler
+figure that out by itself instead. The authors propose a series of
+optimisations for the Epigram system, based on the observation that
+one often has a lot of redundancy in well-typed terms. If it is the
+case that one part of our term has to be definitionally equal to
+another part in order to be well-typed, we can leave out (presuppose)
+the latter part if we know the term is well-typed.
 
 The authors describe their optimisations in the context of Epigram. In
 Epigram, the user writes the program in a high-level language that
@@ -427,7 +425,7 @@ As such, the only things we need to look at, if our goal is to
 optimise a certain inductive family, are its constructors and its
 elimination principle. Going back to the |elem| example, we had |i <
 length xs| argument. The smaller-than relation can be defined as the
-following inductive family:
+following inductive family (in Agda syntax):
 
 \begin{code}
 data _<_ : ℕ → ℕ → Universe where
@@ -450,24 +448,75 @@ and computation rules
 
 \begin{code}
   ltelim P mZ mS 0      (S y)  (leZ y)        ~>  mZ y
-  ltelim P mZ mS (S x)  (S y)  (leS x y pf)   ~>  mS x y x<y (ltelim P mZ mS x y pf)
+  ltelim P mZ mS (S x)  (S y)  (leS x y pf)   ~>  mS x y pf (ltelim P mZ mS x y pf)
 \end{code}
 
-\todoi{Explain how we can optimise stuff here and how we detect it as
-  being a collapsible family.}
+If we look at the computation rules, we see that we can presuppose
+several things. The first rule has a repeated occurrence of |y|, so we
+can presuppose the latter one, the argument of the constructor. In the
+second rule, the same can be done for |x| and |y|. The |pf| argument
+can also be erased, as it is never inspected: the only way to inspect
+|pf| is via another call the |ltelim|, so by induction it is never
+inspected. Another thing we observe is that the pattern matches on the
+indices are disjoint, so we can presuppose the entire target:
+everything can be recovered from the indices given to the call of
+|ltelim|.
 
-\todoi{Explain that this means the |elem| example works nicely}
+We have to be careful when making assumptions about values, given
+their indices. Suppose we have written a function that takes |p : 1 <
+1| as an argument and contains a call to |ltelim| on |p|. If we look
+at the pattern matches on the indices, we may be led to believe that
+|p| is of form |leS 0 0 p'| for some |p' : 0 < 0| and reduce
+accordingly. The presupposing only works for \emph{canonical} values,
+hence we restrict our optimisations to the run-time (evaluation in the
+empty context), as we know we do not perform reductions under binders
+there and every value is canonical. The property that every term that
+is well-typed in the empty context, reduces to a canonical form is
+called \emph{adequacy} and is a property that is satisfied by \MLTT.
+
+The family |ltelim| has the property that for indices |x y : Nat|, its
+inhabitants |p : x < y| are uniquely determined by these indices. To
+be more precise, the following is satisfied: for all |x y : Nat|, |/-
+p q : x < y| implies |/- p === q|. Families |D : I0 -> dots -> In ->
+Universe| such as |ltelim| are called \emph{collapsible} if they
+satisfy that for every |i0 : I0, dots, in : In|, if |/- p q : D i0
+dots in|, then |/- p === q|.
+
+Of course, checking collapsibility of a family is in general
+undecidable, so instead we limit ourselves to a subset that we can
+recognise, called \emph{concretely} collapsible families. A family |D
+: I0 -> dots -> In -> Universe| is concretely collapsible if satisfies
+the following two properties:
 
 \begin{itemize}
-\item Collapsible family definition
-\item Note that for correctness we need the adequacy property
-\item What has it to do with propositions: looks like an indexed
-  version of \hprops with propositional equality replaced by
-  definitional equality. Since with optimisations we want to preserve
-  definitional equality.
-\item |sort| example: \sigmatypes : not possible?
-\item Bove-Capretta example: works wonderfully.
+\item If we have |/- x : D i0 dots in|, for some |i0 : I0|, dots, |in
+  : In|, then we can recover its constructor tag by pattern matching
+  on the indices.
+\item All the non-recursive arguments to the constructors of |D| can
+  be recovered by pattern matching on the indices.
 \end{itemize}
+
+\section{Quicksort example}
+
+The accessibility predicates |qsAcc| form a collapsible family. The
+pattern matches on the indices in the computation rules for |qsAcc|
+are the same pattern matches as those of the original |qs|
+definition. There are no overlapping patterns in the original
+definition, so we can indeed recover the constructor tags from the
+indices. Also, the non-recursive arguments of |qsAcc| are precisely
+those given as indices, hence |qsAcc| is indeed a (concretely)
+collapsible family. By the same reasoning, any Bove-Capretta predicate
+is concretely collapsible, given that the original definition we are
+deriving the predicate from, has disjoint pattern matches.
+
+The most important aspect of the collapsibility optimisation is that
+we have established that we everything we need from the value that is
+to be erased, can be (cheaply) \emph{recovered} from its indices
+passed to the call to its elimination operator. This means that we
+have no restrictions on the elimination of collapsible families: we
+can just write our definition of |qs| by pattern matching on the
+|qsAcc xs| argument. At run-time, the |qsAcc xs| has been erased and
+the relevant parts are recovered from the indices.
 
 \newpage
 

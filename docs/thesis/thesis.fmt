@@ -1,6 +1,11 @@
 %include polycode.fmt
 
+%format	==                      = "\equiv"
+%format	===                     = "\overset{\Delta}{=}"
+
+
 %format .			= "\mbox{ }."
+%format dots                    = "\cdots"
 %format record			= "\mathbf{record}"
 %format constructor		= "\mathbf{constructor}"
 %format with			= "\mathbf{with}"
@@ -13,8 +18,6 @@
 %format Sigmairr		= "\Sigma_{\mbox{irr}}"
 %format Sigma			= "\Sigma"
 %format Pi			= "\Pi"
-%format	==                      = "\equiv"
-%format	===                     = "\overset{\Delta}{=}"
 %format ntruncated		= "is\mbox{-}truncated"
 %format minusonetruncation	= "(-1)\mbox{-}truncation"
 %format isprop			= "is\mbox{-}hProp"
@@ -28,7 +31,11 @@
 %format h1	                = "h_{1}"
 %format h2	                = "h_{2}"
 %format mZ	                = "m_{Z}"
-%format mS	                = "m_{S}"
+%format mS			= "m_{S}"
+%format i0			= "i_0"
+%format in			= "i_n"
+%format I0			= "I_0"
+%format In			= "I_n"
 %format ltelim                  = "<\mbox{-}elim"
 %format qsAccInv0               = "qsAccInv_0"
 %format qsAccInv1               = "qsAccInv_1"
