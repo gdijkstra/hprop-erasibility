@@ -517,7 +517,7 @@ the following two properties:
   be recovered by pattern matching on the indices.
 \end{itemize}
 
-\section{Quicksort example}
+\subsection{Quicksort example}
 
 The accessibility predicates |qsAcc| form a collapsible family. The
 pattern matches on the indices in the computation rules for |qsAcc|
