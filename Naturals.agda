@@ -49,3 +49,10 @@ data isEven : ℕ → Set where
   isEvenZ  : isEven 0
   isEvenSS : (n : ℕ) → isEven n → isEven (S (S n))
 
+infixl 6 _+_
+
+_+_ : ℕ → ℕ → ℕ
+Z  + n = n
+S m + n = S (m + n)
+
+{-# BUILTIN NATPLUS _+_ #-}
