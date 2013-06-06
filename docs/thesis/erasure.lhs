@@ -560,3 +560,71 @@ the relevant parts are recovered from the indices.
 \todoi{How does it relate to Agda's irrelevance?}
 
 \todoi{Note the pros and cons of previously mentioned approaches}
+
+\subsection{Internalising collapsibility}
+
+Checking whether an inductive family is concretely collapsible is
+something that can be easily done automatically, as opposed to
+determining collapsibility in general, which is undecidable. In this
+section we investigate if we can formulate an internal version of
+collapsibility, enabling the user to give a proof that a certain
+family is collapsible, if the compiler fails to notice so itself.
+
+Recall the definition of a collapsible family: given an inductive
+family |D| indexed by the types |I0|, |dots|, |In|, |D| is collapsible
+if for every sequence of indices |i0|, |dots|, |in| the following holds:
+
+\begin{code}
+  /- x, y : D i0 dots in implies /- x === y
+\end{code}
+
+This definition makes use of definitional equality. Since we are
+working with an intensional type theory, we do not have the
+\emph{equality reflection rule} at our disposal: there is no rule that
+tells us that propositional equality implies definitional
+equality. Let us instead consider the following variation:
+
+\begin{code}
+  /- x, y : D i0 dots in implies /- x == y
+\end{code}
+
+Since \MLTT satisfies the canonicity property, any term |p| such that
+|/- p : x == y| reduces to |refl|. The only way for the term to type
+check, is if |x === y|, hence in the empty context the equality
+reflection rule does hold. The converse is also true: definitional
+equality implies of |x| and |y| that |/- refl : x == y| type checks,
+hence the latter definition is equal to the original definition of
+collapsibility.
+
+The variation given above is still not a statement that we can
+directly prove internally. If we internalise the implication, we get
+the following definition: there exists a term |p| such that:
+
+\begin{code}
+  /- p : (i0 : I0) -> dots -> (in : In) -> (x y : D i0 dots in) -> x == y
+\end{code}
+
+This definition states that for every type in the family must be an
+\hprop, hence we will refer to this as \emph{indexed \hprops}. Indexed
+\hprops do differ from collapsible families as can be seen by
+considering |D| to be the family |Id|. By canonicity we have that for
+any |A : Universe|, |x, y : A|, a term |p| satisfying |/- p : Id A x
+y| is necessarily reduces to |refl|. This means that |Id| is a
+collapsible family. In contrast, |Id| does not satisfy the
+internalised condition given above, since this then boils down to the
+\UIP principle, which does not hold, as we have discussed.
+
+\todoi{We have established that there are families that are
+  collapsible not are not indexed \hprops. Are there indexed \hprops
+  that are not collapsible? Are there indexed \hprops that are not
+  concretely collapsible?}
+
+\todoi{Can we recover the same optimisation as we did beforehand?}
+
+\subsection{Indexed \hprops and \hott}
+We have defined indexed \hprops under the assumption that we are
+working in the empty context, as we are talking about run-time
+optimisations. In \hott, we no longer have an empty context at
+run-time: the context may contain non-canonical identity proofs,
+coming from the univalence axiom or higher inductive types. As such,
+we no longer have the canonicity property.

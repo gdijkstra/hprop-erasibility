@@ -1,4 +1,4 @@
-\newcommand{\UIP}{uniqueness of identity proofs}
+\newcommand{\UIP}{uniqueness of identity proofs\xspace}
 \newcommand{\MLTT}{Martin-L\"of's type theory\xspace}
 \newcommand{\pitype}{$\Pi$-type\xspace}
 \newcommand{\pitypes}{$\Pi$-types\xspace}
