@@ -601,11 +601,14 @@ directly prove internally. If we internalise the implication, we get
 the following definition: there exists a term |p| such that:
 
 \begin{code}
-  /- p : (i0 : I0) -> dots -> (in : In) -> (x y : D i0 dots in) -> x == y
+  Gamma /- p : (i0 : I0) -> dots -> (in : In) -> (x y : D i0 dots in) -> x == y
 \end{code}
 
-This definition states that for every type in the family must be an
-\hprop, hence we will refer to this as \emph{indexed \hprops}. Indexed
+(We will specify what |Gamma| can consist of later on, for now we will
+assume it is empty.) This definition states that for every type in
+the family must be an \hprop, hence we will refer to this as
+\emph{indexed \hprops}. If we assume |Gamma| to be empty, we can see
+that having such a term |p| implies that |D| is collapsible. Indexed
 \hprops do differ from collapsible families as can be seen by
 considering |D| to be the family |Id|. By canonicity we have that for
 any |A : Universe|, |x, y : A|, a term |p| satisfying |/- p : Id A x
@@ -614,10 +617,8 @@ collapsible family. In contrast, |Id| does not satisfy the
 internalised condition given above, since this then boils down to the
 \UIP principle, which does not hold, as we have discussed.
 
-\todoi{We have established that there are families that are
-  collapsible not are not indexed \hprops. Are there indexed \hprops
-  that are not collapsible? Are there indexed \hprops that are not
-  concretely collapsible?}
+\todoi{Is there a family that is an indexed \hprop but not concretely
+  collapsible? e.g. can we prove that Compare is an indexed \hprop?}
 
 \todoi{Can we recover the same optimisation as we did beforehand?}
 

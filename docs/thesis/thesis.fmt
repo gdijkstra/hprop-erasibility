@@ -19,6 +19,7 @@
 %format Sigmairr		= "\Sigma_{\mbox{irr}}"
 %format Sigma			= "\Sigma"
 %format Pi			= "\Pi"
+%format Gamma			= "\Gamma"
 %format ntruncated		= "is\mbox{-}truncated"
 %format minusonetruncation	= "(-1)\mbox{-}truncation"
 %format isprop			= "is\mbox{-}hProp"
