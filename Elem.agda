@@ -22,3 +22,12 @@ elem-irr []        i     ()
 elem-irr (x :: xs) Z     pf = x
 elem-irr (x :: xs) (S i) pf = elem-irr xs i (<-inv pf)
 
+open import CountingMonad
+
+dummyAction : ℕ in-time 1
+dummyAction = return 0
+
+elemCount : {A : Set} (xs : List A) (i : ℕ) → i < length xs → A in-time (length xs)
+elemCount [] i ()
+elemCount (x :: xs) Z pf = return x
+elemCount (x :: xs) (S i) pf = dummyAction >>= (λ _ → elemCount xs i (<-inv pf))

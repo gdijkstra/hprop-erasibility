@@ -539,24 +539,106 @@ can just write our definition of |qs| by pattern matching on the
 |qsAcc xs| argument. At run-time, the |qsAcc xs| argument has been erased and
 the relevant parts are recovered from the indices.
 
-\newpage
+\section{Internalising collapsibility}
 
-\section{\hprops}
-\label{sec:hprops}
+Checking whether an inductive family is concretely collapsible is
+something that can be easily done automatically, as opposed to
+determining collapsibility in general, which is undecidable. In this
+section we investigate if we can formulate an internal version of
+collapsibility, enabling the user to give a proof that a certain
+family is collapsible, if the compiler fails to notice so itself.
 
-\todoi{As we have seen, \hprops admit all kinds of interesting
-  properties: impredicativity and all that.}
+Recall the definition of a collapsible family: given an inductive
+family |D| indexed by the types |I0|, |dots|, |In|, |D| is collapsible
+if for every sequence of indices |i0|, |dots|, |in| the following holds:
 
-\todoi{Can \emph{almost} be seen as an internalised version of
-  collapible families.}
+\begin{code}
+  /- x, y : D i0 dots in implies /- x === y
+\end{code}
 
-\todoi{Internal to the type theory: the user can show that things as
-  \hprops.}
+This definition makes use of definitional equality. Since we are
+working with an intensional type theory, we do not have the
+\emph{equality reflection rule} at our disposal: there is no rule that
+tells us that propositional equality implies definitional
+equality. Let us instead consider the following variation:
 
-\todoi{Can we do some sort of singleton elimination?}
+\begin{code}
+  /- x, y : D i0 dots in implies /- x == y
+\end{code}
 
-\todoi{Does the \sigmatypes example work?}
+Since \MLTT satisfies the canonicity property, any term |p| such that
+|/- p : x == y| reduces to |refl|. The only way for the term to type
+check, is if |x === y|, hence in the empty context the equality
+reflection rule does hold. The converse is also true: definitional
+equality implies of |x| and |y| that |/- refl : x == y| type checks,
+hence the latter definition is equal to the original definition of
+collapsibility.
 
-\todoi{How does it relate to Agda's irrelevance?}
+The variation given above is still not a statement that we can
+directly prove internally: we need to internalise the implication and
+replace it by the function space. Doing so yields the following
+following definition: there exists a term |p| such that:
 
-\todoi{Note the pros and cons of previously mentioned approaches}
+\begin{code}
+  /- p : (i0 : I0) -> dots -> (in : In) -> (x y : D i0 dots in) -> x == y
+\end{code}
+
+We will refer to this definition as \emph{internal collapsibility}. It
+is easy to see that every internally collapsible family is also
+collapsible, by canonicity and the fact that |refl| implies
+definitional equality. However, internally collapsible families do
+differ from collapsible families as can be seen by considering |D| to
+be the family |Id|. By canonicity we have that for any |A : Universe|,
+|x, y : A|, a term |p| satisfying |/- p : Id A x y| necessarily
+reduces to |refl|. This means that |Id| is a collapsible family. In
+contrast, |Id| does not satisfy the internalised condition given
+above, since this then boils down to the \UIP principle, which does
+not hold, as we have discussed.
+
+\todoi{Is there a family that is internally but not concretely
+  collapsible? e.g. can we prove that Compare is internally
+  collapsible?}
+
+\todoi{Can we recover the same optimisation as we did beforehand?}
+
+\todoi{Can atleast be done for subset of internally collapsible
+  families: the ``contractible'' ones. Making use of the irrelevance
+  stuff of Agda, we can implement the optimisation internally and
+  prove its correctness.}
+
+\todoi{Argue why moving up from ``contractible'' to internally
+  collapsible is hard if not impossible.}
+
+\todoi{Timing issues: may be solved with counting monads?}
+
+\todoi{Singleton elimination?}
+
+\section{Indexed \hprops and \hott}
+
+The definition of internal collapsibility looks a lot like an indexed
+version of \hprops. In \hott, we no longer have an empty context at
+run-time: the context may contain non-canonical identity proofs,
+coming from the univalence axiom or higher inductive types. As such,
+we no longer have the canonicity property.
+
+\todoi{Make it a bit more clear what kind of contexts we are dealing with.}
+
+\todoi{Introduce indexed \hprops.}
+
+\todoi{Show how things can go wrong with prop eq not implying def eq,
+  with interval as HIT}
+
+\todoi{Things can also go wrong if codomain is ``normal'' in the sense
+  of a 0-HIT and \ntype{2}.}
+
+\todoi{If domain is ``normal'' then things \emph{should?} pan out,
+  sort of. However, lacking canonicity in the codomain we're still
+  screwed.}
+
+\todoi{If both domain and codomain are normal: still screwed, lacking
+  canonicity.}
+
+\todoi{How does this tie in with Voevodsky's canonicity conjecture?}
+
+\section{\ntruncation{(-1)} and optimisations}
+
