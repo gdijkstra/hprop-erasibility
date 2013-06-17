@@ -21,12 +21,12 @@
 \newcommand{\propeq}{\equiv}
 \newcommand{\defeq}{\overset{\Delta}{=}}
 \newcommand{\hott}{homotopy type theory\xspace}
-\newcommand{\coqprop}{\verb+Prop+\xspace}
-\newcommand{\coqtype}{\verb+Type+\xspace}
-\newcommand{\coqset}{\verb+Set+\xspace}
-\newcommand{\coqprops}{\verb+Prop+s\xspace}
-\newcommand{\coqtypes}{\verb+Type+s\xspace}
-\newcommand{\coqsets}{\verb+Set+s\xspace}
+\newcommand{\coqprop}{|Prop|\xspace}
+\newcommand{\coqtype}{|Type|\xspace}
+\newcommand{\coqset}{|Set|\xspace}
+\newcommand{\coqprops}{|Prop|s\xspace}
+\newcommand{\coqtypes}{|Type|s\xspace}
+\newcommand{\coqsets}{|Set|s\xspace}
 
 \newcommand{\todoi}[1]{\todo[inline]{#1}}
 \newcommand{\contribution}[1]{\begin{quote}

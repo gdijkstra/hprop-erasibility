@@ -22,11 +22,11 @@ proof of correctness has already been verified: we want to
 
 Types such as |isSorted xs ys| are purely logical: we care more about
 the presence of an inhabitant than what kind of inhabitant we exactly
-have at our disposal. In section~\ref{sec:props} we give more examples
-of such types, called \emph{propositions}, and how they can occur in
-various places in certified programs. In sections~\ref{sec:coqprop}
-and~\ref{sec:irragda} we review the methods Coq and Agda provide us to
-annotate parts of our program as being
+have at our disposal. In section~\ref{sec:props} we will give more
+examples of such types, called \emph{propositions}, and how they can
+occur in various places in certified programs. In
+sections~\ref{sec:coqprop} and~\ref{sec:irragda} we review the methods
+Coq and Agda provide us to annotate parts of our program as being
 propositions. Section~\ref{sec:colfam} reviews the concept of
 \emph{collapsible families} and how we can automatically detect
 whether a type is a proposition, instead of annotating them
@@ -73,7 +73,11 @@ the input. The Bove-Capretta method~\citep{bcmethod} generalises this
 and more: it provides us with a way to transform any (possibly
 partial) function defined by general recursion into a total,
 structurally recursive one. The quintessential example of a definition
-that is not structurally recursive is \emph{quicksort}:
+that is not structurally recursive is \emph{quicksort}\footnote{In
+  most implementations of functional languages, this definition will
+  not have the same space complexity as the usual in-place version. We
+  are more interested in this function as an example of non-structural
+  recursion and are not too concerned with its complexity.} :
 
 \begin{code}
   qs : List Nat -> List Nat
@@ -125,35 +129,38 @@ argument yields the original |qs| definition.
 \label{sec:coqprop}
 
 In Coq we have have the \coqprop universe, apart from the \coqset
-universe. As the name suggests, by defining a type to be of sort
-\coqprop, we ``annotate'' it to be a logical type, a
-proposition. Explicitly marking the logical parts like this, makes the
-development easier to read and understand. More importantly, the
-extraction mechanism~\citep{letouzeyextraction} now knows what parts
-are supposed to be logical, hence what parts are to be erased.
+universe. Both universes are base sorts of the hierarchy of sorts,
+\coqtype, i.e. |Prop : Type(1)|, |Set : Type(1)| and for
+every |i|, |-Type(i) : Type(i+1)|.  As the name suggests, by
+defining a type to be of sort \coqprop, we ``annotate'' it to be a
+logical type, a proposition. Explicitly marking the logical parts like
+this, makes the development easier to read and understand. More
+importantly, the extraction mechanism~\citep{letouzeyextraction} now
+knows what parts are supposed to be logical, hence what parts are to
+be erased.
 
 In the |sort| example, we would define |isSorted| to be a family of
 \coqprops indexed by |List Nat|. For the \sigmatype, Coq provides two
-options: \verb+sig+ and \verb+ex+, defined as follows:
+options: |sig| and |ex|, defined as follows:
 
-\begin{verbatim}
+\begin{code}
   Inductive sig (A : Type) (P : A -> Prop) : Type :=
     exist : forall x : A, P x -> sig P
 
   Inductive ex (A : Type) (P : A -> Prop) : Prop :=
     ex_intro : forall x : A, P x -> ex P
-\end{verbatim}
+\end{code}
 
-As can be seen above, \verb+sig+ differs from \verb+ex+ in that the
-latter is completely logical, whereas \verb+sig+ has one informative
+As can be seen above, |sig| differs from |ex| in that the
+latter is completely logical, whereas |sig| has one informative
 and one logical field and in its entirety is informative. Since we are
 interested in the |list Nat| part of the \sigmatype that is the result
-type of |sort|, but not the |isSorted| part, we choose the \verb+sig+
+type of |sort|, but not the |isSorted| part, we choose the |sig|
 version.
 
-The extracted version of \verb+sig+ consists of a single constructor
-\verb+exist+, with a single field of type \verb+A+. Since this is
-isomorphic the type \verb+A+ itself, Coq optimises this away during
+The extracted version of |sig| consists of a single constructor
+|exist|, with a single field of type |A|. Since this is
+isomorphic the type |A| itself, Coq optimises this away during
 extraction. This means |sort : (xs : List Nat) -> Sigma (ys : List
 Nat) (isSorted xs ys)| gets extracted to a function |sort' : List Nat
 -> List Nat|.
@@ -174,45 +181,45 @@ matching on happens to be an \emph{empty} or \emph{singleton
 \coqtype. An empty definition is an inductive definition without any
 constructors. A singleton definition is an inductive definition with
 precisely one constructor, whose fields are all in \coqprop. Examples
-of such singleton definitions are conjunction on \coqprop (\verb+/\+)
-and the accessibility predicate \verb+Acc+ used to define functions
+of such singleton definitions are conjunction on \coqprop (|/\|)
+and the accessibility predicate |Acc| used to define functions
 using well-founded recursion.
 
 Another important example of singleton elimination is elimination on
-Coq's equality \verb+eq+, which is defined to be in \coqprop. The
-inductive family \verb+eq+ is defined in the same way as we have
-defined identity types, hence it is a singleton definition, amenable
-to singleton elimination. Consider for example the |transport|
-function:
+Coq's equality |eq| (where |a = b| is special notation for
+|eq a b|), which is defined to be in \coqprop. The inductive
+family |eq| is defined in the same way as we have defined
+identity types, hence it is a singleton definition, amenable to
+singleton elimination. Consider for example the |transport| function:
 
-\begin{verbatim}
+\begin{code}
 Definition transport : forall A, forall (P : A -> Type), 
   forall (x y : A),
   forall (path : x = y),
   P x -> P y.
-\end{verbatim}
+\end{code}
 
-Singleton elimination allows us to pattern match on \verb+path+ and
-and eliminate into something of sort \verb+Type+. In the extracted
-version, the \verb+path+ argument gets erased and the \verb+P x+
+Singleton elimination allows us to pattern match on |path| and
+and eliminate into something of sort |Type|. In the extracted
+version, the |path| argument gets erased and the |P x|
 argument is returned. In \hott, we know that the identity types need
 not be singletons and can have other inhabitants than just the
-canonical \verb+refl+, so throwing away the identity proof is not
+canonical |refl|, so throwing away the identity proof is not
 correct. As has been discovered by Michael
 Shulman\footnote{\url{http://homotopytypetheory.org/2012/01/22/univalence-versus-extraction/}},
 singleton elimination leads to some sort of inconsistency, if we
-assume the univalence axiom: we can construct a value \verb+x : bool+
-such that we can prove \verb+x = false+, even though in the extracted
-version \verb+x+ normalises to \verb+true+. Assuming univalence, we
-have two distinct proofs of \verb+bool = bool+, namely \verb+refl+ and
+assume the univalence axiom: we can construct a value |x : bool|
+such that we can prove |x = false|, even though in the extracted
+version |x| normalises to |true|. Assuming univalence, we
+have two distinct proofs of |bool = bool|, namely |refl| and
 the proof we get from applying univalence to the isomorphism
-\verb+not : bool -> bool+. Transporting a value along a path we have
+|not : bool -> bool|. Transporting a value along a path we have
 obtained from using univalence, is the same as applying the
-isomorphism. Defining \verb+x+ to be \verb+true+ transported along the
-path obtained from applying univalence to the isomorphism \verb+not+,
-yields something that is propositionally equal to \verb+false+. If we
-extract the development, we get a definition of \verb+x+ that ignores
-the proof of \verb+bool = bool+ and just returns \verb+true+.
+isomorphism. Defining |x| to be |true| transported along the
+path obtained from applying univalence to the isomorphism |not|,
+yields something that is propositionally equal to |false|. If we
+extract the development, we get a definition of |x| that ignores
+the proof of |bool = bool| and just returns |true|.
 
 In other words, Coq does not enforce or check proof irrelevance of the
 types we define to be of sort \coqprop, which internally is fine: it
@@ -261,7 +268,7 @@ In the case of partial functions, we still have to add the missing
 pattern matches and define impossibility theorems: if we reach that
 pattern match and we have a proof of our Bove-Capretta predicate for
 that particular pattern match, we can prove falsity, hence we can use
-\verb+False_rect+ do deal with the missing pattern match.
+|False_rect| do deal with the missing pattern match.
 
 \subsection{Impredicativity}
 
@@ -281,10 +288,10 @@ sometimes very useful and benign, in particularly when dealing with
 propositions: we want to be able to write propositions that quantify
 over propositions, for example:
 
-\begin{verbatim}
+\begin{code}
   Definition demorgan : Prop := forall P Q : Prop, 
     ~(P /\ Q) -> ~P \/ ~Q.
-\end{verbatim}
+\end{code}
 
 Coq allows for such definitions as the restrictions on \coqprop
 prevent us from constructing paradoxes such as Girard's.
@@ -304,7 +311,7 @@ dot in front of the corresponding type. For example, the type of the
 \end{code}
 
 We can also mark fields of a record to be irrelevant. In the case of
-|sort|, we want something similar to the \verb+sig+ type from Coq,
+|sort|, we want something similar to the |sig| type from Coq,
 where second field of the \sigmatype is deemed irrelevant. In Agda
 this can be done as follows:
 
@@ -374,7 +381,7 @@ irrelevant arguments, i.e. we want to prove the following:
 \end{code}
 
 Agda does not accept this, because the term |x == y| uses irrelevant
-arguments in a relevant context: |x ≡ y|. If we instead package the
+arguments in a relevant context: |x == y|. If we instead package the
 irrelevant arguments in an inductive type, we can prove that the two
 values of the packaged type are propositionally equal. Consider the
 following record type with only one irrelevant field:
@@ -550,7 +557,8 @@ family is collapsible, if the compiler fails to notice so itself.
 
 Recall the definition of a collapsible family: given an inductive
 family |D| indexed by the types |I0|, |dots|, |In|, |D| is collapsible
-if for every sequence of indices |i0|, |dots|, |in| the following holds:
+if for every sequence of indices |i0|, |dots|, |in| and terms |x|,
+|y|, the following holds:
 
 \begin{code}
   /- x, y : D i0 dots in implies /- x === y
@@ -560,10 +568,11 @@ This definition makes use of definitional equality. Since we are
 working with an intensional type theory, we do not have the
 \emph{equality reflection rule} at our disposal: there is no rule that
 tells us that propositional equality implies definitional
-equality. Let us instead consider the following variation:
+equality. Let us instead consider the following variation: for all
+terms |x|, |y| there exists a term |p| such that
 
 \begin{code}
-  /- x, y : D i0 dots in implies /- x == y
+  /- x, y : D i0 dots in implies /- p : x == y
 \end{code}
 
 Since \MLTT satisfies the canonicity property, any term |p| such that
