@@ -179,8 +179,8 @@ and the accessibility predicate \verb+Acc+ used to define functions
 using well-founded recursion.
 
 Another important example of singleton elimination is elimination on
-Coq's equality \verb+=+, which is defined to be in \coqprop. The
-inductive family \verb+=+ is defined in the same way as we have
+Coq's equality \verb+eq+, which is defined to be in \coqprop. The
+inductive family \verb+eq+ is defined in the same way as we have
 defined identity types, hence it is a singleton definition, amenable
 to singleton elimination. Consider for example the |transport|
 function:
@@ -235,12 +235,13 @@ compatible with \hott.
 In the case of |qs| defined using the Bove-Capretta method, we
 actually want to pattern match on the logical part: |qsAcc xs|. Coq
 does not allow this if we define the family |qsAcc| to be in
-\coqprop. However, we can do the pattern matching ``manually''. We
-know that we have exactly one inhabitant of |qsAcc xs| for each |xs|,
-as they represent the call graph of |qs| for the input |xs|, and the
-pattern matches of the original definition do not overlap, hence each
-|xs| has a unique call graph. We can therefore easily define and prove
-the following inversion theorems, that roughly look as follows:
+\coqprop. However, we can do the pattern matching ``manually'', as
+described in~\cite{coqart}. We know that we have exactly one
+inhabitant of |qsAcc xs| for each |xs|, as they represent the call
+graph of |qs| for the input |xs|, and the pattern matches of the
+original definition do not overlap, hence each |xs| has a unique call
+graph. We can therefore easily define and prove the following
+inversion theorems, that roughly look as follows:
 
 \begin{code}
   qsAccInv0 : (x : Nat) (xs : List Nat) (qsAcc (x :: xs)) -> qsAcc (filter (le x) xs)
@@ -255,7 +256,6 @@ notices that there is a decreasing argument, namely |qsAcc xs|. If we
 follow this approach, we can define |qsAcc| to be a family in \coqprop
 and recover the original |qs| definition without the |qsAcc xs|
 argument using extraction.
-
 
 In the case of partial functions, we still have to add the missing
 pattern matches and define impossibility theorems: if we reach that
