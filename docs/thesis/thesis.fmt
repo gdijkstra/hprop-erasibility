@@ -24,6 +24,7 @@
 %format Sigma			= "\Sigma"
 %format Pi			= "\Pi"
 %format Gamma			= "\Gamma"
+%format tau			= "\tau"
 %format ntruncated		= "is\mbox{-}truncated"
 %format minusonetruncation	= "(-1)\mbox{-}truncation"
 %format isprop			= "is\mbox{-}hProp"
@@ -46,3 +47,4 @@
 %format ltfam                   = "\textunderscore < \textunderscore"
 %format qsAccInv0               = "qsAccInv_0"
 %format qsAccInv1               = "qsAccInv_1"
+%format fsnake			= "\widetilde{f}"

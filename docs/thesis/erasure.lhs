@@ -30,8 +30,13 @@ Coq and Agda provide us to annotate parts of our program as being
 propositions. Section~\ref{sec:colfam} reviews the concept of
 \emph{collapsible families} and how we can automatically detect
 whether a type is a proposition, instead of annotating them
-ourselves. In section~\ref{sec:hprops} we relate all these methods to
-the concept of \hprops and propose optimisations based on this.
+ourselves. In section~\ref{sec:intcol} we internalise the concept of
+collapsible families and try to do the same with the optimisation in
+section~\ref{sec:intcolopt}. The internalised version of
+collapsibility looks like an indexed version of the concept of
+\hprops. In section~\ref{sec:indhprops} we investigate if we can use
+this to devise an optimisation akin to the optimisation based on
+collapsibility.
 
 \section{Propositions}
 \label{sec:props}
@@ -131,7 +136,7 @@ argument yields the original |qs| definition.
 In Coq we have have the \coqprop universe, apart from the \coqset
 universe. Both universes are base sorts of the hierarchy of sorts,
 \coqtype, i.e. |Prop : Type(1)|, |Set : Type(1)| and for
-every |i|, |-Type(i) : Type(i+1)|.  As the name suggests, by
+every |i|, |Type(i) : Type(i+1)|.  As the name suggests, by
 defining a type to be of sort \coqprop, we ``annotate'' it to be a
 logical type, a proposition. Explicitly marking the logical parts like
 this, makes the development easier to read and understand. More
@@ -524,6 +529,13 @@ the following two properties:
   be recovered by pattern matching on the indices.
 \end{itemize}
 
+\subsection{Erasing collapsible families}
+\label{sec:erasecolfam}
+
+\todoi{Elaborate on how concrete collapsibility can be used to
+  optimise things: we can erase certain things because we can recover
+  them from the indices.}
+
 \subsection{Quicksort example}
 
 The accessibility predicates |qsAcc| form a collapsible family. The
@@ -547,6 +559,7 @@ can just write our definition of |qs| by pattern matching on the
 the relevant parts are recovered from the indices.
 
 \section{Internalising collapsibility}
+\label{sec:intcol}
 
 Checking whether an inductive family is concretely collapsible is
 something that can be easily done automatically, as opposed to
@@ -608,6 +621,28 @@ not hold, as we have discussed.
   collapsible? e.g. can we prove that Compare is internally
   collapsible?}
 
+\section{Internalising the collapsibility optimisation}
+\label{sec:intcolopt}
+
+In section~\ref{sec:erasecolfam} we saw how concretely collapsible
+families can be erased, since all we want to know about the
+inhabitants can be recovered from its indices. In this section we will
+try to uncover a similar optimisation for internally collapsible
+families.
+
+We cannot simply erase the internally collapsible arguments from the
+function we want to optimise, e.g. given a function |f : (i0 : I0) ->
+dots -> (in : In) -> (x : D i0 dots in) -> tau|, we generally cannot
+produce a function |fsnake : (i0 : IO) -> dots (in : In) -> tau|,
+since we sometimes need the |x : D i0 dots in| in order for the
+function to typecheck. However, we can use Agda's irrelevance
+mechanism to instead generate a function in which the collapsible
+argument is marked as irrelevant. Along with such a function, we
+should also give a proof that the generated function is equal to the
+original one.
+
+\todoi{Motivate why things are constant functions basically.}
+
 \todoi{Can we recover the same optimisation as we did beforehand?}
 
 \todoi{Can atleast be done for subset of internally collapsible
@@ -622,7 +657,9 @@ not hold, as we have discussed.
 
 \todoi{Singleton elimination?}
 
+
 \section{Indexed \hprops and \hott}
+\label{sec:indhprops}
 
 The definition of internal collapsibility looks a lot like an indexed
 version of \hprops. In \hott, we no longer have an empty context at
