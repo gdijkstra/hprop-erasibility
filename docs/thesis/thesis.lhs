@@ -16,7 +16,7 @@
 
 %include commands.lhs
 
-\title{Erasing propositions \\ in homotopy type theory}
+\title{Erasing propositions \\ and homotopy type theory}
 
 \author{Gabe Dijkstra}
 
@@ -32,8 +32,6 @@
 %include hottintro.lhs
 %include erasure.lhs
 %include applications.lhs
-
-\todoi{Remove this: a citation to keep stuff from complaining~\citep{mltt}}
 
 %include bibliography.lhs
 
