@@ -43,7 +43,7 @@ collapsibility.
 
 In the |sort| example, the logical part |isSorted xs ys| occurs in
 the result as part of a \sigmatype. This means we can separate the
-proof of correctness from the sorting itself, i.e. we can write a
+proof of correctness from the sorting itself, \ie we can write a
 function |sort' : List Nat -> List Nat| and a proof of the following:
 
 \begin{code}
@@ -135,7 +135,7 @@ argument yields the original |qs| definition.
 
 In Coq we have have the \coqprop universe, apart from the \coqset
 universe. Both universes are base sorts of the hierarchy of sorts,
-\coqtype, i.e. |Prop : Type(1)|, |Set : Type(1)| and for
+\coqtype, \ie |Prop : Type(1)|, |Set : Type(1)| and for
 every |i|, |Type(i) : Type(i+1)|.  As the name suggests, by
 defining a type to be of sort \coqprop, we ``annotate'' it to be a
 logical type, a proposition. Explicitly marking the logical parts like
@@ -379,7 +379,7 @@ definitionally equal by the type checking, ignoring the |x| and
 congruence rule; a |refl| suffices.
 
 We would also like to show that we have proof irrelevance for
-irrelevant arguments, i.e. we want to prove the following:
+irrelevant arguments, \ie we want to prove the following:
 
 \begin{code}
   irrelevantProofIrrelevance : {A : Universe} .(x y : A) → x ≡ y
@@ -581,8 +581,10 @@ This definition makes use of definitional equality. Since we are
 working with an intensional type theory, we do not have the
 \emph{equality reflection rule} at our disposal: there is no rule that
 tells us that propositional equality implies definitional
-equality. Let us instead consider the following variation: for all
-terms |x|, |y| there exists a term |p| such that
+equality. This might lead us to think that internalising the above
+definition will not work, as we seemingly cannot say anything about
+definitional equality from within \MLTT. Let us consider the following
+variation: for all terms |x|, |y| there exists a term |p| such that
 
 \begin{code}
   /- x, y : D i0 dots in implies /- p : x == y
@@ -618,7 +620,7 @@ above, since this then boils down to the \UIP principle, which does
 not hold, as we have discussed.
 
 \todoi{Is there a family that is internally but not concretely
-  collapsible? e.g. can we prove that Compare is internally
+  collapsible? \eg can we prove that Compare is internally
   collapsible?}
 
 \section{Internalising the collapsibility optimisation}
@@ -631,7 +633,7 @@ try to uncover a similar optimisation for internally collapsible
 families.
 
 We cannot simply erase the internally collapsible arguments from the
-function we want to optimise, e.g. given a function |f : (i0 : I0) ->
+function we want to optimise, \eg given a function |f : (i0 : I0) ->
 dots -> (in : In) -> (x : D i0 dots in) -> tau|, we generally cannot
 produce a function |fsnake : (i0 : IO) -> dots (in : In) -> tau|,
 since we sometimes need the |x : D i0 dots in| in order for the

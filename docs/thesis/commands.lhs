@@ -1,3 +1,5 @@
+\newcommand{\ie}{i.e.\ }
+\newcommand{\eg}{e.g.\ }
 \newcommand{\UIP}{uniqueness of identity proofs\xspace}
 \newcommand{\MLTT}{Martin-L\"of's type theory\xspace}
 \newcommand{\pitype}{$\Pi$-type\xspace}
