@@ -1,4 +1,4 @@
-T\chapter{Erasing propositions}
+\chapter{Erasing propositions}
 
 When writing certified programs in a dependently typed setting, we can
 conceptually distinguish between the \emph{program} parts and the
@@ -516,10 +516,14 @@ satisfy that for every |i0 : I0, dots, in : In|, if |/- p q : D i0
 dots in|, then |/- p === q|.
 
 Checking collapsibility of an inductive family is undecidable in
-general, so instead we limit ourselves to a subset that we can
-recognise, called \emph{concretely} collapsible families. A family |D
-: I0 -> dots -> In -> Universe| is concretely collapsible if satisfies
-the following two properties:
+general. This can be seen by reducing it to the type inhabitation
+problem: consider the type |top + A|. This type is collapsible if and
+only if |A| is uninhabited, hence determining with being able to
+decide collapsibility means we can decide type inhabitation as
+well. As such, we limit ourselves to a subset that we can recognise,
+called \emph{concretely} collapsible families. A family |D : I0 ->
+dots -> In -> Universe| is concretely collapsible if satisfies the
+following two properties:
 
 \begin{itemize}
 \item If we have |/- x : D i0 dots in|, for some |i0 : I0|, |dots|, |in
@@ -529,12 +533,34 @@ the following two properties:
   be recovered by pattern matching on the indices.
 \end{itemize}
 
-\subsection{Erasing collapsible families}
+Note that the first property makes sense because we only have to deal
+with canonical terms, due to the adequacy property. Checking whether
+this first property holds can be done by checking whether the indices
+of the constructors, viewed as patterns, are disjoint. The second
+property can be checked by pattern matching on the indices of every
+constructor and checking whether the non-recursive arguments occur as
+pattern variables.
+
+\subsection{Erasing (concretely) collapsible families}
 \label{sec:erasecolfam}
 
-\todoi{Elaborate on how concrete collapsibility can be used to
-  optimise things: we can erase certain things because we can recover
-  them from the indices.}
+If |D| is a collapsible family, then its elimination operator |D-elim|
+is constant in its target, if we fix the indices. This seems to
+indicate that there might be a possibility to erase the target
+altogether. Nevertheless, |D| might have constructors with
+non-recursive arguments giving us information. Concretely collapsible
+families satisfy the property that this kind of information can be
+recovered from the indices, so we can get away with erasing the entire
+target. Being concretely collapsible means that we have a function at
+the meta-level (or implementation level) from the indices to the
+non-recursive, relevant parts of the target. Since this is done by
+pattern matching, recovering these parts takes an amount of time that
+is linear in the size of the indices. The optimisation is therefore
+one that gives our dependently typed programs a better space
+complexity, but not necessarily a better time complexity.
+
+\todoi{Stress that singleton elimination, or any elimination, is allowed
+  because we recover things.}
 
 \subsection{Quicksort example}
 
@@ -635,7 +661,7 @@ families.
 We cannot simply erase the internally collapsible arguments from the
 function we want to optimise, \eg given a function |f : (i0 : I0) ->
 dots -> (in : In) -> (x : D i0 dots in) -> tau|, we generally cannot
-produce a function |fsnake : (i0 : IO) -> dots (in : In) -> tau|,
+produce a function |fsnake : (i0 : I0) -> dots (in : In) -> tau|,
 since we sometimes need the |x : D i0 dots in| in order for the
 function to typecheck. However, we can use Agda's irrelevance
 mechanism to instead generate a function in which the collapsible
@@ -643,21 +669,22 @@ argument is marked as irrelevant. Along with such a function, we
 should also give a proof that the generated function is equal to the
 original one.
 
-\todoi{Motivate why things are constant functions basically.}
+\todoi{Motivate why we will not be able to write it for the general
+  case. Just give an informal argument that ``we do not have enough
+  information'', i.e. proof of proof irrelevance doesn't give us much
+  in terms of inhabitants themselves, only their properties.}
 
-\todoi{Can we recover the same optimisation as we did beforehand?}
+\todoi{Argue how concrete collapsibility solves this problem.}
 
-\todoi{Can atleast be done for subset of internally collapsible
-  families: the ``contractible'' ones. Making use of the irrelevance
-  stuff of Agda, we can implement the optimisation internally and
-  prove its correctness.}
+\todoi{Argue whether this can be internalised: lots of talk about
+  constructors and stuff. No need to deal with the empty case.}
 
-\todoi{Argue why moving up from ``contractible'' to internally
-  collapsible is hard if not impossible.}
+\todoi{We know externally that hprops are either empty or
+  contractible. Internally we cannot say this: implies type
+  inhabitation. So we change our definition to include the proof that
+  it's either inhabited or empty.}
 
 \todoi{Timing issues: may be solved with counting monads?}
-
-\todoi{Singleton elimination?}
 
 
 \section{Indexed \hprops and \hott}
@@ -688,5 +715,13 @@ we no longer have the canonicity property.
 
 \todoi{How does this tie in with Voevodsky's canonicity conjecture?}
 
-\section{\ntruncation{(-1)} and optimisations}
+\todoi{Even though we might know that the non-canonical value is equal
+  to some canonical one, we cannot simply assume it is the canonical
+  one: this will violate the subject reduction property. However, if
+  we take the internal approach, we replace the function with another
+  function that is propositionally equal, so it's alright, in a
+  sense. Argue that we definitional equality isn't that much worth
+  anymore in \hott.}
+
+\section{Conclusion and future work}
 
