@@ -3,7 +3,6 @@
 %include thesis.fmt
 
 \usepackage[authoryear,round]{natbib}
-\usepackage[parfill]{parskip}
 \usepackage[text width=10cm]{todonotes}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath,amsthm,amssymb,stmaryrd}

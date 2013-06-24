@@ -238,12 +238,6 @@ compatible with \hott.
 
 \subsection{Quicksort example}
 
-\todoi{Should the following be explained in so much detail? It is
-  important that we can apply the Bove-Capretta method in such a way
-  that the extracted version has non of the predicates around, but its
-  details are rather technical. I also wonder if the idea comes across
-  well enough if I explain it in prose like this.}
-
 In the case of |qs| defined using the Bove-Capretta method, we
 actually want to pattern match on the logical part: |qsAcc xs|. Coq
 does not allow this if we define the family |qsAcc| to be in
@@ -541,7 +535,7 @@ property can be checked by pattern matching on the indices of every
 constructor and checking whether the non-recursive arguments occur as
 pattern variables.
 
-\subsection{Erasing (concretely) collapsible families}
+\subsection{Erasing concretely collapsible families}
 \label{sec:erasecolfam}
 
 If |D| is a collapsible family, then its elimination operator |D-elim|
@@ -554,13 +548,15 @@ recovered from the indices, so we can get away with erasing the entire
 target. Being concretely collapsible means that we have a function at
 the meta-level (or implementation level) from the indices to the
 non-recursive, relevant parts of the target. Since this is done by
-pattern matching, recovering these parts takes an amount of time that
-is linear in the size of the indices. The optimisation is therefore
-one that gives our dependently typed programs a better space
-complexity, but not necessarily a better time complexity.
-
-\todoi{Stress that singleton elimination, or any elimination, is allowed
-  because we recover things.}
+pattern matching on the fully evaluated indices, recovering these
+parts takes an amount of time that is constant in the size of the
+given indices. Even though this sounds promising, the complexity of
+patterns does influence this constant, \eg the more deeply nested the
+patterns are, the higher the constant. We now also need the indices to
+be fully evaluated when eliminating a particular inductive family,
+whereas that previously might not have been needed. The optimisation
+is therefore one that gives our dependently typed programs a better
+space complexity, but not necessarily a better time complexity.
 
 \subsection{Quicksort example}
 
@@ -576,13 +572,13 @@ is concretely collapsible, given that the original definition we
 derived the predicate from, has disjoint pattern matches.
 
 The most important aspect of the collapsibility optimisation is that
-we have established that everything we need from the value that is
-to be erased, can be (cheaply) \emph{recovered} from its indices
-passed to the call to its elimination operator. This means that we
-have no restrictions on the elimination of collapsible families: we
-can just write our definition of |qs| by pattern matching on the
-|qsAcc xs| argument. At run-time, the |qsAcc xs| argument has been erased and
-the relevant parts are recovered from the indices.
+we have established that everything we need from the value that is to
+be erased, can be (cheaply) \emph{recovered} from its indices passed
+to the call to its elimination operator. This means that we have no
+restrictions on the elimination of collapsible families: we can just
+write our definition of |qs| by pattern matching on the |qsAcc xs|
+argument. At run-time, the |qsAcc xs| argument has been erased and the
+relevant parts are recovered from the indices.
 
 \section{Internalising collapsibility}
 \label{sec:intcol}
@@ -594,13 +590,16 @@ section we investigate if we can formulate an internal version of
 collapsibility, enabling the user to give a proof that a certain
 family is collapsible, if the compiler fails to notice so itself.
 
-Recall the definition of a collapsible family: given an inductive
-family |D| indexed by the types |I0|, |dots|, |In|, |D| is collapsible
-if for every sequence of indices |i0|, |dots|, |in| and terms |x|,
-|y|, the following holds:
+Recall the definition of a collapsible family\footnote{The definition
+  we originally gave allowed for an arbitrary number of indices. In
+  the following sections we will limit ourselves to the case where we
+  have only one index for presentation purposes. All the results given
+  can be easily generalised to allow more indices.} : given an
+inductive family |D| indexed by the type |I|, |D| is collapsible if
+for every index |i : I| and terms |x|, |y|, the following holds:
 
 \begin{code}
-  /- x, y : D i0 dots in implies /- x === y
+  /- x, y : D i implies /- x === y
 \end{code}
 
 This definition makes use of definitional equality. Since we are
@@ -613,7 +612,7 @@ definitional equality from within \MLTT. Let us consider the following
 variation: for all terms |x|, |y| there exists a term |p| such that
 
 \begin{code}
-  /- x, y : D i0 dots in implies /- p : x == y
+  /- x, y : D i implies /- p : x == y
 \end{code}
 
 Since \MLTT satisfies the canonicity property, any term |p| such that
@@ -630,8 +629,16 @@ replace it by the function space. Doing so yields the following
 following definition: there exists a term |p| such that:
 
 \begin{code}
-  /- p : (i0 : I0) -> dots -> (in : In) -> (x y : D i0 dots in) -> x == y
+  /- p : (i : I) -> (x y : D i) -> x == y
 \end{code}
+
+Or, written as a function in Agda:
+
+\begin{code}
+  isInternallyCollapsible : (I : Universe) (A : I -> Universe) -> Universe
+  isInternallyCollapsible I A = (i : I) -> (x y : A i) -> x == y
+\end{code}
+
 
 We will refer to this definition as \emph{internal collapsibility}. It
 is easy to see that every internally collapsible family is also
@@ -645,10 +652,6 @@ contrast, |Id| does not satisfy the internalised condition given
 above, since this then boils down to the \UIP principle, which does
 not hold, as we have discussed.
 
-\todoi{Is there a family that is internally but not concretely
-  collapsible? \eg can we prove that Compare is internally
-  collapsible?}
-
 \section{Internalising the collapsibility optimisation}
 \label{sec:intcolopt}
 
@@ -659,33 +662,114 @@ try to uncover a similar optimisation for internally collapsible
 families.
 
 We cannot simply erase the internally collapsible arguments from the
-function we want to optimise, \eg given a function |f : (i0 : I0) ->
-dots -> (in : In) -> (x : D i0 dots in) -> tau|, we generally cannot
-produce a function |fsnake : (i0 : I0) -> dots (in : In) -> tau|,
-since we sometimes need the |x : D i0 dots in| in order for the
-function to typecheck. However, we can use Agda's irrelevance
-mechanism to instead generate a function in which the collapsible
-argument is marked as irrelevant. Along with such a function, we
-should also give a proof that the generated function is equal to the
-original one.
+function we want to optimise, \eg given a function |f : (i : I) -> (x
+: D i) -> tau|, we generally cannot produce a function
+|fsnake : (i : I) -> tau|, since we sometimes need
+the |x : D i| in order for the function to
+typecheck. However, we can use Agda's irrelevance mechanism to instead
+generate a function in which the collapsible argument is marked as
+irrelevant, \ie we want to write the following function (for the
+non-dependent case):
 
-\todoi{Motivate why we will not be able to write it for the general
-  case. Just give an informal argument that ``we do not have enough
-  information'', i.e. proof of proof irrelevance doesn't give us much
-  in terms of inhabitants themselves, only their properties.}
+\begin{code}
+  optimiseFunction : 
+    (I : Universe) (A : I → Universe) (B : Universe)
+    (isInternallyCollapsible I A)
+    (f : (i : I) → A i →  B) 
+    -> ((i : I) → .(A i) → B)
+\end{code}
 
-\todoi{Argue how concrete collapsibility solves this problem.}
+Along with such a function, we should also give a proof that the
+generated function is equal to the original one in the following
+sense:
 
-\todoi{Argue whether this can be internalised: lots of talk about
-  constructors and stuff. No need to deal with the empty case.}
+\begin{code}
+  optimiseFunctionCorrect :
+    (I : Universe) (D : I → Universe) (B : Universe)
+    (pf : isInternallyCollapsible I D)
+    (f : (i : I) → D i →  B)
+    (i : I) (x : D i)
+    -> optimiseFunction I D B pf f i x == f i x
+\end{code}
 
-\todoi{We know externally that hprops are either empty or
-  contractible. Internally we cannot say this: implies type
-  inhabitation. So we change our definition to include the proof that
-  it's either inhabited or empty.}
+If we set out to write the function |optimiseFunction|, after having
+introduced all the variables, our goal is to produce something of type
+|B|. This can be done by using the function |f|, but then we need a |i
+: I| and something of type |D i|. We have both, however the |D i| we
+have is marked as irrelevant, so it may only be passed along to
+irrelevant contexts, which the function |f| does not provide, so we
+cannot use that one. We need to find another way to produce an |D
+i|. We might try to extract it from the proof of
+|isInternallyCollapsible I D|, but this proof only tells us how the
+inhabitants of every |D i| are related to eachother with propositional
+equality. From this proof we cannot tell whether some |D i| is
+inhabited or empty.
 
-\todoi{Timing issues: may be solved with counting monads?}
+\todoi{something about situation with concretely collapsible families}
 
+If we extend the definition of internal collapsibility with something
+that decides whether |A i| is empty or not, we get the following
+definition:
+
+\begin{code}
+  isInternallyCollapsibleDecidable : (I : Universe) (A : I -> Universe) -> Universe
+  isInternallyCollapsibleDecidable I A = (i : I) 
+    -> (((x y : A i) -> x == y) otimes (A i oplus A i -> bottom))
+\end{code}
+
+\subsection{Time complexity issues}
+
+Using this definition we do get enough information to write
+|optimiseFunction|. However, the success of the optimistically named
+function |optimiseFunction| relies on time complexity the proof given
+of |isInternallyCollapsibleDecidable D I| that is used to recover the
+erased |A i| value from the index |i|. In the case of concrete
+collapsibility this was not that much of an issue, since the way we
+retrieve the erased values from the indices was constant in the size
+of the given indices.
+
+Apart from requiring a decision procedure that gives us, for every
+index |i : I|, an inhabitant of |A i| or a proof that |A i| is empty,
+we need a bound on the time complexity of this procedure. One
+approach, taken in \cite{timecomplexity} to prove time complexities of
+functions, is to write the functions with a monad that keeps track of
+how many ``ticks'' are needed to evaluate the function for the given
+input, called the |Thunk| monad. |Thunk : Nat -> Universe -> Universe|
+is implemented as an abstract type that comes with the following
+primitives:
+
+\begin{itemize}
+\item |step : (a : Universe) -> (n : Nat) -> Thunk n a -> Thunk (n+1) a|
+\item |return : (a : Universe) -> (n : Nat) -> a -> Thunk n a|
+\item |>>= : (a b : Universe) -> (n m : Nat) -> Thunk m a -> (a -> Thunk n b) -> Thunk (m + n) b|
+\item |force : (a : Universe) -> (n : Nat) -> Thunk n a|
+\end{itemize}
+
+The user has to write its programs using these primitives. A similar
+approach has also been used by van
+Laarhoven\footnote{http://twanvl.nl/blog/agda/sorting} to count the
+number of comparisons needed for various comparison-based sorting
+algorithms.
+
+Using this to enforce a time bound on the decision procedure is not
+too trivial. We first need to establish what kind of time limit we
+want: do we want a constant time complexity, as we have with the
+concrete collapsibility optimisation? If we want it to be
+non-constant, on what variable do we want it to depend?
+
+Apart from these questions, approaches such as the |Thunk| monad, are
+prone to cheating: we can just write our decision procedure the normal
+way and then write |return 1 decisionProcedure| to make sure it has
+the right type. To prevent cheating, we can extend the list of
+primitives in such a way, that the users can write the program
+completely in this language. Such a language, if it is complete
+enough, will most likely make writing programs unnecessarily complex
+for the user.
+
+Even though we can internalise certain conditions under which certain
+transformations are safe (preserve definitional equality), along with
+the transformations, guaranteeing that this transformation actually
+improves complexity proves to be a lot more difficult.
 
 \section{Indexed \hprops and \hott}
 \label{sec:indhprops}
@@ -694,34 +778,9 @@ The definition of internal collapsibility looks a lot like an indexed
 version of \hprops. In \hott, we no longer have an empty context at
 run-time: the context may contain non-canonical identity proofs,
 coming from the univalence axiom or higher inductive types. As such,
-we no longer have the canonicity property.
-
-\todoi{Make it a bit more clear what kind of contexts we are dealing with.}
-
-\todoi{Introduce indexed \hprops.}
-
-\todoi{Show how things can go wrong with prop eq not implying def eq,
-  with interval as HIT}
-
-\todoi{Things can also go wrong if codomain is ``normal'' in the sense
-  of a 0-HIT and \ntype{2}.}
-
-\todoi{If domain is ``normal'' then things \emph{should?} pan out,
-  sort of. However, lacking canonicity in the codomain we're still
-  screwed.}
-
-\todoi{If both domain and codomain are normal: still screwed, lacking
-  canonicity.}
-
-\todoi{How does this tie in with Voevodsky's canonicity conjecture?}
-
-\todoi{Even though we might know that the non-canonical value is equal
-  to some canonical one, we cannot simply assume it is the canonical
-  one: this will violate the subject reduction property. However, if
-  we take the internal approach, we replace the function with another
-  function that is propositionally equal, so it's alright, in a
-  sense. Argue that we definitional equality isn't that much worth
-  anymore in \hott.}
+we no longer have the canonicity property. This means that the
+argument we previously used to show that at run-time, propositional
+equality implies definitional equality, no longer holds.
 
 \section{Conclusion and future work}
 
