@@ -652,6 +652,8 @@ contrast, |Id| does not satisfy the internalised condition given
 above, since this then boils down to the \UIP principle, which does
 not hold, as we have discussed.
 
+\newpage
+
 \section{Internalising the collapsibility optimisation}
 \label{sec:intcolopt}
 
@@ -774,13 +776,22 @@ improves complexity proves to be a lot more difficult.
 \section{Indexed \hprops and \hott}
 \label{sec:indhprops}
 
-The definition of internal collapsibility looks a lot like an indexed
-version of \hprops. In \hott, we no longer have an empty context at
-run-time: the context may contain non-canonical identity proofs,
-coming from the univalence axiom or higher inductive types. As such,
-we no longer have the canonicity property. This means that the
-argument we previously used to show that at run-time, propositional
-equality implies definitional equality, no longer holds.
+In section~\ref{sec:hprop} we have seen that \hprops are those types
+that obey proof irrelevance. We can generalise this to the indexed
+case as follows: a family |D : I -> Universe| is an indexed \hprop if
+for every index |i : I|, |D i| is an \hprop. This definition is
+exactly the definition internal collapsibility. For internal
+collapsibility, however, we only considered optimising evaluation in
+the empty context. In \hott, we are also interested in evaluation in
+non-empty context, since we have to deal with all these postulated
+equalities arising from univalence and higher inductive types. This
+means we can no longer exploit canonicity to say something about the
+relationship between propositional and definitional equality. We can
+also no longer use it to make assumptions about our terms
+
+To see how propositional and definitional equality can diverge, we
+will first consider the non-indexed case.
+
 
 \section{Conclusion and future work}
 
