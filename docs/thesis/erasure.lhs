@@ -652,8 +652,6 @@ contrast, |Id| does not satisfy the internalised condition given
 above, since this then boils down to the \UIP principle, which does
 not hold, as we have discussed.
 
-\newpage
-
 \section{Internalising the collapsibility optimisation}
 \label{sec:intcolopt}
 
@@ -760,9 +758,9 @@ concrete collapsibility optimisation? If we want it to be
 non-constant, on what variable do we want it to depend?
 
 Apart from these questions, approaches such as the |Thunk| monad, are
-prone to cheating: we can just write our decision procedure the normal
-way and then write |return 1 decisionProcedure| to make sure it has
-the right type. To prevent cheating, we can extend the list of
+prone to ``cheating'': we can just write our decision procedure the
+normal way and then write |return 1 decisionProcedure| to make sure it
+has the right type. To prevent this, we can extend the list of
 primitives in such a way, that the users can write the program
 completely in this language. Such a language, if it is complete
 enough, will most likely make writing programs unnecessarily complex
@@ -776,21 +774,89 @@ improves complexity proves to be a lot more difficult.
 \section{Indexed \hprops and \hott}
 \label{sec:indhprops}
 
-In section~\ref{sec:hprop} we have seen that \hprops are those types
-that obey proof irrelevance. We can generalise this to the indexed
-case as follows: a family |D : I -> Universe| is an indexed \hprop if
-for every index |i : I|, |D i| is an \hprop. This definition is
-exactly the definition internal collapsibility. For internal
-collapsibility, however, we only considered optimising evaluation in
-the empty context. In \hott, we are also interested in evaluation in
-non-empty context, since we have to deal with all these postulated
-equalities arising from univalence and higher inductive types. This
-means we can no longer exploit canonicity to say something about the
-relationship between propositional and definitional equality. We can
-also no longer use it to make assumptions about our terms
+In section~\ref{sec:hprop} we have seen that \hprops are exactly those
+types that obey proof irrelevance. We can generalise this internal
+notion to the indexed case. Previously we have called this internal
+collapsibility. We have also seen that if we restrict ourselves to the
+empty context, internal collapsibility implies collapsibility. In
+\hott, we are interested in postulating extra equalities needed to
+talk about univalence or \hits. To stress the difference in what
+contexts we are considering, we will talk about internal collapsible
+for the empty context case and indexed \hprops in the other case. In
+this section we will investigate what these differences mean when
+trying to optimise things.
 
-To see how propositional and definitional equality can diverge, we
-will first consider the non-indexed case.
+\subsection{Indexed \hprops versus internally collapsibly families}
+
+When postulating extra propositional equalities, we obviously lose the
+canonicity property, hence we can no longer say that propositional
+equality implies definitional equality at run-time. The essence of the
+concrete collapsibility optimisation is that we need not store certain
+parts of our programs, because we know that they are canonical and
+unique and can be recovered from other parts of our program. In \hott
+we no longer have this canonicity and have a choice in what inhabitant
+we can recover from the indices. As an example of this we will compare
+two non-indexed types: the unit type and the interval. Both types are
+\hprops, so they admit proof irrelevance, but the interval does have
+two canonical inhabitants that can be distinguished by definitional
+equality.
+
+\begin{code}
+  data I : Set where
+    zero  : Interval
+    one   : Interval
+
+    segment : zero == one
+\end{code}
+
+The elimination operator for this type is defined in this way:
+
+\begin{code}
+  Ielim :  (B : I -> Universe)
+          -> (b0 : B zero)
+          -> (b1 : B one)
+          -> (p : (transport B segment b0) == b1)
+          -> (i : I) -> B i
+\end{code}
+
+with computation rules\footnote{Apart from giving computation rules
+  for the points, we also need to give a computation rule for the path
+  constructor, |segment|, but as we do not need this rule for the
+  discussion here, we have left it out.}:
+
+\begin{code}
+  Ielim B b0 b1 p zero  === b0
+  Ielim B b0 b1 p one   === b1
+\end{code}
+
+In other words, in order to eliminate a value in the interval, we need
+to tell what has to be done with the endpoints interval and then
+have to show that this is done in such a way that the path between the
+endpoints is preserved.
+
+Let us compare the above to the elimination operator for the unit
+type, |top|:
+
+\begin{code}
+  topelim :  (B : top -> Universe)
+          -> (b : B tt)
+          -> (t : top) -> B t
+\end{code}
+
+with computation rule:
+
+\begin{code}
+  topelim B b tt === b
+\end{code}
+
+If we have canonicity, we can clearly assume every inhabitant of |top|
+to be |tt| at run-time and erase the |t| argument from |topelim|. In
+the case of |I|, we cannot do this: we have two canonical inhabitants
+that are propositionally equal, but not definitionally.
+
+\subsection{Externally optimising \hprops}
+
+\subsection{Internally optimising \hprops}
 
 
 \section{Conclusion and future work}

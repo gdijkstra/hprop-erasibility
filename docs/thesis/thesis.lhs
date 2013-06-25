@@ -10,8 +10,9 @@
 \usepackage{url}
 \usepackage{verbatim}
 \usepackage{xspace}
+\usepackage[parfill]{parskip}
 \usepackage{setspace} 
-\onehalfspacing
+%\onehalfspacing
 
 %include commands.lhs
 

@@ -1,6 +1,6 @@
 %include polycode.fmt
 
-%format	==                      = "\equiv"
+%format	==                      = "{\equiv}"
 %format	===                     = "\overset{\Delta}{=}"
 
 %format not			= "not"
@@ -37,6 +37,8 @@
 %format inv			= "^{-1}"
 %format minustwo		= "(-2)"
 %format Universe	        = "Type"
+%format b0	                = "b_{0}"
+%format b1	                = "b_{1}"
 %format h1	                = "h_{1}"
 %format h2	                = "h_{2}"
 %format mZ	                = "m_{Z}"
@@ -45,6 +47,8 @@
 %format in			= "i_n"
 %format I0			= "I_0"
 %format In			= "I_n"
+%format topelim                 = "\top\mbox{-}elim"
+%format Ielim                   = "I\mbox{-}elim"
 %format ltelim                  = "<\mbox{-}elim"
 %format ltfam                   = "\textunderscore < \textunderscore"
 %format qsAccInv0               = "qsAccInv_0"
