@@ -31,3 +31,6 @@ elemCount : {A : Set} (xs : List A) (i : ℕ) → i < length xs → A in-time (l
 elemCount [] i ()
 elemCount (x :: xs) Z pf = return x
 elemCount (x :: xs) (S i) pf = dummyAction >>= (λ _ → elemCount xs i (<-inv pf))
+
+elemCountCheating : {A : Set} (xs : List A) (i : ℕ) → i < length xs → A in-time 1
+elemCountCheating xs i pf = return (elem xs i pf)
