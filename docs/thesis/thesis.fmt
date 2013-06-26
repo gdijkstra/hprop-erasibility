@@ -1,6 +1,6 @@
 %include polycode.fmt
 
-%format	==                      = "{\equiv}"
+%format	==                      = " {\equiv} "
 %format	===                     = "\overset{\Delta}{=}"
 
 %format not			= "not"
@@ -39,6 +39,7 @@
 %format Universe	        = "Type"
 %format b0	                = "b_{0}"
 %format b1	                = "b_{1}"
+%format bS	                = "b_{S}"
 %format h1	                = "h_{1}"
 %format h2	                = "h_{2}"
 %format mZ	                = "m_{Z}"
@@ -48,7 +49,12 @@
 %format I0			= "I_0"
 %format In			= "I_n"
 %format topelim                 = "\top\mbox{-}elim"
+%format nattruncated		= "\mathbb{N}\mbox{-}truncated"
+%format nattruncatedelimnondep  = "\mathbb{N}\mbox{-}truncated\mbox{-}elim\mbox{-}nondep"
 %format Ielim                   = "I\mbox{-}elim"
+%format Ielimnondep             = "I\mbox{-}elim\mbox{-}nondep"
+%format Iid			= "I\mbox{-}id"
+%format Iconstzero		= "I\mbox{-}const\mbox{-}zero"
 %format ltelim                  = "<\mbox{-}elim"
 %format ltfam                   = "\textunderscore < \textunderscore"
 %format qsAccInv0               = "qsAccInv_0"
