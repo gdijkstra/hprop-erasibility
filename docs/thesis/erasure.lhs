@@ -937,5 +937,63 @@ follows:
     -> (isContractible (A i)) oplus (A i -> bottom)
 \end{code}
 
-\section{Conclusion and future work}
+\section{Conclusions}
+
+In this chapter we have looked at various ways of dealing with types
+that are purely logical, called propositions. Coq and Agda both
+provide mechanisms to in a way ``truncate'' a type into a
+proposition. The first takes this approach by allowing the user to
+annotate a type as being a proposition when defining the type. Making
+sure it is a proposition and has no computational effect on
+non-propositions is handled by limiting the elimination of these
+propositions: we may only eliminate into other propositions. Singleton
+elimination is an exception to this rule, which does not play well
+with \hott and the univalence axiom. Proof irrelevance of the
+propositions in Coq is assumed when extracting a development, but not
+something that is enforced inside Coq, nor is it provable
+internally. Using univalence we can construct a term that behaves
+differently in Coq as it does in the extracted version.
+
+Agda allows the user to indicate that a type is a proposition when
+referring to that type, instead of having to annotate it when defining
+it. Agda enforces the proof irrelevance by ensuring that inhabitants
+of an annotated type are never scrutinised in a pattern match and may
+only be passed onto other irrelevant contexts. It contrast to Coq's
+mechanism, it does not allow for singleton elimination, but unlike
+Coq, it does enable the user to prove properties of the annotated
+types in Agda itself. As such, we can construct a squash type that is
+isomorphic to the \ntruncation{(-1)} from \hott, defined as a \hit.
+
+Instead of truncating a type such that it becomes a proposition, we
+can also let the compiler recognise whether a type is a proposition or
+not. This is the approach that the collapsible families optimisation
+takes in Epigram. The definition of collapsibility is reminiscent of
+the definition of \hprop, albeit it an indexed version that uses
+definitional equality instead of propositional equality. The
+optimisation specifically focuses on families of
+propositions. 
+
+Recognising whether an inductive family is a collapsible family is
+undecidable, so the actual optimisation restricts itself to a subset
+called concretely collapsible families. To improve on this, we
+internalise the notion of collapsibility, allowing the user to provide
+a proof if the compiler fails to notice this property. We show that
+this notion of internal collapsibility is a subset of
+collapsibility. We also try to internalise the optimisation, but since
+the time complexity of the optimised function heavily depends on the
+user-provided proof, we cannot be sure whether it the ``optimised''
+version actually improves on the complexity. We have looked at ways to
+enforce time complexities in the user-provided proofs. Our conclusion
+is that this is not viable.
+
+As we have mentioned previously, collapsible families look a lot like
+families of \hprops. When internalising the collapsibility concept and
+the optimisation, we only considered the non-\hott case, \ie no
+univalence and no \hits. We have looked at extending the optimisations
+to the \hott case, but as we lose canonicity the optimised versions
+may no longer yield the same results as the original function, with
+respect to definitional equality. We have identified cases in which
+this is the case and cases in which definitional equality actually is
+preserved. We also argue that detecting whether the latter is the
+case, is not tractable.
 
