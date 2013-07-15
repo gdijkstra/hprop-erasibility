@@ -10,6 +10,8 @@
 \newcommand{\contrtypes}{$(-2)$-types\xspace}
 \newcommand{\hprop}{$h$-proposition\xspace}
 \newcommand{\hprops}{$h$-propositions\xspace}
+\newcommand{\hset}{$h$-set\xspace}
+\newcommand{\hsets}{$h$-sets\xspace}
 \newcommand{\proptype}{$(-1)$-type\xspace}
 \newcommand{\proptypes}{$(-1)$-types\xspace}
 \newcommand{\ntype}[1]{$#1$-type\xspace}
