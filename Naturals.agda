@@ -55,4 +55,10 @@ _+_ : ℕ → ℕ → ℕ
 Z  + n = n
 S m + n = S (m + n)
 
+_*_ : ℕ → ℕ → ℕ
+Z   * n = Z
+S m * n = n + m * n
+
+
+
 {-# BUILTIN NATPLUS _+_ #-}
