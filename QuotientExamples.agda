@@ -31,3 +31,17 @@ x *' y = {!!}
 
 -- Coherence problem
 
+record EqRel {A : Set} (_~_ : A → A → Set) : Set where
+  field
+    trans~ : {x y z : A} → x ~ y → y ~ z → x ~ z
+    sym~   : {x y : A} → x ~ y → y ~ x
+    refl~  : {x : A} → x ~ x
+
+-- One can formulate conditions expressing whether the equivalence
+-- relation is being mapped onto the right constructions in the
+-- quotient, i.e. the mapping "quot" translates trans~ to trans≡, etc.
+QuotientPreservesTrans : 
+  (A : Set) (_~_ : A → A → Set) (pf : EqRel _~_)
+  (x y z : A) (p : x ~ y) (q : y ~ z) →
+  (quot A _~_ x z (EqRel.trans~ pf p q)) ≡ (trans (quot A _~_ x y p) (quot A _~_ y z q))
+QuotientPreservesTrans A _~_ pf x y z p q = {!!}
