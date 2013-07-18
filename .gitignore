@@ -1,17 +1,4 @@
-/Empty.agdai
-/Experiments.agdai
-/Identity.agdai
-/Interval.agdai
-/Irrelevance.agdai
-/Levels.agdai
-/Log.agdai
-/Naturals.agdai
-/Proposition.agdai
-/Quicksort.agdai
 /Reading material
-/Sigma.agdai
-/Truncation.agdai
-/UIP.agdai
 /docs/proposal/proposal.aux
 /docs/proposal/proposal.bbl
 /docs/proposal/proposal.blg
@@ -26,10 +13,6 @@
 /docs/thesis/thesis.ptb
 /docs/thesis/thesis.synctex.gz
 /docs/thesis/thesis.tex
-/IntervalExtensionality.agdai
-/UnitVersusInterval.agdai
-/IntervalFunctions.agdai
 /.DS_Store
 /docs/thesis/thesis.toc
-/Elem.agdai
-/CountingMonad.agdai
+/*.agdai
