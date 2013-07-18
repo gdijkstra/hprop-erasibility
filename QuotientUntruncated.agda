@@ -37,6 +37,8 @@ Quotient-rec-2 : {B : Set}
        -> Quotient -> Quotient -> B
 Quotient-rec-2 f _ (#box x) (#box y) = f x y
 
+-- This postulate is not strictly necessary: quotients imply I implies
+-- fun-ext.
 postulate
   fun-ext : {X Y : Set} (f g : X -> Y) -> ((x : X) -> f x ≡ g x) -> f ≡ g
 
