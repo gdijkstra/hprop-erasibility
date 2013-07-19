@@ -14,25 +14,80 @@ Contributions:
   types and extend it to non-isomorphic views.
 \end{itemize}
 
+\newpage
+
 \section{Quotient types}
 \label{sec:quots}
 
+In mathematics, one way to construct new sets is to take the
+\emph{quotient} of a set $X$ by an equivalence relation $R$ on that
+particular set. The new set is formed by regarding all elements $x, y
+\in X$ \st $xRy$ as equal. An example of a quotient set is the set of
+rationals $\mathbb{Q}$ constructed from the integers as follows: we
+quotient out $\mathbb{Z} \times \mathbb{Z}$ by the relation $(a, b) ~
+(c, d)$ if and only if $ad = bc$.
+
+In ordinary \MLTT, such a construction is not present.
+
+\todoi{Bruggetje hier dat we het nog steeds over quotients hebben.}
+
+In programming, it often happens that we have defined a data type that
+has more structure than we want to expose. This situation typically
+occurs when we want to encode our data in such a way that certain
+operations on the data can be implemented more efficiently. An example
+of this is implementing a dictionary with a binary search tree: there
+are multiple binary search trees that represent the same dictionary,
+\ie contain the same key-value pairs. If we pass two different trees
+representing the same dictionary to an operation, we want the
+operation to yield the same results.
+
+To make the above more precise, suppose we have defined a data type of
+binary search trees, |BST : Universe|, along with a relation |_~_ :
+BST -> BST -> Universe| \st |x ~ y == top| if and only if |x|
+and |y| are comprised of the same key-value pairs, and |x ~ y ==
+bottom| otherwise. Suppose we have an insertion operation |insert :
+KeyValuePair -> BST -> BST| and a lookup function |lookup : Key -> BST
+-> Maybe Value|. We can formulate the properties that should hold:
+
 \begin{itemize}
-\item Ubiquity of quotients in mathematics and programming
-\item Difficulties of quotients in intensional type theory
-\item Agda's approach: setoids
-\item Note that using setoids has its downsides:
-  \begin{itemize}
-  \item User has access to the underlying set.
-  \item Functions acting on setoids need not respect setoid structure.
-  \item User has to be careful to use the right notion of equality
-    (equivalence relation vs propositional equality).
-  \end{itemize}
-\item Do we need quotients (in standard MLTT)?
+\item |(a : KeyValPair) (x y : BST) -> x ~ y -> insert a x ~ insert a y|
+\item |(a : Key) (x y : BST) -> x ~ y -> lookup a x == lookup a y|
+\end{itemize}
+
+Note that for insertion, returning the same results means that we want
+them to represent the same dictionary: it is perfectly allowed to
+return differently balanced binary search trees. For |lookup|, we want
+the results to be propositionally equal, as we do not have any other
+relation available that holds on the result type, |Maybe Value|.
+
+A type that comes equipped with an equivalence relation, such as |BST|
+along with |_~_|, is called a \emph{setoid}. Its disadvantages are
+that we have to formulate and check the properties ourselves: there is
+no guarantee that a function out of a setoid respects the relation
+from the setoid. As can be seen in the binary search tree example, we
+have to be careful to use the right relation (propositional equality
+or the setoid's equivalence relation) when we want to talk about two
+inhabitants being the same. \Hott provides us with the machinery,
+namely \hits, to enrich the propositional equality of a type, so we
+can actually construct a new type in which propositional equality and
+the provided equivalence relation coincide.
+
+\subsection{Do we need quotients?}
+
+Before we look at the quotient type construction with \hits, we will
+determine whether we actually need such a thing. In the case of the
+dictionary example, we might consider making the |BST| data type more
+precise \st the only inhabitants are trees that are balanced in a
+certain way, so we do have a unique representation for every
+dictionary. One way to do this is to use nested data
+types. \todo{citation needed}
+
+\begin{itemize}
+\item Can we always do this?
 \item Definition of from ``Definable quotients''
   paper~\citep{definablequotients}.
 \item ``Definable quotients'' paper: give conditions when we do not
-  quotients.
+  need quotients in that we can define them in plain \MLTT.
 \item There are quotients (real numbers being an example) that we
   cannot define in ordinary \MLTT.
 \end{itemize}
@@ -54,6 +109,11 @@ Contributions:
 \item Looking at eliminator: seems to satisfy our needs.
 \item Define $\mathbb{Z}$ and $\mathbb{Q}$ as a quotient along with
   the usual operations.
+\end{itemize}
+
+\subsection{Binary operations on quotients}
+
+\begin{itemize}
 \item Show that defining binary operators on quotients is rather
   involved and that we need a couple of extra assumptions to get it to
   work.
