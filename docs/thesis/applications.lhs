@@ -262,5 +262,35 @@ are done.
 
 
 \section{Views on abstract types}
+
+\begin{itemize}
+\item Why do we need abstract types/views?
+\item Define how we can describe an abstract type: nested sigma types.
+\item Example: sequence.
+\item We need more than just the types of the operations: we want some
+  behavioural specs as well.
+\item We can give this in the form of a reference implementation, in
+  this case ListSeq.
+\item If we have another implementation, we want the other type to be
+  isomorphic and implement the same operations.
+\item We also want these operations to respect the isomorphism.
+\item Example of isomorphic views on sequences: ListSeq versus some OtherSeq.
+\item Show what the equality OtherSeq == ListSeq entails: how can we
+  reason with nested sigma types? What does this equality mean?
+\item Show how things like map-fusion carry over from ListSeq to
+  OtherSeq.
+\item Example of non-isomorphic views: ListSeq vs. JoinListSeq.
+\item For the specification (the equality), we can work with quotient
+  types.
+\item Mention that if we have a section-retraction, we do not need the
+  quotient type structure directly, but have an alternative
+  (equivalent) formulation that works more nicely.
+\item Show how we can carry over the results, such as proving that it
+  respects the section-retraction, from working with the JoinListSeq
+  to the JoinListSeq/~ stuff.
+\end{itemize}
+
+\section{Conclusion}
+
 \label{sec:views}
 
