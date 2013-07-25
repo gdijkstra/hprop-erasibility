@@ -4,6 +4,7 @@ module Views where
 
 open import Identity
 open import Sigma
+open import Levels
   
 data List (A : Set) : Set where
   nil : List A
@@ -17,27 +18,27 @@ list-map : {A B : Set} -> (A -> B) -> List A -> List B
 list-map f nil = nil
 list-map f (cons x xs) = cons (f x) (list-map f xs)
 
-data BinTree (A : Set) : Set where
-  null : BinTree A
-  leaf : A -> BinTree A
-  node : BinTree A -> BinTree A -> BinTree A
+data JoinList (A : Set) : Set where
+  nil : JoinList A
+  unit : A -> JoinList A
+  join : JoinList A -> JoinList A -> JoinList A
 
-bin-tree-append : {A : Set} -> BinTree A -> BinTree A -> BinTree A
-bin-tree-append l r = node l r
+join-list-append : {A : Set} -> JoinList A -> JoinList A -> JoinList A
+join-list-append l r = join l r
 
-bin-tree-map : {A B : Set} -> (A -> B) -> BinTree A -> BinTree B
-bin-tree-map f null = null
-bin-tree-map f (leaf x) = leaf (f x)
-bin-tree-map f (node l r) = node (bin-tree-map f l) (bin-tree-map f r)
+join-list-map : {A B : Set} -> (A -> B) -> JoinList A -> JoinList B
+join-list-map f nil = nil
+join-list-map f (unit x) = unit (f x)
+join-list-map f (join l r) = join (join-list-map f l) (join-list-map f r)
 
-retract : {A : Set} -> BinTree A -> List A
-retract null = nil
-retract (leaf x) = cons x nil
-retract (node l r) = list-append (retract l) (retract r)
+retract : {A : Set} -> JoinList A -> List A
+retract nil = nil
+retract (unit x) = cons x nil
+retract (join l r) = list-append (retract l) (retract r)
 
-section : {A : Set} -> List A -> BinTree A
-section nil = null
-section (cons x xs) = node (leaf x) (section xs)
+section : {A : Set} -> List A -> JoinList A
+section nil = nil
+section (cons x xs) = join (unit x) (section xs)
 
 is-retract : {A : Set} -> (xs : List A) -> (retract (section xs)) ≡ xs
 is-retract nil = refl
@@ -71,14 +72,17 @@ SequenceSignature = Σ (Set -> Set)                              (λ seq ->
 ListSeq : (A : Set) -> SequenceSignature
 ListSeq A = List , (A , (nil , ((λ x → cons x nil) , (list-append , (λ B f xs → list-map f xs)))))
 
-BinTreeSeq : (A : Set) -> SequenceSignature
-BinTreeSeq A = BinTree , (A , (null , ((λ x → leaf x) , (bin-tree-append , (λ B f xs → bin-tree-map f xs)))))
+JoinListSeq : (A : Set) -> SequenceSignature
+JoinListSeq A = JoinList , (A , (nil , ((λ x → unit x) , (join-list-append , (λ B f xs → join-list-map f xs)))))
 
 -- Unfolding this and applying some rule that ≡ for Σ-types can be
 -- done via ≡ on first field and transport rules for the second will
 -- lead us to the desired properties on the methods, if we also use
 -- the rules for transport on equalities obtained from applying
 -- univalence.
-spec : {A : Set} -> ListSeq A ≡ BinTreeSeq A
-spec {A} = {!!}
+spec : {A : Set} (OtherSeq : Set -> SequenceSignature) -> ListSeq A ≡ OtherSeq A
+spec {A} OtherSeq with OtherSeq A
+spec OtherSeq | rep , (a , (empty , (single , (append , map)))) = 
+  Σ-≡ {!!} 
+  (Σ-≡ {!!} (Σ-≡ {!!} (Σ-≡ {!!} (Σ-≡ {!!} {!!}))))
 
