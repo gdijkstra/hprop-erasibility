@@ -268,7 +268,7 @@ are done.
 \item Define how we can describe an abstract type: nested sigma types.
 \item Example: sequence.
 \item We need more than just the types of the operations: we want some
-  behavioural specs as well.
+  behavioural specs as well: laws that should hold.
 \item We can give this in the form of a reference implementation, in
   this case ListSeq.
 \item If we have another implementation, we want the other type to be
@@ -279,12 +279,63 @@ are done.
   reason with nested sigma types? What does this equality mean?
 \item Show how things like map-fusion carry over from ListSeq to
   OtherSeq.
-\item Example of non-isomorphic views: ListSeq vs. JoinListSeq.
-\item For the specification (the equality), we can work with quotient
-  types.
-\item Mention that if we have a section-retraction, we do not need the
-  quotient type structure directly, but have an alternative
-  (equivalent) formulation that works more nicely.
+\end{itemize}
+
+\newpage
+
+\subsection{Non-isomorphic views}
+
+An implementation of an abstract type sometimes does not turn out to
+be isomorphic to the concrete view. An example of this is an
+implementation of sequences via join lists:
+
+\begin{code}
+  data JoinList (A : Universe) : Universe where
+    nil   : JoinList A
+    unit  : A -> JoinList A
+    join  : JoinList A -> JoinList A -> JoinList A
+\end{code}
+
+We have a function |to : JoinList A -> List A| that maps |nil| to
+|nil|, |unit a| to |[a]| and interprets |join| as concatenation of
+lists. The other way around, |from : List A -> JoinList A| can be
+constructed by mapping every element |a| of the input list to |unit a|
+and then using |join| to concatenate the resulting list of
+|JoinList|s.
+
+While we do have that |(ls : List A) -> to (from ls) == ls|, it is not
+the case that |(js : JoinList A) -> from (to js) == js|, as |to| is
+not injective: |to| and |from| do not form an isomorphism: |JoinList|
+has a finer structure than |List|. If only the first equality holds,
+but the second does not, |to| is called a \emph{retraction} with
+|from| as its \emph{section}. It still makes sense to use |JoinList|
+as an implementation of sequences. The properties that the operations
+on |JoinList|s should respect, do not make use of the fact that |from|
+and |to| are isomorphisms; they can still be used for non-isomorphic
+views.
+
+Even though |List A| and |JoinList A| are not isomorphic, we can
+take the quotient by the following relation:
+
+\begin{code}
+  rel : JoinList A -> JoinList A -> Universe
+  x ~ y = to x == to y
+\end{code}
+
+The type |Quotient (JoinList A) rel| is then isomorphic to |List
+A|. This result can be generalised to arbitrary section-retraction
+pairs between \hsets |A| and |B|: given |r : A -> B| and |s : B -> A|
+such that |(a : A) -> s (r a) == a|, then |B| is isomorphic to
+|Quotient A rel| where |x ~ y| is defined as |r x == r y|. The
+quotient is in turn isomorphic to the type |Sigma (x : A) . s (r x) ==
+x|, \ie the fragment of |A| for which |s| and |r| are isomorphisms.
+
+
+
+\newpage
+
+
+\begin{itemize}
 \item Show how we can carry over the results, such as proving that it
   respects the section-retraction, from working with the JoinListSeq
   to the JoinListSeq/~ stuff.
