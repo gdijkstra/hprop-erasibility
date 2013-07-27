@@ -109,7 +109,7 @@ graph. In our quicksort case we get the following inductive family:
 \end{code}
 
 with the following function definition\footnote{This definition uses
-  dependent pattern matching, but can be rewritten directly using the
+  dependent pattern matching~\citep{depmatch}, but can be rewritten directly using the
   elimination operators instead. The important thing here is to notice
   that we are eliminating the |qsAcc xs| argument.}
 
@@ -325,12 +325,12 @@ this can be done as follows:
 To ensure that irrelevant arguments are indeed irrelevant to the
 computation at hand, Agda has several criteria that it checks. First
 of all, no pattern matching may be performed on irrelevant arguments,
-just as is the case with \coqprop. (However, the absurd pattern may
-be used, if applicable.)  Contrary to Coq, singleton elimination is
-not allowed.  Secondly, we need to ascertain that the annotations are
+just as is the case with \coqprop. (However, the absurd pattern may be
+used, if applicable.)  Contrary to Coq, singleton elimination is not
+allowed. Secondly, we need to ascertain that the annotations are
 preserved: irrelevant arguments may only be passed on to irrelevant
-contexts. This prevents us from writing a function of type |.A ->
-A|.
+contexts. This prevents us from writing a function of type |(A :
+Universe) -> .A -> A|.
 
 Another, more important, difference with \coqprop is that irrelevant
 arguments are ignored by the type checker when checking equality of
@@ -705,7 +705,12 @@ inhabitants of every |D i| are related to eachother with propositional
 equality. From this proof we cannot tell whether some |D i| is
 inhabited or empty.
 
-\todoi{something about situation with concretely collapsible families}
+The optimisation given for concretely collapsible families need not
+worry about this. In that case we have a lot more information to work
+with. We only have to worry about well-typed calls to the elimination
+operator, so we do not have to deal with deciding whether |D i| is
+empty or not. Apart from this we only need to recover the
+non-recursive parts of the erased, canonical term.
 
 If we extend the definition of internal collapsibility with something
 that decides whether |A i| is empty or not, we get the following
@@ -716,6 +721,10 @@ definition:
   isInternallyCollapsibleDecidable I A = (i : I) 
     -> (((x y : A i) -> x == y) otimes (A i oplus A i -> bottom))
 \end{code}
+
+If we then replace the occurrence of |isInternallyCollapsible| in the
+type signature of |optimiseFunction| with
+|isInternallyCollapsibleDecidable|
 
 \subsection{Time complexity issues}
 
@@ -741,7 +750,7 @@ primitives:
 \begin{itemize}
 \item |step : (a : Universe) -> (n : Nat) -> Thunk n a -> Thunk (n+1) a|
 \item |return : (a : Universe) -> (n : Nat) -> a -> Thunk n a|
-\item |>>= : (a b : Universe) -> (n m : Nat) -> Thunk m a -> (a -> Thunk n b) -> Thunk (m + n) b|
+\item |(>>=) : (a b : Universe) -> (n m : Nat) -> Thunk m a -> (a -> Thunk n b) -> Thunk (m + n) b|
 \item |force : (a : Universe) -> (n : Nat) -> Thunk n a|
 \end{itemize}
 
@@ -775,31 +784,29 @@ improves complexity proves to be a lot more difficult.
 \label{sec:indhprops}
 
 In section~\ref{sec:hprop} we have seen that \hprops are exactly those
-types that obey proof irrelevance. We can generalise this internal
-notion to the indexed case. Previously we have called this internal
-collapsibility. We have also seen that if we restrict ourselves to the
-empty context, internal collapsibility implies collapsibility. In
-\hott, we are interested in postulating extra equalities needed to
-talk about univalence or \hits. To stress the difference in what
-contexts we are considering, we will talk about internal collapsible
-for the empty context case and indexed \hprops in the other case. In
-this section we will investigate what these differences mean when
-trying to optimise things.
-
-\subsection{Indexed \hprops versus internally collapsibly families}
+types that obey proof irrelevance. If we generalise this internal
+notion to the indexed case we arrive at something we previously have
+called internal collapsibility. We have also seen that if we restrict
+ourselves to the empty context, internal collapsibility implies
+collapsibility. In \hott, we are interested in postulating extra
+equalities needed to talk about univalence or \hits. To stress the
+difference in what contexts we are considering, we will talk about
+internal collapsible for the empty context case and indexed \hprops in
+the other case. In this section we will investigate what these
+differences mean when trying to optimise our programs.
 
 When postulating extra propositional equalities, we obviously lose the
 canonicity property, hence we can no longer say that propositional
 equality implies definitional equality at run-time. The essence of the
 concrete collapsibility optimisation is that we need not store certain
-parts of our programs, because we know that they are canonical and
-unique and can be recovered from other parts of our program. In \hott
-we no longer have this canonicity and have a choice in what inhabitant
-we can recover from the indices. As an example of this we will compare
-two non-indexed types: the unit type and the interval. Both types are
-\hprops, so they admit proof irrelevance, but the interval does have
-two canonical inhabitants that can be distinguished by definitional
-equality.
+parts of our programs, because we know that they are unique, canonical
+and can be recovered from other parts of our program. In \hott we no
+longer have this canonicity property and may have to make choice in
+what inhabitant we recover from the indices. As an example of this we
+will compare two non-indexed types: the unit type and the
+interval. Both types are \hprops, so they admit proof irrelevance, but
+the interval does have two canonical inhabitants that can be
+distinguished by definitional equality.
 
 \begin{code}
   data I : Set where
@@ -854,10 +861,139 @@ to be |tt| at run-time and erase the |t| argument from |topelim|. In
 the case of |I|, we cannot do this: we have two canonical inhabitants
 that are propositionally equal, but not definitionally.
 
-\subsection{Externally optimising \hprops}
+Not all is lost, if we consider the non-dependent elimination operator
+for the interval:
+
+\begin{code}
+  Ielimnondep :  (B : Universe)
+          -> (b0 : B)
+          -> (b1 : B)
+          -> (p : b0 == b1)
+          -> I -> B
+\end{code}
+
+then it is easy to see that all such functions are constant functions,
+with respect to propositional equality. If we erase the |I| argument
+and presuppose it to be |zero|, we will get a new function that is
+propositionally equal to the original one. However, it is definitional
+equality that we are after. We can define the following two functions:
+
+\begin{code}
+  Iid : I -> I
+  Iid = Ielimnondep I zero one segment
+
+  Iconstzero : I -> I
+  Iconstzero = Ielimnondep I zero zero refl
+\end{code}
+
+If we presuppose and erase the |I| argument to be |zero| in the |Iid|
+case, we would get definitionally different behaviour. In the case of
+|Iconstzero|, it does not matter if we presuppose the argument to be
+|zero| or |one|, since this function is also definitionally
+constant. This is because for the |refl| to type check, |b0| and |b1|
+have to definitionally equal. So if we want to optimise the
+elimination operators of \hits that are \hprops, such as the interval,
+we need to look at what paths the non-trivial paths are mapped to. If
+these are all mapped to |refl|, then the points all get mapped to
+definitionally equal points. Checking such a property can become
+difficult, as we can tell from this rather silly example:
+
+\begin{code}
+  data nattruncated : Universe where
+    0 : nattruncated
+    S : (n : nattruncated) -> nattruncated
+
+    equalTo0 : (n : nattruncated) -> 0 == n
+\end{code}
+
+with non-dependent eliminator:
+
+\begin{code}
+  nattruncatedelimnondep : (B : Universe)
+              -> (b0 : B)
+              -> (bS : B -> B)
+              -> (p : (b : B) -> b0 == b)
+              -> nattruncated -> B
+\end{code}
+
+If we were to check that all paths between |0| and |n| are mapped to a
+|refl| between inhabitants of |B|, we have to check that |p| satisfies
+this property, which we cannot do.
 
 \subsection{Internally optimising \hprops}
 
+The optimisation given in section~\ref{sec:intcolopt} of course still is a
+valid transformation for the \hott case. The proof of a family |D : I
+-> Universe| being an indexed \hprop is again not enough for us to be
+able to write the |optimiseFunction| term. What we called
+|isInternallyCollapsibleDecidable| is that we internally need a
+witness of the fact that every \hprop in the family is either
+contractible or empty, so we could have written the property as
+follows:
 
-\section{Conclusion and future work}
+\begin{code}
+  isIndexedhPropDecidable : (I : Universe) (A : I -> Universe) -> Universe
+  isIndexedhPropDecidable I A = (i : I) 
+    -> (isContractible (A i)) oplus (A i -> bottom)
+\end{code}
+
+\section{Conclusions}
+
+In this chapter we have looked at various ways of dealing with types
+that are purely logical, called propositions. Coq and Agda both
+provide mechanisms to in a way ``truncate'' a type into a
+proposition. The first takes this approach by allowing the user to
+annotate a type as being a proposition when defining the type. Making
+sure it is a proposition and has no computational effect on
+non-propositions is handled by limiting the elimination of these
+propositions: we may only eliminate into other propositions. Singleton
+elimination is an exception to this rule, which does not play well
+with \hott and the univalence axiom. Proof irrelevance of the
+propositions in Coq is assumed when extracting a development, but not
+something that is enforced inside Coq, nor is it provable
+internally. Using univalence we can construct a term that behaves
+differently in Coq as it does in the extracted version.
+
+Agda allows the user to indicate that a type is a proposition when
+referring to that type, instead of having to annotate it when defining
+it. Agda enforces the proof irrelevance by ensuring that inhabitants
+of an annotated type are never scrutinised in a pattern match and may
+only be passed onto other irrelevant contexts. It contrast to Coq's
+mechanism, it does not allow for singleton elimination, but unlike
+Coq, it does enable the user to prove properties of the annotated
+types in Agda itself. As such, we can construct a squash type that is
+isomorphic to the \ntruncation{(-1)} from \hott, defined as a \hit.
+
+Instead of truncating a type such that it becomes a proposition, we
+can also let the compiler recognise whether a type is a proposition or
+not. This is the approach that the collapsible families optimisation
+takes in Epigram. The definition of collapsibility is reminiscent of
+the definition of \hprop, albeit it an indexed version that uses
+definitional equality instead of propositional equality. The
+optimisation specifically focuses on families of
+propositions. 
+
+Recognising whether an inductive family is a collapsible family is
+undecidable, so the actual optimisation restricts itself to a subset
+called concretely collapsible families. To improve on this, we
+internalise the notion of collapsibility, allowing the user to provide
+a proof if the compiler fails to notice this property. We show that
+this notion of internal collapsibility is a subset of
+collapsibility. We also try to internalise the optimisation, but since
+the time complexity of the optimised function heavily depends on the
+user-provided proof, we cannot be sure whether it the ``optimised''
+version actually improves on the complexity. We have looked at ways to
+enforce time complexities in the user-provided proofs. Our conclusion
+is that this is not viable.
+
+As we have mentioned previously, collapsible families look a lot like
+families of \hprops. When internalising the collapsibility concept and
+the optimisation, we only considered the non-\hott case, \ie no
+univalence and no \hits. We have looked at extending the optimisations
+to the \hott case, but as we lose canonicity the optimised versions
+may no longer yield the same results as the original function, with
+respect to definitional equality. We have identified cases in which
+this is the case and cases in which definitional equality actually is
+preserved. We also argue that detecting whether the latter is the
+case, is not tractable.
 

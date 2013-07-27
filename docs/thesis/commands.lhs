@@ -1,4 +1,5 @@
 \newcommand{\ie}{i.e.\ }
+\newcommand{\st}{such that\xspace}
 \newcommand{\eg}{e.g.\ }
 \newcommand{\UIP}{uniqueness of identity proofs\xspace}
 \newcommand{\MLTT}{Martin-L\"of's type theory\xspace}
@@ -10,6 +11,8 @@
 \newcommand{\contrtypes}{$(-2)$-types\xspace}
 \newcommand{\hprop}{$h$-proposition\xspace}
 \newcommand{\hprops}{$h$-propositions\xspace}
+\newcommand{\hset}{$h$-set\xspace}
+\newcommand{\hsets}{$h$-sets\xspace}
 \newcommand{\proptype}{$(-1)$-type\xspace}
 \newcommand{\proptypes}{$(-1)$-types\xspace}
 \newcommand{\ntype}[1]{$#1$-type\xspace}
@@ -23,6 +26,7 @@
 \newcommand{\propeq}{\equiv}
 \newcommand{\defeq}{\overset{\Delta}{=}}
 \newcommand{\hott}{homotopy type theory\xspace}
+\newcommand{\Hott}{Homotopy type theory\xspace}
 \newcommand{\coqprop}{|Prop|\xspace}
 \newcommand{\coqtype}{|Type|\xspace}
 \newcommand{\coqset}{|Set|\xspace}
