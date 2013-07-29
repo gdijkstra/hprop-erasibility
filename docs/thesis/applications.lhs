@@ -284,27 +284,112 @@ used in the actual implementation.
 
 A solution to this problem is to supply the abstract type along with a
 concrete implementation of the abstract type, called a
-\emph{view}. This approach was introduced by \citep{wadlerview} as a
-way to do pattern matching on abstract types. 
+\emph{view}. This approach was introduced by \cite{wadlerview} as a
+way to do pattern matching on abstract types.
+
+\subsection{Specifying views} 
+
+An implementation of an abstract type is a type along with a
+collection of operations on that type. An abstract type can then be
+described in type theory as a nested \sigmatype, \eg a sequence
+abstract type can be described as follows:
+
+\begin{code}
+Sequence =  Sigma  (seq     : Set -> Set)                                 .
+            Sigma  (empty   : (A : Set) -> (seq A))                       .
+            Sigma  (single  : (A : Set) -> A -> seq A)                    . 
+            Sigma  (append  : (A : Set) -> seq A -> seq A -> seq A)       .
+                   (map     : (A B : Set) -> (A -> B) -> seq A -> seq B) 
+\end{code}
+
+An implementation of such an abstract type then is just an inhabitant
+of this nested \sigmatype. \todoi{Iets over hoe je het gebruikt.}
+
+If we want to do more than just use the operations and prove
+properties about our programs that make use of abstract types, we
+often find that we do not have enough information in the abstract type
+specification available to prove the property at hand. One way to
+address this problem is to add properties to the specification, but it
+might not at all be clear a priori what properties are interesting and
+expressive enough to add to the specification.
+
+Another solution, proposed by Dan
+Licata\footnote{\verb+http://homotopytypetheory.org/2012/11/12/abstract-types-with-isomorphic-types/+},
+is to use views: along with nested \sigmatype, we also provide a
+concrete implementation, \ie an inhabitant of said \sigmatype, called
+a \emph{view} on the abstract type. The idea is that the concrete view
+can be used to prove theorems about the abstract type. However, for
+this to work, we need to make sure that any implementation of the
+abstract type is also in some sense compatible with the view: the
+types of both implementations need to be isomorphic and the operations
+need to respect the isomorphism. To illustrate this, consider we have
+two sequence implementations:
+
+\begin{code}
+  ListImpl : Sequence
+  ListImpl === (List, ([], (\x -> [x], (listapp, map))))
+
+  OtherImpl : Sequence
+  OtherImpl = (Other, (otherEmpty, (otherSingle, (otherAppend, otherMap))))|
+\end{code}
+
+We want |List| and |Other| to be ``isomorphic''\footnote{|List| and
+  |Other| cannot be isomorphic, as they are not types but type
+  \emph{constructors}.}, \ie we need to write the following terms:
 
 \begin{itemize}
-\item Define how we can describe an abstract type: nested sigma types.
-\item Example: sequence.
-\item We need more than just the types of the operations: we want some
-  behavioural specs as well: laws that should hold.
-\item We can give this in the form of a reference implementation, in
-  this case ListSeq.
-\item If we have another implementation, we want the other type to be
-  isomorphic and implement the same operations.
-\item We also want these operations to respect the isomorphism.
-\item Example of isomorphic views on sequences: ListSeq versus some OtherSeq.
+\item |to : (A : Universe) -> Other A -> List A|
+\item |from : (A : Universe) -> List A -> Other A|
+\item |fromIsRightInverse : (A : Universe) (xs : List A) -> to (from xs) == xs|
+\item |fromIsLeftInverse : (A : Universe) (xs : Other A) -> from (to xs) == xs|
+\end{itemize}
+
+We also want the operations on |Other| to behave in the same way as
+the operations on |List|s, \ie the following properties should be
+satisfied:
+
+\begin{itemize}
+\item |to otherEmpty == []|
+\item |(x : A) -> to (otherSingle x) == [x]|
+\item |(xs ys : Other A) -> to (otherAppend xs ys) == to xs ++ to ys|
+\item |(f : A -> B) (xs : Other A) -> to (otherMap f xs) == map f (to xs)|
+\end{itemize}
+
+These properties can be added to the original |Sequence|
+type. However, it is rather tedious having to formulate these
+properties for every operation of the abstract type. Since we have
+specified the abstract type as a \sigmatype, we can use propositional
+equality between these to guide us to the desired properties. We know
+that in order to prove that |a b : Sigma A B| are propositionally
+equal, we need to show its fields are propositionally equal as well:
+
+\begin{code}
+  SigmaEq :  (A : Universe) (B : Universe)
+             (s s' : Sigma A B)
+             (p : fst s ≡ fst s')
+             (q : transport B p (snd s) ≡ snd s')
+        ->   s == s'
+\end{code}
+
+If we want to prove that |ListImpl == OtherImpl|, then using
+|SigmaEq|, we first need to show that |List == Other|. This can be
+done by showing that for every |(A : Universe)|, we have an
+isomorphism |to : Other A -> List A|. Using the univalence axiom and
+function extensionality, we can then prove our goal, |ListImpl ==
+OtherImpl|.
+
+\begin{itemize}
 \item Show what the equality OtherSeq == ListSeq entails: how can we
   reason with nested sigma types? What does this equality mean?
+\end{itemize}
+
+\subsection{Reasoning with views}
+
+\begin{itemize}
 \item Show how things like map-fusion carry over from ListSeq to
   OtherSeq.
 \end{itemize}
 
-\newpage
 
 \subsection{Non-isomorphic views}
 
