@@ -44,45 +44,66 @@ is-retract : {A : Set} -> (xs : List A) -> (retract (section xs)) ≡ xs
 is-retract nil = refl
 is-retract (cons x xs) = ap (cons x) (is-retract xs)
 
--- Sequence signature
+-- SequenceSignature : Set₁
+-- SequenceSignature = Σ (Set -> Set)                              (λ seq ->
+--                     Σ Set                                       (λ A ->
+--                     Σ (seq A)                                   (λ empty ->
+--                     Σ (A -> seq A)                              (λ single -> 
+--                     Σ (seq A -> seq A -> seq A)                 (λ append ->
+--                       ((B : Set) -> (A -> B) -> seq A -> seq B) -- map
+--                   )))))
 
--- signature SEQ =
--- sig
---    type α seq
+-- ListSeq : (A : Set) -> SequenceSignature
+-- ListSeq A = List , (A , (nil , ((λ x → cons x nil) , (list-append , (λ B f xs → list-map f xs)))))
 
---    val empty  : α seq
---    val single : α → α seq 
---    val append : α seq → α seq → α seq 
+-- JoinListSeq : (A : Set) -> SequenceSignature
+-- JoinListSeq A = JoinList , (A , (nil , ((λ x → unit x) , (join-list-append , (λ B f xs → join-list-map f xs)))))
 
---    (* Behavior: map f < x1, ..., xn >  =  < f x1, ..., f xn > *)
---    val map    : (α → β) → (α seq → β seq)
+-- -- Unfolding this and applying some rule that ≡ for Σ-types can be
+-- -- done via ≡ on first field and transport rules for the second will
+-- -- lead us to the desired properties on the methods, if we also use
+-- -- the rules for transport on equalities obtained from applying
+-- -- univalence.
+-- spec : {A : Set} (OtherSeq : Set -> SequenceSignature) -> ListSeq A ≡ OtherSeq A
+-- spec {A} OtherSeq with OtherSeq A
+-- spec OtherSeq | rep , (a , (empty , (single , (append , map)))) = 
+--   Σ-≡ {!!} 
+--   (Σ-≡ {!!} (Σ-≡ {!!} (Σ-≡ {!!} (Σ-≡ {!!} {!!}))))
 
---    val reduce : (α → α → α) → α → α seq → α 
--- end 
+Iso : {a : Level} -> Set a → Set a → Set a
+Iso A B = Σ (A → B) (\f → 
+          Σ (B → A) (\g → 
+          Σ ((x : A) → Id A (g (f x)) x) (\_ → 
+             (x : B) → Id B (f (g x)) x)))
 
-SequenceSignature : Set₁
-SequenceSignature = Σ (Set -> Set)                              (λ seq ->
-                    Σ Set                                       (λ A ->
-                    Σ (seq A)                                   (λ empty ->
-                    Σ (A -> seq A)                              (λ single -> 
-                    Σ (seq A -> seq A -> seq A)                 (λ append ->
-                      ((B : Set) -> (A -> B) -> seq A -> seq B) -- map
-                  )))))
+postulate
+  ua : (A B : Set) -> Iso A B -> A ≡ B
 
-ListSeq : (A : Set) -> SequenceSignature
-ListSeq A = List , (A , (nil , ((λ x → cons x nil) , (list-append , (λ B f xs → list-map f xs)))))
+Sequence : Set₁
+Sequence = 
+         Σ Set (λ A ->
+         Σ Set (λ seq ->
+         Σ (seq)                               (λ empty ->
+         Σ (A -> seq)                          (λ single -> 
+         Σ (seq -> seq -> seq)                 (λ append ->
+           ((A -> A) -> seq -> seq) -- map
+         )))))
 
-JoinListSeq : (A : Set) -> SequenceSignature
-JoinListSeq A = JoinList , (A , (nil , ((λ x → unit x) , (join-list-append , (λ B f xs → join-list-map f xs)))))
+ListSeq : (A : Set) -> Sequence
+ListSeq A = A , (List A , (nil , ((λ x → cons x nil) , (list-append , list-map))))
+
+JoinListSeq : (A : Set) -> Sequence
+JoinListSeq A = A , (JoinList A , (nil , (unit , (join-list-append , join-list-map))))
 
 -- Unfolding this and applying some rule that ≡ for Σ-types can be
 -- done via ≡ on first field and transport rules for the second will
 -- lead us to the desired properties on the methods, if we also use
 -- the rules for transport on equalities obtained from applying
 -- univalence.
-spec : {A : Set} (OtherSeq : Set -> SequenceSignature) -> ListSeq A ≡ OtherSeq A
-spec {A} OtherSeq with OtherSeq A
-spec OtherSeq | rep , (a , (empty , (single , (append , map)))) = 
-  Σ-≡ {!!} 
-  (Σ-≡ {!!} (Σ-≡ {!!} (Σ-≡ {!!} (Σ-≡ {!!} {!!}))))
-
+spec : (A : Set) -> Iso (List A) (JoinList A) -> ListSeq A ≡ JoinListSeq A
+spec A iso = Σ-≡ refl 
+  (Σ-≡ (ua (List A) (JoinList A) iso) 
+  (Σ-≡ (trans (Σ-transport (ua (List A) (JoinList A) iso)) (trans {!!} {!!}))
+  (Σ-≡ {!!} 
+  (Σ-≡ {!!} 
+  {!!}))))
