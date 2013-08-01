@@ -56,6 +56,10 @@ transport refl bx = bx
 ap : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A -> B) -> x ≡ y -> f x ≡ f y
 ap f refl = refl
 
+ap-2 : {a b c : Level} {A : Set a} {B : Set b} {C : Set c} {x x' : A} {y y' : B} (f : A -> B -> C) -> x ≡ x' -> y ≡ y' -> f x y ≡ f x' y'
+ap-2 f refl refl = refl
+
+
 cong : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A -> B) -> x ≡ y -> f x ≡ f y
 cong = ap
 
