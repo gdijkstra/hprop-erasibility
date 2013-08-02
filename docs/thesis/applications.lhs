@@ -476,15 +476,15 @@ which can be established by the following equational reasoning:
 
 \begin{code}
       xs
-  == { isomorphism }
+  == { isom }
       from (to xs)
-  == { [] is left unit of listappend }
+  == { [] isleftunitof listappend }
       from ([] listappend to xs)
-  == { specification of otherImpl }
+  == { specof otherImpl }
       from (to otherEmpty ++ to xs)
-  == { specification of otherAppend }
+  == { specof otherAppend }
       from (to (otherAppend otherEmpty xs))
-  == { isomorphism }
+  == { isom }
       otherAppend otherEmpty xs
 \end{code}
 
@@ -519,8 +519,9 @@ on |JoinList|s should respect, do not make use of the fact that |from|
 and |to| are isomorphisms; they can still be used for non-isomorphic
 views.
 
-Even though |List A| and |JoinList A| are not isomorphic, we can take
-the quotient of |JoinList A| by the following relation:
+Since we are only interested in using the |JoinList| as a sequence and
+do not care how the inhabitants are balanced, we can take the quotient
+by the following relation:
 
 \begin{code}
   rel : JoinList A -> JoinList A -> Universe
@@ -531,21 +532,83 @@ The type |Quotient (JoinList A) rel| is then isomorphic to |List
 A|. This result can be generalised to arbitrary section-retraction
 pairs between \hsets |A| and |B|: given |r : A -> B| and |s : B -> A|
 such that |(a : A) -> s (r a) == a|, then |B| is isomorphic to
-|Quotient A rel| where |x ~ y| is defined as |r x == r y|. The
-quotient is in turn isomorphic to the type |Sigma (x : A) . s (r x) ==
-x|, \ie the fragment of |A| for which |s| and |r| are isomorphisms.
+|Aquote| where |x ~ y| is defined as |r x == r y|. We have a function
+|A -> Aquote|, namely the constructor |box| and can write a function
+|Aquote -> A|. If we use |Quotient-rec| for this, we need to supply a
+function |f : A -> A| such that if |r x == r y|, then also |f x == f
+y|. Choosing |f| to be |\ x -> s (r x)| works. The identity function
+need not work: if it did, |r| would be injective and would be an
+isomorphism. Let us name the functions between |A| and |Aquote|
+|toAquote| and |fromAquote|. Composing these functions with |r| or
+|s|, we get functions between |Aquote| and |B| that give us the
+desired isomorphism. Proving that this is an isomorphism mostly
+involves applying the proof that |r (s x) == x| in various ways. We
+also have to invoke the \UIP property that |Aquote| admits (|A| is a
+set and |rel| is an equivalence relation) for the induction step on
+|Aquote|. The fact that |toAquote| is a retraction with |fromAquote|
+as its section can be proved using the same techniques.
 
-In order to use a type |A : Universe| that has a retraction into the
-concrete view |B : Universe| as another implementation of the abstract
-type, we need to lift all the operations on |A| to the |Sigma (x : A)
-. s (r x) == x| type, which we will refer to as |Abar|. Apart from
-this, we also need to show that these lifted operations satisfy the
-specification, \ie we can establish that the implementation based on
-|Abar| is propositionally equal to the implementation based on |B|.
+To lift the operations on |A| to operations on |Aquote| we simply
+apply |toAquote| and |fromAquote| in the right places. Showing that
+these lifted operations satisfy the conditions that follow from the
+specification then boils down to conditions that only refer to the
+operations on |A| in relation to those on |B|, as we will demonstrate
+with the |JoinList| example. Let us define |JoinList' A| as |JLAquote|
+with |x ~ y| defined as |to x == to y|. We have the following functions:
 
-\todoi{Show how this works out for the |JoinList| example.}
+\begin{itemize}
+\item |to : JoinList A -> List A|
+\item |from : List A -> JoinList A|
+\item |to' : JoinList A -> JoinList' A|
+\item |from' : JoinList' A -> JoinList A|
+\end{itemize}
+
+The isomorphism between |JoinList' A| and |List A| is witnessed by |to
+circ from' : JoinList' A -> List A| and |to' circ from : List A ->
+JoinList A|. The |empty| of |JoinList' A| is |to' nil|, which means
+that we need to establish |to (from' (to' nil)) == []|. We can reduce
+this goal to |to nil == []| via equational reasoning:
+
+\begin{code}
+      to (from' (to' nil))
+  == { definition to' }
+      to (from' (box nil))
+  == { beta reduction }
+      to (from (to nil))
+  == { to/from is a retraction/section }
+      to nil
+\end{code}
+
+In general we have that |from' (to' x) == from (to x)| holds for any
+|x : JoinList A|. Deriving the property for |single| goes analogously
+to the derivation above. The rule for |append| is more interesting as
+we there also need |from'| in other positions:
+
+\begin{code}
+      to (from' (to' (join (from' xs) (from' ys))))
+  == { beta reduction }
+      to (from (to (join (from' xs) (from' ys))))
+  == { to/from is a retraction/section }
+      to (join (from' xs) (from' ys))
+\end{code}
+
+We end up with having to prove that |(xs ys : JoinList' A) -> to (join
+(from' xs) (from' ys)) == to (from' xs) listappend to (from' ys)| which
+follows from |(xs ys : JoinList A) -> to (join xs ys) == to xs listappend
+to ys|.
+
+The above derivation shows us that we might arrive at equations that
+are a bit less general than the equations we get from if we were to
+pretend our retraction-section pair is actually an isomorphism.
+
+\subsubsection{Non-isomorphic views via definable quotients}
+
+It so happens that the quotient |Aquote| is definable. We can use the
+type |Sigma (x : A) . s (r x) == x|, \ie restrict |A| to those
+inhabitants for which |s| and |r| are isomorphisms. The function |box
+: A -> Sigma (x : A) . s (r x) == x| is then defined by |\ x -> (s (r
+x)) , ap s (isretract (r x))|, where |isretract : (x : B) -> r (s x)
+== x|.
 
 \section{Conclusion}
-
-
 

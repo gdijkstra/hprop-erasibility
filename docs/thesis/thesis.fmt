@@ -9,7 +9,7 @@
 %format oplus			= "\oplus"
 %format otimes			= "\otimes"
 %format times			= "\times"
-
+%format circ			= "\circ"
 
 
 %format not			= "not"
@@ -67,6 +67,12 @@
 %format ltfam                   = "\textunderscore < \textunderscore"
 %format qsAccInv0               = "qsAccInv_0"
 %format qsAccInv1               = "qsAccInv_1"
+%format Aquote			= "A/\!\!\sim"
+%format toAquote		= "to\mbox{-}A/\!\!\sim"
+%format fromAquote		= "from\mbox{-}A/\!\!\sim"
+%format JoinList'		= "JoinList\ A/\!\!\sim"
+%format to' 			= "\widetilde{to}"
+%format from'			= "\widetilde{from}"
 %format Abar			= "\widetilde{A}"
 %format fsnake			= "\widetilde{f}"
 %format Int			= "\mathbb{Z}"
@@ -96,3 +102,7 @@
 %format ua                      = "univalence"
 %format univalencecomp          = "univalence\mbox{-}comp"
 %format leftunitapp             = "left\mbox{-}unit\mbox{-}append"
+%format isom     		= "\mbox{isomorphism}"
+%format isleftunitof		= "\mbox{is left unit of}"
+%format specof			= "\mbox{specification of}"
+%format isretract		= "is\mbox{-}retract"
