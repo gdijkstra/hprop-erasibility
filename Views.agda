@@ -67,8 +67,48 @@ map-resp f (join l r) = {!!} -- use recursive call to reduce goal to
                              -- showing that "map f (to l) ++ map f
                              -- (to r) ≡ map f (to l ++ to r)"
 
--- Quotient method
+-- Sigma type method
+JoinListSigma : Set -> Set
+JoinListSigma A = Σ (JoinList A) (λ xs → from (to xs) ≡ xs)
 
+toSigma : {A : Set} -> JoinList A -> JoinListSigma A
+toSigma x = from (to x) , ap from (is-retraction (to x))
+
+fromSigma : {A : Set} -> JoinListSigma A -> JoinList A
+fromSigma = Σ.fst
+
+to'' : {A : Set} -> JoinListSigma A -> List A
+to'' xs = to (fromSigma xs)
+
+from'' : {A : Set} -> List A -> JoinListSigma A
+from'' xs = toSigma (from xs)
+
+join-list-empty'' : {A : Set} -> JoinListSigma A
+join-list-empty'' = toSigma join-list-empty
+
+join-list-single'' : {A : Set} -> A -> JoinListSigma A
+join-list-single'' a = toSigma (join-list-single a)
+
+join-list-append'' : {A : Set} -> JoinListSigma A -> JoinListSigma A -> JoinListSigma A
+join-list-append'' l r = toSigma (join-list-append (fromSigma l) (fromSigma r))
+
+join-list-map'' : {A B : Set} -> (f : A -> B) -> JoinListSigma A -> JoinListSigma B
+join-list-map'' f xs = toSigma (join-list-map f (fromSigma xs))
+
+-- Join lists satisfy the properties
+empty-resp'' : {A : Set} -> to'' (join-list-empty'' {A}) ≡ nil
+empty-resp'' = refl
+
+single-resp'' : {A : Set} -> (a : A) -> to'' (join-list-single'' a) ≡ cons a nil
+single-resp'' _ = refl
+
+append-resp'' : {A : Set} -> (xs ys : JoinListSigma A) -> to'' (join-list-append'' xs ys) ≡ list-append (to'' xs) (to'' ys)
+append-resp'' xs ys = is-retraction (list-append (to'' xs) (to'' ys))
+
+map-resp'' : {A B : Set} -> (f : A -> B) -> (xs : JoinListSigma A) -> to'' (join-list-map'' f xs) ≡ list-map f (to'' xs)
+map-resp'' f x = trans (is-retraction (to (join-list-map f (Σ.fst x)))) (map-resp f (fromSigma x))
+
+-- Quotient method
 rel : {X : Set} -> JoinList X -> JoinList X -> Set
 rel x y = to x ≡ to y
 
@@ -113,47 +153,6 @@ append-resp' xs ys = {!!}
 
 map-resp' : {A B : Set} -> (f : A -> B) -> (xs : JoinListQuotient A) -> to' (join-list-map' f xs) ≡ list-map f (to' xs)
 map-resp' f x = {!!}
-
--- Sigma type method
-JoinListSigma : Set -> Set
-JoinListSigma A = Σ (JoinList A) (λ xs → from (to xs) ≡ xs)
-
-toSigma : {A : Set} -> JoinList A -> JoinListSigma A
-toSigma x = from (to x) , ap from (is-retraction (to x))
-
-fromSigma : {A : Set} -> JoinListSigma A -> JoinList A
-fromSigma = Σ.fst
-
-to'' : {A : Set} -> JoinListSigma A -> List A
-to'' xs = to (fromSigma xs)
-
-from'' : {A : Set} -> List A -> JoinListSigma A
-from'' xs = toSigma (from xs)
-
-join-list-empty'' : {A : Set} -> JoinListSigma A
-join-list-empty'' = toSigma join-list-empty
-
-join-list-single'' : {A : Set} -> A -> JoinListSigma A
-join-list-single'' a = toSigma (join-list-single a)
-
-join-list-append'' : {A : Set} -> JoinListSigma A -> JoinListSigma A -> JoinListSigma A
-join-list-append'' l r = toSigma (join-list-append (fromSigma l) (fromSigma r))
-
-join-list-map'' : {A B : Set} -> (f : A -> B) -> JoinListSigma A -> JoinListSigma B
-join-list-map'' f xs = toSigma (join-list-map f (fromSigma xs))
-
--- Join lists satisfy the properties
-empty-resp'' : {A : Set} -> to'' (join-list-empty'' {A}) ≡ nil
-empty-resp'' = refl
-
-single-resp'' : {A : Set} -> (a : A) -> to'' (join-list-single'' a) ≡ cons a nil
-single-resp'' _ = refl
-
-append-resp'' : {A : Set} -> (xs ys : JoinListSigma A) -> to'' (join-list-append'' xs ys) ≡ list-append (to'' xs) (to'' ys)
-append-resp'' xs ys = is-retraction (list-append (to (Σ.fst xs)) (to (Σ.fst ys)))
-
-map-resp'' : {A B : Set} -> (f : A -> B) -> (xs : JoinListSigma A) -> to'' (join-list-map'' f xs) ≡ list-map f (to'' xs)
-map-resp'' f x = trans (is-retraction (to (join-list-map f (Σ.fst x)))) (map-resp f (fromSigma x))
 
 -- Spec stuff
 Iso : {a : Level} -> Set a → Set a → Set a
