@@ -64,3 +64,6 @@ s~-left-inverse : (x : A/~) -> s~ (r~ x) ≡ x
 s~-left-inverse x = Quotient-ind {B = λ x~ → s~ (r~ x~) ≡ x~} (λ x~ → quot (s (r (s (r x~)))) x~ (trans (is-retract (r (s (r x~)))) (is-retract (r x~)))) (λ x₁ y p → {!!}) x 
 -- the hole can be solved with UIP that A/~ satisfies. (retract-rel is
 -- an equivalence relation.)
+
+fromTo≡sr : (x : A) -> from-A/~ (to-A/~ x) ≡ s (r x)
+fromTo≡sr x = refl
