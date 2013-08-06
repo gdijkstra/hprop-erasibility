@@ -1,4 +1,5 @@
 \chapter{Erasing propositions}
+\label{chap:erasure}
 
 When writing certified programs in a dependently typed setting, we can
 conceptually distinguish between the \emph{program} parts and the

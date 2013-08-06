@@ -1,4 +1,5 @@
 \chapter{Applications of homotopy type theory}
+\label{chap:applications}
 
 \todoi{Introductory paragraph explaining what applications we will
   look at, apart from that we have already seen function
