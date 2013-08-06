@@ -16,3 +16,5 @@
 /.DS_Store
 /docs/thesis/thesis.toc
 /*.agdai
+/docs/thesis/thesis.ilg
+/docs/thesis/thesis.ind

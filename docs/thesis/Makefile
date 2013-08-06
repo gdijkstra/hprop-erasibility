@@ -1,4 +1,4 @@
-lhsfiles = thesis.lhs intro.lhs hottintro.lhs erasure.lhs applications.lhs bibliography.lhs commands.lhs thesis.fmt
+lhsfiles = abstract.lhs acknowledgements.lhs applications.lhs bibliography.lhs code.lhs commands.lhs discussion.lhs erasure.lhs hottintro.lhs index.lhs intro.lhs symbols.lhs thesis.lhs
 
 default : thesis.pdf
 
@@ -7,6 +7,7 @@ preview : thesis.pdf
 
 thesis.pdf : thesis.tex $(lhsfiles) thesis.bib
 	pdflatex thesis.tex && pdflatex thesis.tex
+	makeindex thesis
 	bibtex thesis
 	pdflatex thesis.tex && pdflatex thesis.tex && pdflatex -synctex=1 thesis.tex
 

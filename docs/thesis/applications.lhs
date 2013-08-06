@@ -20,12 +20,12 @@ Contributions:
 \label{sec:quots}
 
 In mathematics, one way to construct new sets is to take the
-\emph{quotient} of a set $X$ by an equivalence relation $R$ on that
-particular set. The new set is formed by regarding all elements $x, y
-\in X$ \st $xRy$ as equal. An example of a quotient set is the set of
-rationals |Rat| constructed from the integers as follows: we quotient
-out |Int times Int| by the relation |(a,b) ~ (c, d)| if and only if
-|ad = bc|.
+\emph{quotient} \index{quotient type} of a set $X$ by an equivalence
+relation $R$ on that particular set. The new set is formed by
+regarding all elements $x, y \in X$ \st $xRy$ as equal. An example of
+a quotient set is the set of rationals |Rat| constructed from the
+integers as follows: we quotient out |Int times Int| by the relation
+|(a,b) ~ (c, d)| if and only if |ad = bc|.
 
 In programming, it often happens that we have defined a data type that
 has more structure than we want to expose. This situation typically
@@ -34,8 +34,8 @@ operations on the data can be implemented more efficiently. An example
 of this is implementing a dictionary with a binary search tree: there
 are multiple binary search trees that represent the same dictionary,
 \ie contain the same key-value pairs. If we pass two different trees
-representing the same dictionary to an operation, we want the
-operation to yield the same results.
+representing the same dictionary \index{dictionary} to an operation,
+we want the operation to yield the same results.
 
 To make the above more precise, suppose we have defined a data type of
 binary search trees, |BST : Universe|, along with a relation |rel :
@@ -111,13 +111,14 @@ We can view these requirements as having a proof of |[_]| being an
 isomorphism, with respect to the relation |rel| on |A| instead of
 propositional equality.
 
-The result of \cite{definablequotients} is that there exist quotients
-that are not definable with one example being the real numbers
-constructed using the usual Cauchy sequence method. Adding quotients
-as \hits to our type theory, does not make the real numbers
-definable. Adding quotients is still useful in that we only have to
-work with propositional equality, as opposed to the confusion as to
-what relation one should use that arises from the use of setoids.
+The result of \cite{definablequotients} \index{definable quotient} is
+that there exist quotients that are not definable with one example
+being the real numbers constructed using the usual Cauchy sequence
+method. Adding quotients as \hits to our type theory, does not make
+the real numbers definable. Adding quotients is still useful in that
+we only have to work with propositional equality, as opposed to the
+confusion as to what relation one should use that arises from the use
+of setoids.
 
 \subsection{Quotients as a \hit}
 
