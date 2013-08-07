@@ -1,5 +1,5 @@
 \chapter{Introduction}
-\label{chap:introduction}
+\label{chap:intro}
 
 \todoi{We want to talk about equality from within the type theory:
   propositional equality. For type checking we sometimes need to check
@@ -51,5 +51,8 @@
   to doing homotopy theory, we won't do any diagram chasing and
   instead will use Agda syntax throughout the thesis. As such, we will
   expect the reader to be familiar with this.}
+
+\todoi{Mention that there is no pattern matching in \MLTT and that we
+  will abuse the \verb+--without-k+ flag.}
 
 \todoi{Guide to source code appendix~\autoref{chap:code}}
