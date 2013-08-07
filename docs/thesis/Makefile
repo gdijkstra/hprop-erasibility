@@ -15,5 +15,5 @@ thesis.tex : $(lhsfiles)
 	lhs2TeX -o thesis.tex thesis.lhs
 
 clean :
-	rm -f *.aux *.log *.nav *.out *.ptb *.toc *.snm thesis.pdf thesis.tex *.synctex.gz *.bbl *.blg
+	rm -f *.aux *.log *.nav *.out *.ptb *.toc *.snm thesis.pdf thesis.tex *.synctex.gz *.bbl *.blg *.idx *.ilg *.ind
 
