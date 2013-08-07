@@ -5,14 +5,13 @@
 \usepackage{color}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 
-\usepackage[authoryear,round]{natbib}
+\usepackage[authoryear,round,numbers]{natbib}
 \usepackage[text width=10cm]{todonotes}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath,amsthm,amssymb,stmaryrd}
 \usepackage{tgpagella}
 \usepackage{url}
 \usepackage{hyperref}
-
 
 \hypersetup{
   colorlinks,

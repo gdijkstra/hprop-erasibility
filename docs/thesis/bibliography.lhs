@@ -1,4 +1,3 @@
 
-\bibliographystyle{plainnat}
-\bibliography{thesis}
-
+\bibliography{thesis}{}
+\bibliographystyle{abbrvnat}
