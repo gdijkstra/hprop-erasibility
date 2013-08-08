@@ -5,7 +5,8 @@
 \usepackage{color}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 
-\usepackage[authoryear,round,numbers]{natbib}
+\usepackage[authoryear,numbers]{natbib}
+
 \usepackage[text width=10cm]{todonotes}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath,amsthm,amssymb,stmaryrd}
@@ -25,6 +26,8 @@
 \usepackage{setspace} 
 \usepackage{makeidx}
 \makeindex
+
+\setcounter{tocdepth}{1}
 
 %\onehalfspacing
 

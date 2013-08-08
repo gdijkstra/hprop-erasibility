@@ -44,3 +44,18 @@
 }{%
 \endverbatim%
 }
+
+\newcommand{\homotopyinterpretation}{%
+\begin{center}%
+\begin{tabular}{||l||l||}%
+\hline%
+ \textbf{type theory}  &  \textbf{homotopy theory}  \\%
+\hline%
+ |A| is a type      &  |A| is a space                              \\%
+ |x, y : A|         &  |x| and |y| are points in |A|               \\%
+ |p, q : == y|      &  |p| and |q| are paths from |x| to |y|       \\%
+ |w : p == q|       &  |w| is a homotopy between paths |p| and |q| \\%
+\hline%
+\end{tabular}%
+\end{center}%
+}

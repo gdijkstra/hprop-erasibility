@@ -17,18 +17,7 @@
 \todoi{Eventually, things led to homotopy type theory: a new
   interpretation of propositional equality in \MLTT.}
 
-\begin{center}
-\begin{tabular}{||l||l||}
-\hline
- \textbf{type theory}  &  \textbf{homotopy theory}  \\
-\hline
- |A| is a type      &  |A| is a space                              \\
- |x, y : A|         &  |x| and |y| are points in |A|               \\
- |p, q : == y|      &  |p| and |q| are paths from |x| to |y|       \\
- |w : p == q|       &  |w| is a homotopy between paths |p| and |q| \\
-\hline
-\end{tabular}
-\end{center}
+\homotopyinterpretation
 
 \todoi{Refer to current material on homotopy type theory. It's all
   geared toward mathematicians and stuff. Applications are
@@ -56,3 +45,4 @@
   will abuse the \verb+--without-k+ flag.}
 
 \todoi{Guide to source code appendix~\autoref{chap:code}}
+

@@ -43,7 +43,7 @@ eachother. The same holds for the associativity of composition: it is
 only associative up to homotopy.
 
 \todoi{Note that this gives us a (weak) groupoid structure. This is
-  the way to do homotopy theory according to Grothendieck?}
+  the way to do homotopy theory according to Grothendieck and Quillen?}
 
 \section{Identity types of \MLTT}
 \label{sec:identitytypes}
@@ -127,7 +127,15 @@ A|, we can find inhabitants of the following types:
 \item |trans  : Id A x y -> Id A y z -> Id A x z|
 \end{itemize}
 
-\subsection{Function extensionality}
+\todoi{transport}
+
+\subsection{Difficulties of identity types}
+
+Even though at first glance the identity types have the right
+structure: they form equivalence relations on types, there are still
+some things lacking and some things that are rather strange.
+
+\paragraph{Function extensionality}
 \label{sec:funext}
 
 To prove properties about functions, it is often useful to have the
@@ -150,24 +158,36 @@ definition of |+ : Nat -> Nat -> Nat|, we can prove that |(n : Nat)
 -> f n == g n|, but not that |f == g|, since that would imply they are
 definitionally equal, which they are not.
 
-\subsection{Uniqueness of identity proofs}
+\paragraph{Uniqueness of identity proofs}
 \label{sec:uip}
 
 The canonicity property implies that if, in the empty context, we have
 two identity proofs |p q : Id A x y|, these proofs are both |refl|,
-hence they are equal to one another. Using dependent pattern matching,
-we can prove this property in Agda, called \emph{uniqueness of identity
-  proofs}:
+hence they are equal to one another. One would expect that it is
+possible to prove this inside \MLTT. Using dependent pattern matching,
+we can easily prove this property in Agda, called \UIP
+\index{uniqueness of identity proofs}:
 
 \begin{code}
 UIP : (A : Universe) (x y : A) (p q : Id A x y) -> Id (Id A x y) p q
 UIP A x dotx refl refl = refl
 \end{code}
 
-Proving this using~|J| instead of dependent pattern matching has
-remained an open problem for a long time and has eventually been shown
-to be impossible \citep{groupoidinterpretation}. As a complement
-to~|J|, Streicher introduced the induction principle~|K|:
+Proving this using~|J| instead of dependent pattern matching to prove
+\UIP has remained an open problem for a long time and has eventually
+been shown to be impossible \citep{groupoidinterpretation}.
+
+\todoi{Note that this is different from proving that function
+  extensionality cannot be proven: that one uses the operational
+  semantics whereas for the non-provability of \UIP we need other
+  semantics, namely the groupoid interpretation, which eventually led
+  to the homotopy interpretation.}
+
+\todoi{Note that this means that dependent pattern matching is a
+  non-conservative extension over \MLTT.}
+
+As a complement to~|J|, Streicher introduced the induction
+principle~|K|:
 
 \begin{code}
   K  :   (A : Universe) (x : A) (P : Id A x x -> Universe)
@@ -182,23 +202,25 @@ definitions written with dependent pattern matching to ones that use
 the induction principles and axiom~|K|
 \citep{eliminatingdependentpatternmatching}.
 
-\section{Groupoid interpretation of types}
-\label{sec:groupoid}
+\todoi{Note that we will show examples of types violating \UIP and |K|
+  later on and how |K| compares to |J|.}
 
-One way to show that we cannot prove |UIP| and |K| from |J|, is to
-construct models of type theory with identity types in which there are
-types that do not exhibit the |UIP| property. In
-\cite{groupoidinterpretation}, the authors note that types have a
-groupoid structure. This means that if we can find a groupoid that
-violates |UIP|, translated to the language of groupoids, then |UIP| is
-not provable within \MLTT with identity types.
+\section{Homotopy interpretation}
+\label{sec:homotopyinterpretation}
 
-We have a notion of composition of proofs of propositional equality:
-the term |trans : Id A x y -> Id A y z -> Id A x z|, as such we will
-use the notation |_ circ _| instead of |trans|. The same goes for |symm :
-Id A x y -> Id A y x|, which we will denote as |_inv|. We can prove
-that this gives us a groupoid, \ie we can prove the following laws
-hold:
+\todoi{Recall the table}
+
+\homotopyinterpretation
+
+\todoi{Recall that homotopy had this \inftygrpd structure}
+
+In \cite{groupoidinterpretation}, the authors note that types have a
+groupoid structure. We have a notion of composition of proofs of
+propositional equality: the term |trans : Id A x y -> Id A y z -> Id A
+x z|, as such we will use the notation |_ circ _| instead of
+|trans|. The same goes for |symm : Id A x y -> Id A y x|, which we
+will denote as |_inv|. We can prove that this gives us a groupoid, \ie
+we can prove the following laws hold:
 
 Given |a, b, c, d: A| and |p : a == b|, |p : b == c| and |q : c == d|
 we have:
@@ -211,14 +233,7 @@ we have:
 \item Right identity: |p circ refl == p|
 \end{itemize}
 
-Groupoids can be seen as categories in which every arrow is
-invertible. Using this correspondence, |p : x == y| can be seen as an
-arrow |p : x -> y|. In this language, |UIP| means that if we have two
-arrows |p, q : x -> y|, then |p| and |q| are the same. The category
-consisting of two objects |x| and |y| with distinct arrows |p, q : x
--> y| along with their inverses is then a counterexample of |UIP|.
-
-One thing we glossed over is what kind of equalities we were talking
+The important thing to note is what kind of equalities we were talking
 about: associativity, etc. all hold up to propositional equality one
 level higher. The identity type |Id A x y| is of course a type and
 therefore has a groupoid structure of its own. Every type gives rise
@@ -227,7 +242,29 @@ structures, called \inftygrpds, also show up in homotopy theory, hence
 we have the correspondence between types and spaces as mentioned
 earlier.
 
-\section{Truncations}
+\todoi{Explain what this interpretation brings us}
+
+\todoi{Gives more explanation, reasons to see why it is the right
+  definition.}
+
+\todoi{Gives us a way to do homotopy theory. citations?}
+
+\todoi{Gives us a way to explain things such as the \UIP and the |K|
+  versus |J| thing, in pictures.}
+
+\todoi{Note that function extensionality does hold in the homotopy
+  interpretation.}
+
+\todoi{Inspires new additions to the type theory: \hits and
+  univalence.}
+
+\subsection{Interpreting \UIP and |K|}
+
+\todoi{Explain things, using pictures and whatever}
+
+\todoi{Give counterexamples}
+
+\section{\ntypes{n} and truncations}
 \label{sec:truncations}
 
 The tower of iterated identity types of a type can tell us all sorts
@@ -245,9 +282,9 @@ isContractible A = Sigma A (\ center -> (x : A) -> (Id A center x))
 \end{code}
 
 If the structure of the identity types peters out after $n$
-iterations, we call such a type $(n-2)$-truncated, or a
-\ntype{(n-2)}\footnote{The somewhat strange numbering, starting at
-  $-2$ comes from homotopy theory, where they first considered
+iterations, we call such a type an \ntype{(n-2)}, or
+\ntruncated{(n-2)}\footnote{The somewhat strange numbering, starting
+  at $-2$ comes from homotopy theory, where they first considered
   groupoids without any higher structure to be $0$-truncated and then
   generalised backwards.}:
 
@@ -262,38 +299,81 @@ an \ntype{(n+1)}, \ie |ntruncated| defines a filtration on the
 universe of types.
 
 The \emph{contractible} types are the types that are isomorphic to
-|top| in the sense that every inhabitant of a contractible type is
-unique up to propositional equality. In section~\autoref{sec:hit} we will
-see examples of contractible types that have more than one canonical
-element.
+|top| in the sense that a contractible type has an inhabitant that is
+unique up to propositional equality. In section~\autoref{sec:hit} we
+will see examples of contractible types that have more than one
+canonical element.
 
-Types of truncation level $-1$ are called
-\emph{h-propositions}. \ntypes{(-1)} are either empty (|bottom|) or,
-if they are inhabited, contractible, hence isomorphic to
-|top|. h-propositions satisfy the principle of proof irrelevance:
+Types of truncation level $-1$ are called \hprops. \ntypes{(-1)} are
+either empty (|bottom|) or, if they are inhabited, contractible, hence
+isomorphic to |top|. One can easily prove that \hprops satisfy the
+principle of proof irrelevance:
 
 \begin{code}
   proofIrrelevance : Universe -> Universe
   proofIrrelevance A = (x y : A) -> Id A x y
 \end{code}
 
-This fits the classical view of propositions and their proofs: we only
-care about whether or not we have a proof of a proposition and do not
-distinguish between two proofs of the same proposition.
 
-\emph{h-Sets} are the \ntypes{0}. Every type that satisfies |K| and
-|UIP| is an h-set. This is the highest truncation level we can get to
-in Agda, without adding extra axioms.
+The converse also holds: if a type satisfies proof irrelevance, it is
+an \hprop. Showing this is a bit more involved, but it is a nice
+example of how one can proof things about equalities between
+equalities.
+
+\todoi{Proof of proofIrrelevance=>hProp}
+
+The definition of \hprop fits the classical view of propositions and
+their proofs: we only care about whether or not we have a proof of a
+proposition and do not distinguish between two proofs of the same
+proposition.
+
+Another important case are the \ntypes{0}, also called \emph{\hsets},
+which are perhaps the most familiar to programmers. These are the
+types of which we have that any two inhabitants |x| and |y| are either
+equal to eachother in a unique way, or are not equal, \ie \hsets are
+precisely those types that satisfy \UIP. The simplest example of a
+type that is a \hset, but not a \hprop is the type |Bool|:
+
+\begin{code}
+  data Bool : Universe where
+    True : Bool
+    False : Bool
+\end{code}
+
+In fact, most types one defines in Agda are \hsets. One characteristic
+of \hsets is given by Hedberg's theorem \todo{Cite Nicolai Kraus
+  paper}, which states that every type that has decidable equality
+(\ie |(x y : A) -> x == y + (x == y -> bottom)|) also is an \hset. The
+only way to define a type that is not an \hset in Agda, is to add
+extra propositional equalities to the type by adding axioms. This is
+the subject of \autoref{sec:hit}.
+
+\paragraph{Notation} Sometimes we will use the notation |A : Prop| to
+indicate that |A| is a type that is an \hprop. In an actual
+implementation |Prop| would be defined as |Sigma (A : Universe)
+(is-truncated minusone A)|. When we refer to |A|, we are usually not
+interested in an inhabitant of the \sigmatype, but in the first field
+of that inhabitant, \ie the |A : Universe|. The same holds for the
+notation |A : Set|.
 
 \section{Higher inductive types}
 \label{sec:hit}
 
-In order to do some homotopy theory in type theory, we need to be able
-to construct interesting spaces in our type theory. One way to define
-spaces inductively, is by giving the constructors of the points in the
-space along with (higher) paths between them. For example, the
-interval can be seen as two points and a path connecting these two
-points, which in pseudo-Agda would look like:
+\todoi{We've seen counterexamples of \UIP, but how do we define such
+  examples in the type theory itself?}
+
+\todoi{Example: circle. Definition plus eliminator.}
+
+\todoi{Why does this violate \UIP: is |loop| really different from
+  |refl|? Why is it not contractible?}
+
+\todoi{Things are not entirely trivial with respect to their identity
+  types: Bool -> Interval -> Circle figure. (Set -> Contractible -> 1-type}
+
+\todoi{Coherence problems: free semigroup, MacLane pentagon.}
+
+For example, the interval can be seen as two points and a path
+connecting these two points, which in pseudo-Agda would look like:
 
 \begin{code}
   data Interval : Universe where
@@ -303,39 +383,48 @@ points, which in pseudo-Agda would look like:
     segment : zero == one
 \end{code}
 
-Inductive types with added equalities/paths are called \emph{higher
-  inductive types}. As of yet, these have not been implemented in
-Agda, but there are ways to simulate
-them.\footnote{\verb+http://homotopytypetheory.org/2011/04/23/running-circles-around-in-your-proof-assistant/+}
+\todoi{Elimination principle}
 
-Apart from defining the constructors and its paths, we also need an
-induction principle. Intuitively, to write a function from a higher
-inductive type into something else, we need to specify what to do with
-the constructors, just as with normal inductive types, but we need to
-do this in such a way that we preserve the added equalities. 
+\todoi{Interval implies fun ext}
 
-As one would expect from homotopy theory, we can prove that the type
-|Interval| is contractible, even though it has more than one canonical
-element. It is indeed isomorphic to the unit type, since isomorphism
-is defined with propositional equality and we have a proof of |zero ==
-one|.
+\todoi{Mention implementation hack for Agda}
 
-\section{Univalence}
+\section{Equivalence and univalence}
 \label{sec:univalence}
 
-A property satisfied by a popular model of homotopy theory, the
-category of simplicial sets, is the \emph{univalence} property. In
-type theory terms this roughly means we have the following axiom:
+\todoi{Everything in type theory is invariant under
+  ``isomorphism''. Monoid example. We want to have |transport| for
+  those situations as well}
 
-\begin{code}
-  univalence : (A B : Universe) -> Iso A B -> Id Universe A B
-\end{code}
+\todoi{We can not distinguish them other than that they are
+  definitionally different.}
 
-where |Iso A B| is a record containing functions between |A| and |B|
-and proofs that these functions are eachother's inverses.
+\todoi{In fact, the model that is the category of simplicial sets
+  satisfies this property: univalence}
 
-Unfortunately, the full axiom is a bit more involved, since we have
-additional coherence properties that need to hold: the proofs in the
-|Iso A B| record need to interact in a certain way. However, the axiom
-as stated above does hold for all h-sets, where there higher structure
-is simple enough to not have to worry about coherence.
+\todoi{Isomorphism is not precise enough of a notion. Things aren't
+  propositions in some cases.}
+
+\todoi{Univalence in its full glory with all the computation rules.}
+
+\todoi{Univalence restricted to \hsets.}
+
+\section{Implementation}
+\label{sec:implementation}
+
+\todoi{The current way to implement this stuff is by adding axioms.}
+
+\todoi{Adding \hits and univalence as axioms of course breaks things:
+  we get stuck terms.}
+
+\todoi{Blogpost about Agda hack \citep{hit-agda}}
+
+\todoi{Attempts: Licata/Harper canonicity result on booleans, but no
+  decidability result. Truncated.}
+
+\todoi{Sozeau: internalised stuff in Coq. Truncated}
+
+\todoi{Voevodsky: canonicity conjecture.}
+
+\todoi{Proof of univalence makes essential use of non-constructive
+  axiom of choice.}

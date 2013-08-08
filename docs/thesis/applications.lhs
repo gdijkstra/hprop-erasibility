@@ -291,7 +291,8 @@ way to do pattern matching on abstract types.
 An implementation of an abstract type is a type along with a
 collection of operations on that type. An abstract type can then be
 described in type theory as a nested \sigmatype, \eg a sequence
-abstract type can be described as follows:
+abstract type can be described as follows\todo{Find the citation for
+  abstract types as \sigmatypes}:
 
 \begin{code}
 Sequence =  Sigma  (seq     : Set -> Set)                                 .
