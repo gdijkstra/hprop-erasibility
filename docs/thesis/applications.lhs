@@ -21,20 +21,21 @@ Contributions:
 \label{sec:quots}
 
 In mathematics, one way to construct new sets is to take the
-\emph{quotient} \index{quotient type} of a set $X$ by an equivalence
+\emph{quotient} \index{quotient} of a set $X$ by an equivalence
 relation $R$ on that particular set. The new set is formed by
 regarding all elements $x, y \in X$ \st $xRy$ as equal. An example of
 a quotient set is the set of rationals |Rat| constructed from the
 integers as follows: we quotient out |Int times Int| by the relation
 |(a,b) ~ (c, d)| if and only if |ad = bc|.
 
-In programming, it often happens that we have defined a data type that
-has more structure than we want to expose. This situation typically
-occurs when we want to encode our data in such a way that certain
-operations on the data can be implemented more efficiently. An example
-of this is implementing a dictionary with a binary search tree: there
-are multiple binary search trees that represent the same dictionary,
-\ie contain the same key-value pairs. If we pass two different trees
+In programming, such a construction can also be very useful, as it
+often happens that we have defined a data type that has more structure
+than we want to expose. This situation typically occurs when we want
+to encode our data in such a way that certain operations on the data
+can be implemented more efficiently. An example of this is
+implementing a dictionary with a binary search tree: there are
+multiple binary search trees that represent the same dictionary, \ie
+contain the same key-value pairs. If we pass two different trees
 representing the same dictionary \index{dictionary} to an operation,
 we want the operation to yield the same results.
 
@@ -613,5 +614,18 @@ inhabitants for which |s| and |r| are isomorphisms. The function |box
 x)) , ap s (isretract (r x))|, where |isretract : (x : B) -> r (s x)
 == x|.
 
+\todoi{Notice that for the quotient type we have the |\ x -> s (r x)|
+  in the ``deconstructor'' and here we have it in the
+  constructor. Something like, quotient types are sound by putting
+  constraints on the way they are eliminated. This definable quotient
+  is sound by the way it is constructed.}
+
+\todoi{Proofs of things respecting the quotient are carried around in
+  the calls to the eliminator for the quotient type and in the values
+  for the \sigmatype. Which is preferable if we look back/forward to
+  the erasing of propositions? Does the eliminator ever make use of
+  the correctness proof?}
+
 \section{Conclusion}
 
+\todoi{Write this}

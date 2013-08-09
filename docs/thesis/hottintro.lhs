@@ -22,6 +22,19 @@ X| where |gamma 0 = p| and |gamma 1 = q| (see figure
 path spaces, and homotopies between these higher homotopies, ad
 infinitum.
 
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \node (A) {|x|};
+    \node (B) [right of=A] {|y|};
+    \draw[snakeline, bend left=45] (A.20) to node {|p|} (B.160);
+    \draw[snakeline, bend right=45] (A.340) to node [swap] {|q|} (B.200);
+
+  \end{tikzpicture}
+  \caption{Homotopy between paths |p| and |q|}
+  \label{fig:homotopy}
+\end{figure}
+
 If we have a path |p : a ~~> b| and a path |q : b ~~> c|, we can
 compose these to form a path |p circ q : a ~~> c|.  For every path |p : a
 ~~> b|, there is a reversed path |p inv : b ~~> a|. For every point
@@ -364,11 +377,49 @@ notation |A : Set|.
 
 \todoi{Example: circle. Definition plus eliminator.}
 
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \node (A) {|base|};
+    \draw[->, decoration={snake, pre length=0.1cm, post length=0.1cm, segment length=1.5mm, amplitude=.25mm}] (A) edge[min distance=20mm,looseness=1,in=180,out=0,loop,decorate] node[above] {|loop|} (A);
+  \end{tikzpicture}
+  \caption{The circle as a \hit}
+  \label{fig:homotopy}
+\end{figure}
+
+
 \todoi{Why does this violate \UIP: is |loop| really different from
   |refl|? Why is it not contractible?}
 
 \todoi{Things are not entirely trivial with respect to their identity
   types: Bool -> Interval -> Circle figure. (Set -> Contractible -> 1-type}
+
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+    \begin{tikzpicture}
+    \node (A) {|x|};
+    \node (B) [right of=A] {|y|};
+  \end{tikzpicture}
+  \caption{Booleans}\label{fig:hit_bool}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \begin{tikzpicture}
+    \node (A) {|x|};
+    \node (B) [right of=A] {|y|};
+    \draw[snakeline, bend left=45] (A.20) to node {|p|} (B.160);
+  \end{tikzpicture}
+  \caption{Interval}\label{fig:hit_interval}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \begin{tikzpicture}
+    \node (A) {|x|};
+    \node (B) [right of=A] {|y|};
+    \draw[snakeline, bend left=45] (A.20) to node {|p|} (B.160);
+    \draw[snakeline, bend right=45] (A.340) to node [swap] {|q|} (B.200);
+  \end{tikzpicture}
+  \caption{Circle}\label{fig:hit_circle}
+\endminipage
+\end{figure}
 
 \todoi{Coherence problems: free semigroup, MacLane pentagon.}
 

@@ -29,6 +29,14 @@
 
 \setcounter{tocdepth}{1}
 
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing} % for snake lines
+
+% TikZ styles for drawing
+\tikzstyle{snakeline} = [decorate, decoration={snake, pre length=0.1cm, post length=0.1cm, segment length=1.5mm, amplitude=.25mm}, ->]
+\tikzset{node distance=2cm, auto}
+%\tikzset{every loop/.style={min distance=20mm,in=0,out=60,looseness=10}}
+
 %\onehalfspacing
 
 %include commands.lhs
