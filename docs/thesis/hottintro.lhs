@@ -424,28 +424,31 @@ notation |A : Set|.
 
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
-    \begin{tikzpicture}
-    \node (A) {|x|};
-    \node (B) [right of=A] {|y|};
-  \end{tikzpicture}
-  \caption{Booleans}\label{fig:hit_bool}
+\begin{tikzpicture}
+  \path[use as bounding box] (-1,-0.5) rectangle (10,0.5);
+  \node (A) {|x|};
+  \node (B) [right of=A] {|y|};
+\end{tikzpicture}
+\caption{Booleans}\label{fig:hit_bool}
 \endminipage\hfill
 \minipage{0.32\textwidth}
-  \begin{tikzpicture}
-    \node (A) {|x|};
-    \node (B) [right of=A] {|y|};
-    \draw[snakeline, bend left=45] (A.20) to node {|p|} (B.160);
-  \end{tikzpicture}
-  \caption{Interval}\label{fig:hit_interval}
+\begin{tikzpicture}
+  \path[use as bounding box] (-1,-0.5) rectangle (10,0.5);
+  \node (A) {|x|};
+  \node (B) [right of=A] {|y|};
+  \draw[snakeline, bend left=45] (A.20) to node {|p|} (B.160);
+\end{tikzpicture}
+\caption{Interval}\label{fig:hit_interval}
 \endminipage\hfill
 \minipage{0.32\textwidth}%
-  \begin{tikzpicture}
-    \node (A) {|x|};
-    \node (B) [right of=A] {|y|};
-    \draw[snakeline, bend left=45] (A.20) to node {|p|} (B.160);
-    \draw[snakeline, bend right=45] (A.340) to node [swap] {|q|} (B.200);
-  \end{tikzpicture}
-  \caption{Circle}\label{fig:hit_circle}
+\begin{tikzpicture}
+  \path[use as bounding box] (-1,-0.5) rectangle (10,0.5);
+  \node (A) {|x|};
+  \node (B) [right of=A] {|y|};
+  \draw[snakeline, bend left=45] (A.20) to node {|p|} (B.160);
+  \draw[snakeline, bend right=45] (A.340) to node [swap] {|q|} (B.200);
+\end{tikzpicture}
+\caption{Circle}\label{fig:hit_circle}
 \endminipage
 \end{figure}
 
@@ -459,7 +462,7 @@ that previously did not exist. One example of this is
 \hit:
 
 \begin{code}
-  data 0-truncate : (A : Universe) : Universe where
+  data proptruncate : (A : Universe) : Universe where
     inhabitant : A -> proptruncate A
     
     allpaths : (x y : proptruncate A) -> inhabitant x == inhabitant y

@@ -38,6 +38,7 @@
 %format tau			= "\tau"
 %format ntruncated		= "is\mbox{-}truncated"
 %format minusonetruncation	= "(-1)\mbox{-}truncation"
+%format proptruncate		= "(-1)\mbox{-}truncate"
 %format isprop			= "is\mbox{-}hProp"
 %format hProp			= "hProp"
 %format dotx			= ".x"
