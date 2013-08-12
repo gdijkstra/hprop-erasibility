@@ -53,7 +53,4 @@ log .(S (S k)) (logAcc1 k pf) = S (log (S (div2 k)) pf)
 logInd : (x : ℕ) → logAcc x → ℕ
 logInd = logAccInd (λ _ → ℕ) 0 (λ _ _ recVal → S recVal)
 
-logRec : (x : ℕ) → logAcc x → ℕ
-logRec = logAccRec (λ _ _ → ℕ) 0 (λ _ _ recVal → S recVal)
-
 -- TODO: Write proof of (x : ℕ) → logAcc (S x)

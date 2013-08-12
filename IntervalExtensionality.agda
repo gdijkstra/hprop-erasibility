@@ -2,7 +2,6 @@
 
 module IntervalExtensionality where
 
-open import Naturals
 open import Levels
 open import Identity
 open import Interval
@@ -23,13 +22,11 @@ ext A B f g α = Interval⇒≡ (flip (λ a → ≡⇒Interval (α a)))
 left : {A : Set} {x y : A} -> (p : x ≡ y) -> (Interval⇒≡ (≡⇒Interval p)) ≡ p
 left {A} {x} {.x} refl = βseg x x refl
 
---right : {A : Set} (p : I -> A) -> (≡⇒Interval (Interval⇒≡ p)) ≡ p
---right {A} p = ? -- needs function extensionality?
+right : {A : Set} (p : I -> A) -> (≡⇒Interval (Interval⇒≡ p)) ≡ p
+right {A} p = {!!}
 
 -- Example of using function extensionality
-_+_ : ℕ -> ℕ -> ℕ
-Z   + y = y
-S x + y = S (x + y)
+open import Naturals
 
 +0 : ℕ → ℕ
 +0 x = x + 0

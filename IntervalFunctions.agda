@@ -8,7 +8,6 @@ open import Identity
 const-I : I → I
 const-I = I-rec zer zer refl
 
-
 id-I : I → I
 id-I = I-rec zer one seg
 

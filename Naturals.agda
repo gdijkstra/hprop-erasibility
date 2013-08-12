@@ -59,6 +59,4 @@ _*_ : ℕ → ℕ → ℕ
 Z   * n = Z
 S m * n = n + m * n
 
-
-
 {-# BUILTIN NATPLUS _+_ #-}
