@@ -87,6 +87,8 @@
 %format goal2                   = "goal_2"
 %format goal3                   = "goal_3"
 %format rel                     = "{\_\!\sim\!\_}"
+%format binopname               = "{\_\!\cdot\!\_}"
+%format binop                   = "{\cdot}"
 %format listapp                 = "{\_\!+\!\!\!	+\!\_}"
 %format listappend              = "{+\!\!\!+}"
 %format relrefl                 = "\sim\mbox{-}refl"
