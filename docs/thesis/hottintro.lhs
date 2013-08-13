@@ -362,7 +362,7 @@ iterations, we call such a type an \ntype{(n-2)}, or
 \begin{code}
 ntruncated : NatMinusTwo -> Universe -> Universe
 ntruncated minustwo  A = isContractible A
-ntruncated (S n)     A = (x : A) -> (y : A) -> ntruncated n (Id A x y)
+ntruncated (S n)     A = (x y : A) -> ntruncated n (Id A x y)
 \end{code}
 
 These truncation levels have the property that every \ntype{n} is also
@@ -385,13 +385,31 @@ principle of proof irrelevance:
   proofIrrelevance A = (x y : A) -> Id A x y
 \end{code}
 
-
 The converse also holds: if a type satisfies proof irrelevance, it is
 an \hprop. Showing this is a bit more involved, but it is a nice
 example of how one can proof things about equalities between
 equalities.
 
-\todoi{Proof of proofIrrelevance=>hProp: whisker properties}
+\begin{code}
+  piimplieshprop : (A : Universe) -> (p : proofIrrelevance A) -> isprop A
+\end{code}
+
+We need to show that for every |x y : A|, |x == y| is contractible: we
+need to find a proof |c : x == y| and show that any other proof of |x
+== y| is equal to |c|. An obvious candidate for |c| is |p x y|. To
+show that |c == p x y|, we use (one-sided) induction on |c|, fixing
+the |y|, so we need to prove that |refl == p y y|. Instead of doing
+this directly, we first prove something more general:
+
+\begin{code}
+  lemma : (x y : A) (q : x == y) -> p x y == q circ p y y  
+\end{code}
+
+This can be done by one-sided induction on |q|, fixing |y|. The goal
+then reduces to showing that |p y y == p y y|. Using the lemma we can
+show that |p y y == p y y circ p y y|. Combining this with |p y y circ
+refl| and the fact that |\ q -> p circ q| is injective for any |p|, we
+get that |p y y == refl|.
 
 The definition of \hprop fits the classical view of propositions and
 their proofs: we only care about whether or not we have a proof of a
@@ -419,8 +437,6 @@ only way to define a type that is not an \hset in Agda, is to add
 extra propositional equalities to the type by adding axioms. This is
 the subject of \autoref{sec:hit}.
 
-\todoi{Truncations and their elimination.}
-
 \paragraph{Notation} Sometimes we will use the notation |A : Prop| to
 indicate that |A| is a type that is an \hprop. In an actual
 implementation |Prop| would be defined as |Sigma (A : Universe)
@@ -428,6 +444,23 @@ implementation |Prop| would be defined as |Sigma (A : Universe)
 interested in an inhabitant of the \sigmatype, but in the first field
 of that inhabitant, \ie the |A : Universe|. The same holds for the
 notation |A : Set|.
+
+\subsection{Truncations}
+\label{sec:trunc}
+
+It may happen that we sometimes construct a type of which the identity
+types have too much structure, \eg it is a \ntype{2} but we want it to
+be a \ntype{0}. In homotopy type theory, we have a way to consider a
+type as though it were an \ntype{n}, for some |n| we have chosen
+ourselves, the so called \ntruncation{n} of a type. Special cases that
+are particularly interesting are the \ntruncation{(-1)}, \ie we force
+something to be a \hprop, which is particularly useful when we
+want to do logic, and \ntruncation{0}, \ie we force something to be a
+\hset. The idea is that we add enough extra equalities to the type
+such that the higher structure collapses. This can be done using
+\hits~(\autoref{sec:hit}). The general construction is rather involved
+and not of much interest for the purposes of this thesis.
+
 
 \section{Higher inductive types}
 \label{sec:hit}
@@ -579,9 +612,58 @@ connecting these two points, which in pseudo-Agda would look like:
 \todoi{Isomorphism is not precise enough of a notion. Things aren't
   propositions in some cases.}
 
+\begin{code}
+  isIsomorphism : {A B : Universe} (f : A -> B) -> Universe
+  isIsomorphism f = Sigma (B -> A) (\ g ->  (x : B) -> f (g x) == x times 
+                                            (x : A) -> g (f x) == x)
+\end{code}
+
 \todoi{Univalence in its full glory with all the computation rules.}
 
-\todoi{Univalence restricted to \hsets.}
+\begin{code}
+  isEquivalence : {A B : Universe} (f : A -> B) -> Universe
+  isEquivalence f =  Sigma (B -> A) (\g -> (x : B) -> f (g x) == x)
+              times  Sigma (B -> A) (\h -> (x : a) -> h (f x) == x)
+\end{code}
+
+\begin{code}
+  equivrel : {A B : Universe} -> Universe
+  A equivrel B = Sigma (A -> B) (\f -> isEquivalence f)
+\end{code}
+
+\begin{code}
+  equalimpliesequiv : (A B : Universe) -> A == B -> A equiv B
+\end{code}
+
+\todoi{Dingen even wat beter doen hier.}
+
+\begin{code}
+  univalence : (A B : Universe) -> isEquivalence (equalimpliesequiv A B)
+\end{code}
+
+\begin{code}
+  equivimpliesequal : (A B : Universe) -> A equiv B -> A == B
+\end{code}
+
+
+Which comes with the computation rule:
+
+\begin{code}
+  univalencecomp : {A B : Universe} 
+                   {f : A -> B}
+                   {eq : isEquivalence f}
+                   {x : A} 
+               ->  transport (\X -> X) (ua A B ) x == f x
+\end{code}
+Consequences:
+
+
+
+
+Since we have that if |f : A -> B| is an isomorphism, it also is an
+equivalence, we also have that isomorphism implies propositional
+equality.
+
 
 \section{Implementation}
 \label{sec:implementation}
