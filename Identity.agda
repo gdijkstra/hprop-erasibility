@@ -52,7 +52,7 @@ anti-whisker-right refl {q} {r} h = trans (sym (refl-right-identity q)) (trans h
 transport : {a b : Level} {A : Set a} {B : A -> Set b} {x y : A} -> x ≡ y -> B x -> B y
 transport refl bx = bx
 
--- Functorial action on points.
+-- Functorial action on paths.
 ap : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A -> B) -> x ≡ y -> f x ≡ f y
 ap f refl = refl
 
