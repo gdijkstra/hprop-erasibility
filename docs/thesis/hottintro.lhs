@@ -25,8 +25,8 @@ homotopies, ad infinitum.
 \begin{figure}
   \centering
   \begin{tikzpicture}
-    \node (A) {|x|};
-    \node (B) [right of=A] {|y|};
+    \node[draw,shape=circle,minimum size=0.02cm,fill=black,label=below:|x|] (A) {};
+    \node[draw,shape=circle,minimum size=0.02cm,fill=black,label=below:|y|] (B) [right of=A] {};
     \draw[snakeline, bend left=45] (A.20) to node {|p|} (B.160);
     \draw[snakeline, bend right=45] (A.340) to node [swap] {|q|} (B.200);
 
@@ -140,7 +140,39 @@ A|, we can find inhabitants of the following types:
 \item |trans  : Id A x y -> Id A y z -> Id A x z|
 \end{itemize}
 
-\todoi{transport}
+Another important property of propositional equality is that it is a
+congruence relation, \ie we have a term with the following type:
+
+\begin{code}
+  ap : {A B : Universe} -> (f : A -> B) -> {x y : A} -> x == y -> f x == f y
+\end{code}
+
+|ap f| can be read as the (functorial) \emph{action} on \emph{paths}
+induced by |f| or the \emph{application} of |f| on \emph{paths}. If we
+want to generalise |ap| to also work on dependent functions |f : (a :
+A) -> B a|, we notice that we get something that does not type check:
+|f x == f y| does not type check because |f x : B x| and |f y : B
+y|. However, if we have an equality between |x| and |y|, then |B x ==
+B y|, so we should be able to somehow transform something of type |B
+x| to something of type |B y|. This process is called
+\emph{transporting}:
+
+\begin{code}
+  transport : {A : Universe} {B : A -> Universe} {x y : A} -> x == y -> B x -> B y
+\end{code}
+
+|transport| is sometimes also called |subst|, as |transport| witnesses
+the fact that if we have |x == y|, we can substitute any occurrence of
+|x| in context |B| with |y|.
+
+Using |transport| we can now formulate the dependent version of |ap|:
+
+\begin{code}
+  apd : {A : Universe} {B : A → Universe} {x y : A} → (f : (a : A) → B a) → (beta : x == y)
+  → transport beta (f x) == f y
+\end{code}
+
+The resulting equality is an equality of between points in |B y|.
 
 \subsection{Difficulties of identity types}
 
@@ -409,7 +441,7 @@ notation |A : Set|.
   \centering
   \begin{tikzpicture}
     \node (A) {|base|};
-    \draw[->, decoration={snake, pre length=0.1cm, post length=0.1cm, segment length=1.5mm, amplitude=.25mm}] (A) edge[min distance=20mm,looseness=1,in=180,out=0,loop,decorate] node[above] {|loop|} (A);
+    \draw[snakeline] (A) arc (0:350:1.5cm) node[above] {|loop|};
   \end{tikzpicture}
   \caption{The circle as a \hit}
   \label{fig:homotopy}

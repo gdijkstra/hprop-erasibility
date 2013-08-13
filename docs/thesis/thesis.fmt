@@ -35,6 +35,7 @@
 %format Pi			= "\Pi"
 %format Gamma			= "\Gamma"
 %format gamma			= "\gamma"
+%format beta			= "\beta"
 %format tau			= "\tau"
 %format ntruncated		= "is\mbox{-}truncated"
 %format minusonetruncation	= "(-1)\mbox{-}truncation"
