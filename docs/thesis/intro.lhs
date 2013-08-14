@@ -41,6 +41,9 @@
   instead will use Agda syntax throughout the thesis. As such, we will
   expect the reader to be familiar with this.}
 
+\todoi{Mention |A : Universe| versus |A : Set| thing and that we will
+  omit levels.}
+
 \todoi{Mention that there is no pattern matching in \MLTT and that we
   will abuse the \verb+--without-k+ flag.}
 

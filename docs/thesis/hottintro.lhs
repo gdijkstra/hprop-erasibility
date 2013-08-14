@@ -142,6 +142,7 @@ A|, we can find inhabitants of the following types:
 
 Another important property of propositional equality is that it is a
 congruence relation, \ie we have a term with the following type:
+\todoi{Is this congruence? What about |f == g -> f x == g x|?}
 
 \begin{code}
   ap : {A B : Universe} -> (f : A -> B) -> {x y : A} -> x == y -> f x == f y
@@ -485,8 +486,7 @@ and not of much interest for the purposes of this thesis.
   |refl|? Why is it not contractible?}
 
 \todoi{Things are not entirely trivial with respect to their identity
-  types: Bool -> Interval -> Circle figure. (Set -> Contractible -> 1-type}
-
+  types: Bool -> Interval -> Circle figure. (Set -> Contractible -> 1-type)}
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
 \begin{tikzpicture}
@@ -530,7 +530,7 @@ that previously did not exist. One example of this is
   data proptruncate : (A : Universe) : Universe where
     inhabitant : A -> proptruncate A
     
-    allpaths : (x y : proptruncate A) -> inhabitant x == inhabitant y
+    allpaths : (x y : proptruncate A) -> x == y
 \end{code}
 
 We have seen in~\autoref{sec:truncations} that this type indeed yields
@@ -599,18 +599,41 @@ connecting these two points, which in pseudo-Agda would look like:
 \section{Equivalence and univalence}
 \label{sec:univalence}
 
-\todoi{Everything in type theory is invariant under
-  ``isomorphism''. Monoid example. We want to have |transport| for
-  those situations as well}
+\MLTT satisfies the property that everything you construct in the
+theory is invariant under isomorphism. Consider for example the
+definition of a monoid:
 
-\todoi{We can not distinguish them other than that they are
-  definitionally different.}
+\begin{code}
+  Monoid : Universe
+  Monoid =  Sigma  (carrier    : Set) .
+            Sigma  (unit       : carrier) .
+            Sigma  (binopname  : carrier -> carrier -> carrier) .
+            Sigma  (assoc      : (x y z : carrier) -> x binop (y binop z) == (x bin op y) binop z) .
+            Sigma  (unitleft   : (x : carrier) -> unit binop x == x) .
+            Sigma  (unitright  : (x : carrier) -> x binop unit == x) . top
+\end{code}
 
-\todoi{In fact, the model that is the category of simplicial sets
-  satisfies this property: univalence}
+If we have two types |A B : Universe| with an isomorphism |f : A -> B|
+and a proof |ma : Monoid A|, then it is straightforward to produce a
+|Monoid B| using only |Monoid A| and the isomorphism |f|, by applying
+|f| and |f inv| to the fields of |ma : Monoid A|. The resulting
+instance of |Monoid B| can then also be shown to be isomorphic to
+|ma|. This is similar to the situation with |transport| and |apd|: if
+we have a proof |p : A == B|, then we can use |transport| to create an
+inhabitant of |Monoid B| using |ma| and |p|. We can then prove that
+the resulting instance of |Monoid B| is propositionally equal to |ma|
+using |apd|. However, writing |transport| and |apd| function that
+works with isomorphisms instead of propositional equalities will not
+work in \MLTT, as we cannot access the information about how the types
+are constructed, to figure out where the isomorphisms have to be
+applied.
 
-\todoi{Isomorphism is not precise enough of a notion. Things aren't
-  propositions in some cases.}
+\emph{Univalence} gives us an internal account of this principle. It
+roughly says that isomorphic types are propositionally equal, so all
+the tools to manipulate propositional equalities now also can be
+applied to isomorphisms. But before we can formulate the univalence
+axiom, we need to introduce some new terminology. We can define the
+notion of a function |f : A -> B| being an isomorphism as follows:
 
 \begin{code}
   isIsomorphism : {A B : Universe} (f : A -> B) -> Universe
@@ -618,7 +641,10 @@ connecting these two points, which in pseudo-Agda would look like:
                                             (x : A) -> g (f x) == x)
 \end{code}
 
-\todoi{Univalence in its full glory with all the computation rules.}
+We want the type |isIsomorphism f| to be an \hprop, which it is when
+|A| and |B| are \hsets, but it can fail to be an \hprop when |A| and
+|B| are \ntypes{n} with $n > 0$. Instead we introduce the notion of
+\emph{equivalence} \index{equivalence}:
 
 \begin{code}
   isEquivalence : {A B : Universe} (f : A -> B) -> Universe
@@ -626,63 +652,112 @@ connecting these two points, which in pseudo-Agda would look like:
               times  Sigma (B -> A) (\h -> (x : a) -> h (f x) == x)
 \end{code}
 
+This definition does satisfy the property that |isEquivalence f| can
+hold in at most one way (up to propositional equality). We can also
+show that |isIsomorphism f -> isEquivalence f| and |isEquivalence f ->
+isIsomorphism f|, \ie the two types are \emph{coinhabited}.
+
+Using this definition of what it means to be an equivalence, we can
+define the following relation on types:
+
 \begin{code}
   equivrel : {A B : Universe} -> Universe
   A equivrel B = Sigma (A -> B) (\f -> isEquivalence f)
 \end{code}
 
+It is easy to show that if two types are propositional equal, then
+they are also equivalent, by transporting along |\ X -> X|:
+
 \begin{code}
   equalimpliesequiv : (A B : Universe) -> A == B -> A equiv B
 \end{code}
 
-\todoi{Dingen even wat beter doen hier.}
+The \emph{univalence axiom} then tells us that equivalences and
+propositional equalities are equivalent:
 
 \begin{code}
-  univalence : (A B : Universe) -> isEquivalence (equalimpliesequiv A B)
+  Univalence : (A B : Universe) -> isEquivalence (equalimpliesequiv A B)
 \end{code}
+
+One important consequence of this axiom is that we have the following:
 
 \begin{code}
-  equivimpliesequal : (A B : Universe) -> A equiv B -> A == B
+  ua : (A B : Universe) -> A equiv B -> A == B
 \end{code}
 
-
-Which comes with the computation rule:
+which should satisfy the following computation rule:
 
 \begin{code}
-  univalencecomp : {A B : Universe} 
-                   {f : A -> B}
-                   {eq : isEquivalence f}
-                   {x : A} 
-               ->  transport (\X -> X) (ua A B ) x == f x
+  uacomp : {A B : Universe} 
+           {f : A -> B}
+           {eq : isEquivalence f}
+           {x : A} 
+      ->   transport (\X -> X) (ua A B) x == f x
 \end{code}
-Consequences:
 
+Univalence means that we can now generalise the |Monoid| example
+mentioned, since |transport| and |apd| can now be used for
+isomorphisms as well.
 
-
-
-Since we have that if |f : A -> B| is an isomorphism, it also is an
-equivalence, we also have that isomorphism implies propositional
-equality.
-
+If we have univalence, the universe of \hsets is not a \hset, as is
+exhibited by the isomorphisms |Bool -> Bool|. There are two different
+such isomorphisms: |id| and |not|. Using |ua|, these isomorphisms map
+to different proofs of |Bool == Bool|. |id| maps to |refl| and |not|
+to something that is not equal to |refl|. This means that the universe
+of \hsets violates \UIP. It can be shown to be a \ntype{1} instead. In
+fact, the universe of \ntype{n} is not an \ntype{n} but an
+\ntype{(n+1)}~\citep{ntypes}.
 
 \section{Implementation}
 \label{sec:implementation}
 
-\todoi{The current way to implement this stuff is by adding
-  axioms. This sort of works for doing formal mathematics: we only
-  need to type check things.}
+Currently, the way to ``implement'' \hott, \ie \MLTT with univalence
+and \hits, is to take an existing implementation of \MLTT such as Agda
+or Coq and adding univalence and the computation rules for univalence
+as axioms. This approach is sufficient when we want to do formal
+mathematics, since in that case we only are interested in type
+checking our developments. If we want to run the program, terms that
+make use of univalence then get stuck as soon as it hits an axiom.
 
-\todoi{Adding \hits and univalence as axioms of course breaks things:
-  we get stuck terms.}
+The computational interpretation of univalence is one the biggest open
+problems of \hott. Several attempts have been made at a computation
+interpretation for truncated versions of \hott: \citet{canonicity}
+show that if we restrict ourselves to a univalent universe of \hsets,
+we can achieve canonicity. The article however does not present a
+decidability result for type checking. \citet{univalencefree}
+internalise \hott in Coq and also restrict themselves to the
+two-dimensional case, \ie \UIP need not hold, but equalities between
+equalities are unique.
 
-\todoi{Blogpost about Agda hack \citep{hit-agda}}
+The conjecture is that full canonicity will probably not hold, but
+only canonicity ``up to propositional equality'': it is conjectured
+\citep{canonicityconj} that there is a terminating algorithm that
+takes an expression |t : Nat| and produces a canonical term |t' : Nat|
+along with a proof that |t == t'|. The proof of equality may use the
+univalence axiom.
 
-\todoi{Attempts: Licata/Harper canonicity result on booleans, but no
-  decidability result. Truncated.}
+\hits can also be implemented by adding axioms for the extra
+paths. The elimination principles also can be implemented by adding
+the computation rules for paths as axioms. One then has to be careful
+to not do pattern matching on \hits. In Agda one can hide things in
+such a way that one can export an elimination principle in which the
+computation rules for the points hold definitionally and the other
+rules propositionally, while also making direct pattern matching
+impossible from any other module that imports the module containing
+the \hit \citep{hit-agda}. \todoi{Mention inconsistency result.}
 
-\todoi{Sozeau: internalised stuff in Coq. Truncated}
+Since dependent pattern matching is not a conservative extension of
+\MLTT and in general incompatible with \hott, we have to use the
+\verb+--without-K+ flag for our Agda code, to ensure that we aren't
+pattern matching too liberally. The assumption is that all code
+written using pattern matching that passes the \verb+--without-K+
+check can be rewritten using only elimination principles.
 
-\todoi{Voevodsky: canonicity conjecture. (source: \verb+2011_UPenn.pdf+ (slide 15))}
-
-\todoi{Proof of univalence makes essential use of non-constructive
-  axiom of choice.}
+A question one might ask is whether we cannot add an extra constructor
+to the definition of |Id| for univalence. Doing this means that we end
+up with a different elimination principle: if we want to prove
+something about propositional equalities, we also need to account for
+the case when it was proven using univalence. Apart from making it
+more difficult to prove things about propositional equalities, it is
+also not clear if the resulting type has the right properties to be
+called an equality, if we look at its interpretation in some model.
