@@ -21,6 +21,8 @@
 \newcommand{\ntruncated}[1]{$#1$-truncated\xspace}
 \newcommand{\inftygrpd}{$\infty$-groupoid\xspace}
 \newcommand{\inftygrpds}{$\infty$-groupoids\xspace}
+\newcommand{\Hit}{Higher inductive type\xspace}
+\newcommand{\Hits}{Higher inductive types\xspace}
 \newcommand{\hit}{higher inductive type\xspace}
 \newcommand{\hits}{higher inductive types\xspace}
 \newcommand{\propeq}{\equiv}

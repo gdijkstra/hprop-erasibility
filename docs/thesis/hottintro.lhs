@@ -4,7 +4,21 @@
 As was briefly mentioned in~\autoref{chap:intro}, homotopy type theory
 studies the correspondence between homotopy theory and type theory. As
 such, we will start out with a very brief sketch of the basic notions
-of homotopy theory. \todoi{Introduce the rest of the chapter.}
+of homotopy theory (\autoref{sec:homotopytheory}). After that, we will
+describe the notion of propositional equality in \MLTT using identity
+types (\autoref{sec:identitytypes}). Having defined the identity
+types, we can explain the interpretation of \MLTT in homotopy
+theoretic terms, relating propositional equality to paths
+(\autoref{sec:homotopyinterpretation}). In \autoref{sec:truncations}
+we describe how the idea of classifying spaces along their homotopic
+structure can be used in type theory to classify
+types. \autoref{sec:hit} and \autoref{sec:univalence} describe two
+extensions to \MLTT inspired by homotopy theory. This chapter is
+concluded by a discussion on the implementation issues of \hott
+(\autoref{sec:implementation}).
+
+\section{Homotopy theory}
+\label{sec:homotopytheory}
 
 In \emph{homotopy theory} we are interested in studying
 \emph{continuous deformations} \index{continuous deformation}. The
@@ -53,10 +67,11 @@ equations are satisfied:
 This happens to not be the case: the equations do not hold in the
 strict sense. However, both sides of the equations are homotopic to
 eachother. The same holds for the associativity of composition: it is
-only associative up to homotopy.
-
-\todoi{Note that this gives us a (weak) groupoid structure. This is
-  the way to do homotopy theory according to Grothendieck and Quillen?}
+only associative up to homotopy. Homotopies also have this same
+structure, in which all the equalities hold up to higher homotopy. The
+groupoid-like structure that towers of homotopies have, is called a
+\inftygrpd structure. It was proposed by Grothendiek~\todo{citation
+  needed} that homotopy theory should be the study of these \inftygrpds.
 
 \section{Identity types of \MLTT}
 \label{sec:identitytypes}
@@ -101,7 +116,9 @@ Along with this type, we have the following computation rule:
 \end{code}
 
 We will make use of a slightly different, but equivalent formulation
-of these types, due to Paulin-Mohring \todo{citation needed}:
+of these types, due to Paulin-Mohring \todo{citation needed}, where
+the |x| is a parameter as opposed to an index, yielding a more
+convenient elimination principle:
 
 \begin{code}
   data Id' (A : Universe) (x : A) : A → Universe where
@@ -112,9 +129,10 @@ with induction principle:
 
 \begin{code}
   J' :  (A : Universe)
-    ->  (P : (x y : A) -> (p : Id' A x y) -> Universe)
+    ->  (x : A)
+    ->  (P : (y : A) -> (p : Id' A x y) -> Universe)
     ->  (c : P x x refl)
-    ->  (x y : A) -> (p : Id' A x y)
+    ->  (y : A) -> (p : Id' A x y)
     ->  P x y p
 \end{code}
 
@@ -142,7 +160,6 @@ A|, we can find inhabitants of the following types:
 
 Another important property of propositional equality is that it is a
 congruence relation, \ie we have a term with the following type:
-\todoi{Is this congruence? What about |f == g -> f x == g x|?}
 
 \begin{code}
   ap : {A B : Universe} -> (f : A -> B) -> {x y : A} -> x == y -> f x == f y
@@ -221,16 +238,10 @@ UIP A x dotx refl refl = refl
 
 Proving this using~|J| instead of dependent pattern matching to prove
 \UIP has remained an open problem for a long time and has eventually
-been shown to be impossible \citep{groupoidinterpretation}.
-
-\todoi{Note that this is different from proving that function
-  extensionality cannot be proven: that one uses the operational
-  semantics whereas for the non-provability of \UIP we need other
-  semantics, namely the groupoid interpretation, which eventually led
-  to the homotopy interpretation.}
-
-\todoi{Note that this means that dependent pattern matching is a
-  non-conservative extension over \MLTT.}
+been shown to be impossible \citep{groupoidinterpretation} by
+constructing a model of \MLTT in which there is a type that violates
+\UIP. This tells us that dependent pattern matching is a
+non-conservative extension over \MLTT.
 
 As a complement to~|J|, Streicher introduced the induction
 principle~|K|:
@@ -248,22 +259,22 @@ definitions written with dependent pattern matching to ones that use
 the induction principles and axiom~|K|
 \citep{eliminatingdependentpatternmatching}.
 
-\todoi{Note that we will show examples of types violating \UIP and |K|
-  later on and how |K| compares to |J|.}
-
 \section{Homotopy interpretation}
 \label{sec:homotopyinterpretation}
 
-\todoi{Recall the table}
+In the introduction (\autoref{chap:intro}), it was mentioned that
+homotopy type theory concerns itself with the following
+correspondence:
 
 \homotopyinterpretation
 
-\todoi{Recall that homotopy had this \inftygrpd structure}
-
-In \cite{groupoidinterpretation}, the authors note that types have a
-groupoid structure. We have a notion of composition of proofs of
-propositional equality: the term |trans : Id A x y -> Id A y z -> Id A
-x z|, as such we will use the notation |_ circ _| instead of
+In \autoref{sec:homotopytheory} we noted that homotopies have a
+\inftygrpd structure. It is this structures that leads us to the
+correspondence between the identity types from \MLTT and homotopy
+theory. In \cite{groupoidinterpretation}, the authors note that types
+have a groupoid structure. We have a notion of composition of proofs
+of propositional equality: the term |trans : Id A x y -> Id A y z ->
+Id A x z|, as such we will use the notation |_ circ _| instead of
 |trans|. The same goes for |symm : Id A x y -> Id A y x|, which we
 will denote as |_inv|. We can prove that this gives us a groupoid, \ie
 we can prove the following laws hold:
@@ -283,28 +294,41 @@ The important thing to note is what kind of equalities we were talking
 about: associativity, etc. all hold up to propositional equality one
 level higher. The identity type |Id A x y| is of course a type and
 therefore has a groupoid structure of its own. Every type gives rise
-to a tower of groupoids that can interact with eachother. These
-structures, called \inftygrpds, also show up in homotopy theory, hence
-we have the correspondence between types and spaces as mentioned
-earlier.
+to a tower of groupoids that can interact with eachother. This is
+exactly the same as the way homotopies form an \inftygrpd, hence we
+have the correspondence between types and spaces as mentioned earlier.
 
-\todoi{Explain what this interpretation brings us}
+Having such an interpretation of type theory brings us several
+things. Since every proof we write in type theory corresponds to a
+proof of a statement in homotopy theory, we can use it to proof
+theorems of homotopy theory.
 
-\todoi{Gives more explanation, reasons to see why it is the right
-  definition.}
-
-\todoi{Gives us a way to do homotopy theory. citations?}
-
-\todoi{Gives us a way to explain things such as the \UIP and the |K|
-  versus |J| thing, in pictures.}
-
-\todoi{Note that function extensionality does hold in the homotopy
-  interpretation.}
-
-\todoi{Inspires new additions to the type theory: \hits and
-  univalence.}
+It also means that the intuition about homotopy theory can be applied
+to type theory. As such, we can use it to explain why one cannot prove
+|K| using |J| (\autoref{sec:interpret}), using a couple of
+illustrations.
 
 \subsection{Interpreting \UIP and |K|}
+\label{sec:interpret}
+
+Recall the elimination principle |J|:
+
+\begin{code}
+  J :  (A : Universe)
+    ->  (x : A)
+    ->  (P : (y : A) -> (p : Id A x y) -> Universe)
+    ->  (c : P x x refl)
+    ->  (y : A) -> (p : Id A x y)
+    ->  P x y p
+\end{code}
+
+Interpreting |J| in homotopy theory, we see that it tells us that if
+we want to prove a property about a predicate |P| on paths, we only
+have to show that it holds for the constant path |refl|. Homotopically
+this can be motivated by the fact that |P| is a predicate on paths
+with a fixed starting point |x| and a |y| that can be chosen freely
+(see~\autoref{fig:j}. Any path |p : x == y| can be contracted along
+this path to the constant path |refl : x == x|.
 
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
@@ -316,8 +340,27 @@ earlier.
 \minipage{0.32\textwidth}%
 \includegraphics[width=\textwidth]{img/J2.pdf}
 \endminipage
+\label{fig:j}
 \caption{With |J| we have the freedom to move the end point around.}
 \end{figure}
+
+In the case of axiom |K|, both the beginning and the end point are
+fixed:
+
+\begin{code}
+  K  :   (A : Universe) (x : A) (P : Id A x x -> Universe)
+     ->  P refl
+     ->  (p : Id A x x)
+     ->  P c
+\end{code}
+
+Homotopically this means that we are restricted to loops. If we want
+to contract a given path |p : x == x| to |refl : x == x|, we cannot
+use the same trick as with |J|, as the end point is fixed. Contracting
+any loop to |refl| does not always work, as can be seen
+in~\autoref{fig:k}. If we have a hole in our space, then we can
+distinguish between loops that go around the hole and those that do
+not.
 
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
@@ -329,12 +372,9 @@ earlier.
 \minipage{0.32\textwidth}%
 \includegraphics[width=\textwidth]{img/K2.pdf}
 \endminipage
+\label{fig:k}
 \caption{With |K|, we are restricted to loops}
 \end{figure}
-
-\todoi{Explain things, using pictures and whatever}
-
-\todoi{Give counterexamples}
 
 \section{\ntypes{n} and truncations}
 \label{sec:truncations}
@@ -462,14 +502,85 @@ such that the higher structure collapses. This can be done using
 \hits~(\autoref{sec:hit}). The general construction is rather involved
 and not of much interest for the purposes of this thesis.
 
-
 \section{Higher inductive types}
 \label{sec:hit}
 
-\todoi{We've seen counterexamples of \UIP, but how do we define such
-  examples in the type theory itself?}
+We have seen a counterexample of a space in which the interpretation
+of |K| and \UIP fails: a space with a hole in it. The question is then
+if we can construct such counterexamples in the type theory
+itself. Since we are asking for a type |A : Universe| for which there
+is an inhabitant |x : A| with a non-canonical term |p : Id A x x|, we
+know that we cannot do this is normal \MLTT as this would violate the
+canonicity property.
 
-\todoi{Example: circle. Definition plus eliminator.}
+\emph{\Hits} extend inductive types with the possibility add
+\emph{path constructors} to the definition of a type: instead of
+giving constructors for the points of a space, we may also give
+constructors for paths between points, and paths between paths, and so
+on. Using \hits we can now describe familiar spaces, such as the
+circle (see also~\autoref{fig:circle}):
+
+\begin{code}
+  data Circle : Universe where
+    base : Circle
+    
+    loop : base == base
+\end{code}
+
+Apart from defining how we can construct equalities between
+inhabitants of the type, we also need to specify the elimination
+principle. Roughly speaking we need to ensure that all the points get
+mapped in such a way that all the equalities are respected. In the
+case of the circle this looks as follows:
+
+\begin{code}
+  Circle-rec : {B : Set} 
+       -> (b : B)
+       -> (p : b == b)
+       -> Circle -> B
+\end{code}
+
+with computation rule:
+
+\begin{code}
+  Circle-rec b p base = b
+\end{code}
+
+We also need a computation rule for the paths, to witness that the
+|loop| indeed gets mapped onto the specified path |p : b == b| by
+|ap|:
+
+\begin{code}
+  ap (Circle-rec b p) loop = p
+\end{code}
+
+It might seem a bit silly that we need to provide a path |b == b|, as
+this type is always inhabited by |refl|. However, we sometimes do want
+|p| to be different from |refl|: in order to write the identity
+function on |Circle|, we also want |loop| to be preserved by this map.
+
+Apart from a non-dependent elimination principle, we also need a
+dependent version:
+
+\begin{code}
+  Circle-ind : {B : Circle -> Set}
+          -> (b : B base)
+          -> (p : transport B loop b == b)
+          -> (x : Circle) -> B x
+\end{code}
+
+Using the dependent elimination principle, we can show that this type
+violates \UIP, \ie we can prove that |loop == refl| does not hold. In
+fact, the |Id Circle base base| is isomorphic to the integers |Int|,
+where transitivity maps to addition on integers
+\citep{fundamentalgroup}. This might seem a bit strange, because at
+first glance |Circle| seems to be a contractible type: we have only
+have one constructor |base| and an equality |base == base|, so it
+seems to fit the definition. However, trying to prove |(x : Circle) ->
+x == base| will not work, as the only functions we can define in type
+theory are \emph{continuous} functions. While it is true in homotopy
+theory that for every point on the circle, we can find a path to the
+base point, we cannot do so in a continuous way.
 
 \begin{figure}
   \centering
@@ -478,15 +589,21 @@ and not of much interest for the purposes of this thesis.
     \draw[snakeline] (A) arc (0:350:1.5cm) node[above] {|loop|};
   \end{tikzpicture}
   \caption{The circle as a \hit}
-  \label{fig:homotopy}
+  \label{fig:circle}
 \end{figure}
 
+If we add a path constructor connecting two points |x| and |y|, we do
+not only get that specific path, but all the paths that can be
+constructed from that path using transitivity and symmetry. If we
+start out with a type with only two constructors |x| and |y|, we get a
+type isomorphic to the booleans (see~\autoref{fig:hit_bool}), a
+\ntype{0}. Adding one path constructor |p : x == y| gives us the
+interval (see~\autoref{fig:hit_interval} and \autoref{sec:interval}),
+which is a contractible type (it is a \ntype{(-2)}) and hence
+isomorphic to the unit type |top|. If we add yet another path
+constructor |q : x == y|, we get a type isomorphic to |Circle|, which
+is a \ntype{1}.
 
-\todoi{Why does this violate \UIP: is |loop| really different from
-  |refl|? Why is it not contractible?}
-
-\todoi{Things are not entirely trivial with respect to their identity
-  types: Bool -> Interval -> Circle figure. (Set -> Contractible -> 1-type)}
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
 \begin{tikzpicture}
@@ -574,13 +691,22 @@ Adding these equalities breaks the set property: the following diagram
   \end{tikzpicture}
 \end{center}
 
-\todoi{Something about \hits not being trivial, there's a lot of
-  interaction between things that is quite subtle. In fact, you want
-  it to be subtle.}
+This shows us that the interaction of propositional equalities at the
+different levels can be quite subtle. For this reason one often
+truncates a \hit, to be sure that it is coherent enough, \eg that it
+is really a \hset.
 
 \subsection{Interval}
-For example, the interval can be seen as two points and a path
-connecting these two points, which in pseudo-Agda would look like:
+\label{sec:interval}
+Another example of a space from homotopy theory is the interval. At
+first glance this might seem like a rather uninteresting space to
+study, as it is homotopy equivalent to the space that consists of one
+point. The following presentation of the interval as a \hit has some
+interesting consequences.
+
+The interval $[0,1]$ can be seen, from a homotopy theory perspective,
+as a space with two points, $0$ and $1$, and a path between them. As a
+\hit, this can be presented as follows:
 
 \begin{code}
   data Interval : Universe where
@@ -590,11 +716,58 @@ connecting these two points, which in pseudo-Agda would look like:
     segment : zero == one
 \end{code}
 
-\todoi{Elimination principle}
+A map from |Interval| to some type |B : Universe| must map |zero| and
+|one| to points in |a b : B| such that |a == b|:
 
-\todoi{Interval implies fun ext}
+\begin{code}
+  Interval-rec : {B : Universe} 
+       -> (b0 b1 : B)
+       -> (p : b0 == b1)
+       -> Interval -> B
+\end{code}
 
-\todoi{Mention implementation hack for Agda}
+with computation rules:
+
+\begin{code}
+    Interval-rec b0 b1 p zero  = b0
+    Interval-rec b0 b1 p one   = b1
+
+    ap (Interval-rec b0 b1 p) seg = p
+\end{code}
+
+Having an interval type means that we have a different way to talk
+about equalities: any path |p : Id A x y| can be seen as a map |Interval ->
+A|:
+
+\begin{code}
+  eqtointerval : {A : Universe} {x y : A} -> x == y -> Interval -> A
+  eqtointerval {A} {x} {y} p i = Interval-rec {A} x y p i
+\end{code}
+
+The other way around can also be done:
+
+\begin{code}
+  intervaltoeq : {A : Set} -> (p : Interval -> A) -> (p zer) ≡ (p one)
+  intervaltoeq p = ap p seg
+\end{code}
+
+Using this we can now manipulate propositional equalities in such a
+way that we can prove function extensionality. Suppose two functions
+|f g : A -> B| and a term |alpha : (x : A) -> f x == g x|. To remove
+the dependency in the type, we can use |eqtointerval|: 
+
+\begin{code}
+  \ a -> eqtointerval (alpha a) : A -> Interval -> A
+\end{code}
+
+If we flip the arguments of that term, we get a function |Interval ->
+A -> A|, which then can be turned into the desired |f == g|. The whole
+term looks as follows:
+
+\begin{code}
+  ext : (A B : Universe) (f g : A -> B) (alpha : (x : A) -> f x == g x) -> f == g
+  ext A B f g alpha = intervaltoeq (flip (\ a -> eqtointerval (alpha a)))
+\end{code}
 
 \section{Equivalence and univalence}
 \label{sec:univalence}
@@ -744,7 +917,9 @@ such a way that one can export an elimination principle in which the
 computation rules for the points hold definitionally and the other
 rules propositionally, while also making direct pattern matching
 impossible from any other module that imports the module containing
-the \hit \citep{hit-agda}. \todoi{Mention inconsistency result.}
+the \hit \citep{hit-agda}. However, one still has to be careful not to
+use the absurdity pattern, |()|, when dealing with \hits, as that can
+be used to prove |bottom| \citep{unsound}.
 
 Since dependent pattern matching is not a conservative extension of
 \MLTT and in general incompatible with \hott, we have to use the

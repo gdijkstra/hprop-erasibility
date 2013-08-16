@@ -1,21 +1,22 @@
 \chapter{Applications of homotopy type theory}
 \label{chap:applications}
 
-\todoi{Introductory paragraph explaining what applications we will
-  look at, apart from that we have already seen function
-  extensionality.}
+In \autoref{chap:hottintro} we introduced \hott and two extensions to
+\MLTT, univalence and \hits. We have seen how \hits can be used to
+prove function extensionality and how univalence makes it a lot easier
+to deal with isomorphic types. This chapter is devoted to other
+applications of \hott to programming. In \autoref{sec:quots} we show
+how \hits can be used to define quotient types, argue whether we need
+such a construction and contrast this approach to the setoid
+approach. We consider some of the difficulties that \hits usually
+bring with them (so called coherence issues) and show how to write
+binary operations on quotients as an example of how one uses the
+elimination principles.
 
-Contributions:
-
-\begin{itemize}
-\item Investigate how \hits can be used to construct
-  quotients and how this compares to other approaches (setoids,
-  definable quotients).
-\item Elaborate on Licata's use of univalence for views on abstract
-  types and extend it to non-isomorphic views.
-\end{itemize}
-
-\newpage
+We also consider the application of univalence to views on abstract
+types (\autoref{sec:views}), as proposed by \cite{licataview}. We work
+out the computations in detail to show how this works out and extend
+the approach to also work with non-isomorphic views.
 
 \section{Quotient types}
 \label{sec:quots}
@@ -314,9 +315,8 @@ way to do pattern matching on abstract types.
 
 An implementation of an abstract type is a type along with a
 collection of operations on that type. An abstract type can then be
-described in type theory as a nested \sigmatype, \eg a sequence
-abstract type can be described as follows\todo{Find the citation for
-  abstract types as \sigmatypes}:
+described in type theory as a nested \sigmatype \citep{abstractsigma},
+\eg a sequence abstract type can be described as follows:
 
 \begin{code}
 Sequence =  Sigma  (seq     : Set -> Set)                                 .
@@ -337,11 +337,10 @@ address this problem is to add properties to the specification, but it
 might not at all be clear a priori what properties are interesting and
 expressive enough to add to the specification.
 
-Another solution, proposed by Dan
-Licata\footnote{\verb+http://homotopytypetheory.org/2012/11/12/abstract-types-with-isomorphic-types/+},
-is to use views: along with nested \sigmatype, we also provide a
-concrete implementation, \ie an inhabitant of said \sigmatype, called
-a \emph{view} on the abstract type. The idea is that the concrete view
+Another solution, proposed by \citet{licataview}, is to use views:
+along with nested \sigmatype, we also provide a concrete
+implementation, \ie an inhabitant of said \sigmatype, called a
+\emph{view} on the abstract type. The idea is that the concrete view
 can be used to prove theorems about the abstract type. However, for
 this to work, we need to make sure that any implementation of the
 abstract type is also in some sense compatible with the view: the
@@ -580,19 +579,19 @@ apply |toAquote| and |fromAquote| in the right places. Showing that
 these lifted operations satisfy the conditions that follow from the
 specification then boils down to conditions that only refer to the
 operations on |A| in relation to those on |B|, as we will demonstrate
-with the |JoinList| example. Let us define |JoinList' A| as |JLAquote|
+with the |JoinList| example. Let us define |JoinList'| as |JLAquote|
 with |x ~ y| defined as |to x == to y|. We have the following functions:
 
 \begin{itemize}
 \item |to : JoinList A -> List A|
 \item |from : List A -> JoinList A|
-\item |to' : JoinList A -> JoinList' A|
-\item |from' : JoinList' A -> JoinList A|
+\item |to' : JoinList A -> JoinList'|
+\item |from' : JoinList' -> JoinList A|
 \end{itemize}
 
-The isomorphism between |JoinList' A| and |List A| is witnessed by |to
-circ from' : JoinList' A -> List A| and |to' circ from : List A ->
-JoinList A|. The |empty| of |JoinList' A| is |to' nil|, which means
+The isomorphism between |JoinList'| and |List A| is witnessed by |to
+circ from' : JoinList' -> List A| and |to' circ from : List A ->
+JoinList A|. The |empty| of |JoinList'| is |to' nil|, which means
 that we need to establish |to (from' (to' nil)) == []|. We can reduce
 this goal to |to nil == []| via equational reasoning:
 
@@ -619,7 +618,7 @@ we there also need |from'| in other positions:
       to (join (from' xs) (from' ys))
 \end{code}
 
-We end up with having to prove that |(xs ys : JoinList' A) -> to (join
+We end up with having to prove that |(xs ys : JoinList') -> to (join
 (from' xs) (from' ys)) == to (from' xs) listappend to (from' ys)| which
 follows from |(xs ys : JoinList A) -> to (join xs ys) == to xs listappend
 to ys|.
@@ -637,17 +636,17 @@ inhabitants for which |s| and |r| are isomorphisms. The function |box
 x)) , ap s (isretract (r x))|, where |isretract : (x : B) -> r (s x)
 == x|.
 
-\todoi{Notice that for the quotient type we have the |\ x -> s (r x)|
-  in the ``deconstructor'' and here we have it in the
-  constructor. Something like, quotient types are sound by putting
-  constraints on the way they are eliminated. This definable quotient
-  is sound by the way it is constructed.}
+Notice that for the quotient type we have the |\ x -> s (r x)| in the
+``deconstructor'' (\ie in the function |from' : JoinList' -> JoinList
+A|) and here we have it in the constructor (\ie the function
+|box|). This stems from the fact that the soundness of quotient types
+is enforced by the way they are eliminated. It is only there that we
+have the obligation to show that we respect the relation on the
+type. With the \sigmatype it is more correctness by construction.
 
-\todoi{Proofs of things respecting the quotient are carried around in
-  the calls to the eliminator for the quotient type and in the values
-  for the \sigmatype. Which is preferable if we look back/forward to
-  the erasing of propositions? Does the eliminator ever make use of
-  the correctness proof?}
+From a computational perspective, the first approach with the quotient
+types is more desireable, as the values of the type do not carry
+around any correctness proof.
 
 \section{Conclusion}
 

@@ -1,27 +1,50 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-\todoi{We want to talk about equality from within the type theory:
-  propositional equality. For type checking we sometimes need to check
-  whether two terms are equal, so we also have an external notion of
-  equality: definitional equality. If we want these to coincide:
-  extensional (which brings about UIP (assuming we have J) and
-  function extensionality). If we do not force this, we get
-  intensional type theory, in which we cannot prove UIP and fun
-  ext. The lack of the latter is particularly annoying.}
+One of the tricky things that comes up when designing a type system or
+a logic, is the defining a right notion of equality. When type
+checking a term, one needs a notion of equality, called
+\emph{definitional equality}, in this thesis denoted by |===|. For
+example when one type checks an application |f a| and we know that |f
+: A -> B| and we know that |a : X|, we have to check that |A| and |X|
+are equal in some way. In \MLTT, |A| and |X| need to be definitionally
+equal: if we reduce both |A| and |X| to their normal forms, they need
+to be syntactically equal.
 
-\todoi{How this propositional equality should be interpreted was
-  vague, seemed to lack UIP, but the usual models did not reflect
-  this.}
+We also want to be able to reason about equality in the type theory
+itself, \eg use it to show that two programs behave in the same way,
+when given the same input. The notion of equality internal to the type
+theory is called \emph{propositional equality} (in this thesis denoted
+by |==|). In \MLTT, propositional equality is defined using the so
+called \emph{identity types}: an inductive family with |refl| as its
+only constructor. This construction essentially imports definitional
+equality into the type theory.
 
-\todoi{Eventually, things led to homotopy type theory: a new
-  interpretation of propositional equality in \MLTT.}
+However, the resulting structure is not exactly definitional
+equality. We can force the two notions to coincide by adding an
+\emph{equality reflection} rule, \ie a rule that states that if we
+have a proof that |x| and |y| are propositionally equal, they are also
+definitionally equal. Since type checking makes use of definitional
+equality, to show that two terms are definitionally equal, we may need
+to produce a proof of propositional equality first. This proof search
+means that type checking becomes undecidable. However, adding equality
+reflection does mean that we can prove useful things such as function
+extensionality (|((x : A) -> f x == g x) -> f == g|), something that
+we cannot prove if we leave the equality reflection rule out.
+
+The study of intensional type theory, \ie type theory without the
+equality reflection rule, involved finding out why we cannot prove
+certain properties about propositional equality that were deemed to be
+natural properties for a notion of equality. This eventually led to
+the discovery of \hott, an interpretation of types and their identity
+types in the language of homotopy theory:
 
 \homotopyinterpretation
 
-\todoi{Refer to current material on homotopy type theory. It's all
-  geared toward mathematicians and stuff. Applications are
-  formalisation of mathematics.}
+The discovery was that propositional equality behaves just like
+the homotopy we know from topology. This discovery spawned a lot of
+interest, as it meant that type theory can be used to prove theorems
+about homotopy theory.
 
 \begin{quote}
   \todoi{Research question (roughly): what is homotopy type theory and
