@@ -1,5 +1,5 @@
-Erasing propositions and homotopy type theory
-=============================================
+Programming in homotopy type theory and erasing propositions
+============================================================
 
 This project's goal is to find out whether we can devise useful
 conditions under which hProp can be erased, as a run-time

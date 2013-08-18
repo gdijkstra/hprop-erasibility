@@ -2,6 +2,8 @@
 
 %include thesis.fmt
 
+\usepackage[paper=a4paper, margin=4.3cm]{geometry}
+
 \usepackage{color}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 
@@ -40,16 +42,11 @@
 
 %include commands.lhs
 
-\title{Erasing propositions \\ and homotopy type theory}
-
-\author{Gabe Dijkstra}
-
-\date{\today}
+\newcommand{\HRule}{\noindent\rule{\linewidth}{1.5pt}}
 
 \begin{document}
 
-\maketitle
-
+%include titlepage.lhs
 %include abstract.lhs
 
 \tableofcontents
