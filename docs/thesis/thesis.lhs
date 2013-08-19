@@ -61,7 +61,6 @@
 
 \appendix
 
-%include code.lhs
 %include bibliography.lhs
 %include symbols.lhs
 %include index.lhs
