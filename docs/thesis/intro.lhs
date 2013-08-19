@@ -41,34 +41,51 @@ types in the language of homotopy theory:
 
 \homotopyinterpretation
 
-The discovery was that propositional equality behaves just like
-the homotopy we know from topology. This discovery spawned a lot of
-interest, as it meant that type theory can be used to prove theorems
-about homotopy theory.
+The discovery was that propositional equality behaves just like the
+homotopy we know from topology. This discovery spawned a lot of
+interest, as it meant that the language of type theory can be used to
+prove theorems about homotopy theory. It also means that we can use
+our intuition about homotopy theory to make statements about type
+theory. For example, one question that has remained unanswered for
+nearly two decades, the question why \UIP cannot be proven using |J|,
+can now be answered by drawing a couple of pictures
+(see~\autoref{sec:interpret}).
 
-\begin{quote}
-  \todoi{Research question (roughly): what is homotopy type theory and
-    (why) is it interesting for programming?}
-\end{quote}
+This leads us to the main research question:
 
- \begin{itemize}
- \item \todoi{Contribution chapter~\autoref{chap:hottintro} introduction homotopy type theory}
- \item \todoi{Contribution chapter~\autoref{chap:applications} applications homotopy type theory}
- \item \todoi{Contribution chapter~\autoref{chap:erasure} on erasing propositions}
- \end{itemize}
+\researchquestionA
 
-\todoi{Discussion chapter~\autoref{chap:discussion}}
+In~\autoref{chap:hottintro} we give an introduction and overview of
+some of the main concepts of \hott. In~\autoref{chap:applications} we
+discuss several applications of \hott to programming. In particular we
+look at how we can implement quotient types in \hott and contrast this
+to popular ways to work with quotient types. Another application we
+consider is the use of univalence to deal with views on abstract
+types. We work out the example given by~\citet{licataview} and extend
+the result to non-isomorphic views, using quotient types.
 
-\todoi{Since the focus is on programming aspects of \hott, as opposed
-  to doing homotopy theory, we won't do any diagram chasing and
-  instead will use Agda syntax throughout the thesis. As such, we will
-  expect the reader to be familiar with this.}
+\Hott provides us with a notion of propositions, the so called
+\hprops. In~\autoref{chap:erasure} we compare this to similar notions
+found in Coq, Agda and Epigram. 
 
-\todoi{Mention |A : Universe| versus |A : Set| thing and that we will
-  omit levels.}
+We investigate whether we can formulate an optimisation based on
+\hprops in the spirit of the collapsibility optimisation proposed
+in~\citet{collapsibility}.
 
-\todoi{Mention that there is no pattern matching in \MLTT and that we
-  will abuse the \verb+--without-k+ flag.}
+In the final chapter, \autoref{chap:discussion}, we will discuss our
+answers to our research questions and propose directions of future
+research.
 
-\todoi{Guide to source code appendix~\autoref{chap:code}}
+Since the focus of this thesis is on the programming aspects of \hott,
+as opposed to doing homotopy theory, we will not do any diagram
+chasing and instead will use Agda syntax throughout the thesis. As
+such, we will expect the reader to be familiar with this language.
 
+\paragraph{Notation} The code in the thesis will not always be valid
+Agda code. We will use the notation |A : Universe| instead of |A :
+Set|, in order to avoid confusion between types and the \hott notion
+of \hsets. We will also refrain from mentioning levels and essentially
+assume |Universe : Universe|. The accompanying will explicitly mention
+the levels.
+
+\paragraph{Code} Look at \verb+README.agda+.

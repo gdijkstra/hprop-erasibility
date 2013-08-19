@@ -23,6 +23,8 @@
 \newcommand{\inftygrpds}{$\infty$-groupoids\xspace}
 \newcommand{\Hit}{Higher inductive type\xspace}
 \newcommand{\Hits}{Higher inductive types\xspace}
+\newcommand{\onehit}{$1$-{\textsc HIT}\xspace}
+\newcommand{\onehits}{$1$-{\textsc HITs}\xspace}
 \newcommand{\hit}{higher inductive type\xspace}
 \newcommand{\hits}{higher inductive types\xspace}
 \newcommand{\propeq}{\equiv}
@@ -35,10 +37,11 @@
 \newcommand{\coqprops}{|Prop|s\xspace}
 \newcommand{\coqtypes}{|Type|s\xspace}
 \newcommand{\coqsets}{|Set|s\xspace}
+\newcommand{\withoutk}{WITHOUTK}
 
 \newcommand{\todoi}[1]{\todo[inline]{#1}}
-\newcommand{\contribution}[1]{\begin{quote}
-{\bf Contribution: } #1
+\newcommand{\contribution}[1]{\begin{quote}%
+{\bf Contribution: } #1%
 \end{quote}}
 
 \newenvironment{coq}{%
@@ -47,7 +50,7 @@
 \endverbatim%
 }
 
-\newcommand{\homotopyinterpretation}{%
+\newcommand{\homotopyinterpretation}{
 \begin{center}%
 \begin{tabular}{||l||l||}%
 \hline%
@@ -60,4 +63,10 @@
 \hline%
 \end{tabular}%
 \end{center}%
+}
+
+\newcommand{\researchquestionA}{%
+\begin{quote}%
+  What is \hott and why is it interesting to do programming in?%
+\end{quote}%
 }

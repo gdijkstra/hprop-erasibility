@@ -997,4 +997,3 @@ respect to definitional equality. We have identified cases in which
 this is the case and cases in which definitional equality actually is
 preserved. We also argue that detecting whether the latter is the
 case, is not tractable.
-

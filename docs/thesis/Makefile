@@ -1,4 +1,4 @@
-lhsfiles = abstract.lhs acknowledgements.lhs applications.lhs bibliography.lhs code.lhs commands.lhs discussion.lhs erasure.lhs hottintro.lhs index.lhs intro.lhs symbols.lhs thesis.lhs titlepage.lhs
+lhsfiles = abstract.lhs acknowledgements.lhs applications.lhs bibliography.lhs commands.lhs discussion.lhs erasure.lhs hottintro.lhs index.lhs intro.lhs symbols.lhs thesis.lhs titlepage.lhs
 
 default : thesis.pdf
 

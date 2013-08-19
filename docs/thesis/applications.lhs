@@ -650,4 +650,35 @@ around any correctness proof.
 
 \section{Conclusion}
 
-\todoi{Write this}
+\Hits allow us to straightforwardly define quotient types. This
+definition works better than the setoid method in that we no longer
+have to be careful whether we use the custom equivalence relation or
+propositional equality: we only have to consider propositional
+equality. However, as is common with \hits, we have to take the
+\ntruncation{0} in the definition of a quotient type. This makes the
+elimination principle more complex to work with, but since virtually
+any of the types we work with in programming are \hsets, we usually
+automatically satisfy the extra conditions that the \ntruncation{0}
+adds to the elimination principle.
+
+Univalence gives us a very clean way to define specifications of
+abstract types using concrete views. Working with this specification,
+\eg trying to prove that a given implementation satisfies the
+specification, involves a lot of manual fiddling with the computation
+rules of \sigmatypes and univalence. Having a computational
+interpretation of univalence would obviously be of great importance
+for this method to be useful.
+
+Using quotient types, we can also define a view on an abstract type
+that is not isomorphic to the concrete type of the reference
+implementation, but only instead we have a retraction-section pair
+between the two types. Any retraction-section pair can be turned into
+an isomorphism, by quotienting out by the retraction. Such a quotient
+happens to be definable, which means that we do not need the quotient
+type construction using \hits to do this. However, the \hit
+construction does yield a definition that is more amenable to the
+optimisations that will be discussed in~\autoref{chap:erasibility}, as
+the proofs that the quotient structure is respected only occur in the
+calls to the elimination principle, instead of occurring in all the
+terms of type, which is the case with the definable quotient
+implementation.

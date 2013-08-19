@@ -241,7 +241,13 @@ Proving this using~|J| instead of dependent pattern matching to prove
 been shown to be impossible \citep{groupoidinterpretation} by
 constructing a model of \MLTT in which there is a type that violates
 \UIP. This tells us that dependent pattern matching is a
-non-conservative extension over \MLTT.
+non-conservative extension over \MLTT\footnote{This actually means
+  that all the code we write, should be written using the elimination
+  principles. Agda provides a \withoutk flag that limits pattern
+  matches to those cases that should be safe. The assumption is that
+  every definition given by pattern matching that passes the \withoutk
+  check, can be rewritten using the elimination principles. As such,
+  we will sometimes use pattern matching for our definition.}
 
 As a complement to~|J|, Streicher introduced the induction
 principle~|K|:
@@ -249,7 +255,7 @@ principle~|K|:
 \begin{code}
   K  :   (A : Universe) (x : A) (P : Id A x x -> Universe)
      ->  P refl
-     ->  (p : Id A x x)
+     ->  (c : Id A x x)
      ->  P c
 \end{code}
 
@@ -266,7 +272,9 @@ In the introduction (\autoref{chap:intro}), it was mentioned that
 homotopy type theory concerns itself with the following
 correspondence:
 
+
 \homotopyinterpretation
+
 
 In \autoref{sec:homotopytheory} we noted that homotopies have a
 \inftygrpd structure. It is this structures that leads us to the
