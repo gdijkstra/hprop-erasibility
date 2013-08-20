@@ -483,20 +483,20 @@ type that is a \hset, but not a \hprop is the type |Bool|:
 \end{code}
 
 In fact, most types one defines in Agda are \hsets. One characteristic
-of \hsets is given by Hedberg's theorem \todo{Cite Nicolai Kraus
-  paper}, which states that every type that has decidable equality
-(\ie |(x y : A) -> x == y + (x == y -> bottom)|) also is an \hset. The
-only way to define a type that is not an \hset in Agda, is to add
-extra propositional equalities to the type by adding axioms. This is
-the subject of \autoref{sec:hit}.
+of \hsets is given by Hedberg's theorem \citep{hedberg}, which states
+that every type that has decidable equality (\ie |(x y : A) -> x == y
++ (x == y -> bottom)|) also is an \hset. The only way to define a type
+that is not an \hset in Agda, is to add extra propositional equalities
+to the type by adding axioms. This is the subject of
+\autoref{sec:hit}.
 
-\paragraph{Notation} Sometimes we will use the notation |A : Prop| to
+\paragraph{Notation} Sometimes we will use the notation |A : hProp| to
 indicate that |A| is a type that is an \hprop. In an actual
-implementation |Prop| would be defined as |Sigma (A : Universe)
-(is-truncated minusone A)|. When we refer to |A|, we are usually not
+implementation |hProp| would be defined as |Sigma (A : Universe)
+(istruncated minusone A)|. When we refer to |A|, we are usually not
 interested in an inhabitant of the \sigmatype, but in the first field
 of that inhabitant, \ie the |A : Universe|. The same holds for the
-notation |A : Set|.
+notation |A : hSet|.
 
 \subsection{Truncations}
 \label{sec:trunc}
@@ -507,12 +507,13 @@ be a \ntype{0}. In homotopy type theory, we have a way to consider a
 type as though it were an \ntype{n}, for some |n| we have chosen
 ourselves, the so called \ntruncation{n} of a type. Special cases that
 are particularly interesting are the \ntruncation{(-1)}, \ie we force
-something to be a \hprop, which is particularly useful when we
-want to do logic, and \ntruncation{0}, \ie we force something to be a
+something to be a \hprop, which is particularly useful when we want to
+do logic, and \ntruncation{0}, \ie we force something to be a
 \hset. The idea is that we add enough extra equalities to the type
 such that the higher structure collapses. This can be done using
 \hits~(\autoref{sec:hit}). The general construction is rather involved
-and not of much interest for the purposes of this thesis.
+and not of much interest for the purposes of this thesis: we will only
+encounter the \ntruncation{(-1)} and \ntruncation{0}.
 
 \section{Higher inductive types}
 \label{sec:hit}
@@ -521,16 +522,18 @@ We have seen a counterexample of a space in which the interpretation
 of |K| and \UIP fails: a space with a hole in it. The question is then
 if we can construct such counterexamples in the type theory
 itself. Since we are asking for a type |A : Universe| for which there
-is an inhabitant |x : A| with a non-canonical term |p : Id A x x|, we
-know that we cannot do this is normal \MLTT as this would violate the
-canonicity property.
+is an inhabitant |x : A| with a term |p : Id A x x| \st |p == refl ->
+bottom|, we know that we cannot do this is normal \MLTT without adding
+axioms as this would violate the canonicity property.
 
 \emph{\Hits} extend inductive types with the possibility add
 \emph{path constructors} to the definition of a type: instead of
 giving constructors for the points of a space, we may also give
 constructors for paths between points, and paths between paths, and so
-on. Using \hits we can now describe familiar spaces, such as the
-circle (see also~\autoref{fig:circle}):
+on. Using \hits we can now describe\footnote{This is not valid
+  Agda. We can simulate \hits by adding (in this case) |loop| as a postulate
+  and only exposing the elimination principles.} familiar spaces, such
+as the circle (see also~\autoref{fig:circle}):
 
 \begin{code}
   data Circle : Universe where
@@ -540,13 +543,14 @@ circle (see also~\autoref{fig:circle}):
 \end{code}
 
 Apart from defining how we can construct equalities between
-inhabitants of the type, we also need to specify the elimination
-principle. Roughly speaking we need to ensure that all the points get
-mapped in such a way that all the equalities are respected. In the
-case of the circle this looks as follows:
+inhabitants of the type, we also need to specify how we can eliminate
+inhabitants. Roughly speaking we need to ensure that all the points
+get mapped in such a way that all the (extra) equalities are
+respected. In the case of the circle this looks as follows (see
+also~\autoref{fig:hit_interval}):
 
 \begin{code}
-  Circle-rec : {B : Set} 
+  Circlerec : {B : Set} 
        -> (b : B)
        -> (p : b == b)
        -> Circle -> B
@@ -555,7 +559,7 @@ case of the circle this looks as follows:
 with computation rule:
 
 \begin{code}
-  Circle-rec b p base = b
+  Circlerec b p base === b
 \end{code}
 
 We also need a computation rule for the paths, to witness that the
@@ -563,7 +567,7 @@ We also need a computation rule for the paths, to witness that the
 |ap|:
 
 \begin{code}
-  ap (Circle-rec b p) loop = p
+  ap (Circlerec b p) loop === p
 \end{code}
 
 It might seem a bit silly that we need to provide a path |b == b|, as
@@ -575,7 +579,7 @@ Apart from a non-dependent elimination principle, we also need a
 dependent version:
 
 \begin{code}
-  Circle-ind : {B : Circle -> Set}
+  Circleind : {B : Circle -> Set}
           -> (b : B base)
           -> (p : transport B loop b == b)
           -> (x : Circle) -> B x
@@ -583,8 +587,8 @@ dependent version:
 
 Using the dependent elimination principle, we can show that this type
 violates \UIP, \ie we can prove that |loop == refl| does not hold. In
-fact, the |Id Circle base base| is isomorphic to the integers |Int|,
-where transitivity maps to addition on integers
+fact, the type |Id Circle base base| is isomorphic to the integers
+|Int|, where transitivity maps to addition on integers
 \citep{fundamentalgroup}. This might seem a bit strange, because at
 first glance |Circle| seems to be a contractible type: we have only
 have one constructor |base| and an equality |base == base|, so it
@@ -664,14 +668,17 @@ that previously did not exist. One example of this is
 \end{code}
 
 We have seen in~\autoref{sec:truncations} that this type indeed yields
-a proposition, as it satisfies proof irrelevance. It collapses all
-higher structure of the original type |A : Universe|.
+a proposition, as it satisfies proof irrelevance, since we have added
+paths between all points |x| and |y|. This collapses all higher
+structure of the original type |A : Universe|.
 
 The converse can also happen: instead of collapsing the structure at
 higher levels, we might gain new structure at those levels, which
-sometimes may be undesirable. Suppose we want to consider words
-generated by some alphabet |A : Set|. This can be done with the
-following type:
+sometimes may be undesirable. If this is the case, the resulting type
+is not coherent enough. \emph{Coherence properties} are properties
+that state that certain equalities between equalities must
+hold. Suppose we want to consider words generated by some alphabet |A
+: Set|. This can be done with the following type:
 
 \begin{code}
   data FreeSemigroup : (A : Set) : Universe where
@@ -686,8 +693,10 @@ associative, so we add the following path constructor:
   assoc : {a b c : FreeSemigroup A} -> (a binop b) binop c == a binop (b binop c)
 \end{code}
 
-Adding these equalities breaks the set property: the following diagram
-(the so called \emph{Mac Lane pentagon} \todo{cite}) does not commute:
+Adding these equalities breaks the \hset property. The coherence
+property that we want to hold here is \uip. One example for which this
+fails, is that the following diagram (the so called \emph{Mac Lane
+  pentagon}) does not commute:
 
 \begin{center}
   \begin{tikzpicture}[description/.style={fill=white,inner sep=2pt}]
@@ -737,7 +746,7 @@ A map from |Interval| to some type |B : Universe| must map |zero| and
 |one| to points in |a b : B| such that |a == b|:
 
 \begin{code}
-  Interval-rec : {B : Universe} 
+  Intervalrec : {B : Universe} 
        -> (b0 b1 : B)
        -> (p : b0 == b1)
        -> Interval -> B
@@ -746,10 +755,10 @@ A map from |Interval| to some type |B : Universe| must map |zero| and
 with computation rules:
 
 \begin{code}
-    Interval-rec b0 b1 p zero  = b0
-    Interval-rec b0 b1 p one   = b1
+    Intervalrec b0 b1 p zero  === b0
+    Intervalrec b0 b1 p one   === b1
 
-    ap (Interval-rec b0 b1 p) seg = p
+    ap (Intervalrec b0 b1 p) seg === p
 \end{code}
 
 Having an interval type means that we have a different way to talk
@@ -758,7 +767,7 @@ A|:
 
 \begin{code}
   eqtointerval : {A : Universe} {x y : A} -> x == y -> Interval -> A
-  eqtointerval {A} {x} {y} p i = Interval-rec {A} x y p i
+  eqtointerval {A} {x} {y} p i = Intervalrec {A} x y p i
 \end{code}
 
 The other way around can also be done:
@@ -798,7 +807,7 @@ definition of a monoid:
   Monoid =  Sigma  (carrier    : Set) .
             Sigma  (unit       : carrier) .
             Sigma  (binopname  : carrier -> carrier -> carrier) .
-            Sigma  (assoc      : (x y z : carrier) -> x binop (y binop z) == (x bin op y) binop z) .
+            Sigma  (assoc      : (x y z : carrier) -> x binop (y binop z) == (x binop y) binop z) .
             Sigma  (unitleft   : (x : carrier) -> unit binop x == x) .
             Sigma  (unitright  : (x : carrier) -> x binop unit == x) . top
 \end{code}
@@ -862,14 +871,18 @@ they are also equivalent, by transporting along |\ X -> X|:
   equalimpliesequiv : (A B : Universe) -> A == B -> A equiv B
 \end{code}
 
-The \emph{univalence axiom} then tells us that equivalences and
-propositional equalities are equivalent:
+A universe of types is called a \emph{univalent} universe if
+equivalences and propositional equalities are equivalent, \eg in the
+case of the universe |Universe|, this would look as follows:
 
 \begin{code}
-  Univalence : (A B : Universe) -> isEquivalence (equalimpliesequiv A B)
+  (A B : Universe) -> isEquivalence (equalimpliesequiv A B)
 \end{code}
 
-One important consequence of this axiom is that we have the following:
+It has been shown that in a popular model of homotopy theory, the
+category of simplicial sets, the universe of spaces is indeed
+univalent \citep{univalence}. One important consequence of this
+property is that we have the following:
 
 \begin{code}
   ua : (A B : Universe) -> A equiv B -> A == B
@@ -886,8 +899,8 @@ which should satisfy the following computation rule:
 \end{code}
 
 Univalence means that we can now generalise the |Monoid| example
-mentioned, since |transport| and |apd| can now be used for
-isomorphisms as well.
+mentioned to any |B : Universe -> Universe|, since |transport| and
+|apd| can now be used for isomorphisms as well.
 
 If we have univalence, the universe of \hsets is not a \hset, as is
 exhibited by the isomorphisms |Bool -> Bool|. There are two different
@@ -903,8 +916,8 @@ fact, the universe of \ntype{n} is not an \ntype{n} but an
 
 Currently, the way to ``implement'' \hott, \ie \MLTT with univalence
 and \hits, is to take an existing implementation of \MLTT such as Agda
-or Coq and adding univalence and the computation rules for univalence
-as axioms. This approach is sufficient when we want to do formal
+or Coq and add univalence and the computation rules for univalence as
+axioms. This approach is sufficient when we want to do formal
 mathematics, since in that case we only are interested in type
 checking our developments. If we want to run the program, terms that
 make use of univalence then get stuck as soon as it hits an axiom.
@@ -918,6 +931,17 @@ decidability result for type checking. \citet{univalencefree}
 internalise \hott in Coq and also restrict themselves to the
 two-dimensional case, \ie \UIP need not hold, but equalities between
 equalities are unique.
+
+A question one might ask is why we cannot add an extra constructor to
+the definition of |Id| for univalence. Doing this means that we end up
+with a different elimination principle: if we want to prove something
+about propositional equalities, we also need to account for the case
+when it was proven using univalence. Apart from making it more
+difficult to prove things about propositional equalities, it is also
+has some undesirable properties. We can prove that a proof of equality
+constructed using the univalence constructor is never equal to
+|refl|. There are cases in which we want this to be the case, \eg when
+we apply univalence to the identity isomorphism.
 
 The conjecture is that full canonicity will probably not hold, but
 only canonicity ``up to propositional equality'': it is conjectured
@@ -937,19 +961,3 @@ impossible from any other module that imports the module containing
 the \hit \citep{hit-agda}. However, one still has to be careful not to
 use the absurdity pattern, |()|, when dealing with \hits, as that can
 be used to prove |bottom| \citep{unsound}.
-
-Since dependent pattern matching is not a conservative extension of
-\MLTT and in general incompatible with \hott, we have to use the
-\verb+--without-K+ flag for our Agda code, to ensure that we aren't
-pattern matching too liberally. The assumption is that all code
-written using pattern matching that passes the \verb+--without-K+
-check can be rewritten using only elimination principles.
-
-A question one might ask is whether we cannot add an extra constructor
-to the definition of |Id| for univalence. Doing this means that we end
-up with a different elimination principle: if we want to prove
-something about propositional equalities, we also need to account for
-the case when it was proven using univalence. Apart from making it
-more difficult to prove things about propositional equalities, it is
-also not clear if the resulting type has the right properties to be
-called an equality, if we look at its interpretation in some model.

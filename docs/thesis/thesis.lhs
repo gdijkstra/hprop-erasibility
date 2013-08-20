@@ -64,7 +64,9 @@
 \appendix
 
 %include bibliography.lhs
-%include symbols.lhs
-%include index.lhs
+
+% DRAFT: Leave these out for the time being.
+% %include symbols.lhs
+% %include index.lhs
 
 \end{document}

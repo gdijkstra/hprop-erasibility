@@ -2,6 +2,7 @@
 \newcommand{\st}{such that\xspace}
 \newcommand{\eg}{e.g.\ }
 \newcommand{\UIP}{uniqueness of identity proofs\xspace}
+\newcommand{\uip}{uniqueness of identity proofs\xspace}
 \newcommand{\MLTT}{Martin-L\"of's type theory\xspace}
 \newcommand{\pitype}{$\Pi$-type\xspace}
 \newcommand{\pitypes}{$\Pi$-types\xspace}
@@ -37,7 +38,7 @@
 \newcommand{\coqprops}{|Prop|s\xspace}
 \newcommand{\coqtypes}{|Type|s\xspace}
 \newcommand{\coqsets}{|Set|s\xspace}
-\newcommand{\withoutk}{WITHOUTK}
+\newcommand{\withoutk}{\verb+--without-K+}
 
 \newcommand{\todoi}[1]{\todo[inline]{#1}}
 \newcommand{\contribution}[1]{\begin{quote}%
@@ -56,10 +57,11 @@
 \hline%
  \textbf{type theory}  &  \textbf{homotopy theory}  \\%
 \hline%
- |A| is a type      &  |A| is a space                              \\%
- |x, y : A|         &  |x| and |y| are points in |A|               \\%
- |p, q : x == y|      &  |p| and |q| are paths from |x| to |y|       \\%
- |w : p == q|       &  |w| is a homotopy between paths |p| and |q| \\%
+ |A| is a type          &  |A| is a space                              \\%
+ |x, y : A|             &  |x| and |y| are points in |A|               \\%
+ |p, q : x == y|        &  |p| and |q| are paths from |x| to |y|       \\%
+ |w : p == q|           &  |w| is a homotopy between paths |p| and |q| \\%
+ \hfill $\vdots$ \hfill & \hfill $\vdots$ \hfill                       \\%
 \hline%
 \end{tabular}%
 \end{center}%
