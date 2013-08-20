@@ -4,10 +4,10 @@
 As was briefly mentioned in~\autoref{chap:intro}, homotopy type theory
 studies the correspondence between homotopy theory and type theory. As
 such, we will start out with a very brief sketch of the basic notions
-of homotopy theory (\autoref{sec:homotopytheory}). After that, we will
-describe the notion of propositional equality in \MLTT using identity
-types (\autoref{sec:identitytypes}). Having defined the identity
-types, we can explain the interpretation of \MLTT in homotopy
+of topology and homotopy theory (\autoref{sec:homotopytheory}). After
+that, we will describe the notion of propositional equality in \MLTT
+using identity types (\autoref{sec:identitytypes}). Having defined the
+identity types, we can explain the interpretation of \MLTT in homotopy
 theoretic terms, relating propositional equality to paths
 (\autoref{sec:homotopyinterpretation}). In \autoref{sec:truncations}
 we describe how the idea of classifying spaces along their homotopic
@@ -17,21 +17,23 @@ extensions to \MLTT inspired by homotopy theory. This chapter is
 concluded by a discussion on the implementation issues of \hott
 (\autoref{sec:implementation}).
 
-\section{Homotopy theory}
+\section{Topology and homotopy theory}
 \label{sec:homotopytheory}
 
-In \emph{homotopy theory} we are interested in studying
-\emph{continuous deformations} \index{continuous deformation}. The
-simplest case of this is continuously deforming one point into another
-point, which is called a \emph{path}. A path in a space |X| from point
-|x| to |y| is a continuous function |p : [0,1] -> X|, \st |p 0 = x|
-and |p y = y|, also notated as |p : x ~~> y|.  The set of all paths in
-|X| can be also considered as a space. In this space, called the
-\emph{path space} \index{path space} of |X|, we again can look at the
-paths. Suppose we have two paths |p, q : [0,1] -> X| with the same
-begin and end points, then a path between |p| and |q|, called a
-\emph{homotopy}, is a continuous function |gamma : [0,1] -> [0,1] ->
-X| where |gamma 0 = p| and |gamma 1 = q|
+Topology is the study of shapes (called spaces) and continuous
+functions between spaces. It generalises the familiar notion of
+continuity from calculus. In \emph{homotopy theory} we are interested
+in studying continuous {deformations} \index{continuous
+  deformation}. The simplest case of this is continuously deforming
+one point into another point, which is called a \emph{path}. A path in
+a space |X| from point |x| to |y| is a continuous function |p : [0,1]
+-> X|, \st |p 0 = x| and |p y = y|, also notated as |p : x ~~> y|.
+The set of all paths in |X| can be also considered as a space. In this
+space, called the \emph{path space} \index{path space} of |X|, we
+again can look at the paths. Suppose we have two paths |p, q : [0,1]
+-> X| with the same begin and end points, then a path between |p| and
+|q|, called a \emph{homotopy}, is a continuous function |gamma : [0,1]
+-> [0,1] -> X| where |gamma 0 = p| and |gamma 1 = q|
 (see~\autoref{fig:homotopy}). Of course, we can also look at
 homotopies in these path spaces, and homotopies between these higher
 homotopies, ad infinitum.
@@ -49,19 +51,22 @@ homotopies, ad infinitum.
 \minipage{0.24\textwidth}%
 \includegraphics[width=\textwidth]{img/homotopy3.pdf}
 \endminipage
-\label{fig:j}
+\label{fig:homotopy}
 \caption{A homotopy between paths |p| and |q|}
 \end{figure}
 
-If we have a path |p : a ~~> b| and a path |q : b ~~> c|, we can
-compose these to form a path |p circ q : a ~~> c|.  For every path |p : a
-~~> b|, there is a reversed path |p inv : b ~~> a|. For every point
-|a|, there is the constant path |ra : a ~~> a|. One might wonder
-whether reversing a path acts as an inverse operation with |ra| being
-the unit of path composition, \ie whether we the following
-equations are satisfied: 
+These paths have an interesting structure: we can define operations
+acting on paths that satisfy certain laws: paths form a groupoid-like
+structure. If we have a path |p : a ~~> b| and a path |q : b ~~> c|,
+we can compose these to form a path |p circ q : a ~~> c|.  For every
+path |p : a ~~> b|, there is a reversed path |p inv : b ~~> a|. For
+every point |a|, there is the constant path |ra : a ~~> a|. One might
+wonder whether reversing a path acts as an inverse operation with |ra|
+being the unit of path composition, \ie whether we the following
+equations are satisfied:
 
 \begin{itemize}
+\item |p circ (q circ s) = (p circ q) circ s|
 \item |p circ p inv = ra|
 \item |p inv circ p = rb|
 \item |p circ rb = p|
@@ -70,20 +75,21 @@ equations are satisfied:
 
 This happens to not be the case: the equations do not hold in the
 strict sense. However, both sides of the equations are homotopic to
-eachother. The same holds for the associativity of composition: it is
-only associative up to homotopy. Homotopies also have this same
-structure, in which all the equalities hold up to higher homotopy. The
-groupoid-like structure that towers of homotopies have, is called a
-\inftygrpd structure. It was proposed by Grothendiek~\todo{citation
-  needed} that homotopy theory should be the study of these \inftygrpds.
+eachother. These operations can also be defined on homotopies between
+paths, for which the same equations can be shown to hold up to higher
+homotopy. What we get is a tower of homotopies for which we have these
+groupoid-like structure at every level, in which the equations hold up
+to homotopy one level higher. This structure is called a \inftygrpd
+structure. It was proposed in \citet{pursuing} that this notion
+homotopy theory should be the study of these \inftygrpds, as these
+should capture all the interesting homotopy properties of a space.
 
 \section{Identity types of \MLTT}
 \label{sec:identitytypes}
 
-\cite{mltt} introduced a notion of equality in his type theory:
-\emph{propositional} equality \index{propositional equality}, defined
-using so called identity types. These types can be formulated in Agda
-syntax as follows:
+\cite{mltt} introduced a notion of equality internal to his type
+theory, defined using \emph{identity types}. These types can be
+formulated in Agda syntax as follows:
 
 \begin{code}
   data Id (A : Universe) : A → A → Universe where
@@ -92,18 +98,20 @@ syntax as follows:
 
 In order to type check |refl x : Id A x y|, the type checker needs to
 verify that |x| and |y| are definitionally equal. The |refl|
-constructor gives us that definitional equality implies propositional
-equality. The converse does not hold: we are working with an
-\emph{intensional} type theory \index{intensional type
-  theory}. \emph{Extensional} type theories \index{extensional type
-  theory} add a so called equality reflection rule that propositional
-equality implies definitional equality.
+constructor can be seen as a rule that definitional equality implies
+propositional equality. The converse does not need to hold: type
+theories (such as \MLTT) in which we do not have the \emph{equality
+  reflection rule}, that states that propositional equality implies
+definitional equality, are called \emph{intensional} type
+theories. \emph{Extensional} type theories \index{extensional type
+  theory} are theories in which the equality reflection rule does
+hold.
 
 If we want to do something with the inhabitants of an inductive type,
-other than passing them around, we must use the induction principle
-(or elimination operator) of the inductive type. The induction
-principle of the |Id| type is usually called |J| and has the following
-type:
+other than passing them around or ignoring them, we must use the
+induction principle (or elimination operator) of the inductive
+type. The induction principle of the |Id| type is usually called |J|
+and has the following type:
 
 \begin{code}
   J :   (A : Universe)
@@ -120,9 +128,9 @@ Along with this type, we have the following computation rule:
 \end{code}
 
 We will make use of a slightly different, but equivalent formulation
-of these types, due to Paulin-Mohring \todo{citation needed}, where
-the |x| is a parameter as opposed to an index, yielding a more
-convenient elimination principle:
+of these types, due to \citet{mohring}, where the |x| is a parameter
+as opposed to an index, yielding a more convenient elimination
+principle:
 
 \begin{code}
   data Id' (A : Universe) (x : A) : A → Universe where
@@ -145,6 +153,9 @@ and computation rule:
 \begin{code}
   J' A P c x refl === c
 \end{code}
+
+Since the |x| is a fixed base point, this elimination principle is
+also called \emph{based path induction} \citep{hottbook}.
 
 To make things look more like the equations we are used to, we will
 for the most part use infix notation, leaving the type parameter
@@ -194,19 +205,24 @@ Using |transport| we can now formulate the dependent version of |ap|:
   → transport beta (f x) == f y
 \end{code}
 
-The resulting equality is an equality of between points in |B y|.
+The resulting equality is an equality of between points in |B y|. Of
+course it does not matter if we |transport| to |B x| or |B y|, as
+propositional equalities are symmetric.
 
 \subsection{Difficulties of identity types}
 
 Even though at first glance the identity types have the right
 structure: they form equivalence relations on types, there are still
-some things lacking and some things that are rather strange.
+some properties that cannot be proven, things that can be useful or
+seem to be natural properties of a notion of equality.
 
 \paragraph{Function extensionality}
 \label{sec:funext}
 
-To prove properties about functions, it is often useful to have the
-principle of function extensionality:
+When doing certified programming, we sometimes want to show one (more
+optimised) function to be equal to another (naively implemented)
+function. In these cases is often useful to have the principle of
+function extensionality:
 
 \begin{code}
   functionExtensionality  :   (A B : Universe) -> (f g : A -> B)
@@ -217,41 +233,43 @@ principle of function extensionality:
 
 However, in \MLTT there is no term of that type. Since this theory has
 the canonicity property, having a propositional equality in the empty
-context, \ie | /- p : x == y |, we know that |p| must be canonical: it is
-definitionally equal to |refl|. In order for it to type check, we then
-know that |x| and |y| must be definitionally equal. Now consider the
-functions |f = \n -> n + 0| and |g = \n -> 0 + n|, with the usual
-definition of |+ : Nat -> Nat -> Nat|, we can prove that |(n : Nat)
--> f n == g n|, but not that |f == g|, since that would imply they are
-definitionally equal, which they are not.
+context, \ie | /- p : x == y |, we know that |p| must be canonical: it
+is definitionally equal to |refl|. In order for |/- refl : x == y| to
+type check, we then know that |x| and |y| must be definitionally
+equal. Now consider the functions |f = \n -> n + 0| and |g = \n -> 0 +
+n|, with the usual definition of |+ : Nat -> Nat -> Nat| by recursion
+on the first argument, we can prove that |(n : Nat) -> f n == g n|,
+but not that |f == g|, since that would imply they are definitionally
+equal, which they are not: one reduces to |\ n -> 0|, whereas the
+other reduces to |\ n -> n + 0|.
 
 \paragraph{Uniqueness of identity proofs}
 \label{sec:uip}
 
-The canonicity property implies that if, in the empty context, we have
-two identity proofs |p q : Id A x y|, these proofs are both |refl|,
-hence they are equal to one another. One would expect that it is
-possible to prove this inside \MLTT. Using dependent pattern matching,
-we can easily prove this property in Agda, called \UIP
-\index{uniqueness of identity proofs}:
+The canonicity property implies that if we have |/- p : Id A x y| and
+|/- q : Id A x y|, these proofs are both |refl|, hence they are equal
+to one another: |p == q|. One would expect that it is possible to
+prove this inside \MLTT. Using dependent pattern matching
+\citep{depmatch}, we can easily prove this property in Agda, called
+\UIP:
 
 \begin{code}
 UIP : (A : Universe) (x y : A) (p q : Id A x y) -> Id (Id A x y) p q
 UIP A x dotx refl refl = refl
 \end{code}
 
-Proving this using~|J| instead of dependent pattern matching to prove
-\UIP has remained an open problem for a long time and has eventually
-been shown to be impossible \citep{groupoidinterpretation} by
-constructing a model of \MLTT in which there is a type that violates
-\UIP. This tells us that dependent pattern matching is a
-non-conservative extension over \MLTT\footnote{This actually means
-  that all the code we write, should be written using the elimination
-  principles. Agda provides a \withoutk flag that limits pattern
-  matches to those cases that should be safe. The assumption is that
-  every definition given by pattern matching that passes the \withoutk
-  check, can be rewritten using the elimination principles. As such,
-  we will sometimes use pattern matching for our definition.}
+Proving this using~|J| instead of dependent pattern matching has
+remained an open problem for a long time and has eventually been shown
+to be impossible \citep{groupoidinterpretation} by constructing a
+model of \MLTT in which there is a type that violates \UIP. This tells
+us that dependent pattern matching is a non-conservative extension
+over \MLTT\footnote{This actually means that all the code we write,
+  should be written using the elimination principles. Agda provides a
+  \withoutk flag that limits pattern matches to those cases that
+  should be safe. The assumption is that every definition given by
+  pattern matching that passes the \withoutk check, can be rewritten
+  using the elimination principles. As such, we will sometimes use
+  pattern matching for our definition.}
 
 As a complement to~|J|, Streicher introduced the induction
 principle~|K|:
@@ -263,11 +281,15 @@ principle~|K|:
      ->  P c
 \end{code}
 
-Using |K| we can prove |UIP|, and the other way around. It has been
-shown that in type theory along with axiom |K|, we can rewrite
+Using |K| we can prove the |UIP| property, and the other way
+around. We have also seen that dependent pattern matching implies
+|K|. The converse of this has also been established: we can rewrite
 definitions written with dependent pattern matching to ones that use
-the induction principles and axiom~|K|
+only the induction principles and axiom~|K|
 \citep{eliminatingdependentpatternmatching}.
+
+In \hott, we give up |K| (and essentially dependent pattern matching),
+to allow for a more interesting structure of propositional equalities.
 
 \section{Homotopy interpretation}
 \label{sec:homotopyinterpretation}
@@ -281,7 +303,7 @@ correspondence:
 
 
 In \autoref{sec:homotopytheory} we noted that homotopies have a
-\inftygrpd structure. It is this structures that leads us to the
+\inftygrpd structure. It is this structure that leads us to the
 correspondence between the identity types from \MLTT and homotopy
 theory. In \cite{groupoidinterpretation}, the authors note that types
 have a groupoid structure. We have a notion of composition of proofs
@@ -302,13 +324,15 @@ we have:
 \item Right identity: |p circ refl == p|
 \end{itemize}
 
-The important thing to note is what kind of equalities we were talking
-about: associativity, etc. all hold up to propositional equality one
-level higher. The identity type |Id A x y| is of course a type and
+The important thing to note is what kind of equalities we are talking
+about: the equations given above all hold up to propositional equality
+one level higher. The identity type |Id A x y| is of course a type and
 therefore has a groupoid structure of its own. Every type gives rise
-to a tower of groupoids that can interact with eachother. This is
-exactly the same as the way homotopies form an \inftygrpd, hence we
-have the correspondence between types and spaces as mentioned earlier.
+to a tower of groupoids that can interact with eachother: the presence
+of equations at one level can imply the presence of equations at a
+higher level. This is exactly the same as the way homotopies form an
+\inftygrpd, hence we have the correspondence between types and spaces
+as mentioned earlier.
 
 Having such an interpretation of type theory brings us several
 things. Since every proof we write in type theory corresponds to a
@@ -323,7 +347,7 @@ illustrations.
 \subsection{Interpreting \UIP and |K|}
 \label{sec:interpret}
 
-Recall the elimination principle |J|:
+Recall the elimination principle of identity types, |J|:
 
 \begin{code}
   J :  (A : Universe)
@@ -334,13 +358,14 @@ Recall the elimination principle |J|:
     ->  P x y p
 \end{code}
 
-Interpreting |J| in homotopy theory, we see that it tells us that if
-we want to prove a property about a predicate |P| on paths, we only
-have to show that it holds for the constant path |refl|. Homotopically
-this can be motivated by the fact that |P| is a predicate on paths
-with a fixed starting point |x| and a |y| that can be chosen freely
-(see~\autoref{fig:j}. Any path |p : x == y| can be contracted along
-this path to the constant path |refl : x == x|.
+Interpreting propositional equalities as paths, we see that it tells
+us that if we want to prove that a predicate |P| on paths holds, we
+only have to show that it is satisfied for the constant path
+|refl|. Homotopically this can be motivated by the fact that |P| is a
+predicate on paths with a fixed starting point |x| and a |y| that can
+be chosen freely (see~\autoref{fig:j}). Any path |p : x == y| can be
+contracted along this path to the constant path |refl : x == x|, so
+there is a homotopy between these two paths.
 
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
@@ -369,7 +394,7 @@ fixed:
 Homotopically this means that we are restricted to loops. If we want
 to contract a given path |p : x == x| to |refl : x == x|, we cannot
 use the same trick as with |J|, as the end point is fixed. Contracting
-any loop to |refl| does not always work, as can be seen
+a loop to |refl| does not always work, as can be seen
 in~\autoref{fig:k}. If we have a hole in our space, then we can
 distinguish between loops that go around the hole and those that do
 not.
@@ -388,7 +413,7 @@ not.
 \caption{With |K|, we are restricted to loops}
 \end{figure}
 
-\section{\ntypes{n} and truncations}
+\section{\ntypes{n}}
 \label{sec:truncations}
 
 The tower of iterated identity types of a type can tell us all sorts
@@ -404,6 +429,18 @@ theory is with the following definition:
 isContractible : Universe -> Universe
 isContractible A = Sigma A (\ center -> (x : A) -> (Id A center x))
 \end{code}
+
+This can be interpreted as having a point |center| \st there is a path
+from |center| to any point |x|. Such an interpretation sounds more
+like the definition of \emph{path connectedness}. In homotopy theory
+these two definitions do not coincide: contractibility implies path
+connectedness, but not the other way around. An example of this is the
+circle, which is path connected, but not contractible: going around
+the circle once is not homotopic to the constant loop. The key here is
+that the only functions that we can define in type theory are
+\emph{continuous} functions, so |isContractible| should really be
+interpreted as there being a point |center| \st we can construct paths
+from |center| to any point |x| \emph{in a continuous manner}.
 
 If the structure of the identity types peters out after $n$
 iterations, we call such a type an \ntype{(n-2)}, or
@@ -426,12 +463,13 @@ The \emph{contractible} types are the types that are isomorphic to
 |top| in the sense that a contractible type has an inhabitant that is
 unique up to propositional equality. In section~\autoref{sec:hit} we
 will see examples of contractible types that have more than one
-canonical element.
+constructor.
 
 Types of truncation level $-1$ are called \hprops. \ntypes{(-1)} are
 either empty (|bottom|) or, if they are inhabited, contractible, hence
-isomorphic to |top|. One can easily prove that \hprops satisfy the
-principle of proof irrelevance:
+isomorphic to |top|. They can be interpreted as false and true
+propositions. One can easily prove that \hprops satisfy the principle
+of proof irrelevance:
 
 \begin{code}
   proofIrrelevance : Universe -> Universe
@@ -458,16 +496,16 @@ this directly, we first prove something more general:
   lemma : (x y : A) (q : x == y) -> p x y == q circ p y y  
 \end{code}
 
-This can be done by one-sided induction on |q|, fixing |y|. The goal
+This can be done by based path induction on |q|, fixing |y|. The goal
 then reduces to showing that |p y y == p y y|. Using the lemma we can
 show that |p y y == p y y circ p y y|. Combining this with |p y y circ
 refl| and the fact that |\ q -> p circ q| is injective for any |p|, we
 get that |p y y == refl|.
 
-The definition of \hprop fits the classical view of propositions and
-their proofs: we only care about whether or not we have a proof of a
-proposition and do not distinguish between two proofs of the same
-proposition.
+The definition of \hprop via proof irrelevance fits the classical view
+of propositions and their proofs: we only care about whether or not we
+have a proof of a proposition and do not distinguish between two
+proofs of the same proposition.
 
 Another important case are the \ntypes{0}, also called \emph{\hsets},
 which are perhaps the most familiar to programmers. These are the
