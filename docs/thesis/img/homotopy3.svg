@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="589.40546"
+   height="546.16669"
+   id="svg2">
+  <defs
+     id="defs4">
+    <inkscape:path-effect
+       effect="interpolate"
+       id="path-effect3004" />
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-31.537258,-15.363414)"
+     id="layer1">
+    <path
+       d="m 290,252.36218 c 11.36495,-25.29846 39.65881,-38.27295 64.28571,-18.57143 C 433.37698,297.06377 276.32447,375.44199 290,252.36218"
+       id="path3790"
+       style="fill:#ffffff;fill-opacity:1;stroke:none" />
+    <path
+       d="m 210,157.36218 a 15,15 0 1 1 -30,0 15,15 0 1 1 30,0 z"
+       transform="matrix(0.33333333,0,0,0.33333333,14,5.908122)"
+       id="path3796"
+       style="fill:#000000;fill-opacity:1;stroke:none" />
+    <text
+       x="39.961258"
+       y="56.826103"
+       id="text3800"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="39.961258"
+         y="56.826103"
+         id="tspan3802"
+         style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Italic">x</tspan></text>
+    <text
+       x="567.9613"
+       y="530.82605"
+       id="text3800-0"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="567.9613"
+         y="530.82605"
+         id="tspan3802-6"
+         style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Italic">y</tspan></text>
+    <path
+       d="m 210,157.36218 a 15,15 0 1 1 -30,0 15,15 0 1 1 30,0 z"
+       transform="matrix(0.33333333,0,0,0.33333333,498,443.90812)"
+       id="path3796-5"
+       style="fill:#000000;fill-opacity:1;stroke:none" />
+    <path
+       d="M 48.462742,41.998737 C 114.03903,47.384713 253.5349,-23.572742 313.14729,36.03965 c 66.56763,66.56763 41.93069,130.32839 75.76144,197.9899 39.3037,78.60739 236.26198,161.8633 144.55401,242.96919"
+       transform="translate(31.537258,15.363414)"
+       id="path3068"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 1;stroke-dashoffset:0" />
+    <path
+       d="M 48.462742,41.998737 C -39.22701,491.74082 130.26695,578.40081 528.46274,481.99874"
+       transform="translate(31.537258,15.363414)"
+       id="path3072"
+       style="fill:none;stroke:#000000;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <text
+       x="440"
+       y="232.36215"
+       id="text3800-7"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="440"
+         y="232.36215"
+         id="tspan3802-4"
+         style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Italic">p</tspan></text>
+    <text
+       x="90"
+       y="522.36212"
+       id="text3800-6"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="90"
+         y="522.36212"
+         id="tspan3802-40"
+         style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Italic">q</tspan></text>
+  </g>
+</svg>

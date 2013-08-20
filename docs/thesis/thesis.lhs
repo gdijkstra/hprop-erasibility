@@ -33,9 +33,11 @@
 
 \usepackage{tikz}
 \usetikzlibrary{decorations.pathmorphing} % for snake lines
-
+\usetikzlibrary{matrix}
 % TikZ styles for drawing
-\tikzstyle{snakeline} = [decorate, decoration={snake, pre length=0.1cm, post length=0.1cm, segment length=1.5mm, amplitude=.25mm}, ->]
+
+\tikzstyle{snakeline} = [->, decorate, decoration={zigzag, pre length=0.1cm, post length=0.1cm, segment length=1.5mm, amplitude=.25mm}]
+\tikzstyle{snakelin} = [->, decoration={zigzag, pre length=0.1cm, post length=0.1cm, segment length=1.5mm, amplitude=.25mm}]
 \tikzset{node distance=2cm, auto}
 
 %\onehalfspacing

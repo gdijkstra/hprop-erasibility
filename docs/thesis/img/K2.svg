@@ -42,8 +42,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="294.24874"
-     inkscape:cy="272.92505"
+     inkscape:cx="205.08718"
+     inkscape:cy="273.56641"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -85,7 +85,7 @@
      id="layer1"
      transform="translate(-31.537258,-15.363414)">
     <path
-       style="opacity:0.09504131;fill:#000000;fill-opacity:1;stroke:none"
+       style="opacity:1;fill:#e1e1e1;fill-opacity:1;stroke:none"
        d="m 40,172.36218 c 73.11318,-121.925135 110.259,-71.19465 215,-92.142856 37.78964,-7.557928 63.27022,-49.398372 102.14286,-60 129.43975,-35.30175 281.37662,129.266226 262.14285,254.285716 -6.93848,45.10013 -109.76896,44.80803 -135.71428,89.28571 -25.40776,43.55616 51.55111,103.20382 38.57143,142.14286 C 514.51148,528.82773 460.4382,553.24153 440,556.6479 236.45753,590.57164 348.73829,438.31761 218.57143,389.50504 179.07231,374.69287 62.081877,415.83198 42.857143,383.79075 10.98991,330.6787 58.482925,227.81095 40,172.36218 z"
        id="path3014"
        inkscape:connector-curvature="0" />
@@ -107,15 +107,15 @@
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="215"
-       y="152.36218"
+       x="175.96126"
+       y="130.8261"
        id="text3800"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3802"
-         x="215"
-         y="152.36218"
-         style="font-size:22px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Italic">x</tspan></text>
+         x="175.96126"
+         y="130.8261"
+         style="font-size:64px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:TeXGyrePagella;-inkscape-font-specification:TeXGyrePagella Italic">x</tspan></text>
     <path
        style="opacity:0;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 110,128.36218 c 147.12091,-12.69192 87.01798,29.12193 140.51783,136.12163 21.7405,43.48099 161.23237,107.24214 152.53304,133.34013 C 368.39199,501.80056 -88.116375,270.91127 110,128.36218"

@@ -36,17 +36,21 @@ X| where |gamma 0 = p| and |gamma 1 = q|
 homotopies in these path spaces, and homotopies between these higher
 homotopies, ad infinitum.
 
-\begin{figure}
-  \centering
-  \begin{tikzpicture}
-    \node[draw,shape=circle,minimum size=0.02cm,fill=black,label=below:|x|] (A) {};
-    \node[draw,shape=circle,minimum size=0.02cm,fill=black,label=below:|y|] (B) [right of=A] {};
-    \draw[snakeline, bend left=45] (A.20) to node {|p|} (B.160);
-    \draw[snakeline, bend right=45] (A.340) to node [swap] {|q|} (B.200);
-
-  \end{tikzpicture}
-  \caption{Homotopy between paths |p| and |q|}
-  \label{fig:homotopy}
+\begin{figure}[!htb]
+\minipage{0.24\textwidth}
+\includegraphics[width=\textwidth]{img/homotopy0.pdf}
+\endminipage\hfill
+\minipage{0.24\textwidth}
+\includegraphics[width=\textwidth]{img/homotopy1.pdf}
+\endminipage\hfill
+\minipage{0.24\textwidth}%
+\includegraphics[width=\textwidth]{img/homotopy2.pdf}
+\endminipage
+\minipage{0.24\textwidth}%
+\includegraphics[width=\textwidth]{img/homotopy3.pdf}
+\endminipage
+\label{fig:j}
+\caption{A homotopy between paths |p| and |q|}
 \end{figure}
 
 If we have a path |p : a ~~> b| and a path |q : b ~~> c|, we can
@@ -592,9 +596,10 @@ base point, we cannot do so in a continuous way.
 
 \begin{figure}
   \centering
-  \begin{tikzpicture}
-    \node (A) {|base|};
-    \draw[snakeline] (A) arc (0:350:1.5cm) node[above] {|loop|};
+  \begin{tikzpicture}[descr/.style={fill=white,inner sep=2pt}]
+    \node[descr] (A) {|base|};
+
+    \draw[snakeline] (A) arc[radius = 1.5cm, start angle=0, end angle=190] node[descr,above] {|loop|} arc[radius = 1.5, start angle=190, delta angle=160];
   \end{tikzpicture}
   \caption{The circle as a \hit}
   \label{fig:circle}
@@ -685,17 +690,21 @@ Adding these equalities breaks the set property: the following diagram
 (the so called \emph{Mac Lane pentagon} \todo{cite}) does not commute:
 
 \begin{center}
-  \begin{tikzpicture}
-    \node (A)              {|((a binop b) binop c) binop d|};
-    \node (B) [right of=A] {|(a binop (b binop c)) binop d|};
-    \node (C) [right of=B] {|a binop ((b binop c) binop d)|};
-    \node (D) [below of=A] {|(a binop b) binop (c binop d)|};
-    \node (E) [below of=C] {|a binop (b binop (c binop d))|};
-    \draw[snakeline] (A) to node {|ap (\ x -> x binop d) assoc|} (B);
-    \draw[snakeline] (B) to node {|assoc|} (C);
-    \draw[snakeline] (A) to node {|assoc|} (D);
-    \draw[snakeline] (C) to node {|ap (\ x -> a binop x) assoc|} (E);
-    \draw[snakeline] (D) to node {|assoc|} (E);
+  \begin{tikzpicture}[description/.style={fill=white,inner sep=2pt}]
+    \matrix (m) [matrix of math nodes, 
+                row sep=4.5em,
+                column sep=3.5em,
+                text height=1.5ex,
+                text depth=0.25ex]
+ { |((a binop b) binop c) binop d| & & & |(a binop (b binop c)) binop d| & |a binop ((b binop c) binop d)| \\
+   |(a binop b) binop (c binop d)| & & &                                 & |a binop (b binop (c binop d))| \\ };
+
+  \path[snakelin] (m-1-1) edge[decorate] node[auto]       {|ap (\ x -> x binop d) assoc|} (m-1-4);
+  \path[snakelin] (m-1-4) edge[decorate] node[auto]       {|assoc|} (m-1-5);
+  \path[snakelin] (m-1-1) edge[decorate] node[auto, swap] {|assoc|} (m-2-1);
+  \path[snakelin] (m-2-1) edge[decorate] node[auto, swap] {|assoc|} (m-2-5);
+  \path[snakelin] (m-1-5) edge[decorate] node[auto]       {|ap (\ x -> a binop x) assoc|} (m-2-5);
+
   \end{tikzpicture}
 \end{center}
 
