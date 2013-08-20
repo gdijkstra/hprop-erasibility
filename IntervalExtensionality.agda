@@ -18,7 +18,7 @@ flip f b a = f a b
 ext : (A B : Set) (f g : A -> B) (α : (x : A) -> f x ≡ g x) -> f ≡ g
 ext A B f g α = Interval⇒≡ (flip (λ a → ≡⇒Interval (α a)))
 
--- Are Interval and _≡_ isomorphic?
+-- Are (Interval -> A) and (x y : A) -> Id A x y  isomorphic?
 left : {A : Set} {x y : A} -> (p : x ≡ y) -> (Interval⇒≡ (≡⇒Interval p)) ≡ p
 left {A} {x} {.x} refl = βseg x x refl
 
