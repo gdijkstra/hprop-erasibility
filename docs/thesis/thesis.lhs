@@ -28,8 +28,6 @@
 \usepackage{xspace}
 \usepackage[parfill]{parskip}
 \usepackage{setspace} 
-\usepackage{makeidx}
-\makeindex
 
 \setcounter{tocdepth}{1}
 
@@ -66,9 +64,5 @@
 \appendix
 
 %include bibliography.lhs
-
-% DRAFT: Leave these out for the time being.
-% %include symbols.lhs
-% %include index.lhs
 
 \end{document}

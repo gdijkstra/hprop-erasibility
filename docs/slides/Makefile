@@ -4,7 +4,7 @@ preview : slides.pdf
 	if [ `uname` = 'Darwin' ]; then open -a /Applications/Skim.app slides.pdf; fi
 
 slides.pdf : slides.tex
-	pdflatex -halt-on-error slides.tex && pdflatex slides.tex && pdflatex -synctex=1 slides.tex
+	rubber -d slides.tex
 
 slides.tex : slides.lhs
 	lhs2TeX -o slides.tex slides.lhs
