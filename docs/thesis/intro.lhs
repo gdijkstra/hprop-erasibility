@@ -64,11 +64,11 @@ the main research question of this thesis:
 
 \researchquestionA
 
-In~\autoref{chap:hottintro} we give an introduction and overview of
+In~\cref{chap:hottintro} we give an introduction and overview of
 some of the main concepts of \hott. In this chapter we will also
 provide a very short introduction into topology and homotopy theory,
 to give a bit of intuition behind the terminology and where the
-concepts come from. In~\autoref{chap:applications} we discuss several
+concepts come from. In~\cref{chap:applications} we discuss several
 applications of \hott to programming. In particular we look at how we
 can implement quotient types in \hott and contrast this to other ways
 to work with quotient types. Another application we consider is the
@@ -77,12 +77,12 @@ the examples given by~\citet{licataview} and extend the result to
 non-isomorphic views, using quotient types.
 
 \Hott provides us with a notion of propositions, the so called
-\hprops. In~\autoref{chap:erasure} we compare this to similar notions
+\hprops. In~\cref{chap:erasure} we compare this to similar notions
 found in Coq, Agda and Epigram. We investigate whether we can
 formulate an optimisation based on \hprops in the spirit of the
 collapsibility optimisation proposed in~\citet{collapsibility}.
 
-In the final chapter, \autoref{chap:discussion}, we will discuss our
+In the final chapter, \cref{chap:discussion}, we will discuss our
 answers to our research questions and propose directions of future
 research.
 
@@ -94,7 +94,7 @@ such, we will expect the reader to be familiar with this language.
 \paragraph{Notation} 
 
 We will use Agda syntax for most of the code in this thesis, except
-for some parts in~\autoref{chap:erasure}. The code will not always
+for some parts in~\cref{chap:erasure}. The code will not always
 be valid Agda syntax. We will use the notation |A : Universe| instead
 of |A : Set|, in order to avoid confusion between types and the \hott
 notion of \hsets. We will also refrain from mentioning levels and

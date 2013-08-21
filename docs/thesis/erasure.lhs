@@ -2,14 +2,17 @@
 \label{chap:erasure}
 
 When writing certified programs in a dependently typed setting, we can
-conceptually distinguish between the \emph{program} parts and the
-\emph{proof} (of correctness) parts. These are sometimes also referred
-to as the informative and logical parts, respectively. In practice,
-these two seemingly separate concerns are often intertwined. Consider
-for example the sorting of lists of naturals: given some predicate
-|isSorted : List Nat -> List Nat -> Universe| that tells us whether
-the second list is a sorted permutation of the first one, we can to
-write a term of the following type:
+conceptually distinguish between the program parts and the proof (of
+correctness) parts. These are sometimes also referred to as the
+informative\footnote{Instead of ``informative'', it is sometimes also
+  called ``computation'', but this is a bit of a misnomer as the proof
+  parts can be computational as well, but then only at compile time
+  (\ie during type checking).}  and logical parts, respectively. In
+practice, these two seemingly separate concerns are often
+intertwined. Consider for example the sorting of lists of naturals:
+given some predicate |isSorted : List Nat -> List Nat -> Universe|
+that tells us whether the second list is a sorted permutation of the
+first one, we can to write a term of the following type:
 
 \begin{code}
   sort : (xs : List Nat) -> Sigma (ys : List Nat) (isSorted xs ys)
@@ -19,24 +22,27 @@ To implement such a function, we need to provide for every list a
 sorted list along with a proof that this is indeed a sorted version of
 the input list. At run-time the type checking has been done, hence the
 proof of correctness has already been verified: we want to
-\emph{erase} the logical parts.
+\emph{erase} these logical parts.
 
 Types such as |isSorted xs ys| are purely logical: we care more about
 the presence of an inhabitant than what kind of inhabitant we exactly
-have at our disposal. In section~\ref{sec:props} we will give more
-examples of such types, called \emph{propositions}, and how they can
-occur in various places in certified programs. In
-sections~\ref{sec:coqprop} and~\ref{sec:irragda} we review the methods
-Coq and Agda provide us to annotate parts of our program as being
-propositions. Section~\ref{sec:colfam} reviews the concept of
+have at our disposal. In~\cref{sec:props} we will give more
+examples of such types, called \emph{propositions} (compare this with
+the definition of \hprops via proof irrelevance
+(\cref{sec:truncations}), and how they can occur in various places
+in certified programs. In~\cref{sec:coqprop}
+and~\cref{sec:irragda} we review the methods Coq and Agda provide
+us to annotate parts of our program as being propositions in such a
+way that those parts can be erased after type checking and are absent
+at run-time. \Cref{sec:colfam} reviews the concept of
 \emph{collapsible families} and how we can automatically detect
 whether a type is a proposition, instead of annotating them
-ourselves. In section~\ref{sec:intcol} we internalise the concept of
-collapsible families and try to do the same with the optimisation in
-section~\ref{sec:intcolopt}. The internalised version of
-collapsibility looks like an indexed version of the concept of
-\hprops. In section~\ref{sec:indhprops} we investigate if we can use
-this to devise an optimisation akin to the optimisation based on
+ourselves. In~\cref{sec:intcol} we internalise the concept of
+collapsible families and try to do the same with the optimisation
+in~\cref{sec:intcolopt}. The internalised version of collapsibility
+looks like an indexed version of the concept of
+\hprops. In~\cref{sec:indhprops} we investigate if we can use this
+to devise an optimisation akin to the optimisation based on
 collapsibility.
 
 \section{Propositions}
@@ -101,7 +107,7 @@ then write a new function that structurally recurses on the call
 graph. In our quicksort case we get the following inductive family:
 
 \begin{code}
-  data qsAcc : List Nat -> Set where
+  data qsAcc : List Nat -> Universe where
     qsAccNil   : qsAcc []
     qsAccCons  : (x : Nat) (xs : List Nat) 
                  (h1 : qsAcc (filter (gt x) xs))
@@ -135,15 +141,16 @@ argument yields the original |qs| definition.
 \label{sec:coqprop}
 
 In Coq we have have the \coqprop universe, apart from the \coqset
-universe. Both universes are base sorts of the hierarchy of sorts,
-\coqtype, \ie |Prop : Type(1)|, |Set : Type(1)| and for
-every |i|, |Type(i) : Type(i+1)|.  As the name suggests, by
-defining a type to be of sort \coqprop, we ``annotate'' it to be a
-logical type, a proposition. Explicitly marking the logical parts like
-this, makes the development easier to read and understand. More
-importantly, the extraction mechanism~\citep{letouzeyextraction} now
-knows what parts are supposed to be logical, hence what parts are to
-be erased.
+universe. Both universes act as base sorts of the hierarchy of sorts,
+\coqtype, \ie |Prop : Type(1)|, |Set : Type(1)| and for every |i|,
+|Type(i) : Type(i+1)|.  As the name suggests, by defining a type to be
+of sort \coqprop, we ``annotate'' it to be a logical type, a
+proposition. Explicitly marking the logical parts like this, makes the
+development easier to read and understand: we can more easily
+distinguish between the proof of correctness parts and the actual
+program parts. More importantly, Coq's extraction
+mechanism~\citep{letouzeyextraction} now knows what parts are supposed
+to be logical, hence what parts are to be erased.
 
 In the |sort| example, we would define |isSorted| to be a family of
 \coqprops indexed by |List Nat|. For the \sigmatype, Coq provides two
@@ -205,27 +212,25 @@ Definition transport : forall A, forall (P : A -> Type),
   P x -> P y.
 \end{code}
 
-Singleton elimination allows us to pattern match on |path| and
-and eliminate into something of sort |Type|. In the extracted
-version, the |path| argument gets erased and the |P x|
-argument is returned. In \hott, we know that the identity types need
-not be singletons and can have other inhabitants than just the
-canonical |refl|, so throwing away the identity proof is not
-correct. As has been discovered by Michael
-Shulman\footnote{\url{http://homotopytypetheory.org/2012/01/22/univalence-versus-extraction/}},
-singleton elimination leads to some sort of inconsistency, if we
-assume the univalence axiom: we can construct a value |x : bool|
-such that we can prove |x = false|, even though in the extracted
-version |x| normalises to |true|. Assuming univalence, we
-have two distinct proofs of |bool = bool|, namely |refl| and
-the proof we get from applying univalence to the isomorphism
-|not : bool -> bool|. Transporting a value along a path we have
-obtained from using univalence, is the same as applying the
-isomorphism. Defining |x| to be |true| transported along the
-path obtained from applying univalence to the isomorphism |not|,
-yields something that is propositionally equal to |false|. If we
-extract the development, we get a definition of |x| that ignores
-the proof of |bool = bool| and just returns |true|.
+Singleton elimination allows us to pattern match on |path| and and
+eliminate into something of sort |Type|. In the extracted version, the
+|path| argument gets erased and the |P x| argument is returned. In
+\hott, we know that the identity types need not be singletons and can
+have other inhabitants than just the canonical |refl|, so throwing
+away the identity proof is not correct. As has been discovered by
+\citet{univalencevsextraction}, singleton elimination leads to some
+sort of inconsistency, if we assume the univalence axiom: we can
+construct a value |x : bool| such that we can prove |x = false|, even
+though in the extracted version |x| normalises to |true|. Assuming
+univalence, we have two distinct proofs of |bool = bool|, namely
+|refl| and the proof we get from applying univalence to the
+isomorphism |not : bool -> bool|. Transporting a value along a path we
+have obtained from using univalence, is the same as applying the
+isomorphism. Defining |x| to be |true| transported along the path
+obtained from applying univalence to the isomorphism |not|, yields
+something that is propositionally equal to |false|. If we extract the
+development, we get a definition of |x| that ignores the proof of
+|bool = bool| and just returns |true|.
 
 In other words, Coq does not enforce or check proof irrelevance of the
 types we define to be of sort \coqprop, which internally is fine: it
@@ -281,12 +286,14 @@ defined. In set theory unrestricted use of this principle leads us to
 being able to construct Russell's paradox: the set $R = \{x || x \in x
 \}$ is an impredicative definition, we quantify over $x$, while we are
 also defining $x$. Using this definition we can prove that $R \in R$
-if and only if $R \not\in R$. In type theory, an analogous paradox,
-Girard's paradox, arises if we allow for impredicativity via the
-|Universe : Universe| rule. However, impredicative definitions are
-sometimes very useful and benign, in particularly when dealing with
-propositions: we want to be able to write propositions that quantify
-over propositions, for example:
+if and only if $R \not\in R$. Impredicativity is also a necessary
+ingredient for the Burali-Forti paradox: constructing the set of all
+ordinal numbers yields an inconsistency. It is this paradox that can
+be expressed in impredicative \MLTT (\ie |Universe : Universe| holds),
+where it is called Girard's paradox. However, impredicative
+definitions are sometimes very useful and benign, in particularly when
+dealing with propositions: we want to be able to write propositions
+that quantify over propositions, for example:
 
 \begin{code}
   Definition demorgan : Prop := forall P Q : Prop, 
@@ -294,7 +301,9 @@ over propositions, for example:
 \end{code}
 
 Coq allows for such definitions as the restrictions on \coqprop
-prevent us from constructing paradoxes such as Girard's.
+prevent us from constructing paradoxes such as Girard's. For details
+on these limitations, the reader is referred to the Coq
+FAQ\footnote{\url{http://coq.inria.fr/V8.1/faq.html\#htoc49}}.
 
 \section{Irrelevance in Agda}
 \label{sec:irragda}
@@ -404,14 +413,14 @@ for irrelevant arguments and prove it:
 The name ``squash type'' comes from Nuprl~\citep{nuprl}: one takes a
 type and identifies (or ``squashes'') all its inhabitants into one
 unique (up to propositional equality) inhabitant. In \hott the process
-of squashing a type is called \ntruncation{(-1)} and can also be
-achieved by defining the following \hit:
+of squashing a type is called \ntruncation{(-1)} (\cref{sec:trunc})
+and can also be achieved by defining the following \hit:
 
 \begin{code}
-  data minusonetruncation (A : Universe) : Universe where
-    inhab : A
-
-    allpaths : (x y : A) → x ≡ y
+  data proptruncate : (A : Universe) : Universe where
+    inhabitant : A -> proptruncate A
+    
+    allpaths : (x y : proptruncate A) -> x == y
 \end{code}
 
 \subsection{Quicksort example}
@@ -474,8 +483,8 @@ with elimination operator
 and computation rules
 
 \begin{code}
-  ltelim P mZ mS 0      (S y)  (ltZ y)        ~>  mZ y
-  ltelim P mZ mS (S x)  (S y)  (ltS x y pf)   ~>  mS x y pf (ltelim P mZ mS x y pf)
+  ltelim P mZ mS 0      (S y)  (ltZ y)        ===  mZ y
+  ltelim P mZ mS (S x)  (S y)  (ltS x y pf)   ===  mS x y pf (ltelim P mZ mS x y pf)
 \end{code}
 
 If we look at the computation rules, we see that we can presuppose
@@ -539,7 +548,7 @@ pattern variables.
 \subsection{Erasing concretely collapsible families}
 \label{sec:erasecolfam}
 
-If |D| is a collapsible family, then its elimination operator |D-elim|
+If |D| is a collapsible family, then its elimination operator |Delim|
 is constant in its target, if we fix the indices. This seems to
 indicate that there might be a possibility to erase the target
 altogether. Nevertheless, |D| might have constructors with
@@ -586,10 +595,16 @@ relevant parts are recovered from the indices.
 
 Checking whether an inductive family is concretely collapsible is
 something that can be easily done automatically, as opposed to
-determining collapsibility in general, which is undecidable. In this
-section we investigate if we can formulate an internal version of
-collapsibility, enabling the user to give a proof that a certain
-family is collapsible, if the compiler fails to notice so itself.
+determining collapsibility in general, which is undecidable. Since
+collapsibility is also a meta-theoretical concept (it makes use of
+definitional equality and talks about provability), it is only the
+compiler that can find out whether an inductive family is collapsible
+or not. If we want to provide the user with the means to give a proof
+of collapsibility for a certain family itself, if the compiler fails
+to notice this, then we would need to specify a new language for such
+evidence. Instead of create such a language, we will create an
+internal version of the meta-theoretical notion of collapsibility, so
+that user can provide the evidence in the type theory itself.
 
 Recall the definition of a collapsible family\footnote{The definition
   we originally gave allowed for an arbitrary number of indices. In
@@ -656,7 +671,7 @@ not hold, as we have discussed.
 \section{Internalising the collapsibility optimisation}
 \label{sec:intcolopt}
 
-In section~\ref{sec:erasecolfam} we saw how concretely collapsible
+In~\cref{sec:erasecolfam} we saw how concretely collapsible
 families can be erased, since all we want to know about the
 inhabitants can be recovered from its indices. In this section we will
 try to uncover a similar optimisation for internally collapsible
@@ -756,10 +771,8 @@ primitives:
 \end{itemize}
 
 The user has to write its programs using these primitives. A similar
-approach has also been used by van
-Laarhoven\footnote{http://twanvl.nl/blog/agda/sorting} to count the
-number of comparisons needed for various comparison-based sorting
-algorithms.
+approach has also been used in \citet{twansorting} to count the number
+of comparisons needed for various comparison-based sorting algorithms.
 
 Using this to enforce a time bound on the decision procedure is not
 too trivial. We first need to establish what kind of time limit we
@@ -784,14 +797,14 @@ improves complexity proves to be a lot more difficult.
 \section{Indexed \hprops and \hott}
 \label{sec:indhprops}
 
-In section~\ref{sec:hprop} we have seen that \hprops are exactly those
-types that obey proof irrelevance. If we generalise this internal
-notion to the indexed case we arrive at something we previously have
-called internal collapsibility. We have also seen that if we restrict
-ourselves to the empty context, internal collapsibility implies
-collapsibility. In \hott, we are interested in postulating extra
-equalities needed to talk about univalence or \hits. To stress the
-difference in what contexts we are considering, we will talk about
+In~\cref{sec:truncations} we have seen that \hprops are exactly
+those types that obey proof irrelevance. If we generalise this
+internal notion to the indexed case we arrive at something we
+previously have called internal collapsibility. We have also seen that
+if we restrict ourselves to the empty context, internal collapsibility
+implies collapsibility. In \hott, we are interested in postulating
+extra equalities needed to talk about univalence or \hits. To stress
+the difference in what contexts we are considering, we will talk about
 internal collapsible for the empty context case and indexed \hprops in
 the other case. In this section we will investigate what these
 differences mean when trying to optimise our programs.
@@ -923,7 +936,7 @@ this property, which we cannot do.
 
 \subsection{Internally optimising \hprops}
 
-The optimisation given in section~\ref{sec:intcolopt} of course still is a
+The optimisation given in~\cref{sec:intcolopt} of course still is a
 valid transformation for the \hott case. The proof of a family |D : I
 -> Universe| being an indexed \hprop is again not enough for us to be
 able to write the |optimiseFunction| term. What we called
@@ -996,4 +1009,4 @@ may no longer yield the same results as the original function, with
 respect to definitional equality. We have identified cases in which
 this is the case and cases in which definitional equality actually is
 preserved. We also argue that detecting whether the latter is the
-case, is not tractable.
+case, is not decidable in general.

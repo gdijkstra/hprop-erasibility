@@ -32,10 +32,10 @@ programming this need not be too much of a problem.
 For these two steps to be actual steps forward, there is still a lot
 of work that needs to be done. The most obvious and possibly most
 difficult problem is determining the computational content of the
-univalence axiom. For programming purposes however, having a type
-theory in which everything is \ntruncated{1} is already a big
-improvement, since, as we have already mentioned, most types in
-programming applications are \hsets. 
+univalence axiom. Seeing as most types in programming applications are
+\hsets, it is already a big improvement if we get this to work for a
+type theory in which everything is \ntruncated{1} and the only
+\ntype{1} which is not a \hset is a univalent universe of all \hsets.
 
 Giving up pattern matching altogether is quite drastic. There are
 still a lot of cases in which (dependent) pattern matching is still
@@ -58,24 +58,27 @@ care about these cases when devising induction principles. Having a
 form of pattern matching for \hits is also a research direction that
 can help make \hits significantly more easy to work with.
 
-In~\autoref{chap:erasibility}, we have seen that in traditional \MLTT,
+In~\cref{chap:erasure}, we have seen that in traditional \MLTT,
 propositional equality coincides with definitional equality at
 ``run-time'' (\ie in the empty context). This property makes it
 possible to internalise optimisations: one could create a system in
-which we provide rules akin to the GHC \verb+REWRITE+ rules, but along
-with a proof of correctness. In \hott, we also want to have
-non-canonical proofs of propositional equality at run-time, so we
-lose this property. A further investigation of when propositional equality
-still does imply definitional equality might be an interesting
-research direction. Another interesting thing to look at is the
-question whether we really need definitional equality, \ie identify
-cases in which we can safely replace something by something else that
-is propositionally but not necessarily definitionally equal.
+which we provide rules to the compiler akin to the \ghcrewriterules
+\citep{ghcrewrite}, but along with a proof of correctness. In \hott,
+we also want to have non-canonical proofs of propositional equality at
+run-time, so we lose this property. A further investigation of when
+propositional equality still does imply definitional equality might be
+an interesting research direction. Another interesting thing to look
+at is the question whether we really need definitional equality, \ie
+identify cases in which we can safely replace something by something
+else that is propositionally but not necessarily definitionally equal.
 
 Coming back to the main research question:
 
 \researchquestionA
 
-There is evidence that \hott is an interesting language to program in,
-but there are still a lot of things that need to be worked out and
-solved before it becomes useful.
+In this thesis, we have given evidence that \hott is an interesting
+language to program in, but as of yet we have to sacrifice too much
+(\ie dependent pattern matching and canonicity in its entirety) for it
+to be useful for programming right now, but the future looks
+promising, even if we only get to implement restricted versions of
+\hott.

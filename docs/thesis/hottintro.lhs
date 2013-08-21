@@ -1,21 +1,21 @@
 \chapter{Homotopy type theory}
 \label{chap:hottintro}
 
-As was briefly mentioned in~\autoref{chap:intro}, homotopy type theory
+As was briefly mentioned in~\cref{chap:intro}, homotopy type theory
 studies the correspondence between homotopy theory and type theory. As
 such, we will start out with a very brief sketch of the basic notions
-of topology and homotopy theory (\autoref{sec:homotopytheory}). After
+of topology and homotopy theory (\cref{sec:homotopytheory}). After
 that, we will describe the notion of propositional equality in \MLTT
-using identity types (\autoref{sec:identitytypes}). Having defined the
+using identity types (\cref{sec:identitytypes}). Having defined the
 identity types, we can explain the interpretation of \MLTT in homotopy
 theoretic terms, relating propositional equality to paths
-(\autoref{sec:homotopyinterpretation}). In \autoref{sec:truncations}
+(\cref{sec:homotopyinterpretation}). In \cref{sec:truncations}
 we describe how the idea of classifying spaces along their homotopic
 structure can be used in type theory to classify
-types. \autoref{sec:hit} and \autoref{sec:univalence} describe two
+types. \Cref{sec:hit} and \cref{sec:univalence} describe two
 extensions to \MLTT inspired by homotopy theory. This chapter is
 concluded by a discussion on the implementation issues of \hott
-(\autoref{sec:implementation}).
+(\cref{sec:implementation}).
 
 \section{Topology and homotopy theory}
 \label{sec:homotopytheory}
@@ -34,7 +34,7 @@ again can look at the paths. Suppose we have two paths |p, q : [0,1]
 -> X| with the same begin and end points, then a path between |p| and
 |q|, called a \emph{homotopy}, is a continuous function |gamma : [0,1]
 -> [0,1] -> X| where |gamma 0 = p| and |gamma 1 = q|
-(see~\autoref{fig:homotopy}). Of course, we can also look at
+(see~\cref{fig:homotopy}). Of course, we can also look at
 homotopies in these path spaces, and homotopies between these higher
 homotopies, ad infinitum.
 
@@ -294,7 +294,7 @@ to allow for a more interesting structure of propositional equalities.
 \section{Homotopy interpretation}
 \label{sec:homotopyinterpretation}
 
-In the introduction (\autoref{chap:intro}), it was mentioned that
+In the introduction (\cref{chap:intro}), it was mentioned that
 homotopy type theory concerns itself with the following
 correspondence:
 
@@ -302,7 +302,7 @@ correspondence:
 \homotopyinterpretation
 
 
-In \autoref{sec:homotopytheory} we noted that homotopies have a
+In \cref{sec:homotopytheory} we noted that homotopies have a
 \inftygrpd structure. It is this structure that leads us to the
 correspondence between the identity types from \MLTT and homotopy
 theory. In \cite{groupoidinterpretation}, the authors note that types
@@ -341,7 +341,7 @@ theorems of homotopy theory.
 
 It also means that the intuition about homotopy theory can be applied
 to type theory. As such, we can use it to explain why one cannot prove
-|K| using |J| (\autoref{sec:interpret}), using a couple of
+|K| using |J| (\cref{sec:interpret}), using a couple of
 illustrations.
 
 \subsection{Interpreting \UIP and |K|}
@@ -363,7 +363,7 @@ us that if we want to prove that a predicate |P| on paths holds, we
 only have to show that it is satisfied for the constant path
 |refl|. Homotopically this can be motivated by the fact that |P| is a
 predicate on paths with a fixed starting point |x| and a |y| that can
-be chosen freely (see~\autoref{fig:j}). Any path |p : x == y| can be
+be chosen freely (see~\cref{fig:j}). Any path |p : x == y| can be
 contracted along this path to the constant path |refl : x == x|, so
 there is a homotopy between these two paths.
 
@@ -395,7 +395,7 @@ Homotopically this means that we are restricted to loops. If we want
 to contract a given path |p : x == x| to |refl : x == x|, we cannot
 use the same trick as with |J|, as the end point is fixed. Contracting
 a loop to |refl| does not always work, as can be seen
-in~\autoref{fig:k}. If we have a hole in our space, then we can
+in~\cref{fig:k}. If we have a hole in our space, then we can
 distinguish between loops that go around the hole and those that do
 not.
 
@@ -461,7 +461,7 @@ universe of types.
 
 The \emph{contractible} types are the types that are isomorphic to
 |top| in the sense that a contractible type has an inhabitant that is
-unique up to propositional equality. In section~\autoref{sec:hit} we
+unique up to propositional equality. In section~\cref{sec:hit} we
 will see examples of contractible types that have more than one
 constructor.
 
@@ -526,7 +526,7 @@ that every type that has decidable equality (\ie |(x y : A) -> x == y
 + (x == y -> bottom)|) also is an \hset. The only way to define a type
 that is not an \hset in Agda, is to add extra propositional equalities
 to the type by adding axioms. This is the subject of
-\autoref{sec:hit}.
+\cref{sec:hit}.
 
 \paragraph{Notation} Sometimes we will use the notation |A : hProp| to
 indicate that |A| is a type that is an \hprop. In an actual
@@ -549,7 +549,7 @@ something to be a \hprop, which is particularly useful when we want to
 do logic, and \ntruncation{0}, \ie we force something to be a
 \hset. The idea is that we add enough extra equalities to the type
 such that the higher structure collapses. This can be done using
-\hits~(\autoref{sec:hit}). The general construction is rather involved
+\hits~(\cref{sec:hit}). The general construction is rather involved
 and not of much interest for the purposes of this thesis: we will only
 encounter the \ntruncation{(-1)} and \ntruncation{0}.
 
@@ -571,7 +571,7 @@ constructors for paths between points, and paths between paths, and so
 on. Using \hits we can now describe\footnote{This is not valid
   Agda. We can simulate \hits by adding (in this case) |loop| as a postulate
   and only exposing the elimination principles.} familiar spaces, such
-as the circle (see also~\autoref{fig:circle}):
+as the circle (see also~\cref{fig:circle}):
 
 \begin{code}
   data Circle : Universe where
@@ -585,7 +585,7 @@ inhabitants of the type, we also need to specify how we can eliminate
 inhabitants. Roughly speaking we need to ensure that all the points
 get mapped in such a way that all the (extra) equalities are
 respected. In the case of the circle this looks as follows (see
-also~\autoref{fig:hit_interval}):
+also~\cref{fig:hit_interval}):
 
 \begin{code}
   Circlerec : {B : Set} 
@@ -651,9 +651,9 @@ If we add a path constructor connecting two points |x| and |y|, we do
 not only get that specific path, but all the paths that can be
 constructed from that path using transitivity and symmetry. If we
 start out with a type with only two constructors |x| and |y|, we get a
-type isomorphic to the booleans (see~\autoref{fig:hit_bool}), a
+type isomorphic to the booleans (see~\cref{fig:hit_bool}), a
 \ntype{0}. Adding one path constructor |p : x == y| gives us the
-interval (see~\autoref{fig:hit_interval} and \autoref{sec:interval}),
+interval (see~\cref{fig:hit_interval} and \cref{sec:interval}),
 which is a contractible type (it is a \ntype{(-2)}) and hence
 isomorphic to the unit type |top|. If we add yet another path
 constructor |q : x == y|, we get a type isomorphic to |Circle|, which
@@ -705,7 +705,7 @@ that previously did not exist. One example of this is
     allpaths : (x y : proptruncate A) -> x == y
 \end{code}
 
-We have seen in~\autoref{sec:truncations} that this type indeed yields
+We have seen in~\cref{sec:truncations} that this type indeed yields
 a proposition, as it satisfies proof irrelevance, since we have added
 paths between all points |x| and |y|. This collapses all higher
 structure of the original type |A : Universe|.

@@ -2,6 +2,7 @@
 
 %include thesis.fmt
 
+\usepackage[firstpage]{draftwatermark} % DRAFT only obviously
 \usepackage[paper=a4paper, margin=4.3cm]{geometry}
 
 \usepackage{color}
@@ -15,6 +16,7 @@
 \usepackage{tgpagella}
 \usepackage{url}
 \usepackage{hyperref}
+\usepackage{cleveref}
 
 \hypersetup{
   colorlinks,
