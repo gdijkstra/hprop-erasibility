@@ -1,0 +1,1626 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Log</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Symbol"
+      >{-#</a
+      ><a name="4"
+      > </a
+      ><a name="5" class="Keyword"
+      >OPTIONS</a
+      ><a name="12"
+      > --without-K </a
+      ><a name="25" class="Symbol"
+      >#-}</a
+      ><a name="28"
+      >
+
+</a
+      ><a name="30" class="Keyword"
+      >module</a
+      ><a name="36"
+      > </a
+      ><a name="37" href="Log.html#1" class="Module"
+      >Log</a
+      ><a name="40"
+      > </a
+      ><a name="41" class="Keyword"
+      >where</a
+      ><a name="46"
+      >
+
+</a
+      ><a name="48" class="Keyword"
+      >open</a
+      ><a name="52"
+      > </a
+      ><a name="53" class="Keyword"
+      >import</a
+      ><a name="59"
+      > </a
+      ><a name="60" href="Naturals.html#1" class="Module"
+      >Naturals</a
+      ><a name="68"
+      >
+</a
+      ><a name="69" class="Keyword"
+      >open</a
+      ><a name="73"
+      > </a
+      ><a name="74" class="Keyword"
+      >import</a
+      ><a name="80"
+      > </a
+      ><a name="81" href="Levels.html#1" class="Module"
+      >Levels</a
+      ><a name="87"
+      >
+</a
+      ><a name="88" class="Keyword"
+      >open</a
+      ><a name="92"
+      > </a
+      ><a name="93" class="Keyword"
+      >import</a
+      ><a name="99"
+      > </a
+      ><a name="100" href="Identity.html#1" class="Module"
+      >Identity</a
+      ><a name="108"
+      >
+</a
+      ><a name="109" class="Keyword"
+      >open</a
+      ><a name="113"
+      > </a
+      ><a name="114" class="Keyword"
+      >import</a
+      ><a name="120"
+      > </a
+      ><a name="121" href="Truncation.html#1" class="Module"
+      >Truncation</a
+      ><a name="131"
+      >
+</a
+      ><a name="132" class="Keyword"
+      >open</a
+      ><a name="136"
+      > </a
+      ><a name="137" class="Keyword"
+      >import</a
+      ><a name="143"
+      > </a
+      ><a name="144" href="Proposition.html#1" class="Module"
+      >Proposition</a
+      ><a name="155"
+      >
+
+</a
+      ><a name="157" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="161"
+      > </a
+      ><a name="162" class="Symbol"
+      >:</a
+      ><a name="163"
+      > </a
+      ><a name="164" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="165"
+      > </a
+      ><a name="166" class="Symbol"
+      >-&gt;</a
+      ><a name="168"
+      > </a
+      ><a name="169" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="170"
+      >
+</a
+      ><a name="171" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="175"
+      > </a
+      ><a name="176" href="Naturals.html#82" class="InductiveConstructor"
+      >Z</a
+      ><a name="177"
+      > </a
+      ><a name="178" class="Symbol"
+      >=</a
+      ><a name="179"
+      > </a
+      ><a name="180" href="Naturals.html#82" class="InductiveConstructor"
+      >Z</a
+      ><a name="181"
+      >
+</a
+      ><a name="182" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="186"
+      > </a
+      ><a name="187" class="Symbol"
+      >(</a
+      ><a name="188" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="189"
+      > </a
+      ><a name="190" href="Naturals.html#82" class="InductiveConstructor"
+      >Z</a
+      ><a name="191" class="Symbol"
+      >)</a
+      ><a name="192"
+      > </a
+      ><a name="193" class="Symbol"
+      >=</a
+      ><a name="194"
+      > </a
+      ><a name="195" href="Naturals.html#82" class="InductiveConstructor"
+      >Z</a
+      ><a name="196"
+      >
+</a
+      ><a name="197" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="201"
+      > </a
+      ><a name="202" class="Symbol"
+      >(</a
+      ><a name="203" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="204"
+      > </a
+      ><a name="205" class="Symbol"
+      >(</a
+      ><a name="206" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="207"
+      > </a
+      ><a name="208" href="Log.html#208" class="Bound"
+      >n</a
+      ><a name="209" class="Symbol"
+      >))</a
+      ><a name="211"
+      > </a
+      ><a name="212" class="Symbol"
+      >=</a
+      ><a name="213"
+      > </a
+      ><a name="214" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="215"
+      > </a
+      ><a name="216" class="Symbol"
+      >(</a
+      ><a name="217" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="221"
+      > </a
+      ><a name="222" href="Log.html#208" class="Bound"
+      >n</a
+      ><a name="223" class="Symbol"
+      >)</a
+      ><a name="224"
+      >
+
+</a
+      ><a name="226" class="Keyword"
+      >data</a
+      ><a name="230"
+      > </a
+      ><a name="231" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="237"
+      > </a
+      ><a name="238" class="Symbol"
+      >:</a
+      ><a name="239"
+      > </a
+      ><a name="240" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="241"
+      > </a
+      ><a name="242" class="Symbol"
+      >&#8594;</a
+      ><a name="243"
+      > </a
+      ><a name="244" class="PrimitiveType"
+      >Set</a
+      ><a name="247"
+      > </a
+      ><a name="248" class="Keyword"
+      >where</a
+      ><a name="253"
+      >
+ </a
+      ><a name="255" href="Log.html#255" class="InductiveConstructor"
+      >logAcc0</a
+      ><a name="262"
+      > </a
+      ><a name="263" class="Symbol"
+      >:</a
+      ><a name="264"
+      > </a
+      ><a name="265" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="271"
+      > </a
+      ><a name="272" class="Symbol"
+      >(</a
+      ><a name="273" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="274"
+      > </a
+      ><a name="275" href="Naturals.html#82" class="InductiveConstructor"
+      >Z</a
+      ><a name="276" class="Symbol"
+      >)</a
+      ><a name="277"
+      >
+ </a
+      ><a name="279" href="Log.html#279" class="InductiveConstructor"
+      >logAcc1</a
+      ><a name="286"
+      > </a
+      ><a name="287" class="Symbol"
+      >:</a
+      ><a name="288"
+      > </a
+      ><a name="289" class="Symbol"
+      >(</a
+      ><a name="290" href="Log.html#290" class="Bound"
+      >k</a
+      ><a name="291"
+      > </a
+      ><a name="292" class="Symbol"
+      >:</a
+      ><a name="293"
+      > </a
+      ><a name="294" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="295" class="Symbol"
+      >)</a
+      ><a name="296"
+      > </a
+      ><a name="297" class="Symbol"
+      >&#8594;</a
+      ><a name="298"
+      > </a
+      ><a name="299" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="305"
+      > </a
+      ><a name="306" class="Symbol"
+      >(</a
+      ><a name="307" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="308"
+      > </a
+      ><a name="309" class="Symbol"
+      >(</a
+      ><a name="310" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="314"
+      > </a
+      ><a name="315" href="Log.html#290" class="Bound"
+      >k</a
+      ><a name="316" class="Symbol"
+      >))</a
+      ><a name="318"
+      > </a
+      ><a name="319" class="Symbol"
+      >&#8594;</a
+      ><a name="320"
+      > </a
+      ><a name="321" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Symbol"
+      >(</a
+      ><a name="329" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="330"
+      > </a
+      ><a name="331" class="Symbol"
+      >(</a
+      ><a name="332" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="333"
+      > </a
+      ><a name="334" href="Log.html#290" class="Bound"
+      >k</a
+      ><a name="335" class="Symbol"
+      >))</a
+      ><a name="337"
+      >
+
+</a
+      ><a name="339" href="Log.html#339" class="Function"
+      >logAccIsProp</a
+      ><a name="351"
+      > </a
+      ><a name="352" class="Symbol"
+      >:</a
+      ><a name="353"
+      > </a
+      ><a name="354" class="Symbol"
+      >(</a
+      ><a name="355" href="Log.html#355" class="Bound"
+      >x</a
+      ><a name="356"
+      > </a
+      ><a name="357" class="Symbol"
+      >:</a
+      ><a name="358"
+      > </a
+      ><a name="359" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="360" class="Symbol"
+      >)</a
+      ><a name="361"
+      > </a
+      ><a name="362" class="Symbol"
+      >&#8594;</a
+      ><a name="363"
+      > </a
+      ><a name="364" href="Proposition.html#225" class="Function"
+      >proofIrrelevance</a
+      ><a name="380"
+      > </a
+      ><a name="381" class="Symbol"
+      >(</a
+      ><a name="382" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="388"
+      > </a
+      ><a name="389" href="Log.html#355" class="Bound"
+      >x</a
+      ><a name="390" class="Symbol"
+      >)</a
+      ><a name="391"
+      >
+</a
+      ><a name="392" href="Log.html#339" class="Function"
+      >logAccIsProp</a
+      ><a name="404"
+      > </a
+      ><a name="405" href="Naturals.html#82" class="InductiveConstructor"
+      >Z</a
+      ><a name="406"
+      > </a
+      ><a name="407" class="Symbol"
+      >()</a
+      ><a name="409"
+      > </a
+      ><a name="410" class="Symbol"
+      >()</a
+      ><a name="412"
+      >
+</a
+      ><a name="413" href="Log.html#339" class="Function"
+      >logAccIsProp</a
+      ><a name="425"
+      > </a
+      ><a name="426" class="Symbol"
+      >(</a
+      ><a name="427" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="428"
+      > </a
+      ><a name="429" class="DottedPattern Symbol"
+      >.</a
+      ><a name="430" class="DottedPattern Number"
+      >0</a
+      ><a name="431" class="Symbol"
+      >)</a
+      ><a name="432"
+      > </a
+      ><a name="433" href="Log.html#255" class="InductiveConstructor"
+      >logAcc0</a
+      ><a name="440"
+      > </a
+      ><a name="441" href="Log.html#255" class="InductiveConstructor"
+      >logAcc0</a
+      ><a name="448"
+      > </a
+      ><a name="449" class="Symbol"
+      >=</a
+      ><a name="450"
+      > </a
+      ><a name="451" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="455"
+      >
+</a
+      ><a name="456" href="Log.html#339" class="Function"
+      >logAccIsProp</a
+      ><a name="468"
+      > </a
+      ><a name="469" class="Symbol"
+      >(</a
+      ><a name="470" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="471"
+      > </a
+      ><a name="472" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="474" class="DottedPattern InductiveConstructor"
+      >S</a
+      ><a name="475"
+      > </a
+      ><a name="476" href="Log.html#489" class="DottedPattern Bound"
+      >k</a
+      ><a name="477" class="DottedPattern Symbol"
+      >)</a
+      ><a name="478" class="Symbol"
+      >)</a
+      ><a name="479"
+      > </a
+      ><a name="480" class="Symbol"
+      >(</a
+      ><a name="481" href="Log.html#279" class="InductiveConstructor"
+      >logAcc1</a
+      ><a name="488"
+      > </a
+      ><a name="489" href="Log.html#489" class="Bound"
+      >k</a
+      ><a name="490"
+      > </a
+      ><a name="491" href="Log.html#491" class="Bound"
+      >x</a
+      ><a name="492" class="Symbol"
+      >)</a
+      ><a name="493"
+      > </a
+      ><a name="494" class="Symbol"
+      >(</a
+      ><a name="495" href="Log.html#279" class="InductiveConstructor"
+      >logAcc1</a
+      ><a name="502"
+      > </a
+      ><a name="503" class="DottedPattern Symbol"
+      >.</a
+      ><a name="504" href="Log.html#489" class="DottedPattern Bound"
+      >k</a
+      ><a name="505"
+      > </a
+      ><a name="506" href="Log.html#506" class="Bound"
+      >y</a
+      ><a name="507" class="Symbol"
+      >)</a
+      ><a name="508"
+      > </a
+      ><a name="509" class="Symbol"
+      >=</a
+      ><a name="510"
+      > </a
+      ><a name="511" href="Identity.html#1771" class="Function"
+      >ap</a
+      ><a name="513"
+      > </a
+      ><a name="514" class="Symbol"
+      >(</a
+      ><a name="515" href="Log.html#279" class="InductiveConstructor"
+      >logAcc1</a
+      ><a name="522"
+      > </a
+      ><a name="523" href="Log.html#489" class="Bound"
+      >k</a
+      ><a name="524" class="Symbol"
+      >)</a
+      ><a name="525"
+      > </a
+      ><a name="526" class="Symbol"
+      >(</a
+      ><a name="527" href="Log.html#339" class="Function"
+      >logAccIsProp</a
+      ><a name="539"
+      > </a
+      ><a name="540" class="Symbol"
+      >(</a
+      ><a name="541" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="542"
+      > </a
+      ><a name="543" class="Symbol"
+      >(</a
+      ><a name="544" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="548"
+      > </a
+      ><a name="549" href="Log.html#489" class="Bound"
+      >k</a
+      ><a name="550" class="Symbol"
+      >))</a
+      ><a name="552"
+      > </a
+      ><a name="553" href="Log.html#491" class="Bound"
+      >x</a
+      ><a name="554"
+      > </a
+      ><a name="555" href="Log.html#506" class="Bound"
+      >y</a
+      ><a name="556" class="Symbol"
+      >)</a
+      ><a name="557"
+      >
+
+</a
+      ><a name="559" href="Log.html#559" class="Function"
+      >logAccInd</a
+      ><a name="568"
+      > </a
+      ><a name="569" class="Symbol"
+      >:</a
+      ><a name="570"
+      > 
+  </a
+      ><a name="574" class="Symbol"
+      >(</a
+      ><a name="575" href="Log.html#575" class="Bound"
+      >P</a
+      ><a name="576"
+      > </a
+      ><a name="577" class="Symbol"
+      >:</a
+      ><a name="578"
+      > </a
+      ><a name="579" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="580"
+      > </a
+      ><a name="581" class="Symbol"
+      >&#8594;</a
+      ><a name="582"
+      > </a
+      ><a name="583" class="PrimitiveType"
+      >Set</a
+      ><a name="586" class="Symbol"
+      >)</a
+      ><a name="587"
+      >                                                       </a
+      ><a name="642" class="Comment"
+      >-- motive</a
+      ><a name="651"
+      >
+  </a
+      ><a name="654" class="Symbol"
+      >(</a
+      ><a name="655" href="Log.html#655" class="Bound"
+      >m1</a
+      ><a name="657"
+      > </a
+      ><a name="658" class="Symbol"
+      >:</a
+      ><a name="659"
+      > </a
+      ><a name="660" href="Log.html#575" class="Bound"
+      >P</a
+      ><a name="661"
+      > </a
+      ><a name="662" class="Number"
+      >1</a
+      ><a name="663" class="Symbol"
+      >)</a
+      ><a name="664"
+      >                                                          </a
+      ><a name="722" class="Comment"
+      >-- method one</a
+      ><a name="735"
+      >
+  </a
+      ><a name="738" class="Symbol"
+      >(</a
+      ><a name="739" href="Log.html#739" class="Bound"
+      >m2</a
+      ><a name="741"
+      > </a
+      ><a name="742" class="Symbol"
+      >:</a
+      ><a name="743"
+      > </a
+      ><a name="744" class="Symbol"
+      >(</a
+      ><a name="745" href="Log.html#745" class="Bound"
+      >k</a
+      ><a name="746"
+      > </a
+      ><a name="747" class="Symbol"
+      >:</a
+      ><a name="748"
+      > </a
+      ><a name="749" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="750" class="Symbol"
+      >)</a
+      ><a name="751"
+      > </a
+      ><a name="752" class="Symbol"
+      >&#8594;</a
+      ><a name="753"
+      > </a
+      ><a name="754" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="760"
+      > </a
+      ><a name="761" class="Symbol"
+      >(</a
+      ><a name="762" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="763"
+      > </a
+      ><a name="764" class="Symbol"
+      >(</a
+      ><a name="765" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="769"
+      > </a
+      ><a name="770" href="Log.html#745" class="Bound"
+      >k</a
+      ><a name="771" class="Symbol"
+      >))</a
+      ><a name="773"
+      > </a
+      ><a name="774" class="Symbol"
+      >&#8594;</a
+      ><a name="775"
+      > </a
+      ><a name="776" href="Log.html#575" class="Bound"
+      >P</a
+      ><a name="777"
+      > </a
+      ><a name="778" class="Symbol"
+      >(</a
+      ><a name="779" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="780"
+      > </a
+      ><a name="781" class="Symbol"
+      >(</a
+      ><a name="782" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="786"
+      > </a
+      ><a name="787" href="Log.html#745" class="Bound"
+      >k</a
+      ><a name="788" class="Symbol"
+      >))</a
+      ><a name="790"
+      > </a
+      ><a name="791" class="Symbol"
+      >&#8594;</a
+      ><a name="792"
+      > </a
+      ><a name="793" href="Log.html#575" class="Bound"
+      >P</a
+      ><a name="794"
+      > </a
+      ><a name="795" class="Symbol"
+      >(</a
+      ><a name="796" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="797"
+      > </a
+      ><a name="798" class="Symbol"
+      >(</a
+      ><a name="799" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="800"
+      > </a
+      ><a name="801" href="Log.html#745" class="Bound"
+      >k</a
+      ><a name="802" class="Symbol"
+      >)))</a
+      ><a name="805"
+      > </a
+      ><a name="806" class="Comment"
+      >-- method two</a
+      ><a name="819"
+      >
+  </a
+      ><a name="822" class="Symbol"
+      >(</a
+      ><a name="823" href="Log.html#823" class="Bound"
+      >i</a
+      ><a name="824"
+      > </a
+      ><a name="825" class="Symbol"
+      >:</a
+      ><a name="826"
+      > </a
+      ><a name="827" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="828" class="Symbol"
+      >)</a
+      ><a name="829"
+      >                                                             </a
+      ><a name="890" class="Comment"
+      >-- index</a
+      ><a name="898"
+      >
+  </a
+      ><a name="901" class="Symbol"
+      >(</a
+      ><a name="902" href="Log.html#902" class="Bound"
+      >p</a
+      ><a name="903"
+      > </a
+      ><a name="904" class="Symbol"
+      >:</a
+      ><a name="905"
+      > </a
+      ><a name="906" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="912"
+      > </a
+      ><a name="913" href="Log.html#823" class="Bound"
+      >i</a
+      ><a name="914" class="Symbol"
+      >)</a
+      ><a name="915"
+      >                                                      </a
+      ><a name="969" class="Comment"
+      >-- target</a
+      ><a name="978"
+      >
+   </a
+      ><a name="982" class="Symbol"
+      >&#8594;</a
+      ><a name="983"
+      > </a
+      ><a name="984" href="Log.html#575" class="Bound"
+      >P</a
+      ><a name="985"
+      > </a
+      ><a name="986" href="Log.html#823" class="Bound"
+      >i</a
+      ><a name="987"
+      >
+</a
+      ><a name="988" href="Log.html#559" class="Function"
+      >logAccInd</a
+      ><a name="997"
+      > </a
+      ><a name="998" href="Log.html#998" class="Bound"
+      >P</a
+      ><a name="999"
+      > </a
+      ><a name="1000" href="Log.html#1000" class="Bound"
+      >m1</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" href="Log.html#1003" class="Bound"
+      >m2</a
+      ><a name="1005"
+      > </a
+      ><a name="1006" class="DottedPattern Symbol"
+      >.</a
+      ><a name="1007" class="DottedPattern Number"
+      >1</a
+      ><a name="1008"
+      > </a
+      ><a name="1009" href="Log.html#255" class="InductiveConstructor"
+      >logAcc0</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" class="Symbol"
+      >=</a
+      ><a name="1018"
+      > </a
+      ><a name="1019" href="Log.html#1000" class="Bound"
+      >m1</a
+      ><a name="1021"
+      >
+</a
+      ><a name="1022" href="Log.html#559" class="Function"
+      >logAccInd</a
+      ><a name="1031"
+      > </a
+      ><a name="1032" href="Log.html#1032" class="Bound"
+      >P</a
+      ><a name="1033"
+      > </a
+      ><a name="1034" href="Log.html#1034" class="Bound"
+      >m1</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" href="Log.html#1037" class="Bound"
+      >m2</a
+      ><a name="1039"
+      > </a
+      ><a name="1040" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="1042" class="DottedPattern InductiveConstructor"
+      >S</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" class="DottedPattern Symbol"
+      >(</a
+      ><a name="1045" class="DottedPattern InductiveConstructor"
+      >S</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" href="Log.html#1060" class="DottedPattern Bound"
+      >k</a
+      ><a name="1048" class="DottedPattern Symbol"
+      >))</a
+      ><a name="1050"
+      > </a
+      ><a name="1051" class="Symbol"
+      >(</a
+      ><a name="1052" href="Log.html#279" class="InductiveConstructor"
+      >logAcc1</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="Log.html#1060" class="Bound"
+      >k</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" href="Log.html#1062" class="Bound"
+      >p</a
+      ><a name="1063" class="Symbol"
+      >)</a
+      ><a name="1064"
+      > </a
+      ><a name="1065" class="Symbol"
+      >=</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="Log.html#1037" class="Bound"
+      >m2</a
+      ><a name="1069"
+      > </a
+      ><a name="1070" href="Log.html#1060" class="Bound"
+      >k</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" href="Log.html#1062" class="Bound"
+      >p</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" class="Symbol"
+      >(</a
+      ><a name="1075" href="Log.html#559" class="Function"
+      >logAccInd</a
+      ><a name="1084"
+      > </a
+      ><a name="1085" href="Log.html#1032" class="Bound"
+      >P</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" href="Log.html#1034" class="Bound"
+      >m1</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" href="Log.html#1037" class="Bound"
+      >m2</a
+      ><a name="1092"
+      > </a
+      ><a name="1093" class="Symbol"
+      >(</a
+      ><a name="1094" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="1095"
+      > </a
+      ><a name="1096" class="Symbol"
+      >(</a
+      ><a name="1097" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="1101"
+      > </a
+      ><a name="1102" href="Log.html#1060" class="Bound"
+      >k</a
+      ><a name="1103" class="Symbol"
+      >))</a
+      ><a name="1105"
+      > </a
+      ><a name="1106" href="Log.html#1062" class="Bound"
+      >p</a
+      ><a name="1107" class="Symbol"
+      >)</a
+      ><a name="1108"
+      >
+
+</a
+      ><a name="1110" href="Log.html#1110" class="Function"
+      >logAccRec</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" class="Symbol"
+      >:</a
+      ><a name="1121"
+      > 
+  </a
+      ><a name="1125" class="Symbol"
+      >(</a
+      ><a name="1126" href="Log.html#1126" class="Bound"
+      >P</a
+      ><a name="1127"
+      > </a
+      ><a name="1128" class="Symbol"
+      >:</a
+      ><a name="1129"
+      > </a
+      ><a name="1130" class="Symbol"
+      >(</a
+      ><a name="1131" href="Log.html#1131" class="Bound"
+      >n</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" class="Symbol"
+      >:</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="1136" class="Symbol"
+      >)</a
+      ><a name="1137"
+      > </a
+      ><a name="1138" class="Symbol"
+      >&#8594;</a
+      ><a name="1139"
+      > </a
+      ><a name="1140" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="1146"
+      > </a
+      ><a name="1147" href="Log.html#1131" class="Bound"
+      >n</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" class="Symbol"
+      >&#8594;</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" class="PrimitiveType"
+      >Set</a
+      ><a name="1154" class="Symbol"
+      >)</a
+      ><a name="1155"
+      >                                                          </a
+      ><a name="1213" class="Comment"
+      >-- motive</a
+      ><a name="1222"
+      >
+  </a
+      ><a name="1225" class="Symbol"
+      >(</a
+      ><a name="1226" href="Log.html#1226" class="Bound"
+      >m1</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" class="Symbol"
+      >:</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="Log.html#1126" class="Bound"
+      >P</a
+      ><a name="1232"
+      > </a
+      ><a name="1233" class="Number"
+      >1</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="Log.html#255" class="InductiveConstructor"
+      >logAcc0</a
+      ><a name="1242" class="Symbol"
+      >)</a
+      ><a name="1243"
+      >                                                                      </a
+      ><a name="1313" class="Comment"
+      >-- method one</a
+      ><a name="1326"
+      >
+  </a
+      ><a name="1329" class="Symbol"
+      >(</a
+      ><a name="1330" href="Log.html#1330" class="Bound"
+      >m2</a
+      ><a name="1332"
+      > </a
+      ><a name="1333" class="Symbol"
+      >:</a
+      ><a name="1334"
+      > </a
+      ><a name="1335" class="Symbol"
+      >(</a
+      ><a name="1336" href="Log.html#1336" class="Bound"
+      >k</a
+      ><a name="1337"
+      > </a
+      ><a name="1338" class="Symbol"
+      >:</a
+      ><a name="1339"
+      > </a
+      ><a name="1340" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="1341" class="Symbol"
+      >)</a
+      ><a name="1342"
+      > </a
+      ><a name="1343" class="Symbol"
+      >(</a
+      ><a name="1344" href="Log.html#1344" class="Bound"
+      >l</a
+      ><a name="1345"
+      > </a
+      ><a name="1346" class="Symbol"
+      >:</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="1354"
+      > </a
+      ><a name="1355" class="Symbol"
+      >(</a
+      ><a name="1356" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="1357"
+      > </a
+      ><a name="1358" class="Symbol"
+      >(</a
+      ><a name="1359" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="1363"
+      > </a
+      ><a name="1364" href="Log.html#1336" class="Bound"
+      >k</a
+      ><a name="1365" class="Symbol"
+      >)))</a
+      ><a name="1368"
+      > </a
+      ><a name="1369" class="Symbol"
+      >&#8594;</a
+      ><a name="1370"
+      > </a
+      ><a name="1371" href="Log.html#1126" class="Bound"
+      >P</a
+      ><a name="1372"
+      > </a
+      ><a name="1373" class="Symbol"
+      >(</a
+      ><a name="1374" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="1375"
+      > </a
+      ><a name="1376" class="Symbol"
+      >(</a
+      ><a name="1377" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" href="Log.html#1336" class="Bound"
+      >k</a
+      ><a name="1383" class="Symbol"
+      >))</a
+      ><a name="1385"
+      > </a
+      ><a name="1386" href="Log.html#1344" class="Bound"
+      >l</a
+      ><a name="1387"
+      > </a
+      ><a name="1388" class="Symbol"
+      >&#8594;</a
+      ><a name="1389"
+      > </a
+      ><a name="1390" href="Log.html#1126" class="Bound"
+      >P</a
+      ><a name="1391"
+      > </a
+      ><a name="1392" class="Symbol"
+      >(</a
+      ><a name="1393" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="1394"
+      > </a
+      ><a name="1395" class="Symbol"
+      >(</a
+      ><a name="1396" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="1397"
+      > </a
+      ><a name="1398" href="Log.html#1336" class="Bound"
+      >k</a
+      ><a name="1399" class="Symbol"
+      >))</a
+      ><a name="1401"
+      > </a
+      ><a name="1402" class="Symbol"
+      >(</a
+      ><a name="1403" href="Log.html#279" class="InductiveConstructor"
+      >logAcc1</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" href="Log.html#1336" class="Bound"
+      >k</a
+      ><a name="1412"
+      > </a
+      ><a name="1413" href="Log.html#1344" class="Bound"
+      >l</a
+      ><a name="1414" class="Symbol"
+      >))</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" class="Comment"
+      >-- method two</a
+      ><a name="1430"
+      >
+  </a
+      ><a name="1433" class="Symbol"
+      >(</a
+      ><a name="1434" href="Log.html#1434" class="Bound"
+      >i</a
+      ><a name="1435"
+      > </a
+      ><a name="1436" class="Symbol"
+      >:</a
+      ><a name="1437"
+      > </a
+      ><a name="1438" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="1439" class="Symbol"
+      >)</a
+      ><a name="1440"
+      >                                                                                 </a
+      ><a name="1521" class="Comment"
+      >-- index</a
+      ><a name="1529"
+      >
+  </a
+      ><a name="1532" class="Symbol"
+      >(</a
+      ><a name="1533" href="Log.html#1533" class="Bound"
+      >x</a
+      ><a name="1534"
+      > </a
+      ><a name="1535" class="Symbol"
+      >:</a
+      ><a name="1536"
+      > </a
+      ><a name="1537" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="1543"
+      > </a
+      ><a name="1544" href="Log.html#1434" class="Bound"
+      >i</a
+      ><a name="1545" class="Symbol"
+      >)</a
+      ><a name="1546"
+      >                                                                          </a
+      ><a name="1620" class="Comment"
+      >-- target</a
+      ><a name="1629"
+      >
+   </a
+      ><a name="1633" class="Symbol"
+      >&#8594;</a
+      ><a name="1634"
+      > </a
+      ><a name="1635" href="Log.html#1126" class="Bound"
+      >P</a
+      ><a name="1636"
+      > </a
+      ><a name="1637" href="Log.html#1434" class="Bound"
+      >i</a
+      ><a name="1638"
+      > </a
+      ><a name="1639" href="Log.html#1533" class="Bound"
+      >x</a
+      ><a name="1640"
+      >
+</a
+      ><a name="1641" href="Log.html#1110" class="Function"
+      >logAccRec</a
+      ><a name="1650"
+      > </a
+      ><a name="1651" href="Log.html#1651" class="Bound"
+      >P</a
+      ><a name="1652"
+      > </a
+      ><a name="1653" href="Log.html#1653" class="Bound"
+      >m1</a
+      ><a name="1655"
+      > </a
+      ><a name="1656" href="Log.html#1656" class="Bound"
+      >m2</a
+      ><a name="1658"
+      > </a
+      ><a name="1659" class="DottedPattern Symbol"
+      >.</a
+      ><a name="1660" class="DottedPattern Number"
+      >1</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" href="Log.html#255" class="InductiveConstructor"
+      >logAcc0</a
+      ><a name="1669"
+      > </a
+      ><a name="1670" class="Symbol"
+      >=</a
+      ><a name="1671"
+      > </a
+      ><a name="1672" href="Log.html#1653" class="Bound"
+      >m1</a
+      ><a name="1674"
+      >
+</a
+      ><a name="1675" href="Log.html#1110" class="Function"
+      >logAccRec</a
+      ><a name="1684"
+      > </a
+      ><a name="1685" href="Log.html#1685" class="Bound"
+      >P</a
+      ><a name="1686"
+      > </a
+      ><a name="1687" href="Log.html#1687" class="Bound"
+      >m1</a
+      ><a name="1689"
+      > </a
+      ><a name="1690" href="Log.html#1690" class="Bound"
+      >m2</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="1695" class="DottedPattern InductiveConstructor"
+      >S</a
+      ><a name="1696"
+      > </a
+      ><a name="1697" class="DottedPattern Symbol"
+      >(</a
+      ><a name="1698" class="DottedPattern InductiveConstructor"
+      >S</a
+      ><a name="1699"
+      > </a
+      ><a name="1700" href="Log.html#1713" class="DottedPattern Bound"
+      >k</a
+      ><a name="1701" class="DottedPattern Symbol"
+      >))</a
+      ><a name="1703"
+      > </a
+      ><a name="1704" class="Symbol"
+      >(</a
+      ><a name="1705" href="Log.html#279" class="InductiveConstructor"
+      >logAcc1</a
+      ><a name="1712"
+      > </a
+      ><a name="1713" href="Log.html#1713" class="Bound"
+      >k</a
+      ><a name="1714"
+      > </a
+      ><a name="1715" href="Log.html#1715" class="Bound"
+      >x</a
+      ><a name="1716" class="Symbol"
+      >)</a
+      ><a name="1717"
+      > </a
+      ><a name="1718" class="Symbol"
+      >=</a
+      ><a name="1719"
+      > </a
+      ><a name="1720" href="Log.html#1690" class="Bound"
+      >m2</a
+      ><a name="1722"
+      > </a
+      ><a name="1723" href="Log.html#1713" class="Bound"
+      >k</a
+      ><a name="1724"
+      > </a
+      ><a name="1725" href="Log.html#1715" class="Bound"
+      >x</a
+      ><a name="1726"
+      > </a
+      ><a name="1727" class="Symbol"
+      >(</a
+      ><a name="1728" href="Log.html#1110" class="Function"
+      >logAccRec</a
+      ><a name="1737"
+      > </a
+      ><a name="1738" href="Log.html#1685" class="Bound"
+      >P</a
+      ><a name="1739"
+      > </a
+      ><a name="1740" href="Log.html#1687" class="Bound"
+      >m1</a
+      ><a name="1742"
+      > </a
+      ><a name="1743" href="Log.html#1690" class="Bound"
+      >m2</a
+      ><a name="1745"
+      > </a
+      ><a name="1746" class="Symbol"
+      >(</a
+      ><a name="1747" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="1748"
+      > </a
+      ><a name="1749" class="Symbol"
+      >(</a
+      ><a name="1750" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="1754"
+      > </a
+      ><a name="1755" href="Log.html#1713" class="Bound"
+      >k</a
+      ><a name="1756" class="Symbol"
+      >))</a
+      ><a name="1758"
+      > </a
+      ><a name="1759" href="Log.html#1715" class="Bound"
+      >x</a
+      ><a name="1760" class="Symbol"
+      >)</a
+      ><a name="1761"
+      >
+
+</a
+      ><a name="1763" href="Log.html#1763" class="Function"
+      >log</a
+      ><a name="1766"
+      > </a
+      ><a name="1767" class="Symbol"
+      >:</a
+      ><a name="1768"
+      > </a
+      ><a name="1769" class="Symbol"
+      >(</a
+      ><a name="1770" href="Log.html#1770" class="Bound"
+      >x</a
+      ><a name="1771"
+      > </a
+      ><a name="1772" class="Symbol"
+      >:</a
+      ><a name="1773"
+      > </a
+      ><a name="1774" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="1775" class="Symbol"
+      >)</a
+      ><a name="1776"
+      > </a
+      ><a name="1777" class="Symbol"
+      >&#8594;</a
+      ><a name="1778"
+      > </a
+      ><a name="1779" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="1785"
+      > </a
+      ><a name="1786" href="Log.html#1770" class="Bound"
+      >x</a
+      ><a name="1787"
+      > </a
+      ><a name="1788" class="Symbol"
+      >&#8594;</a
+      ><a name="1789"
+      > </a
+      ><a name="1790" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="1791"
+      >
+</a
+      ><a name="1792" href="Log.html#1763" class="Function"
+      >log</a
+      ><a name="1795"
+      > </a
+      ><a name="1796" class="DottedPattern Symbol"
+      >.</a
+      ><a name="1797" class="DottedPattern Number"
+      >1</a
+      ><a name="1798"
+      > </a
+      ><a name="1799" href="Log.html#255" class="InductiveConstructor"
+      >logAcc0</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" class="Symbol"
+      >=</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" class="Number"
+      >0</a
+      ><a name="1810"
+      >
+</a
+      ><a name="1811" href="Log.html#1763" class="Function"
+      >log</a
+      ><a name="1814"
+      > </a
+      ><a name="1815" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="1817" class="DottedPattern InductiveConstructor"
+      >S</a
+      ><a name="1818"
+      > </a
+      ><a name="1819" class="DottedPattern Symbol"
+      >(</a
+      ><a name="1820" class="DottedPattern InductiveConstructor"
+      >S</a
+      ><a name="1821"
+      > </a
+      ><a name="1822" href="Log.html#1835" class="DottedPattern Bound"
+      >k</a
+      ><a name="1823" class="DottedPattern Symbol"
+      >))</a
+      ><a name="1825"
+      > </a
+      ><a name="1826" class="Symbol"
+      >(</a
+      ><a name="1827" href="Log.html#279" class="InductiveConstructor"
+      >logAcc1</a
+      ><a name="1834"
+      > </a
+      ><a name="1835" href="Log.html#1835" class="Bound"
+      >k</a
+      ><a name="1836"
+      > </a
+      ><a name="1837" href="Log.html#1837" class="Bound"
+      >pf</a
+      ><a name="1839" class="Symbol"
+      >)</a
+      ><a name="1840"
+      > </a
+      ><a name="1841" class="Symbol"
+      >=</a
+      ><a name="1842"
+      > </a
+      ><a name="1843" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="1844"
+      > </a
+      ><a name="1845" class="Symbol"
+      >(</a
+      ><a name="1846" href="Log.html#1763" class="Function"
+      >log</a
+      ><a name="1849"
+      > </a
+      ><a name="1850" class="Symbol"
+      >(</a
+      ><a name="1851" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="1852"
+      > </a
+      ><a name="1853" class="Symbol"
+      >(</a
+      ><a name="1854" href="Log.html#157" class="Function"
+      >div2</a
+      ><a name="1858"
+      > </a
+      ><a name="1859" href="Log.html#1835" class="Bound"
+      >k</a
+      ><a name="1860" class="Symbol"
+      >))</a
+      ><a name="1862"
+      > </a
+      ><a name="1863" href="Log.html#1837" class="Bound"
+      >pf</a
+      ><a name="1865" class="Symbol"
+      >)</a
+      ><a name="1866"
+      >
+
+</a
+      ><a name="1868" href="Log.html#1868" class="Function"
+      >logInd</a
+      ><a name="1874"
+      > </a
+      ><a name="1875" class="Symbol"
+      >:</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" class="Symbol"
+      >(</a
+      ><a name="1878" href="Log.html#1878" class="Bound"
+      >x</a
+      ><a name="1879"
+      > </a
+      ><a name="1880" class="Symbol"
+      >:</a
+      ><a name="1881"
+      > </a
+      ><a name="1882" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="1883" class="Symbol"
+      >)</a
+      ><a name="1884"
+      > </a
+      ><a name="1885" class="Symbol"
+      >&#8594;</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" href="Log.html#231" class="Datatype"
+      >logAcc</a
+      ><a name="1893"
+      > </a
+      ><a name="1894" href="Log.html#1878" class="Bound"
+      >x</a
+      ><a name="1895"
+      > </a
+      ><a name="1896" class="Symbol"
+      >&#8594;</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="1899"
+      >
+</a
+      ><a name="1900" href="Log.html#1868" class="Function"
+      >logInd</a
+      ><a name="1906"
+      > </a
+      ><a name="1907" class="Symbol"
+      >=</a
+      ><a name="1908"
+      > </a
+      ><a name="1909" href="Log.html#559" class="Function"
+      >logAccInd</a
+      ><a name="1918"
+      > </a
+      ><a name="1919" class="Symbol"
+      >(&#955;</a
+      ><a name="1921"
+      > </a
+      ><a name="1922" href="Log.html#1922" class="Bound"
+      >_</a
+      ><a name="1923"
+      > </a
+      ><a name="1924" class="Symbol"
+      >&#8594;</a
+      ><a name="1925"
+      > </a
+      ><a name="1926" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="1927" class="Symbol"
+      >)</a
+      ><a name="1928"
+      > </a
+      ><a name="1929" class="Number"
+      >0</a
+      ><a name="1930"
+      > </a
+      ><a name="1931" class="Symbol"
+      >(&#955;</a
+      ><a name="1933"
+      > </a
+      ><a name="1934" href="Log.html#1934" class="Bound"
+      >_</a
+      ><a name="1935"
+      > </a
+      ><a name="1936" href="Log.html#1936" class="Bound"
+      >_</a
+      ><a name="1937"
+      > </a
+      ><a name="1938" href="Log.html#1938" class="Bound"
+      >recVal</a
+      ><a name="1944"
+      > </a
+      ><a name="1945" class="Symbol"
+      >&#8594;</a
+      ><a name="1946"
+      > </a
+      ><a name="1947" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="1948"
+      > </a
+      ><a name="1949" href="Log.html#1938" class="Bound"
+      >recVal</a
+      ><a name="1955" class="Symbol"
+      >)</a
+      ><a name="1956"
+      >
+
+</a
+      ></pre
+    ></body
+  ></html
+>

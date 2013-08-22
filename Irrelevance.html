@@ -1,0 +1,755 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Irrelevance</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Symbol"
+      >{-#</a
+      ><a name="4"
+      > </a
+      ><a name="5" class="Keyword"
+      >OPTIONS</a
+      ><a name="12"
+      > --without-K </a
+      ><a name="25" class="Symbol"
+      >#-}</a
+      ><a name="28"
+      >
+
+</a
+      ><a name="30" class="Keyword"
+      >module</a
+      ><a name="36"
+      > </a
+      ><a name="37" href="Irrelevance.html#1" class="Module"
+      >Irrelevance</a
+      ><a name="48"
+      > </a
+      ><a name="49" class="Keyword"
+      >where</a
+      ><a name="54"
+      >
+
+</a
+      ><a name="56" class="Keyword"
+      >open</a
+      ><a name="60"
+      > </a
+      ><a name="61" class="Keyword"
+      >import</a
+      ><a name="67"
+      > </a
+      ><a name="68" href="Naturals.html#1" class="Module"
+      >Naturals</a
+      ><a name="76"
+      >
+</a
+      ><a name="77" class="Keyword"
+      >open</a
+      ><a name="81"
+      > </a
+      ><a name="82" class="Keyword"
+      >import</a
+      ><a name="88"
+      > </a
+      ><a name="89" href="Levels.html#1" class="Module"
+      >Levels</a
+      ><a name="95"
+      >
+</a
+      ><a name="96" class="Keyword"
+      >open</a
+      ><a name="100"
+      > </a
+      ><a name="101" class="Keyword"
+      >import</a
+      ><a name="107"
+      > </a
+      ><a name="108" href="Identity.html#1" class="Module"
+      >Identity</a
+      ><a name="116"
+      >
+
+</a
+      ><a name="118" class="Keyword"
+      >record</a
+      ><a name="124"
+      > </a
+      ><a name="125" href="Irrelevance.html#125" class="Record"
+      >Squash</a
+      ><a name="131"
+      > </a
+      ><a name="132" class="Symbol"
+      >(</a
+      ><a name="133" href="Irrelevance.html#133" class="Bound"
+      >A</a
+      ><a name="134"
+      > </a
+      ><a name="135" class="Symbol"
+      >:</a
+      ><a name="136"
+      > </a
+      ><a name="137" class="PrimitiveType"
+      >Set</a
+      ><a name="140" class="Symbol"
+      >)</a
+      ><a name="141"
+      > </a
+      ><a name="142" class="Symbol"
+      >:</a
+      ><a name="143"
+      > </a
+      ><a name="144" class="PrimitiveType"
+      >Set</a
+      ><a name="147"
+      > </a
+      ><a name="148" class="Keyword"
+      >where</a
+      ><a name="153"
+      >
+  </a
+      ><a name="156" class="Keyword"
+      >constructor</a
+      ><a name="167"
+      > </a
+      ><a name="168" href="Irrelevance.html#168" class="InductiveConstructor"
+      >squash</a
+      ><a name="174"
+      >
+  </a
+      ><a name="177" class="Keyword"
+      >field</a
+      ><a name="182"
+      >
+    </a
+      ><a name="187" class="Symbol"
+      >.</a
+      ><a name="188" href="Irrelevance.html#188" class="Field"
+      >proof</a
+      ><a name="193"
+      > </a
+      ><a name="194" class="Symbol"
+      >:</a
+      ><a name="195"
+      > </a
+      ><a name="196" href="Irrelevance.html#133" class="Bound"
+      >A</a
+      ><a name="197"
+      >
+
+</a
+      ><a name="199" href="Irrelevance.html#199" class="Function"
+      >squashProp</a
+      ><a name="209"
+      > </a
+      ><a name="210" class="Symbol"
+      >:</a
+      ><a name="211"
+      > </a
+      ><a name="212" class="Symbol"
+      >{</a
+      ><a name="213" href="Irrelevance.html#213" class="Bound"
+      >A</a
+      ><a name="214"
+      > </a
+      ><a name="215" class="Symbol"
+      >:</a
+      ><a name="216"
+      > </a
+      ><a name="217" class="PrimitiveType"
+      >Set</a
+      ><a name="220" class="Symbol"
+      >}</a
+      ><a name="221"
+      > </a
+      ><a name="222" class="Symbol"
+      >(</a
+      ><a name="223" href="Irrelevance.html#223" class="Bound"
+      >x</a
+      ><a name="224"
+      > </a
+      ><a name="225" href="Irrelevance.html#225" class="Bound"
+      >y</a
+      ><a name="226"
+      > </a
+      ><a name="227" class="Symbol"
+      >:</a
+      ><a name="228"
+      > </a
+      ><a name="229" href="Irrelevance.html#125" class="Record"
+      >Squash</a
+      ><a name="235"
+      > </a
+      ><a name="236" href="Irrelevance.html#213" class="Bound"
+      >A</a
+      ><a name="237" class="Symbol"
+      >)</a
+      ><a name="238"
+      > </a
+      ><a name="239" class="Symbol"
+      >&#8594;</a
+      ><a name="240"
+      > </a
+      ><a name="241" href="Irrelevance.html#223" class="Bound"
+      >x</a
+      ><a name="242"
+      > </a
+      ><a name="243" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="244"
+      > </a
+      ><a name="245" href="Irrelevance.html#225" class="Bound"
+      >y</a
+      ><a name="246"
+      >
+</a
+      ><a name="247" href="Irrelevance.html#199" class="Function"
+      >squashProp</a
+      ><a name="257"
+      > </a
+      ><a name="258" href="Irrelevance.html#258" class="Bound"
+      >x</a
+      ><a name="259"
+      > </a
+      ><a name="260" href="Irrelevance.html#260" class="Bound"
+      >y</a
+      ><a name="261"
+      > </a
+      ><a name="262" class="Symbol"
+      >=</a
+      ><a name="263"
+      > </a
+      ><a name="264" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="268"
+      >
+
+</a
+      ><a name="270" href="Irrelevance.html#270" class="Function"
+      >elim-Squash</a
+      ><a name="281"
+      > </a
+      ><a name="282" class="Symbol"
+      >:</a
+      ><a name="283"
+      > </a
+      ><a name="284" class="Symbol"
+      >{</a
+      ><a name="285" href="Irrelevance.html#285" class="Bound"
+      >A</a
+      ><a name="286"
+      > </a
+      ><a name="287" class="Symbol"
+      >:</a
+      ><a name="288"
+      > </a
+      ><a name="289" class="PrimitiveType"
+      >Set</a
+      ><a name="292" class="Symbol"
+      >}</a
+      ><a name="293"
+      > </a
+      ><a name="294" class="Symbol"
+      >(</a
+      ><a name="295" href="Irrelevance.html#295" class="Bound"
+      >P</a
+      ><a name="296"
+      > </a
+      ><a name="297" class="Symbol"
+      >:</a
+      ><a name="298"
+      > </a
+      ><a name="299" href="Irrelevance.html#125" class="Record"
+      >Squash</a
+      ><a name="305"
+      > </a
+      ><a name="306" href="Irrelevance.html#285" class="Bound"
+      >A</a
+      ><a name="307"
+      > </a
+      ><a name="308" class="Symbol"
+      >&#8594;</a
+      ><a name="309"
+      > </a
+      ><a name="310" class="PrimitiveType"
+      >Set</a
+      ><a name="313" class="Symbol"
+      >)</a
+      ><a name="314"
+      >
+            </a
+      ><a name="327" class="Symbol"
+      >(</a
+      ><a name="328" href="Irrelevance.html#328" class="Bound"
+      >ih</a
+      ><a name="330"
+      > </a
+      ><a name="331" class="Symbol"
+      >:</a
+      ><a name="332"
+      > </a
+      ><a name="333" class="Symbol"
+      >.(</a
+      ><a name="335" href="Irrelevance.html#335" class="Bound"
+      >a</a
+      ><a name="336"
+      > </a
+      ><a name="337" class="Symbol"
+      >:</a
+      ><a name="338"
+      > </a
+      ><a name="339" href="Irrelevance.html#285" class="Bound"
+      >A</a
+      ><a name="340" class="Symbol"
+      >)</a
+      ><a name="341"
+      > </a
+      ><a name="342" class="Symbol"
+      >&#8594;</a
+      ><a name="343"
+      > </a
+      ><a name="344" href="Irrelevance.html#295" class="Bound"
+      >P</a
+      ><a name="345"
+      > </a
+      ><a name="346" class="Symbol"
+      >(</a
+      ><a name="347" href="Irrelevance.html#168" class="InductiveConstructor"
+      >squash</a
+      ><a name="353"
+      > </a
+      ><a name="354" href="Irrelevance.html#335" class="Bound"
+      >a</a
+      ><a name="355" class="Symbol"
+      >))</a
+      ><a name="357"
+      > </a
+      ><a name="358" class="Symbol"
+      >&#8594;</a
+      ><a name="359"
+      >
+            </a
+      ><a name="372" class="Symbol"
+      >(</a
+      ><a name="373" href="Irrelevance.html#373" class="Bound"
+      >a&#8315;</a
+      ><a name="375"
+      > </a
+      ><a name="376" class="Symbol"
+      >:</a
+      ><a name="377"
+      > </a
+      ><a name="378" href="Irrelevance.html#125" class="Record"
+      >Squash</a
+      ><a name="384"
+      > </a
+      ><a name="385" href="Irrelevance.html#285" class="Bound"
+      >A</a
+      ><a name="386" class="Symbol"
+      >)</a
+      ><a name="387"
+      > </a
+      ><a name="388" class="Symbol"
+      >&#8594;</a
+      ><a name="389"
+      > </a
+      ><a name="390" href="Irrelevance.html#295" class="Bound"
+      >P</a
+      ><a name="391"
+      > </a
+      ><a name="392" href="Irrelevance.html#373" class="Bound"
+      >a&#8315;</a
+      ><a name="394"
+      >
+</a
+      ><a name="395" href="Irrelevance.html#270" class="Function"
+      >elim-Squash</a
+      ><a name="406"
+      > </a
+      ><a name="407" href="Irrelevance.html#407" class="Bound"
+      >P</a
+      ><a name="408"
+      > </a
+      ><a name="409" href="Irrelevance.html#409" class="Bound"
+      >ih</a
+      ><a name="411"
+      > </a
+      ><a name="412" class="Symbol"
+      >(</a
+      ><a name="413" href="Irrelevance.html#168" class="InductiveConstructor"
+      >squash</a
+      ><a name="419"
+      > </a
+      ><a name="420" href="Irrelevance.html#420" class="Bound"
+      >a</a
+      ><a name="421" class="Symbol"
+      >)</a
+      ><a name="422"
+      > </a
+      ><a name="423" class="Symbol"
+      >=</a
+      ><a name="424"
+      > </a
+      ><a name="425" href="Irrelevance.html#409" class="Bound"
+      >ih</a
+      ><a name="427"
+      > </a
+      ><a name="428" href="Irrelevance.html#420" class="Bound"
+      >a</a
+      ><a name="429"
+      >
+
+</a
+      ><a name="431" class="Keyword"
+      >record</a
+      ><a name="437"
+      > </a
+      ><a name="438" href="Irrelevance.html#438" class="Record"
+      >&#931;-irr</a
+      ><a name="443"
+      > </a
+      ><a name="444" class="Symbol"
+      >{</a
+      ><a name="445" href="Irrelevance.html#445" class="Bound"
+      >a</a
+      ><a name="446"
+      > </a
+      ><a name="447" href="Irrelevance.html#447" class="Bound"
+      >b</a
+      ><a name="448" class="Symbol"
+      >}</a
+      ><a name="449"
+      > </a
+      ><a name="450" class="Symbol"
+      >(</a
+      ><a name="451" href="Irrelevance.html#451" class="Bound"
+      >A</a
+      ><a name="452"
+      > </a
+      ><a name="453" class="Symbol"
+      >:</a
+      ><a name="454"
+      > </a
+      ><a name="455" class="PrimitiveType"
+      >Set</a
+      ><a name="458"
+      > </a
+      ><a name="459" href="Irrelevance.html#445" class="Bound"
+      >a</a
+      ><a name="460" class="Symbol"
+      >)</a
+      ><a name="461"
+      > </a
+      ><a name="462" class="Symbol"
+      >(</a
+      ><a name="463" href="Irrelevance.html#463" class="Bound"
+      >B</a
+      ><a name="464"
+      > </a
+      ><a name="465" class="Symbol"
+      >:</a
+      ><a name="466"
+      > </a
+      ><a name="467" href="Irrelevance.html#451" class="Bound"
+      >A</a
+      ><a name="468"
+      > </a
+      ><a name="469" class="Symbol"
+      >&#8594;</a
+      ><a name="470"
+      > </a
+      ><a name="471" class="PrimitiveType"
+      >Set</a
+      ><a name="474"
+      > </a
+      ><a name="475" href="Irrelevance.html#447" class="Bound"
+      >b</a
+      ><a name="476" class="Symbol"
+      >)</a
+      ><a name="477"
+      > </a
+      ><a name="478" class="Symbol"
+      >:</a
+      ><a name="479"
+      > </a
+      ><a name="480" class="PrimitiveType"
+      >Set</a
+      ><a name="483"
+      > </a
+      ><a name="484" class="Symbol"
+      >(</a
+      ><a name="485" href="Irrelevance.html#445" class="Bound"
+      >a</a
+      ><a name="486"
+      > </a
+      ><a name="487" href="Levels.html#117" class="Primitive Operator"
+      >&#8852;</a
+      ><a name="488"
+      > </a
+      ><a name="489" href="Irrelevance.html#447" class="Bound"
+      >b</a
+      ><a name="490" class="Symbol"
+      >)</a
+      ><a name="491"
+      >  </a
+      ><a name="493" class="Keyword"
+      >where</a
+      ><a name="498"
+      >
+  </a
+      ><a name="501" class="Keyword"
+      >constructor</a
+      ><a name="512"
+      > </a
+      ><a name="513" href="Irrelevance.html#513" class="InductiveConstructor Operator"
+      >_,_</a
+      ><a name="516"
+      > 
+  </a
+      ><a name="520" class="Keyword"
+      >field</a
+      ><a name="525"
+      >
+    </a
+      ><a name="530" href="Irrelevance.html#530" class="Field"
+      >fst</a
+      ><a name="533"
+      > </a
+      ><a name="534" class="Symbol"
+      >:</a
+      ><a name="535"
+      > </a
+      ><a name="536" href="Irrelevance.html#451" class="Bound"
+      >A</a
+      ><a name="537"
+      >
+    </a
+      ><a name="542" class="Symbol"
+      >.</a
+      ><a name="543" href="Irrelevance.html#543" class="Field"
+      >snd</a
+      ><a name="546"
+      > </a
+      ><a name="547" class="Symbol"
+      >:</a
+      ><a name="548"
+      > </a
+      ><a name="549" href="Irrelevance.html#463" class="Bound"
+      >B</a
+      ><a name="550"
+      > </a
+      ><a name="551" href="Irrelevance.html#530" class="Bound"
+      >fst</a
+      ><a name="554"
+      >
+
+</a
+      ><a name="556" href="Irrelevance.html#556" class="Function"
+      >&#931;-irr-irrelevant</a
+      ><a name="572"
+      > </a
+      ><a name="573" class="Symbol"
+      >:</a
+      ><a name="574"
+      > </a
+      ><a name="575" class="Symbol"
+      >{</a
+      ><a name="576" href="Irrelevance.html#576" class="Bound"
+      >a</a
+      ><a name="577"
+      > </a
+      ><a name="578" href="Irrelevance.html#578" class="Bound"
+      >b</a
+      ><a name="579"
+      > </a
+      ><a name="580" class="Symbol"
+      >:</a
+      ><a name="581"
+      > </a
+      ><a name="582" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="587" class="Symbol"
+      >}</a
+      ><a name="588"
+      > </a
+      ><a name="589" class="Symbol"
+      >{</a
+      ><a name="590" href="Irrelevance.html#590" class="Bound"
+      >A</a
+      ><a name="591"
+      > </a
+      ><a name="592" class="Symbol"
+      >:</a
+      ><a name="593"
+      > </a
+      ><a name="594" class="PrimitiveType"
+      >Set</a
+      ><a name="597"
+      > </a
+      ><a name="598" href="Irrelevance.html#576" class="Bound"
+      >a</a
+      ><a name="599" class="Symbol"
+      >}</a
+      ><a name="600"
+      > </a
+      ><a name="601" class="Symbol"
+      >{</a
+      ><a name="602" href="Irrelevance.html#602" class="Bound"
+      >B</a
+      ><a name="603"
+      > </a
+      ><a name="604" class="Symbol"
+      >:</a
+      ><a name="605"
+      > </a
+      ><a name="606" href="Irrelevance.html#590" class="Bound"
+      >A</a
+      ><a name="607"
+      > </a
+      ><a name="608" class="Symbol"
+      >&#8594;</a
+      ><a name="609"
+      > </a
+      ><a name="610" class="PrimitiveType"
+      >Set</a
+      ><a name="613"
+      > </a
+      ><a name="614" href="Irrelevance.html#578" class="Bound"
+      >b</a
+      ><a name="615" class="Symbol"
+      >}</a
+      ><a name="616"
+      >
+  </a
+      ><a name="619" class="Symbol"
+      >(</a
+      ><a name="620" href="Irrelevance.html#620" class="Bound"
+      >x</a
+      ><a name="621"
+      > </a
+      ><a name="622" class="Symbol"
+      >:</a
+      ><a name="623"
+      > </a
+      ><a name="624" href="Irrelevance.html#590" class="Bound"
+      >A</a
+      ><a name="625" class="Symbol"
+      >)</a
+      ><a name="626"
+      > </a
+      ><a name="627" class="Symbol"
+      >(</a
+      ><a name="628" href="Irrelevance.html#628" class="Bound"
+      >y&#8321;</a
+      ><a name="630"
+      > </a
+      ><a name="631" href="Irrelevance.html#631" class="Bound"
+      >y&#8322;</a
+      ><a name="633"
+      > </a
+      ><a name="634" class="Symbol"
+      >:</a
+      ><a name="635"
+      > </a
+      ><a name="636" href="Irrelevance.html#602" class="Bound"
+      >B</a
+      ><a name="637"
+      > </a
+      ><a name="638" href="Irrelevance.html#620" class="Bound"
+      >x</a
+      ><a name="639" class="Symbol"
+      >)</a
+      ><a name="640"
+      > </a
+      ><a name="641" class="Symbol"
+      >&#8594;</a
+      ><a name="642"
+      > </a
+      ><a name="643" href="Identity.html#78" class="Datatype"
+      >Id</a
+      ><a name="645"
+      > </a
+      ><a name="646" class="Symbol"
+      >(</a
+      ><a name="647" href="Irrelevance.html#438" class="Record"
+      >&#931;-irr</a
+      ><a name="652"
+      > </a
+      ><a name="653" href="Irrelevance.html#590" class="Bound"
+      >A</a
+      ><a name="654"
+      > </a
+      ><a name="655" href="Irrelevance.html#602" class="Bound"
+      >B</a
+      ><a name="656" class="Symbol"
+      >)</a
+      ><a name="657"
+      > </a
+      ><a name="658" class="Symbol"
+      >(</a
+      ><a name="659" href="Irrelevance.html#620" class="Bound"
+      >x</a
+      ><a name="660"
+      > </a
+      ><a name="661" href="Irrelevance.html#513" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="662"
+      > </a
+      ><a name="663" href="Irrelevance.html#628" class="Bound"
+      >y&#8321;</a
+      ><a name="665" class="Symbol"
+      >)</a
+      ><a name="666"
+      > </a
+      ><a name="667" class="Symbol"
+      >(</a
+      ><a name="668" href="Irrelevance.html#620" class="Bound"
+      >x</a
+      ><a name="669"
+      > </a
+      ><a name="670" href="Irrelevance.html#513" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="671"
+      > </a
+      ><a name="672" href="Irrelevance.html#631" class="Bound"
+      >y&#8322;</a
+      ><a name="674" class="Symbol"
+      >)</a
+      ><a name="675"
+      >
+</a
+      ><a name="676" href="Irrelevance.html#556" class="Function"
+      >&#931;-irr-irrelevant</a
+      ><a name="692"
+      > </a
+      ><a name="693" class="Symbol"
+      >_</a
+      ><a name="694"
+      > </a
+      ><a name="695" class="Symbol"
+      >_</a
+      ><a name="696"
+      > </a
+      ><a name="697" class="Symbol"
+      >_</a
+      ><a name="698"
+      > </a
+      ><a name="699" class="Symbol"
+      >=</a
+      ><a name="700"
+      > </a
+      ><a name="701" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="705"
+      > 
+</a
+      ></pre
+    ></body
+  ></html
+>

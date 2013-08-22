@@ -1,0 +1,1617 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >QuotientBinaryRec</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Keyword"
+      >module</a
+      ><a name="7"
+      > </a
+      ><a name="8" href="QuotientBinaryRec.html#1" class="Module"
+      >QuotientBinaryRec</a
+      ><a name="25"
+      > </a
+      ><a name="26" class="Symbol"
+      >(</a
+      ><a name="27" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="28"
+      > </a
+      ><a name="29" class="Symbol"
+      >:</a
+      ><a name="30"
+      > </a
+      ><a name="31" class="PrimitiveType"
+      >Set</a
+      ><a name="34" class="Symbol"
+      >)</a
+      ><a name="35"
+      > </a
+      ><a name="36" class="Symbol"
+      >(</a
+      ><a name="37" href="QuotientBinaryRec.html#37" class="Bound"
+      >R</a
+      ><a name="38"
+      > </a
+      ><a name="39" class="Symbol"
+      >:</a
+      ><a name="40"
+      > </a
+      ><a name="41" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="42"
+      > </a
+      ><a name="43" class="Symbol"
+      >-&gt;</a
+      ><a name="45"
+      > </a
+      ><a name="46" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="47"
+      > </a
+      ><a name="48" class="Symbol"
+      >-&gt;</a
+      ><a name="50"
+      > </a
+      ><a name="51" class="PrimitiveType"
+      >Set</a
+      ><a name="54" class="Symbol"
+      >)</a
+      ><a name="55"
+      > </a
+      ><a name="56" class="Symbol"
+      >(</a
+      ><a name="57" href="QuotientBinaryRec.html#57" class="Bound"
+      >R-refl</a
+      ><a name="63"
+      > </a
+      ><a name="64" class="Symbol"
+      >:</a
+      ><a name="65"
+      > </a
+      ><a name="66" class="Symbol"
+      >(</a
+      ><a name="67" href="QuotientBinaryRec.html#67" class="Bound"
+      >x</a
+      ><a name="68"
+      > </a
+      ><a name="69" class="Symbol"
+      >:</a
+      ><a name="70"
+      > </a
+      ><a name="71" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="72" class="Symbol"
+      >)</a
+      ><a name="73"
+      > </a
+      ><a name="74" class="Symbol"
+      >-&gt;</a
+      ><a name="76"
+      > </a
+      ><a name="77" href="QuotientBinaryRec.html#37" class="Bound"
+      >R</a
+      ><a name="78"
+      > </a
+      ><a name="79" href="QuotientBinaryRec.html#67" class="Bound"
+      >x</a
+      ><a name="80"
+      > </a
+      ><a name="81" href="QuotientBinaryRec.html#67" class="Bound"
+      >x</a
+      ><a name="82" class="Symbol"
+      >)</a
+      ><a name="83"
+      > </a
+      ><a name="84" class="Symbol"
+      >(</a
+      ><a name="85" href="QuotientBinaryRec.html#85" class="Bound"
+      >B</a
+      ><a name="86"
+      > </a
+      ><a name="87" class="Symbol"
+      >:</a
+      ><a name="88"
+      > </a
+      ><a name="89" class="PrimitiveType"
+      >Set</a
+      ><a name="92" class="Symbol"
+      >)</a
+      ><a name="93"
+      > </a
+      ><a name="94" class="Keyword"
+      >where</a
+      ><a name="99"
+      >
+
+</a
+      ><a name="101" class="Keyword"
+      >open</a
+      ><a name="105"
+      > </a
+      ><a name="106" class="Keyword"
+      >import</a
+      ><a name="112"
+      > </a
+      ><a name="113" href="Identity.html#1" class="Module"
+      >Identity</a
+      ><a name="121"
+      >
+</a
+      ><a name="122" class="Keyword"
+      >open</a
+      ><a name="126"
+      > </a
+      ><a name="127" class="Keyword"
+      >import</a
+      ><a name="133"
+      > </a
+      ><a name="134" href="QuotientUntruncated.html#1" class="Module"
+      >QuotientUntruncated</a
+      ><a name="153"
+      > </a
+      ><a name="154" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="155"
+      > </a
+      ><a name="156" href="QuotientBinaryRec.html#37" class="Bound"
+      >R</a
+      ><a name="157"
+      > </a
+      ><a name="158" href="QuotientBinaryRec.html#57" class="Bound"
+      >R-refl</a
+      ><a name="164"
+      >
+
+</a
+      ><a name="166" class="Keyword"
+      >postulate</a
+      ><a name="175"
+      >
+  </a
+      ><a name="178" href="QuotientBinaryRec.html#178" class="Postulate"
+      >fun-ext</a
+      ><a name="185"
+      > </a
+      ><a name="186" class="Symbol"
+      >:</a
+      ><a name="187"
+      > </a
+      ><a name="188" class="Symbol"
+      >{</a
+      ><a name="189" href="QuotientBinaryRec.html#189" class="Bound"
+      >X</a
+      ><a name="190"
+      > </a
+      ><a name="191" href="QuotientBinaryRec.html#191" class="Bound"
+      >Y</a
+      ><a name="192"
+      > </a
+      ><a name="193" class="Symbol"
+      >:</a
+      ><a name="194"
+      > </a
+      ><a name="195" class="PrimitiveType"
+      >Set</a
+      ><a name="198" class="Symbol"
+      >}</a
+      ><a name="199"
+      > </a
+      ><a name="200" class="Symbol"
+      >(</a
+      ><a name="201" href="QuotientBinaryRec.html#201" class="Bound"
+      >f</a
+      ><a name="202"
+      > </a
+      ><a name="203" href="QuotientBinaryRec.html#203" class="Bound"
+      >g</a
+      ><a name="204"
+      > </a
+      ><a name="205" class="Symbol"
+      >:</a
+      ><a name="206"
+      > </a
+      ><a name="207" href="QuotientBinaryRec.html#189" class="Bound"
+      >X</a
+      ><a name="208"
+      > </a
+      ><a name="209" class="Symbol"
+      >-&gt;</a
+      ><a name="211"
+      > </a
+      ><a name="212" href="QuotientBinaryRec.html#191" class="Bound"
+      >Y</a
+      ><a name="213" class="Symbol"
+      >)</a
+      ><a name="214"
+      > </a
+      ><a name="215" class="Symbol"
+      >-&gt;</a
+      ><a name="217"
+      > </a
+      ><a name="218" class="Symbol"
+      >((</a
+      ><a name="220" href="QuotientBinaryRec.html#220" class="Bound"
+      >x</a
+      ><a name="221"
+      > </a
+      ><a name="222" class="Symbol"
+      >:</a
+      ><a name="223"
+      > </a
+      ><a name="224" href="QuotientBinaryRec.html#189" class="Bound"
+      >X</a
+      ><a name="225" class="Symbol"
+      >)</a
+      ><a name="226"
+      > </a
+      ><a name="227" class="Symbol"
+      >-&gt;</a
+      ><a name="229"
+      > </a
+      ><a name="230" href="QuotientBinaryRec.html#201" class="Bound"
+      >f</a
+      ><a name="231"
+      > </a
+      ><a name="232" href="QuotientBinaryRec.html#220" class="Bound"
+      >x</a
+      ><a name="233"
+      > </a
+      ><a name="234" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="235"
+      > </a
+      ><a name="236" href="QuotientBinaryRec.html#203" class="Bound"
+      >g</a
+      ><a name="237"
+      > </a
+      ><a name="238" href="QuotientBinaryRec.html#220" class="Bound"
+      >x</a
+      ><a name="239" class="Symbol"
+      >)</a
+      ><a name="240"
+      > </a
+      ><a name="241" class="Symbol"
+      >-&gt;</a
+      ><a name="243"
+      > </a
+      ><a name="244" href="QuotientBinaryRec.html#201" class="Bound"
+      >f</a
+      ><a name="245"
+      > </a
+      ><a name="246" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="247"
+      > </a
+      ><a name="248" href="QuotientBinaryRec.html#203" class="Bound"
+      >g</a
+      ><a name="249"
+      >
+
+</a
+      ><a name="251" href="QuotientBinaryRec.html#251" class="Function"
+      >Quotient-rec-2'</a
+      ><a name="266"
+      > </a
+      ><a name="267" class="Symbol"
+      >:</a
+      ><a name="268"
+      > </a
+      ><a name="269" class="Symbol"
+      >(</a
+      ><a name="270" href="QuotientBinaryRec.html#270" class="Bound"
+      >f</a
+      ><a name="271"
+      > </a
+      ><a name="272" class="Symbol"
+      >:</a
+      ><a name="273"
+      > </a
+      ><a name="274" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="275"
+      > </a
+      ><a name="276" class="Symbol"
+      >-&gt;</a
+      ><a name="278"
+      > </a
+      ><a name="279" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="280"
+      > </a
+      ><a name="281" class="Symbol"
+      >-&gt;</a
+      ><a name="283"
+      > </a
+      ><a name="284" href="QuotientBinaryRec.html#85" class="Bound"
+      >B</a
+      ><a name="285" class="Symbol"
+      >)</a
+      ><a name="286"
+      >
+       </a
+      ><a name="294" class="Symbol"
+      >-&gt;</a
+      ><a name="296"
+      > </a
+      ><a name="297" class="Symbol"
+      >(</a
+      ><a name="298" href="QuotientBinaryRec.html#298" class="Bound"
+      >resp</a
+      ><a name="302"
+      > </a
+      ><a name="303" class="Symbol"
+      >:</a
+      ><a name="304"
+      > </a
+      ><a name="305" class="Symbol"
+      >(</a
+      ><a name="306" href="QuotientBinaryRec.html#306" class="Bound"
+      >a</a
+      ><a name="307"
+      > </a
+      ><a name="308" href="QuotientBinaryRec.html#308" class="Bound"
+      >b</a
+      ><a name="309"
+      > </a
+      ><a name="310" href="QuotientBinaryRec.html#310" class="Bound"
+      >c</a
+      ><a name="311"
+      > </a
+      ><a name="312" href="QuotientBinaryRec.html#312" class="Bound"
+      >d</a
+      ><a name="313"
+      > </a
+      ><a name="314" class="Symbol"
+      >:</a
+      ><a name="315"
+      > </a
+      ><a name="316" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="317" class="Symbol"
+      >)</a
+      ><a name="318"
+      > </a
+      ><a name="319" class="Symbol"
+      >-&gt;</a
+      ><a name="321"
+      > </a
+      ><a name="322" href="QuotientBinaryRec.html#37" class="Bound"
+      >R</a
+      ><a name="323"
+      > </a
+      ><a name="324" href="QuotientBinaryRec.html#306" class="Bound"
+      >a</a
+      ><a name="325"
+      > </a
+      ><a name="326" href="QuotientBinaryRec.html#310" class="Bound"
+      >c</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Symbol"
+      >-&gt;</a
+      ><a name="330"
+      > </a
+      ><a name="331" href="QuotientBinaryRec.html#37" class="Bound"
+      >R</a
+      ><a name="332"
+      > </a
+      ><a name="333" href="QuotientBinaryRec.html#308" class="Bound"
+      >b</a
+      ><a name="334"
+      > </a
+      ><a name="335" href="QuotientBinaryRec.html#312" class="Bound"
+      >d</a
+      ><a name="336"
+      > </a
+      ><a name="337" class="Symbol"
+      >-&gt;</a
+      ><a name="339"
+      > </a
+      ><a name="340" href="QuotientBinaryRec.html#270" class="Bound"
+      >f</a
+      ><a name="341"
+      > </a
+      ><a name="342" href="QuotientBinaryRec.html#306" class="Bound"
+      >a</a
+      ><a name="343"
+      > </a
+      ><a name="344" href="QuotientBinaryRec.html#308" class="Bound"
+      >b</a
+      ><a name="345"
+      > </a
+      ><a name="346" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="347"
+      > </a
+      ><a name="348" href="QuotientBinaryRec.html#270" class="Bound"
+      >f</a
+      ><a name="349"
+      > </a
+      ><a name="350" href="QuotientBinaryRec.html#310" class="Bound"
+      >c</a
+      ><a name="351"
+      > </a
+      ><a name="352" href="QuotientBinaryRec.html#312" class="Bound"
+      >d</a
+      ><a name="353" class="Symbol"
+      >)</a
+      ><a name="354"
+      >
+       </a
+      ><a name="362" class="Symbol"
+      >-&gt;</a
+      ><a name="364"
+      > </a
+      ><a name="365" href="QuotientUntruncated.html#179" class="Function"
+      >Quotient</a
+      ><a name="373"
+      > </a
+      ><a name="374" class="Symbol"
+      >-&gt;</a
+      ><a name="376"
+      > </a
+      ><a name="377" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="378"
+      > </a
+      ><a name="379" class="Symbol"
+      >-&gt;</a
+      ><a name="381"
+      > </a
+      ><a name="382" href="QuotientBinaryRec.html#85" class="Bound"
+      >B</a
+      ><a name="383"
+      >
+</a
+      ><a name="384" href="QuotientBinaryRec.html#251" class="Function"
+      >Quotient-rec-2'</a
+      ><a name="399"
+      > </a
+      ><a name="400" href="QuotientBinaryRec.html#400" class="Bound"
+      >f</a
+      ><a name="401"
+      > </a
+      ><a name="402" href="QuotientBinaryRec.html#402" class="Bound"
+      >resp</a
+      ><a name="406"
+      > </a
+      ><a name="407" href="QuotientBinaryRec.html#407" class="Bound"
+      >x</a
+      ><a name="408"
+      > </a
+      ><a name="409" class="Symbol"
+      >=</a
+      ><a name="410"
+      > 
+    </a
+      ><a name="416" class="Symbol"
+      >(</a
+      ><a name="417" href="QuotientUntruncated.html#540" class="Function"
+      >Quotient-rec</a
+      ><a name="429"
+      > 
+       </a
+      ><a name="438" href="QuotientBinaryRec.html#400" class="Bound"
+      >f</a
+      ><a name="439"
+      > 
+       </a
+      ><a name="448" class="Symbol"
+      >(&#955;</a
+      ><a name="450"
+      > </a
+      ><a name="451" href="QuotientBinaryRec.html#451" class="Bound"
+      >x&#8321;</a
+      ><a name="453"
+      > </a
+      ><a name="454" href="QuotientBinaryRec.html#454" class="Bound"
+      >y&#8321;</a
+      ><a name="456"
+      > </a
+      ><a name="457" href="QuotientBinaryRec.html#457" class="Bound"
+      >r</a
+      ><a name="458"
+      > </a
+      ><a name="459" class="Symbol"
+      >&#8594;</a
+      ><a name="460"
+      > </a
+      ><a name="461" href="QuotientBinaryRec.html#178" class="Postulate"
+      >fun-ext</a
+      ><a name="468"
+      > </a
+      ><a name="469" class="Symbol"
+      >(</a
+      ><a name="470" href="QuotientBinaryRec.html#400" class="Bound"
+      >f</a
+      ><a name="471"
+      > </a
+      ><a name="472" href="QuotientBinaryRec.html#451" class="Bound"
+      >x&#8321;</a
+      ><a name="474" class="Symbol"
+      >)</a
+      ><a name="475"
+      > </a
+      ><a name="476" class="Symbol"
+      >(</a
+      ><a name="477" href="QuotientBinaryRec.html#400" class="Bound"
+      >f</a
+      ><a name="478"
+      > </a
+      ><a name="479" href="QuotientBinaryRec.html#454" class="Bound"
+      >y&#8321;</a
+      ><a name="481" class="Symbol"
+      >)</a
+      ><a name="482"
+      > </a
+      ><a name="483" class="Symbol"
+      >(&#955;</a
+      ><a name="485"
+      > </a
+      ><a name="486" href="QuotientBinaryRec.html#486" class="Bound"
+      >x&#8322;</a
+      ><a name="488"
+      > </a
+      ><a name="489" class="Symbol"
+      >&#8594;</a
+      ><a name="490"
+      > </a
+      ><a name="491" href="QuotientBinaryRec.html#402" class="Bound"
+      >resp</a
+      ><a name="495"
+      > </a
+      ><a name="496" href="QuotientBinaryRec.html#451" class="Bound"
+      >x&#8321;</a
+      ><a name="498"
+      > </a
+      ><a name="499" href="QuotientBinaryRec.html#486" class="Bound"
+      >x&#8322;</a
+      ><a name="501"
+      > </a
+      ><a name="502" href="QuotientBinaryRec.html#454" class="Bound"
+      >y&#8321;</a
+      ><a name="504"
+      > </a
+      ><a name="505" href="QuotientBinaryRec.html#486" class="Bound"
+      >x&#8322;</a
+      ><a name="507"
+      > </a
+      ><a name="508" href="QuotientBinaryRec.html#457" class="Bound"
+      >r</a
+      ><a name="509"
+      > </a
+      ><a name="510" class="Symbol"
+      >(</a
+      ><a name="511" href="QuotientBinaryRec.html#57" class="Bound"
+      >R-refl</a
+      ><a name="517"
+      > </a
+      ><a name="518" href="QuotientBinaryRec.html#486" class="Bound"
+      >x&#8322;</a
+      ><a name="520" class="Symbol"
+      >)))</a
+      ><a name="523"
+      >
+       </a
+      ><a name="531" href="QuotientBinaryRec.html#407" class="Bound"
+      >x</a
+      ><a name="532"
+      >
+    </a
+      ><a name="537" class="Symbol"
+      >)</a
+      ><a name="538"
+      >
+
+</a
+      ><a name="540" class="Keyword"
+      >postulate</a
+      ><a name="549"
+      >
+  </a
+      ><a name="552" href="QuotientBinaryRec.html#552" class="Postulate"
+      >uip-B</a
+      ><a name="557"
+      > </a
+      ><a name="558" class="Symbol"
+      >:</a
+      ><a name="559"
+      > </a
+      ><a name="560" class="Symbol"
+      >(</a
+      ><a name="561" href="QuotientBinaryRec.html#561" class="Bound"
+      >x</a
+      ><a name="562"
+      > </a
+      ><a name="563" href="QuotientBinaryRec.html#563" class="Bound"
+      >y</a
+      ><a name="564"
+      > </a
+      ><a name="565" class="Symbol"
+      >:</a
+      ><a name="566"
+      > </a
+      ><a name="567" href="QuotientBinaryRec.html#85" class="Bound"
+      >B</a
+      ><a name="568" class="Symbol"
+      >)</a
+      ><a name="569"
+      > </a
+      ><a name="570" class="Symbol"
+      >(</a
+      ><a name="571" href="QuotientBinaryRec.html#571" class="Bound"
+      >p</a
+      ><a name="572"
+      > </a
+      ><a name="573" href="QuotientBinaryRec.html#573" class="Bound"
+      >q</a
+      ><a name="574"
+      > </a
+      ><a name="575" class="Symbol"
+      >:</a
+      ><a name="576"
+      > </a
+      ><a name="577" href="QuotientBinaryRec.html#561" class="Bound"
+      >x</a
+      ><a name="578"
+      > </a
+      ><a name="579" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="580"
+      > </a
+      ><a name="581" href="QuotientBinaryRec.html#563" class="Bound"
+      >y</a
+      ><a name="582" class="Symbol"
+      >)</a
+      ><a name="583"
+      > </a
+      ><a name="584" class="Symbol"
+      >-&gt;</a
+      ><a name="586"
+      > </a
+      ><a name="587" href="Identity.html#78" class="Datatype"
+      >Id</a
+      ><a name="589"
+      > </a
+      ><a name="590" class="Symbol"
+      >(</a
+      ><a name="591" href="Identity.html#78" class="Datatype"
+      >Id</a
+      ><a name="593"
+      > </a
+      ><a name="594" href="QuotientBinaryRec.html#85" class="Bound"
+      >B</a
+      ><a name="595"
+      > </a
+      ><a name="596" href="QuotientBinaryRec.html#561" class="Bound"
+      >x</a
+      ><a name="597"
+      > </a
+      ><a name="598" href="QuotientBinaryRec.html#563" class="Bound"
+      >y</a
+      ><a name="599" class="Symbol"
+      >)</a
+      ><a name="600"
+      > </a
+      ><a name="601" href="QuotientBinaryRec.html#571" class="Bound"
+      >p</a
+      ><a name="602"
+      > </a
+      ><a name="603" href="QuotientBinaryRec.html#573" class="Bound"
+      >q</a
+      ><a name="604"
+      >
+
+</a
+      ><a name="606" href="QuotientBinaryRec.html#606" class="Function"
+      >lemma</a
+      ><a name="611"
+      > </a
+      ><a name="612" class="Symbol"
+      >:</a
+      ><a name="613"
+      > </a
+      ><a name="614" class="Symbol"
+      >(</a
+      ><a name="615" href="QuotientBinaryRec.html#615" class="Bound"
+      >f</a
+      ><a name="616"
+      > </a
+      ><a name="617" class="Symbol"
+      >:</a
+      ><a name="618"
+      > </a
+      ><a name="619" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="620"
+      > </a
+      ><a name="621" class="Symbol"
+      >-&gt;</a
+      ><a name="623"
+      > </a
+      ><a name="624" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="625"
+      > </a
+      ><a name="626" class="Symbol"
+      >-&gt;</a
+      ><a name="628"
+      > </a
+      ><a name="629" href="QuotientBinaryRec.html#85" class="Bound"
+      >B</a
+      ><a name="630" class="Symbol"
+      >)</a
+      ><a name="631"
+      >
+       </a
+      ><a name="639" class="Symbol"
+      >-&gt;</a
+      ><a name="641"
+      > </a
+      ><a name="642" class="Symbol"
+      >(</a
+      ><a name="643" href="QuotientBinaryRec.html#643" class="Bound"
+      >resp</a
+      ><a name="647"
+      > </a
+      ><a name="648" class="Symbol"
+      >:</a
+      ><a name="649"
+      > </a
+      ><a name="650" class="Symbol"
+      >(</a
+      ><a name="651" href="QuotientBinaryRec.html#651" class="Bound"
+      >a</a
+      ><a name="652"
+      > </a
+      ><a name="653" href="QuotientBinaryRec.html#653" class="Bound"
+      >b</a
+      ><a name="654"
+      > </a
+      ><a name="655" href="QuotientBinaryRec.html#655" class="Bound"
+      >c</a
+      ><a name="656"
+      > </a
+      ><a name="657" href="QuotientBinaryRec.html#657" class="Bound"
+      >d</a
+      ><a name="658"
+      > </a
+      ><a name="659" class="Symbol"
+      >:</a
+      ><a name="660"
+      > </a
+      ><a name="661" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="662" class="Symbol"
+      >)</a
+      ><a name="663"
+      > </a
+      ><a name="664" class="Symbol"
+      >-&gt;</a
+      ><a name="666"
+      > </a
+      ><a name="667" href="QuotientBinaryRec.html#37" class="Bound"
+      >R</a
+      ><a name="668"
+      > </a
+      ><a name="669" href="QuotientBinaryRec.html#651" class="Bound"
+      >a</a
+      ><a name="670"
+      > </a
+      ><a name="671" href="QuotientBinaryRec.html#655" class="Bound"
+      >c</a
+      ><a name="672"
+      > </a
+      ><a name="673" class="Symbol"
+      >-&gt;</a
+      ><a name="675"
+      > </a
+      ><a name="676" href="QuotientBinaryRec.html#37" class="Bound"
+      >R</a
+      ><a name="677"
+      > </a
+      ><a name="678" href="QuotientBinaryRec.html#653" class="Bound"
+      >b</a
+      ><a name="679"
+      > </a
+      ><a name="680" href="QuotientBinaryRec.html#657" class="Bound"
+      >d</a
+      ><a name="681"
+      > </a
+      ><a name="682" class="Symbol"
+      >-&gt;</a
+      ><a name="684"
+      > </a
+      ><a name="685" href="QuotientBinaryRec.html#615" class="Bound"
+      >f</a
+      ><a name="686"
+      > </a
+      ><a name="687" href="QuotientBinaryRec.html#651" class="Bound"
+      >a</a
+      ><a name="688"
+      > </a
+      ><a name="689" href="QuotientBinaryRec.html#653" class="Bound"
+      >b</a
+      ><a name="690"
+      > </a
+      ><a name="691" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="692"
+      > </a
+      ><a name="693" href="QuotientBinaryRec.html#615" class="Bound"
+      >f</a
+      ><a name="694"
+      > </a
+      ><a name="695" href="QuotientBinaryRec.html#655" class="Bound"
+      >c</a
+      ><a name="696"
+      > </a
+      ><a name="697" href="QuotientBinaryRec.html#657" class="Bound"
+      >d</a
+      ><a name="698" class="Symbol"
+      >)</a
+      ><a name="699"
+      >
+       </a
+      ><a name="707" class="Symbol"
+      >-&gt;</a
+      ><a name="709"
+      > </a
+      ><a name="710" class="Symbol"
+      >(</a
+      ><a name="711" href="QuotientBinaryRec.html#711" class="Bound"
+      >q</a
+      ><a name="712"
+      > </a
+      ><a name="713" class="Symbol"
+      >:</a
+      ><a name="714"
+      > </a
+      ><a name="715" href="QuotientUntruncated.html#179" class="Function"
+      >Quotient</a
+      ><a name="723" class="Symbol"
+      >)</a
+      ><a name="724"
+      >
+       </a
+      ><a name="732" class="Symbol"
+      >-&gt;</a
+      ><a name="734"
+      > </a
+      ><a name="735" class="Symbol"
+      >(</a
+      ><a name="736" href="QuotientBinaryRec.html#736" class="Bound"
+      >x</a
+      ><a name="737"
+      > </a
+      ><a name="738" href="QuotientBinaryRec.html#738" class="Bound"
+      >y</a
+      ><a name="739"
+      > </a
+      ><a name="740" class="Symbol"
+      >:</a
+      ><a name="741"
+      > </a
+      ><a name="742" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="743" class="Symbol"
+      >)</a
+      ><a name="744"
+      >
+       </a
+      ><a name="752" class="Symbol"
+      >-&gt;</a
+      ><a name="754"
+      > </a
+      ><a name="755" class="Symbol"
+      >(</a
+      ><a name="756" href="QuotientBinaryRec.html#756" class="Bound"
+      >r</a
+      ><a name="757"
+      > </a
+      ><a name="758" class="Symbol"
+      >:</a
+      ><a name="759"
+      > </a
+      ><a name="760" href="QuotientBinaryRec.html#37" class="Bound"
+      >R</a
+      ><a name="761"
+      > </a
+      ><a name="762" href="QuotientBinaryRec.html#736" class="Bound"
+      >x</a
+      ><a name="763"
+      > </a
+      ><a name="764" href="QuotientBinaryRec.html#738" class="Bound"
+      >y</a
+      ><a name="765" class="Symbol"
+      >)</a
+      ><a name="766"
+      >
+       </a
+      ><a name="774" class="Symbol"
+      >-&gt;</a
+      ><a name="776"
+      > </a
+      ><a name="777" href="QuotientBinaryRec.html#251" class="Function"
+      >Quotient-rec-2'</a
+      ><a name="792"
+      > </a
+      ><a name="793" href="QuotientBinaryRec.html#615" class="Bound"
+      >f</a
+      ><a name="794"
+      > </a
+      ><a name="795" href="QuotientBinaryRec.html#643" class="Bound"
+      >resp</a
+      ><a name="799"
+      > </a
+      ><a name="800" href="QuotientBinaryRec.html#711" class="Bound"
+      >q</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="QuotientBinaryRec.html#736" class="Bound"
+      >x</a
+      ><a name="803"
+      > </a
+      ><a name="804" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="805"
+      > </a
+      ><a name="806" href="QuotientBinaryRec.html#251" class="Function"
+      >Quotient-rec-2'</a
+      ><a name="821"
+      > </a
+      ><a name="822" href="QuotientBinaryRec.html#615" class="Bound"
+      >f</a
+      ><a name="823"
+      > </a
+      ><a name="824" href="QuotientBinaryRec.html#643" class="Bound"
+      >resp</a
+      ><a name="828"
+      > </a
+      ><a name="829" href="QuotientBinaryRec.html#711" class="Bound"
+      >q</a
+      ><a name="830"
+      > </a
+      ><a name="831" href="QuotientBinaryRec.html#738" class="Bound"
+      >y</a
+      ><a name="832"
+      >
+</a
+      ><a name="833" href="QuotientBinaryRec.html#606" class="Function"
+      >lemma</a
+      ><a name="838"
+      > </a
+      ><a name="839" href="QuotientBinaryRec.html#839" class="Bound"
+      >f</a
+      ><a name="840"
+      > </a
+      ><a name="841" href="QuotientBinaryRec.html#841" class="Bound"
+      >resp</a
+      ><a name="845"
+      > </a
+      ><a name="846" href="QuotientBinaryRec.html#846" class="Bound"
+      >q</a
+      ><a name="847"
+      > </a
+      ><a name="848" href="QuotientBinaryRec.html#848" class="Bound"
+      >x</a
+      ><a name="849"
+      > </a
+      ><a name="850" href="QuotientBinaryRec.html#850" class="Bound"
+      >y</a
+      ><a name="851"
+      > </a
+      ><a name="852" href="QuotientBinaryRec.html#852" class="Bound"
+      >r</a
+      ><a name="853"
+      > </a
+      ><a name="854" class="Symbol"
+      >=</a
+      ><a name="855"
+      > </a
+      ><a name="856" href="QuotientUntruncated.html#310" class="Function"
+      >Quotient-ind</a
+      ><a name="868"
+      > </a
+      ><a name="869" class="Symbol"
+      >{</a
+      ><a name="870"
+      >B </a
+      ><a name="872" class="Symbol"
+      >=</a
+      ><a name="873"
+      > </a
+      ><a name="874" class="Symbol"
+      >(&#955;</a
+      ><a name="876"
+      > </a
+      ><a name="877" href="QuotientBinaryRec.html#877" class="Bound"
+      >q&#8321;</a
+      ><a name="879"
+      > </a
+      ><a name="880" class="Symbol"
+      >&#8594;</a
+      ><a name="881"
+      > </a
+      ><a name="882" href="QuotientBinaryRec.html#251" class="Function"
+      >Quotient-rec-2'</a
+      ><a name="897"
+      > </a
+      ><a name="898" href="QuotientBinaryRec.html#839" class="Bound"
+      >f</a
+      ><a name="899"
+      > </a
+      ><a name="900" href="QuotientBinaryRec.html#841" class="Bound"
+      >resp</a
+      ><a name="904"
+      > </a
+      ><a name="905" href="QuotientBinaryRec.html#877" class="Bound"
+      >q&#8321;</a
+      ><a name="907"
+      > </a
+      ><a name="908" href="QuotientBinaryRec.html#848" class="Bound"
+      >x</a
+      ><a name="909"
+      > </a
+      ><a name="910" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="911"
+      > </a
+      ><a name="912" href="QuotientBinaryRec.html#251" class="Function"
+      >Quotient-rec-2'</a
+      ><a name="927"
+      > </a
+      ><a name="928" href="QuotientBinaryRec.html#839" class="Bound"
+      >f</a
+      ><a name="929"
+      > </a
+      ><a name="930" href="QuotientBinaryRec.html#841" class="Bound"
+      >resp</a
+      ><a name="934"
+      > </a
+      ><a name="935" href="QuotientBinaryRec.html#877" class="Bound"
+      >q&#8321;</a
+      ><a name="937"
+      > </a
+      ><a name="938" href="QuotientBinaryRec.html#850" class="Bound"
+      >y</a
+      ><a name="939" class="Symbol"
+      >)}</a
+      ><a name="941"
+      > 
+  </a
+      ><a name="945" class="Symbol"
+      >(&#955;</a
+      ><a name="947"
+      > </a
+      ><a name="948" href="QuotientBinaryRec.html#948" class="Bound"
+      >x&#8321;</a
+      ><a name="950"
+      > </a
+      ><a name="951" class="Symbol"
+      >&#8594;</a
+      ><a name="952"
+      > </a
+      ><a name="953" href="QuotientBinaryRec.html#841" class="Bound"
+      >resp</a
+      ><a name="957"
+      > </a
+      ><a name="958" href="QuotientBinaryRec.html#948" class="Bound"
+      >x&#8321;</a
+      ><a name="960"
+      > </a
+      ><a name="961" href="QuotientBinaryRec.html#848" class="Bound"
+      >x</a
+      ><a name="962"
+      > </a
+      ><a name="963" href="QuotientBinaryRec.html#948" class="Bound"
+      >x&#8321;</a
+      ><a name="965"
+      > </a
+      ><a name="966" href="QuotientBinaryRec.html#850" class="Bound"
+      >y</a
+      ><a name="967"
+      > </a
+      ><a name="968" class="Symbol"
+      >(</a
+      ><a name="969" href="QuotientBinaryRec.html#57" class="Bound"
+      >R-refl</a
+      ><a name="975"
+      > </a
+      ><a name="976" href="QuotientBinaryRec.html#948" class="Bound"
+      >x&#8321;</a
+      ><a name="978" class="Symbol"
+      >)</a
+      ><a name="979"
+      > </a
+      ><a name="980" href="QuotientBinaryRec.html#852" class="Bound"
+      >r</a
+      ><a name="981" class="Symbol"
+      >)</a
+      ><a name="982"
+      > </a
+      ><a name="983" class="Symbol"
+      >(&#955;</a
+      ><a name="985"
+      > </a
+      ><a name="986" href="QuotientBinaryRec.html#986" class="Bound"
+      >x&#8321;</a
+      ><a name="988"
+      > </a
+      ><a name="989" href="QuotientBinaryRec.html#989" class="Bound"
+      >y&#8321;</a
+      ><a name="991"
+      > </a
+      ><a name="992" href="QuotientBinaryRec.html#992" class="Bound"
+      >p</a
+      ><a name="993"
+      > </a
+      ><a name="994" class="Symbol"
+      >&#8594;</a
+      ><a name="995"
+      > </a
+      ><a name="996" href="QuotientBinaryRec.html#552" class="Postulate"
+      >uip-B</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" class="Symbol"
+      >(</a
+      ><a name="1003" href="QuotientBinaryRec.html#839" class="Bound"
+      >f</a
+      ><a name="1004"
+      > </a
+      ><a name="1005" href="QuotientBinaryRec.html#989" class="Bound"
+      >y&#8321;</a
+      ><a name="1007"
+      > </a
+      ><a name="1008" href="QuotientBinaryRec.html#848" class="Bound"
+      >x</a
+      ><a name="1009" class="Symbol"
+      >)</a
+      ><a name="1010"
+      > </a
+      ><a name="1011" class="Symbol"
+      >(</a
+      ><a name="1012" href="QuotientBinaryRec.html#839" class="Bound"
+      >f</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" href="QuotientBinaryRec.html#989" class="Bound"
+      >y&#8321;</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" href="QuotientBinaryRec.html#850" class="Bound"
+      >y</a
+      ><a name="1018" class="Symbol"
+      >)</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" class="Symbol"
+      >(</a
+      ><a name="1021" href="Identity.html#1628" class="Function"
+      >transport</a
+      ><a name="1030"
+      > </a
+      ><a name="1031" class="Symbol"
+      >{</a
+      ><a name="1032"
+      >B </a
+      ><a name="1034" class="Symbol"
+      >=</a
+      ><a name="1035"
+      > </a
+      ><a name="1036" class="Symbol"
+      >(&#955;</a
+      ><a name="1038"
+      > </a
+      ><a name="1039" href="QuotientBinaryRec.html#1039" class="Bound"
+      >q&#8321;</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" class="Symbol"
+      >&#8594;</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" href="QuotientBinaryRec.html#251" class="Function"
+      >Quotient-rec-2'</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="QuotientBinaryRec.html#839" class="Bound"
+      >f</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" href="QuotientBinaryRec.html#841" class="Bound"
+      >resp</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="QuotientBinaryRec.html#1039" class="Bound"
+      >q&#8321;</a
+      ><a name="1069"
+      > </a
+      ><a name="1070" href="QuotientBinaryRec.html#848" class="Bound"
+      >x</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" href="QuotientBinaryRec.html#251" class="Function"
+      >Quotient-rec-2'</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" href="QuotientBinaryRec.html#839" class="Bound"
+      >f</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" href="QuotientBinaryRec.html#841" class="Bound"
+      >resp</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" href="QuotientBinaryRec.html#1039" class="Bound"
+      >q&#8321;</a
+      ><a name="1099"
+      > </a
+      ><a name="1100" href="QuotientBinaryRec.html#850" class="Bound"
+      >y</a
+      ><a name="1101" class="Symbol"
+      >)}(</a
+      ><a name="1104" href="QuotientUntruncated.html#266" class="Function"
+      >quot</a
+      ><a name="1108"
+      > </a
+      ><a name="1109" href="QuotientBinaryRec.html#986" class="Bound"
+      >x&#8321;</a
+      ><a name="1111"
+      > </a
+      ><a name="1112" href="QuotientBinaryRec.html#989" class="Bound"
+      >y&#8321;</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" href="QuotientBinaryRec.html#992" class="Bound"
+      >p</a
+      ><a name="1116" class="Symbol"
+      >)</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" class="Symbol"
+      >(</a
+      ><a name="1119" href="QuotientBinaryRec.html#841" class="Bound"
+      >resp</a
+      ><a name="1123"
+      > </a
+      ><a name="1124" href="QuotientBinaryRec.html#986" class="Bound"
+      >x&#8321;</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" href="QuotientBinaryRec.html#848" class="Bound"
+      >x</a
+      ><a name="1128"
+      > </a
+      ><a name="1129" href="QuotientBinaryRec.html#986" class="Bound"
+      >x&#8321;</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" href="QuotientBinaryRec.html#850" class="Bound"
+      >y</a
+      ><a name="1133"
+      > </a
+      ><a name="1134" class="Symbol"
+      >(</a
+      ><a name="1135" href="QuotientBinaryRec.html#57" class="Bound"
+      >R-refl</a
+      ><a name="1141"
+      > </a
+      ><a name="1142" href="QuotientBinaryRec.html#986" class="Bound"
+      >x&#8321;</a
+      ><a name="1144" class="Symbol"
+      >)</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" href="QuotientBinaryRec.html#852" class="Bound"
+      >r</a
+      ><a name="1147" class="Symbol"
+      >))(</a
+      ><a name="1150" href="QuotientBinaryRec.html#841" class="Bound"
+      >resp</a
+      ><a name="1154"
+      > </a
+      ><a name="1155" href="QuotientBinaryRec.html#989" class="Bound"
+      >y&#8321;</a
+      ><a name="1157"
+      > </a
+      ><a name="1158" href="QuotientBinaryRec.html#848" class="Bound"
+      >x</a
+      ><a name="1159"
+      > </a
+      ><a name="1160" href="QuotientBinaryRec.html#989" class="Bound"
+      >y&#8321;</a
+      ><a name="1162"
+      > </a
+      ><a name="1163" href="QuotientBinaryRec.html#850" class="Bound"
+      >y</a
+      ><a name="1164"
+      > </a
+      ><a name="1165" class="Symbol"
+      >(</a
+      ><a name="1166" href="QuotientBinaryRec.html#57" class="Bound"
+      >R-refl</a
+      ><a name="1172"
+      > </a
+      ><a name="1173" href="QuotientBinaryRec.html#989" class="Bound"
+      >y&#8321;</a
+      ><a name="1175" class="Symbol"
+      >)</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" href="QuotientBinaryRec.html#852" class="Bound"
+      >r</a
+      ><a name="1178" class="Symbol"
+      >))</a
+      ><a name="1180"
+      > </a
+      ><a name="1181" href="QuotientBinaryRec.html#846" class="Bound"
+      >q</a
+      ><a name="1182"
+      > 
+
+</a
+      ><a name="1185" href="QuotientBinaryRec.html#1185" class="Function"
+      >Quotient-rec-2</a
+      ><a name="1199"
+      > </a
+      ><a name="1200" class="Symbol"
+      >:(</a
+      ><a name="1202" href="QuotientBinaryRec.html#1202" class="Bound"
+      >f</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" class="Symbol"
+      >:</a
+      ><a name="1205"
+      > </a
+      ><a name="1206" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="1207"
+      > </a
+      ><a name="1208" class="Symbol"
+      >-&gt;</a
+      ><a name="1210"
+      > </a
+      ><a name="1211" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="1212"
+      > </a
+      ><a name="1213" class="Symbol"
+      >-&gt;</a
+      ><a name="1215"
+      > </a
+      ><a name="1216" href="QuotientBinaryRec.html#85" class="Bound"
+      >B</a
+      ><a name="1217" class="Symbol"
+      >)</a
+      ><a name="1218"
+      >
+       </a
+      ><a name="1226" class="Symbol"
+      >-&gt;</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" class="Symbol"
+      >(</a
+      ><a name="1230" href="QuotientBinaryRec.html#1230" class="Bound"
+      >resp</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" class="Symbol"
+      >:</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" class="Symbol"
+      >(</a
+      ><a name="1238" href="QuotientBinaryRec.html#1238" class="Bound"
+      >a</a
+      ><a name="1239"
+      > </a
+      ><a name="1240" href="QuotientBinaryRec.html#1240" class="Bound"
+      >b</a
+      ><a name="1241"
+      > </a
+      ><a name="1242" href="QuotientBinaryRec.html#1242" class="Bound"
+      >c</a
+      ><a name="1243"
+      > </a
+      ><a name="1244" href="QuotientBinaryRec.html#1244" class="Bound"
+      >d</a
+      ><a name="1245"
+      > </a
+      ><a name="1246" class="Symbol"
+      >:</a
+      ><a name="1247"
+      > </a
+      ><a name="1248" href="QuotientBinaryRec.html#27" class="Bound"
+      >A</a
+      ><a name="1249" class="Symbol"
+      >)</a
+      ><a name="1250"
+      > </a
+      ><a name="1251" class="Symbol"
+      >-&gt;</a
+      ><a name="1253"
+      > </a
+      ><a name="1254" href="QuotientBinaryRec.html#37" class="Bound"
+      >R</a
+      ><a name="1255"
+      > </a
+      ><a name="1256" href="QuotientBinaryRec.html#1238" class="Bound"
+      >a</a
+      ><a name="1257"
+      > </a
+      ><a name="1258" href="QuotientBinaryRec.html#1242" class="Bound"
+      >c</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" class="Symbol"
+      >-&gt;</a
+      ><a name="1262"
+      > </a
+      ><a name="1263" href="QuotientBinaryRec.html#37" class="Bound"
+      >R</a
+      ><a name="1264"
+      > </a
+      ><a name="1265" href="QuotientBinaryRec.html#1240" class="Bound"
+      >b</a
+      ><a name="1266"
+      > </a
+      ><a name="1267" href="QuotientBinaryRec.html#1244" class="Bound"
+      >d</a
+      ><a name="1268"
+      > </a
+      ><a name="1269" class="Symbol"
+      >-&gt;</a
+      ><a name="1271"
+      > </a
+      ><a name="1272" href="QuotientBinaryRec.html#1202" class="Bound"
+      >f</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" href="QuotientBinaryRec.html#1238" class="Bound"
+      >a</a
+      ><a name="1275"
+      > </a
+      ><a name="1276" href="QuotientBinaryRec.html#1240" class="Bound"
+      >b</a
+      ><a name="1277"
+      > </a
+      ><a name="1278" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="1279"
+      > </a
+      ><a name="1280" href="QuotientBinaryRec.html#1202" class="Bound"
+      >f</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" href="QuotientBinaryRec.html#1242" class="Bound"
+      >c</a
+      ><a name="1283"
+      > </a
+      ><a name="1284" href="QuotientBinaryRec.html#1244" class="Bound"
+      >d</a
+      ><a name="1285" class="Symbol"
+      >)</a
+      ><a name="1286"
+      >
+       </a
+      ><a name="1294" class="Symbol"
+      >-&gt;</a
+      ><a name="1296"
+      > </a
+      ><a name="1297" href="QuotientUntruncated.html#179" class="Function"
+      >Quotient</a
+      ><a name="1305"
+      > </a
+      ><a name="1306" class="Symbol"
+      >-&gt;</a
+      ><a name="1308"
+      > </a
+      ><a name="1309" href="QuotientUntruncated.html#179" class="Function"
+      >Quotient</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" class="Symbol"
+      >-&gt;</a
+      ><a name="1320"
+      > </a
+      ><a name="1321" href="QuotientBinaryRec.html#85" class="Bound"
+      >B</a
+      ><a name="1322"
+      >
+</a
+      ><a name="1323" href="QuotientBinaryRec.html#1185" class="Function"
+      >Quotient-rec-2</a
+      ><a name="1337"
+      > </a
+      ><a name="1338" href="QuotientBinaryRec.html#1338" class="Bound"
+      >f</a
+      ><a name="1339"
+      > </a
+      ><a name="1340" href="QuotientBinaryRec.html#1340" class="Bound"
+      >resp</a
+      ><a name="1344"
+      > </a
+      ><a name="1345" href="QuotientBinaryRec.html#1345" class="Bound"
+      >x</a
+      ><a name="1346"
+      > </a
+      ><a name="1347" href="QuotientBinaryRec.html#1347" class="Bound"
+      >y</a
+      ><a name="1348"
+      > </a
+      ><a name="1349" class="Symbol"
+      >=</a
+      ><a name="1350"
+      > 
+  </a
+      ><a name="1354" href="QuotientUntruncated.html#540" class="Function"
+      >Quotient-rec</a
+      ><a name="1366"
+      > 
+    </a
+      ><a name="1372" class="Symbol"
+      >(</a
+      ><a name="1373" href="QuotientBinaryRec.html#251" class="Function"
+      >Quotient-rec-2'</a
+      ><a name="1388"
+      > </a
+      ><a name="1389" href="QuotientBinaryRec.html#1338" class="Bound"
+      >f</a
+      ><a name="1390"
+      > </a
+      ><a name="1391" href="QuotientBinaryRec.html#1340" class="Bound"
+      >resp</a
+      ><a name="1395"
+      > </a
+      ><a name="1396" href="QuotientBinaryRec.html#1345" class="Bound"
+      >x</a
+      ><a name="1397" class="Symbol"
+      >)</a
+      ><a name="1398"
+      >
+    </a
+      ><a name="1403" class="Symbol"
+      >(</a
+      ><a name="1404" href="QuotientBinaryRec.html#606" class="Function"
+      >lemma</a
+      ><a name="1409"
+      > </a
+      ><a name="1410" href="QuotientBinaryRec.html#1338" class="Bound"
+      >f</a
+      ><a name="1411"
+      > </a
+      ><a name="1412" href="QuotientBinaryRec.html#1340" class="Bound"
+      >resp</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" href="QuotientBinaryRec.html#1345" class="Bound"
+      >x</a
+      ><a name="1418" class="Symbol"
+      >)</a
+      ><a name="1419"
+      >
+    </a
+      ><a name="1424" href="QuotientBinaryRec.html#1347" class="Bound"
+      >y</a
+      ><a name="1425"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

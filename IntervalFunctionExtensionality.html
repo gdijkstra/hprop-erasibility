@@ -1,0 +1,957 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >IntervalFunctionExtensionality</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Symbol"
+      >{-#</a
+      ><a name="4"
+      > </a
+      ><a name="5" class="Keyword"
+      >OPTIONS</a
+      ><a name="12"
+      > --without-K </a
+      ><a name="25" class="Symbol"
+      >#-}</a
+      ><a name="28"
+      >
+
+</a
+      ><a name="30" class="Keyword"
+      >module</a
+      ><a name="36"
+      > </a
+      ><a name="37" href="IntervalFunctionExtensionality.html#1" class="Module"
+      >IntervalFunctionExtensionality</a
+      ><a name="67"
+      > </a
+      ><a name="68" class="Keyword"
+      >where</a
+      ><a name="73"
+      >
+
+</a
+      ><a name="75" class="Keyword"
+      >open</a
+      ><a name="79"
+      > </a
+      ><a name="80" class="Keyword"
+      >import</a
+      ><a name="86"
+      > </a
+      ><a name="87" href="Levels.html#1" class="Module"
+      >Levels</a
+      ><a name="93"
+      >
+</a
+      ><a name="94" class="Keyword"
+      >open</a
+      ><a name="98"
+      > </a
+      ><a name="99" class="Keyword"
+      >import</a
+      ><a name="105"
+      > </a
+      ><a name="106" href="Identity.html#1" class="Module"
+      >Identity</a
+      ><a name="114"
+      >
+</a
+      ><a name="115" class="Keyword"
+      >open</a
+      ><a name="119"
+      > </a
+      ><a name="120" class="Keyword"
+      >import</a
+      ><a name="126"
+      > </a
+      ><a name="127" href="Interval.html#1" class="Module"
+      >Interval</a
+      ><a name="135"
+      >
+
+</a
+      ><a name="137" class="Comment"
+      >-- (x y : A) -&gt; x &#8801; y and Interval -&gt; A are coinhabited.</a
+      ><a name="193"
+      >
+</a
+      ><a name="194" href="IntervalFunctionExtensionality.html#194" class="Function"
+      >&#8801;&#8658;Interval</a
+      ><a name="204"
+      > </a
+      ><a name="205" class="Symbol"
+      >:</a
+      ><a name="206"
+      > </a
+      ><a name="207" class="Symbol"
+      >{</a
+      ><a name="208" href="IntervalFunctionExtensionality.html#208" class="Bound"
+      >A</a
+      ><a name="209"
+      > </a
+      ><a name="210" class="Symbol"
+      >:</a
+      ><a name="211"
+      > </a
+      ><a name="212" class="PrimitiveType"
+      >Set</a
+      ><a name="215" class="Symbol"
+      >}</a
+      ><a name="216"
+      > </a
+      ><a name="217" class="Symbol"
+      >{</a
+      ><a name="218" href="IntervalFunctionExtensionality.html#218" class="Bound"
+      >x</a
+      ><a name="219"
+      > </a
+      ><a name="220" href="IntervalFunctionExtensionality.html#220" class="Bound"
+      >y</a
+      ><a name="221"
+      > </a
+      ><a name="222" class="Symbol"
+      >:</a
+      ><a name="223"
+      > </a
+      ><a name="224" href="IntervalFunctionExtensionality.html#208" class="Bound"
+      >A</a
+      ><a name="225" class="Symbol"
+      >}</a
+      ><a name="226"
+      > </a
+      ><a name="227" class="Symbol"
+      >-&gt;</a
+      ><a name="229"
+      > </a
+      ><a name="230" href="IntervalFunctionExtensionality.html#218" class="Bound"
+      >x</a
+      ><a name="231"
+      > </a
+      ><a name="232" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="233"
+      > </a
+      ><a name="234" href="IntervalFunctionExtensionality.html#220" class="Bound"
+      >y</a
+      ><a name="235"
+      > </a
+      ><a name="236" class="Symbol"
+      >-&gt;</a
+      ><a name="238"
+      > </a
+      ><a name="239" href="Interval.html#157" class="Function"
+      >I</a
+      ><a name="240"
+      > </a
+      ><a name="241" class="Symbol"
+      >-&gt;</a
+      ><a name="243"
+      > </a
+      ><a name="244" href="IntervalFunctionExtensionality.html#208" class="Bound"
+      >A</a
+      ><a name="245"
+      >
+</a
+      ><a name="246" href="IntervalFunctionExtensionality.html#194" class="Function"
+      >&#8801;&#8658;Interval</a
+      ><a name="256"
+      > </a
+      ><a name="257" class="Symbol"
+      >{</a
+      ><a name="258" href="IntervalFunctionExtensionality.html#258" class="Bound"
+      >A</a
+      ><a name="259" class="Symbol"
+      >}</a
+      ><a name="260"
+      > </a
+      ><a name="261" class="Symbol"
+      >{</a
+      ><a name="262" href="IntervalFunctionExtensionality.html#262" class="Bound"
+      >x</a
+      ><a name="263" class="Symbol"
+      >}</a
+      ><a name="264"
+      > </a
+      ><a name="265" class="Symbol"
+      >{</a
+      ><a name="266" href="IntervalFunctionExtensionality.html#266" class="Bound"
+      >y</a
+      ><a name="267" class="Symbol"
+      >}</a
+      ><a name="268"
+      > </a
+      ><a name="269" href="IntervalFunctionExtensionality.html#269" class="Bound"
+      >p</a
+      ><a name="270"
+      > </a
+      ><a name="271" href="IntervalFunctionExtensionality.html#271" class="Bound"
+      >i</a
+      ><a name="272"
+      > </a
+      ><a name="273" class="Symbol"
+      >=</a
+      ><a name="274"
+      > </a
+      ><a name="275" href="Interval.html#444" class="Function"
+      >I-rec</a
+      ><a name="280"
+      > </a
+      ><a name="281" class="Symbol"
+      >{</a
+      ><a name="282" href="IntervalFunctionExtensionality.html#258" class="Bound"
+      >A</a
+      ><a name="283" class="Symbol"
+      >}</a
+      ><a name="284"
+      > </a
+      ><a name="285" href="IntervalFunctionExtensionality.html#262" class="Bound"
+      >x</a
+      ><a name="286"
+      > </a
+      ><a name="287" href="IntervalFunctionExtensionality.html#266" class="Bound"
+      >y</a
+      ><a name="288"
+      > </a
+      ><a name="289" href="IntervalFunctionExtensionality.html#269" class="Bound"
+      >p</a
+      ><a name="290"
+      > </a
+      ><a name="291" href="IntervalFunctionExtensionality.html#271" class="Bound"
+      >i</a
+      ><a name="292"
+      >
+
+</a
+      ><a name="294" href="IntervalFunctionExtensionality.html#294" class="Function"
+      >Interval&#8658;&#8801;</a
+      ><a name="304"
+      > </a
+      ><a name="305" class="Symbol"
+      >:</a
+      ><a name="306"
+      > </a
+      ><a name="307" class="Symbol"
+      >{</a
+      ><a name="308" href="IntervalFunctionExtensionality.html#308" class="Bound"
+      >A</a
+      ><a name="309"
+      > </a
+      ><a name="310" class="Symbol"
+      >:</a
+      ><a name="311"
+      > </a
+      ><a name="312" class="PrimitiveType"
+      >Set</a
+      ><a name="315" class="Symbol"
+      >}</a
+      ><a name="316"
+      > </a
+      ><a name="317" class="Symbol"
+      >-&gt;</a
+      ><a name="319"
+      > </a
+      ><a name="320" class="Symbol"
+      >(</a
+      ><a name="321" href="IntervalFunctionExtensionality.html#321" class="Bound"
+      >p</a
+      ><a name="322"
+      > </a
+      ><a name="323" class="Symbol"
+      >:</a
+      ><a name="324"
+      > </a
+      ><a name="325" href="Interval.html#157" class="Function"
+      >I</a
+      ><a name="326"
+      > </a
+      ><a name="327" class="Symbol"
+      >-&gt;</a
+      ><a name="329"
+      > </a
+      ><a name="330" href="IntervalFunctionExtensionality.html#308" class="Bound"
+      >A</a
+      ><a name="331" class="Symbol"
+      >)</a
+      ><a name="332"
+      > </a
+      ><a name="333" class="Symbol"
+      >-&gt;</a
+      ><a name="335"
+      > </a
+      ><a name="336" class="Symbol"
+      >(</a
+      ><a name="337" href="IntervalFunctionExtensionality.html#321" class="Bound"
+      >p</a
+      ><a name="338"
+      > </a
+      ><a name="339" href="Interval.html#173" class="Function"
+      >zer</a
+      ><a name="342" class="Symbol"
+      >)</a
+      ><a name="343"
+      > </a
+      ><a name="344" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="345"
+      > </a
+      ><a name="346" class="Symbol"
+      >(</a
+      ><a name="347" href="IntervalFunctionExtensionality.html#321" class="Bound"
+      >p</a
+      ><a name="348"
+      > </a
+      ><a name="349" href="Interval.html#194" class="Function"
+      >one</a
+      ><a name="352" class="Symbol"
+      >)</a
+      ><a name="353"
+      >
+</a
+      ><a name="354" href="IntervalFunctionExtensionality.html#294" class="Function"
+      >Interval&#8658;&#8801;</a
+      ><a name="364"
+      > </a
+      ><a name="365" href="IntervalFunctionExtensionality.html#365" class="Bound"
+      >p</a
+      ><a name="366"
+      > </a
+      ><a name="367" class="Symbol"
+      >=</a
+      ><a name="368"
+      > </a
+      ><a name="369" href="Identity.html#1771" class="Function"
+      >ap</a
+      ><a name="371"
+      > </a
+      ><a name="372" href="IntervalFunctionExtensionality.html#365" class="Bound"
+      >p</a
+      ><a name="373"
+      > </a
+      ><a name="374" href="Interval.html#227" class="Postulate"
+      >seg</a
+      ><a name="377"
+      >
+
+</a
+      ><a name="379" href="IntervalFunctionExtensionality.html#379" class="Function"
+      >flip</a
+      ><a name="383"
+      > </a
+      ><a name="384" class="Symbol"
+      >:</a
+      ><a name="385"
+      > </a
+      ><a name="386" class="Symbol"
+      >{</a
+      ><a name="387" href="IntervalFunctionExtensionality.html#387" class="Bound"
+      >A</a
+      ><a name="388"
+      > </a
+      ><a name="389" href="IntervalFunctionExtensionality.html#389" class="Bound"
+      >B</a
+      ><a name="390"
+      > </a
+      ><a name="391" href="IntervalFunctionExtensionality.html#391" class="Bound"
+      >C</a
+      ><a name="392"
+      > </a
+      ><a name="393" class="Symbol"
+      >:</a
+      ><a name="394"
+      > </a
+      ><a name="395" class="PrimitiveType"
+      >Set</a
+      ><a name="398" class="Symbol"
+      >}</a
+      ><a name="399"
+      > </a
+      ><a name="400" class="Symbol"
+      >-&gt;</a
+      ><a name="402"
+      > </a
+      ><a name="403" class="Symbol"
+      >(</a
+      ><a name="404" href="IntervalFunctionExtensionality.html#387" class="Bound"
+      >A</a
+      ><a name="405"
+      > </a
+      ><a name="406" class="Symbol"
+      >-&gt;</a
+      ><a name="408"
+      > </a
+      ><a name="409" href="IntervalFunctionExtensionality.html#389" class="Bound"
+      >B</a
+      ><a name="410"
+      > </a
+      ><a name="411" class="Symbol"
+      >-&gt;</a
+      ><a name="413"
+      > </a
+      ><a name="414" href="IntervalFunctionExtensionality.html#391" class="Bound"
+      >C</a
+      ><a name="415" class="Symbol"
+      >)</a
+      ><a name="416"
+      > </a
+      ><a name="417" class="Symbol"
+      >-&gt;</a
+      ><a name="419"
+      > </a
+      ><a name="420" class="Symbol"
+      >(</a
+      ><a name="421" href="IntervalFunctionExtensionality.html#389" class="Bound"
+      >B</a
+      ><a name="422"
+      > </a
+      ><a name="423" class="Symbol"
+      >-&gt;</a
+      ><a name="425"
+      > </a
+      ><a name="426" href="IntervalFunctionExtensionality.html#387" class="Bound"
+      >A</a
+      ><a name="427"
+      > </a
+      ><a name="428" class="Symbol"
+      >-&gt;</a
+      ><a name="430"
+      > </a
+      ><a name="431" href="IntervalFunctionExtensionality.html#391" class="Bound"
+      >C</a
+      ><a name="432" class="Symbol"
+      >)</a
+      ><a name="433"
+      >
+</a
+      ><a name="434" href="IntervalFunctionExtensionality.html#379" class="Function"
+      >flip</a
+      ><a name="438"
+      > </a
+      ><a name="439" href="IntervalFunctionExtensionality.html#439" class="Bound"
+      >f</a
+      ><a name="440"
+      > </a
+      ><a name="441" href="IntervalFunctionExtensionality.html#441" class="Bound"
+      >b</a
+      ><a name="442"
+      > </a
+      ><a name="443" href="IntervalFunctionExtensionality.html#443" class="Bound"
+      >a</a
+      ><a name="444"
+      > </a
+      ><a name="445" class="Symbol"
+      >=</a
+      ><a name="446"
+      > </a
+      ><a name="447" href="IntervalFunctionExtensionality.html#439" class="Bound"
+      >f</a
+      ><a name="448"
+      > </a
+      ><a name="449" href="IntervalFunctionExtensionality.html#443" class="Bound"
+      >a</a
+      ><a name="450"
+      > </a
+      ><a name="451" href="IntervalFunctionExtensionality.html#441" class="Bound"
+      >b</a
+      ><a name="452"
+      >
+
+</a
+      ><a name="454" href="IntervalFunctionExtensionality.html#454" class="Function"
+      >ext</a
+      ><a name="457"
+      > </a
+      ><a name="458" class="Symbol"
+      >:</a
+      ><a name="459"
+      > </a
+      ><a name="460" class="Symbol"
+      >(</a
+      ><a name="461" href="IntervalFunctionExtensionality.html#461" class="Bound"
+      >A</a
+      ><a name="462"
+      > </a
+      ><a name="463" href="IntervalFunctionExtensionality.html#463" class="Bound"
+      >B</a
+      ><a name="464"
+      > </a
+      ><a name="465" class="Symbol"
+      >:</a
+      ><a name="466"
+      > </a
+      ><a name="467" class="PrimitiveType"
+      >Set</a
+      ><a name="470" class="Symbol"
+      >)</a
+      ><a name="471"
+      > </a
+      ><a name="472" class="Symbol"
+      >(</a
+      ><a name="473" href="IntervalFunctionExtensionality.html#473" class="Bound"
+      >f</a
+      ><a name="474"
+      > </a
+      ><a name="475" href="IntervalFunctionExtensionality.html#475" class="Bound"
+      >g</a
+      ><a name="476"
+      > </a
+      ><a name="477" class="Symbol"
+      >:</a
+      ><a name="478"
+      > </a
+      ><a name="479" href="IntervalFunctionExtensionality.html#461" class="Bound"
+      >A</a
+      ><a name="480"
+      > </a
+      ><a name="481" class="Symbol"
+      >-&gt;</a
+      ><a name="483"
+      > </a
+      ><a name="484" href="IntervalFunctionExtensionality.html#463" class="Bound"
+      >B</a
+      ><a name="485" class="Symbol"
+      >)</a
+      ><a name="486"
+      > </a
+      ><a name="487" class="Symbol"
+      >(</a
+      ><a name="488" href="IntervalFunctionExtensionality.html#488" class="Bound"
+      >&#945;</a
+      ><a name="489"
+      > </a
+      ><a name="490" class="Symbol"
+      >:</a
+      ><a name="491"
+      > </a
+      ><a name="492" class="Symbol"
+      >(</a
+      ><a name="493" href="IntervalFunctionExtensionality.html#493" class="Bound"
+      >x</a
+      ><a name="494"
+      > </a
+      ><a name="495" class="Symbol"
+      >:</a
+      ><a name="496"
+      > </a
+      ><a name="497" href="IntervalFunctionExtensionality.html#461" class="Bound"
+      >A</a
+      ><a name="498" class="Symbol"
+      >)</a
+      ><a name="499"
+      > </a
+      ><a name="500" class="Symbol"
+      >-&gt;</a
+      ><a name="502"
+      > </a
+      ><a name="503" href="IntervalFunctionExtensionality.html#473" class="Bound"
+      >f</a
+      ><a name="504"
+      > </a
+      ><a name="505" href="IntervalFunctionExtensionality.html#493" class="Bound"
+      >x</a
+      ><a name="506"
+      > </a
+      ><a name="507" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="508"
+      > </a
+      ><a name="509" href="IntervalFunctionExtensionality.html#475" class="Bound"
+      >g</a
+      ><a name="510"
+      > </a
+      ><a name="511" href="IntervalFunctionExtensionality.html#493" class="Bound"
+      >x</a
+      ><a name="512" class="Symbol"
+      >)</a
+      ><a name="513"
+      > </a
+      ><a name="514" class="Symbol"
+      >-&gt;</a
+      ><a name="516"
+      > </a
+      ><a name="517" href="IntervalFunctionExtensionality.html#473" class="Bound"
+      >f</a
+      ><a name="518"
+      > </a
+      ><a name="519" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="520"
+      > </a
+      ><a name="521" href="IntervalFunctionExtensionality.html#475" class="Bound"
+      >g</a
+      ><a name="522"
+      >
+</a
+      ><a name="523" href="IntervalFunctionExtensionality.html#454" class="Function"
+      >ext</a
+      ><a name="526"
+      > </a
+      ><a name="527" href="IntervalFunctionExtensionality.html#527" class="Bound"
+      >A</a
+      ><a name="528"
+      > </a
+      ><a name="529" href="IntervalFunctionExtensionality.html#529" class="Bound"
+      >B</a
+      ><a name="530"
+      > </a
+      ><a name="531" href="IntervalFunctionExtensionality.html#531" class="Bound"
+      >f</a
+      ><a name="532"
+      > </a
+      ><a name="533" href="IntervalFunctionExtensionality.html#533" class="Bound"
+      >g</a
+      ><a name="534"
+      > </a
+      ><a name="535" href="IntervalFunctionExtensionality.html#535" class="Bound"
+      >&#945;</a
+      ><a name="536"
+      > </a
+      ><a name="537" class="Symbol"
+      >=</a
+      ><a name="538"
+      > </a
+      ><a name="539" href="IntervalFunctionExtensionality.html#294" class="Function"
+      >Interval&#8658;&#8801;</a
+      ><a name="549"
+      > </a
+      ><a name="550" class="Symbol"
+      >(</a
+      ><a name="551" href="IntervalFunctionExtensionality.html#379" class="Function"
+      >flip</a
+      ><a name="555"
+      > </a
+      ><a name="556" class="Symbol"
+      >(&#955;</a
+      ><a name="558"
+      > </a
+      ><a name="559" href="IntervalFunctionExtensionality.html#559" class="Bound"
+      >a</a
+      ><a name="560"
+      > </a
+      ><a name="561" class="Symbol"
+      >&#8594;</a
+      ><a name="562"
+      > </a
+      ><a name="563" href="IntervalFunctionExtensionality.html#194" class="Function"
+      >&#8801;&#8658;Interval</a
+      ><a name="573"
+      > </a
+      ><a name="574" class="Symbol"
+      >(</a
+      ><a name="575" href="IntervalFunctionExtensionality.html#535" class="Bound"
+      >&#945;</a
+      ><a name="576"
+      > </a
+      ><a name="577" href="IntervalFunctionExtensionality.html#559" class="Bound"
+      >a</a
+      ><a name="578" class="Symbol"
+      >)))</a
+      ><a name="581"
+      >
+
+</a
+      ><a name="583" class="Comment"
+      >-- Example of using function extensionality</a
+      ><a name="626"
+      >
+</a
+      ><a name="627" class="Keyword"
+      >open</a
+      ><a name="631"
+      > </a
+      ><a name="632" class="Keyword"
+      >import</a
+      ><a name="638"
+      > </a
+      ><a name="639" href="Naturals.html#1" class="Module"
+      >Naturals</a
+      ><a name="647"
+      >
+
+</a
+      ><a name="649" href="IntervalFunctionExtensionality.html#649" class="Function"
+      >+0</a
+      ><a name="651"
+      > </a
+      ><a name="652" class="Symbol"
+      >:</a
+      ><a name="653"
+      > </a
+      ><a name="654" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="655"
+      > </a
+      ><a name="656" class="Symbol"
+      >&#8594;</a
+      ><a name="657"
+      > </a
+      ><a name="658" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="659"
+      >
+</a
+      ><a name="660" href="IntervalFunctionExtensionality.html#649" class="Function"
+      >+0</a
+      ><a name="662"
+      > </a
+      ><a name="663" href="IntervalFunctionExtensionality.html#663" class="Bound"
+      >x</a
+      ><a name="664"
+      > </a
+      ><a name="665" class="Symbol"
+      >=</a
+      ><a name="666"
+      > </a
+      ><a name="667" href="IntervalFunctionExtensionality.html#663" class="Bound"
+      >x</a
+      ><a name="668"
+      > </a
+      ><a name="669" href="Naturals.html#200" class="Primitive Operator"
+      >+</a
+      ><a name="670"
+      > </a
+      ><a name="671" class="Number"
+      >0</a
+      ><a name="672"
+      >
+
+</a
+      ><a name="674" href="IntervalFunctionExtensionality.html#674" class="Function"
+      >0+</a
+      ><a name="676"
+      > </a
+      ><a name="677" class="Symbol"
+      >:</a
+      ><a name="678"
+      > </a
+      ><a name="679" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="680"
+      > </a
+      ><a name="681" class="Symbol"
+      >&#8594;</a
+      ><a name="682"
+      > </a
+      ><a name="683" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="684"
+      >
+</a
+      ><a name="685" href="IntervalFunctionExtensionality.html#674" class="Function"
+      >0+</a
+      ><a name="687"
+      > </a
+      ><a name="688" href="IntervalFunctionExtensionality.html#688" class="Bound"
+      >x</a
+      ><a name="689"
+      > </a
+      ><a name="690" class="Symbol"
+      >=</a
+      ><a name="691"
+      > </a
+      ><a name="692" class="Number"
+      >0</a
+      ><a name="693"
+      > </a
+      ><a name="694" href="Naturals.html#200" class="Primitive Operator"
+      >+</a
+      ><a name="695"
+      > </a
+      ><a name="696" href="IntervalFunctionExtensionality.html#688" class="Bound"
+      >x</a
+      ><a name="697"
+      >
+
+</a
+      ><a name="699" href="IntervalFunctionExtensionality.html#699" class="Function"
+      >0+x&#8801;x+0</a
+      ><a name="706"
+      > </a
+      ><a name="707" class="Symbol"
+      >:</a
+      ><a name="708"
+      > </a
+      ><a name="709" class="Symbol"
+      >(</a
+      ><a name="710" href="IntervalFunctionExtensionality.html#710" class="Bound"
+      >x</a
+      ><a name="711"
+      > </a
+      ><a name="712" class="Symbol"
+      >:</a
+      ><a name="713"
+      > </a
+      ><a name="714" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="715" class="Symbol"
+      >)</a
+      ><a name="716"
+      > </a
+      ><a name="717" class="Symbol"
+      >&#8594;</a
+      ><a name="718"
+      > </a
+      ><a name="719" href="IntervalFunctionExtensionality.html#674" class="Function"
+      >0+</a
+      ><a name="721"
+      > </a
+      ><a name="722" href="IntervalFunctionExtensionality.html#710" class="Bound"
+      >x</a
+      ><a name="723"
+      > </a
+      ><a name="724" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="725"
+      > </a
+      ><a name="726" href="IntervalFunctionExtensionality.html#649" class="Function"
+      >+0</a
+      ><a name="728"
+      > </a
+      ><a name="729" href="IntervalFunctionExtensionality.html#710" class="Bound"
+      >x</a
+      ><a name="730"
+      >
+</a
+      ><a name="731" href="IntervalFunctionExtensionality.html#699" class="Function"
+      >0+x&#8801;x+0</a
+      ><a name="738"
+      > </a
+      ><a name="739" href="Naturals.html#82" class="InductiveConstructor"
+      >Z</a
+      ><a name="740"
+      >     </a
+      ><a name="745" class="Symbol"
+      >=</a
+      ><a name="746"
+      > </a
+      ><a name="747" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="751"
+      >
+</a
+      ><a name="752" href="IntervalFunctionExtensionality.html#699" class="Function"
+      >0+x&#8801;x+0</a
+      ><a name="759"
+      > </a
+      ><a name="760" class="Symbol"
+      >(</a
+      ><a name="761" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="762"
+      > </a
+      ><a name="763" href="IntervalFunctionExtensionality.html#763" class="Bound"
+      >x</a
+      ><a name="764" class="Symbol"
+      >)</a
+      ><a name="765"
+      > </a
+      ><a name="766" class="Symbol"
+      >=</a
+      ><a name="767"
+      > </a
+      ><a name="768" href="Identity.html#1771" class="Function"
+      >ap</a
+      ><a name="770"
+      > </a
+      ><a name="771" href="Naturals.html#90" class="InductiveConstructor"
+      >S</a
+      ><a name="772"
+      > </a
+      ><a name="773" class="Symbol"
+      >(</a
+      ><a name="774" href="IntervalFunctionExtensionality.html#699" class="Function"
+      >0+x&#8801;x+0</a
+      ><a name="781"
+      > </a
+      ><a name="782" href="IntervalFunctionExtensionality.html#763" class="Bound"
+      >x</a
+      ><a name="783" class="Symbol"
+      >)</a
+      ><a name="784"
+      >
+
+</a
+      ><a name="786" class="Comment"
+      >-- The following does not reduce to a canonical form, but instead</a
+      ><a name="851"
+      >
+</a
+      ><a name="852" class="Comment"
+      >-- reduces to:</a
+      ><a name="866"
+      >
+</a
+      ><a name="867" class="Comment"
+      >-- ap (&#955; b a &#8594; I-rec a (a + 0) (0+x&#8801;x+0 a) b) seg</a
+      ><a name="916"
+      >
+</a
+      ><a name="917" class="Comment"
+      >-- to which we cannot apply &#946;seg directly.</a
+      ><a name="959"
+      >
+</a
+      ><a name="960" href="IntervalFunctionExtensionality.html#960" class="Function"
+      >0+&#8801;+0</a
+      ><a name="965"
+      > </a
+      ><a name="966" class="Symbol"
+      >:</a
+      ><a name="967"
+      > </a
+      ><a name="968" href="IntervalFunctionExtensionality.html#674" class="Function"
+      >0+</a
+      ><a name="970"
+      > </a
+      ><a name="971" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="972"
+      > </a
+      ><a name="973" href="IntervalFunctionExtensionality.html#649" class="Function"
+      >+0</a
+      ><a name="975"
+      >
+</a
+      ><a name="976" href="IntervalFunctionExtensionality.html#960" class="Function"
+      >0+&#8801;+0</a
+      ><a name="981"
+      > </a
+      ><a name="982" class="Symbol"
+      >=</a
+      ><a name="983"
+      > </a
+      ><a name="984" href="IntervalFunctionExtensionality.html#454" class="Function"
+      >ext</a
+      ><a name="987"
+      > </a
+      ><a name="988" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="989"
+      > </a
+      ><a name="990" href="Naturals.html#66" class="Datatype"
+      >&#8469;</a
+      ><a name="991"
+      > </a
+      ><a name="992" href="IntervalFunctionExtensionality.html#674" class="Function"
+      >0+</a
+      ><a name="994"
+      > </a
+      ><a name="995" href="IntervalFunctionExtensionality.html#649" class="Function"
+      >+0</a
+      ><a name="997"
+      > </a
+      ><a name="998" href="IntervalFunctionExtensionality.html#699" class="Function"
+      >0+x&#8801;x+0</a
+      ><a name="1005"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

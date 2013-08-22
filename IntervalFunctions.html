@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >IntervalFunctions</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Symbol"
+      >{-#</a
+      ><a name="4"
+      > </a
+      ><a name="5" class="Keyword"
+      >OPTIONS</a
+      ><a name="12"
+      > --without-K </a
+      ><a name="25" class="Symbol"
+      >#-}</a
+      ><a name="28"
+      >
+
+</a
+      ><a name="30" class="Keyword"
+      >module</a
+      ><a name="36"
+      > </a
+      ><a name="37" href="IntervalFunctions.html#1" class="Module"
+      >IntervalFunctions</a
+      ><a name="54"
+      > </a
+      ><a name="55" class="Keyword"
+      >where</a
+      ><a name="60"
+      >
+
+</a
+      ><a name="62" class="Keyword"
+      >open</a
+      ><a name="66"
+      > </a
+      ><a name="67" class="Keyword"
+      >import</a
+      ><a name="73"
+      > </a
+      ><a name="74" href="Interval.html#1" class="Module"
+      >Interval</a
+      ><a name="82"
+      >
+</a
+      ><a name="83" class="Keyword"
+      >open</a
+      ><a name="87"
+      > </a
+      ><a name="88" class="Keyword"
+      >import</a
+      ><a name="94"
+      > </a
+      ><a name="95" href="Identity.html#1" class="Module"
+      >Identity</a
+      ><a name="103"
+      >
+
+</a
+      ><a name="105" class="Comment"
+      >-- All four functions I &#8594; I, that are all definitionally different,</a
+      ><a name="172"
+      >
+</a
+      ><a name="173" class="Comment"
+      >-- but all propositionally equal to eachother.</a
+      ><a name="219"
+      >
+
+</a
+      ><a name="221" href="IntervalFunctions.html#221" class="Function"
+      >const-I</a
+      ><a name="228"
+      > </a
+      ><a name="229" class="Symbol"
+      >:</a
+      ><a name="230"
+      > </a
+      ><a name="231" href="Interval.html#157" class="Function"
+      >I</a
+      ><a name="232"
+      > </a
+      ><a name="233" class="Symbol"
+      >&#8594;</a
+      ><a name="234"
+      > </a
+      ><a name="235" href="Interval.html#157" class="Function"
+      >I</a
+      ><a name="236"
+      >
+</a
+      ><a name="237" href="IntervalFunctions.html#221" class="Function"
+      >const-I</a
+      ><a name="244"
+      > </a
+      ><a name="245" class="Symbol"
+      >=</a
+      ><a name="246"
+      > </a
+      ><a name="247" href="Interval.html#444" class="Function"
+      >I-rec</a
+      ><a name="252"
+      > </a
+      ><a name="253" href="Interval.html#173" class="Function"
+      >zer</a
+      ><a name="256"
+      > </a
+      ><a name="257" href="Interval.html#173" class="Function"
+      >zer</a
+      ><a name="260"
+      > </a
+      ><a name="261" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="265"
+      >
+
+</a
+      ><a name="267" href="IntervalFunctions.html#267" class="Function"
+      >const-I'</a
+      ><a name="275"
+      > </a
+      ><a name="276" class="Symbol"
+      >:</a
+      ><a name="277"
+      > </a
+      ><a name="278" href="Interval.html#157" class="Function"
+      >I</a
+      ><a name="279"
+      > </a
+      ><a name="280" class="Symbol"
+      >&#8594;</a
+      ><a name="281"
+      > </a
+      ><a name="282" href="Interval.html#157" class="Function"
+      >I</a
+      ><a name="283"
+      >
+</a
+      ><a name="284" href="IntervalFunctions.html#267" class="Function"
+      >const-I'</a
+      ><a name="292"
+      > </a
+      ><a name="293" class="Symbol"
+      >=</a
+      ><a name="294"
+      > </a
+      ><a name="295" href="Interval.html#444" class="Function"
+      >I-rec</a
+      ><a name="300"
+      > </a
+      ><a name="301" href="Interval.html#194" class="Function"
+      >one</a
+      ><a name="304"
+      > </a
+      ><a name="305" href="Interval.html#194" class="Function"
+      >one</a
+      ><a name="308"
+      > </a
+      ><a name="309" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="313"
+      >
+
+</a
+      ><a name="315" href="IntervalFunctions.html#315" class="Function"
+      >id-I</a
+      ><a name="319"
+      > </a
+      ><a name="320" class="Symbol"
+      >:</a
+      ><a name="321"
+      > </a
+      ><a name="322" href="Interval.html#157" class="Function"
+      >I</a
+      ><a name="323"
+      > </a
+      ><a name="324" class="Symbol"
+      >&#8594;</a
+      ><a name="325"
+      > </a
+      ><a name="326" href="Interval.html#157" class="Function"
+      >I</a
+      ><a name="327"
+      >
+</a
+      ><a name="328" href="IntervalFunctions.html#315" class="Function"
+      >id-I</a
+      ><a name="332"
+      > </a
+      ><a name="333" class="Symbol"
+      >=</a
+      ><a name="334"
+      > </a
+      ><a name="335" href="Interval.html#444" class="Function"
+      >I-rec</a
+      ><a name="340"
+      > </a
+      ><a name="341" href="Interval.html#173" class="Function"
+      >zer</a
+      ><a name="344"
+      > </a
+      ><a name="345" href="Interval.html#194" class="Function"
+      >one</a
+      ><a name="348"
+      > </a
+      ><a name="349" href="Interval.html#227" class="Postulate"
+      >seg</a
+      ><a name="352"
+      >
+
+</a
+      ><a name="354" href="IntervalFunctions.html#354" class="Function"
+      >flip-I</a
+      ><a name="360"
+      > </a
+      ><a name="361" class="Symbol"
+      >:</a
+      ><a name="362"
+      > </a
+      ><a name="363" href="Interval.html#157" class="Function"
+      >I</a
+      ><a name="364"
+      > </a
+      ><a name="365" class="Symbol"
+      >&#8594;</a
+      ><a name="366"
+      > </a
+      ><a name="367" href="Interval.html#157" class="Function"
+      >I</a
+      ><a name="368"
+      >
+</a
+      ><a name="369" href="IntervalFunctions.html#354" class="Function"
+      >flip-I</a
+      ><a name="375"
+      > </a
+      ><a name="376" class="Symbol"
+      >=</a
+      ><a name="377"
+      > </a
+      ><a name="378" href="Interval.html#444" class="Function"
+      >I-rec</a
+      ><a name="383"
+      > </a
+      ><a name="384" href="Interval.html#194" class="Function"
+      >one</a
+      ><a name="387"
+      > </a
+      ><a name="388" href="Interval.html#173" class="Function"
+      >zer</a
+      ><a name="391"
+      > </a
+      ><a name="392" class="Symbol"
+      >(</a
+      ><a name="393" href="Identity.html#383" class="Function"
+      >sym</a
+      ><a name="396"
+      > </a
+      ><a name="397" href="Interval.html#227" class="Postulate"
+      >seg</a
+      ><a name="400" class="Symbol"
+      >)</a
+      ><a name="401"
+      >
+
+</a
+      ><a name="403" class="Comment"
+      >-- flip-I zer evaluates to one</a
+      ><a name="433"
+      >
+</a
+      ><a name="434" class="Comment"
+      >-- flip-I one evaluates to zer</a
+      ><a name="464"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

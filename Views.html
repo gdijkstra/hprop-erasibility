@@ -1,0 +1,6019 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Views</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Symbol"
+      >{-#</a
+      ><a name="4"
+      > </a
+      ><a name="5" class="Keyword"
+      >OPTIONS</a
+      ><a name="12"
+      > --without-K </a
+      ><a name="25" class="Symbol"
+      >#-}</a
+      ><a name="28"
+      >
+
+</a
+      ><a name="30" class="Keyword"
+      >module</a
+      ><a name="36"
+      > </a
+      ><a name="37" href="Views.html#1" class="Module"
+      >Views</a
+      ><a name="42"
+      > </a
+      ><a name="43" class="Keyword"
+      >where</a
+      ><a name="48"
+      >
+
+</a
+      ><a name="50" class="Keyword"
+      >open</a
+      ><a name="54"
+      > </a
+      ><a name="55" class="Keyword"
+      >import</a
+      ><a name="61"
+      > </a
+      ><a name="62" href="Identity.html#1" class="Module"
+      >Identity</a
+      ><a name="70"
+      >
+</a
+      ><a name="71" class="Keyword"
+      >open</a
+      ><a name="75"
+      > </a
+      ><a name="76" class="Keyword"
+      >import</a
+      ><a name="82"
+      > </a
+      ><a name="83" href="Sigma.html#1" class="Module"
+      >Sigma</a
+      ><a name="88"
+      >
+</a
+      ><a name="89" class="Keyword"
+      >open</a
+      ><a name="93"
+      > </a
+      ><a name="94" class="Keyword"
+      >import</a
+      ><a name="100"
+      > </a
+      ><a name="101" href="Levels.html#1" class="Module"
+      >Levels</a
+      ><a name="107"
+      >
+
+</a
+      ><a name="109" class="Keyword"
+      >data</a
+      ><a name="113"
+      > </a
+      ><a name="114" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="118"
+      > </a
+      ><a name="119" class="Symbol"
+      >(</a
+      ><a name="120" href="Views.html#120" class="Bound"
+      >A</a
+      ><a name="121"
+      > </a
+      ><a name="122" class="Symbol"
+      >:</a
+      ><a name="123"
+      > </a
+      ><a name="124" class="PrimitiveType"
+      >Set</a
+      ><a name="127" class="Symbol"
+      >)</a
+      ><a name="128"
+      > </a
+      ><a name="129" class="Symbol"
+      >:</a
+      ><a name="130"
+      > </a
+      ><a name="131" class="PrimitiveType"
+      >Set</a
+      ><a name="134"
+      > </a
+      ><a name="135" class="Keyword"
+      >where</a
+      ><a name="140"
+      >
+  </a
+      ><a name="143" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="146"
+      > </a
+      ><a name="147" class="Symbol"
+      >:</a
+      ><a name="148"
+      > </a
+      ><a name="149" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="153"
+      > </a
+      ><a name="154" href="Views.html#120" class="Bound"
+      >A</a
+      ><a name="155"
+      >
+  </a
+      ><a name="158" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="162"
+      > </a
+      ><a name="163" class="Symbol"
+      >:</a
+      ><a name="164"
+      > </a
+      ><a name="165" href="Views.html#120" class="Bound"
+      >A</a
+      ><a name="166"
+      > </a
+      ><a name="167" class="Symbol"
+      >-&gt;</a
+      ><a name="169"
+      > </a
+      ><a name="170" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="174"
+      > </a
+      ><a name="175" href="Views.html#120" class="Bound"
+      >A</a
+      ><a name="176"
+      > </a
+      ><a name="177" class="Symbol"
+      >-&gt;</a
+      ><a name="179"
+      > </a
+      ><a name="180" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="184"
+      > </a
+      ><a name="185" href="Views.html#120" class="Bound"
+      >A</a
+      ><a name="186"
+      >
+
+</a
+      ><a name="188" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="199"
+      > </a
+      ><a name="200" class="Symbol"
+      >:</a
+      ><a name="201"
+      > </a
+      ><a name="202" class="Symbol"
+      >{</a
+      ><a name="203" href="Views.html#203" class="Bound"
+      >A</a
+      ><a name="204"
+      > </a
+      ><a name="205" class="Symbol"
+      >:</a
+      ><a name="206"
+      > </a
+      ><a name="207" class="PrimitiveType"
+      >Set</a
+      ><a name="210" class="Symbol"
+      >}</a
+      ><a name="211"
+      > </a
+      ><a name="212" class="Symbol"
+      >-&gt;</a
+      ><a name="214"
+      > </a
+      ><a name="215" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="219"
+      > </a
+      ><a name="220" href="Views.html#203" class="Bound"
+      >A</a
+      ><a name="221"
+      > </a
+      ><a name="222" class="Symbol"
+      >-&gt;</a
+      ><a name="224"
+      > </a
+      ><a name="225" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="229"
+      > </a
+      ><a name="230" href="Views.html#203" class="Bound"
+      >A</a
+      ><a name="231"
+      > </a
+      ><a name="232" class="Symbol"
+      >-&gt;</a
+      ><a name="234"
+      > </a
+      ><a name="235" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="239"
+      > </a
+      ><a name="240" href="Views.html#203" class="Bound"
+      >A</a
+      ><a name="241"
+      >
+</a
+      ><a name="242" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="253"
+      > </a
+      ><a name="254" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="257"
+      > </a
+      ><a name="258" href="Views.html#258" class="Bound"
+      >r</a
+      ><a name="259"
+      > </a
+      ><a name="260" class="Symbol"
+      >=</a
+      ><a name="261"
+      > </a
+      ><a name="262" href="Views.html#258" class="Bound"
+      >r</a
+      ><a name="263"
+      >
+</a
+      ><a name="264" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="275"
+      > </a
+      ><a name="276" class="Symbol"
+      >(</a
+      ><a name="277" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="281"
+      > </a
+      ><a name="282" href="Views.html#282" class="Bound"
+      >x</a
+      ><a name="283"
+      > </a
+      ><a name="284" href="Views.html#284" class="Bound"
+      >l</a
+      ><a name="285" class="Symbol"
+      >)</a
+      ><a name="286"
+      > </a
+      ><a name="287" href="Views.html#287" class="Bound"
+      >r</a
+      ><a name="288"
+      > </a
+      ><a name="289" class="Symbol"
+      >=</a
+      ><a name="290"
+      > </a
+      ><a name="291" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="295"
+      > </a
+      ><a name="296" href="Views.html#282" class="Bound"
+      >x</a
+      ><a name="297"
+      > </a
+      ><a name="298" class="Symbol"
+      >(</a
+      ><a name="299" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="310"
+      > </a
+      ><a name="311" href="Views.html#284" class="Bound"
+      >l</a
+      ><a name="312"
+      > </a
+      ><a name="313" href="Views.html#287" class="Bound"
+      >r</a
+      ><a name="314" class="Symbol"
+      >)</a
+      ><a name="315"
+      >
+
+</a
+      ><a name="317" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="325"
+      > </a
+      ><a name="326" class="Symbol"
+      >:</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Symbol"
+      >{</a
+      ><a name="329" href="Views.html#329" class="Bound"
+      >A</a
+      ><a name="330"
+      > </a
+      ><a name="331" href="Views.html#331" class="Bound"
+      >B</a
+      ><a name="332"
+      > </a
+      ><a name="333" class="Symbol"
+      >:</a
+      ><a name="334"
+      > </a
+      ><a name="335" class="PrimitiveType"
+      >Set</a
+      ><a name="338" class="Symbol"
+      >}</a
+      ><a name="339"
+      > </a
+      ><a name="340" class="Symbol"
+      >-&gt;</a
+      ><a name="342"
+      > </a
+      ><a name="343" class="Symbol"
+      >(</a
+      ><a name="344" href="Views.html#329" class="Bound"
+      >A</a
+      ><a name="345"
+      > </a
+      ><a name="346" class="Symbol"
+      >-&gt;</a
+      ><a name="348"
+      > </a
+      ><a name="349" href="Views.html#331" class="Bound"
+      >B</a
+      ><a name="350" class="Symbol"
+      >)</a
+      ><a name="351"
+      > </a
+      ><a name="352" class="Symbol"
+      >-&gt;</a
+      ><a name="354"
+      > </a
+      ><a name="355" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="359"
+      > </a
+      ><a name="360" href="Views.html#329" class="Bound"
+      >A</a
+      ><a name="361"
+      > </a
+      ><a name="362" class="Symbol"
+      >-&gt;</a
+      ><a name="364"
+      > </a
+      ><a name="365" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="369"
+      > </a
+      ><a name="370" href="Views.html#331" class="Bound"
+      >B</a
+      ><a name="371"
+      >
+</a
+      ><a name="372" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="380"
+      > </a
+      ><a name="381" href="Views.html#381" class="Bound"
+      >f</a
+      ><a name="382"
+      > </a
+      ><a name="383" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="386"
+      > </a
+      ><a name="387" class="Symbol"
+      >=</a
+      ><a name="388"
+      > </a
+      ><a name="389" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="392"
+      >
+</a
+      ><a name="393" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="401"
+      > </a
+      ><a name="402" href="Views.html#402" class="Bound"
+      >f</a
+      ><a name="403"
+      > </a
+      ><a name="404" class="Symbol"
+      >(</a
+      ><a name="405" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="409"
+      > </a
+      ><a name="410" href="Views.html#410" class="Bound"
+      >x</a
+      ><a name="411"
+      > </a
+      ><a name="412" href="Views.html#412" class="Bound"
+      >xs</a
+      ><a name="414" class="Symbol"
+      >)</a
+      ><a name="415"
+      > </a
+      ><a name="416" class="Symbol"
+      >=</a
+      ><a name="417"
+      > </a
+      ><a name="418" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="422"
+      > </a
+      ><a name="423" class="Symbol"
+      >(</a
+      ><a name="424" href="Views.html#402" class="Bound"
+      >f</a
+      ><a name="425"
+      > </a
+      ><a name="426" href="Views.html#410" class="Bound"
+      >x</a
+      ><a name="427" class="Symbol"
+      >)</a
+      ><a name="428"
+      > </a
+      ><a name="429" class="Symbol"
+      >(</a
+      ><a name="430" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="438"
+      > </a
+      ><a name="439" href="Views.html#402" class="Bound"
+      >f</a
+      ><a name="440"
+      > </a
+      ><a name="441" href="Views.html#412" class="Bound"
+      >xs</a
+      ><a name="443" class="Symbol"
+      >)</a
+      ><a name="444"
+      >
+
+</a
+      ><a name="446" class="Comment"
+      >-- This can be proved, but we will postulate it for now.</a
+      ><a name="502"
+      >
+</a
+      ><a name="503" class="Keyword"
+      >postulate</a
+      ><a name="512"
+      >
+  </a
+      ><a name="515" href="Views.html#515" class="Postulate"
+      >list-map-append-commutes</a
+      ><a name="539"
+      > </a
+      ><a name="540" class="Symbol"
+      >:</a
+      ><a name="541"
+      > </a
+      ><a name="542" class="Symbol"
+      >{</a
+      ><a name="543" href="Views.html#543" class="Bound"
+      >A</a
+      ><a name="544"
+      > </a
+      ><a name="545" href="Views.html#545" class="Bound"
+      >B</a
+      ><a name="546"
+      > </a
+      ><a name="547" class="Symbol"
+      >:</a
+      ><a name="548"
+      > </a
+      ><a name="549" class="PrimitiveType"
+      >Set</a
+      ><a name="552" class="Symbol"
+      >}</a
+      ><a name="553"
+      > </a
+      ><a name="554" class="Symbol"
+      >{</a
+      ><a name="555" href="Views.html#555" class="Bound"
+      >xs</a
+      ><a name="557"
+      > </a
+      ><a name="558" href="Views.html#558" class="Bound"
+      >ys</a
+      ><a name="560"
+      > </a
+      ><a name="561" class="Symbol"
+      >:</a
+      ><a name="562"
+      > </a
+      ><a name="563" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="567"
+      > </a
+      ><a name="568" href="Views.html#543" class="Bound"
+      >A</a
+      ><a name="569" class="Symbol"
+      >}</a
+      ><a name="570"
+      > </a
+      ><a name="571" class="Symbol"
+      >{</a
+      ><a name="572" href="Views.html#572" class="Bound"
+      >f</a
+      ><a name="573"
+      > </a
+      ><a name="574" class="Symbol"
+      >:</a
+      ><a name="575"
+      > </a
+      ><a name="576" href="Views.html#543" class="Bound"
+      >A</a
+      ><a name="577"
+      > </a
+      ><a name="578" class="Symbol"
+      >&#8594;</a
+      ><a name="579"
+      > </a
+      ><a name="580" href="Views.html#545" class="Bound"
+      >B</a
+      ><a name="581" class="Symbol"
+      >}</a
+      ><a name="582"
+      >
+    </a
+      ><a name="587" class="Symbol"
+      >&#8594;</a
+      ><a name="588"
+      > </a
+      ><a name="589" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="600"
+      > </a
+      ><a name="601" class="Symbol"
+      >(</a
+      ><a name="602" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="610"
+      > </a
+      ><a name="611" href="Views.html#572" class="Bound"
+      >f</a
+      ><a name="612"
+      > </a
+      ><a name="613" href="Views.html#555" class="Bound"
+      >xs</a
+      ><a name="615" class="Symbol"
+      >)</a
+      ><a name="616"
+      > </a
+      ><a name="617" class="Symbol"
+      >(</a
+      ><a name="618" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="626"
+      > </a
+      ><a name="627" href="Views.html#572" class="Bound"
+      >f</a
+      ><a name="628"
+      > </a
+      ><a name="629" href="Views.html#558" class="Bound"
+      >ys</a
+      ><a name="631" class="Symbol"
+      >)</a
+      ><a name="632"
+      > </a
+      ><a name="633" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="634"
+      > </a
+      ><a name="635" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="643"
+      > </a
+      ><a name="644" href="Views.html#572" class="Bound"
+      >f</a
+      ><a name="645"
+      > </a
+      ><a name="646" class="Symbol"
+      >(</a
+      ><a name="647" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="658"
+      > </a
+      ><a name="659" href="Views.html#555" class="Bound"
+      >xs</a
+      ><a name="661"
+      > </a
+      ><a name="662" href="Views.html#558" class="Bound"
+      >ys</a
+      ><a name="664" class="Symbol"
+      >)</a
+      ><a name="665"
+      >
+
+</a
+      ><a name="667" class="Keyword"
+      >data</a
+      ><a name="671"
+      > </a
+      ><a name="672" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="680"
+      > </a
+      ><a name="681" class="Symbol"
+      >(</a
+      ><a name="682" href="Views.html#682" class="Bound"
+      >A</a
+      ><a name="683"
+      > </a
+      ><a name="684" class="Symbol"
+      >:</a
+      ><a name="685"
+      > </a
+      ><a name="686" class="PrimitiveType"
+      >Set</a
+      ><a name="689" class="Symbol"
+      >)</a
+      ><a name="690"
+      > </a
+      ><a name="691" class="Symbol"
+      >:</a
+      ><a name="692"
+      > </a
+      ><a name="693" class="PrimitiveType"
+      >Set</a
+      ><a name="696"
+      > </a
+      ><a name="697" class="Keyword"
+      >where</a
+      ><a name="702"
+      >
+  </a
+      ><a name="705" href="Views.html#705" class="InductiveConstructor"
+      >nil</a
+      ><a name="708"
+      > </a
+      ><a name="709" class="Symbol"
+      >:</a
+      ><a name="710"
+      > </a
+      ><a name="711" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="719"
+      > </a
+      ><a name="720" href="Views.html#682" class="Bound"
+      >A</a
+      ><a name="721"
+      >
+  </a
+      ><a name="724" href="Views.html#724" class="InductiveConstructor"
+      >unit</a
+      ><a name="728"
+      > </a
+      ><a name="729" class="Symbol"
+      >:</a
+      ><a name="730"
+      > </a
+      ><a name="731" href="Views.html#682" class="Bound"
+      >A</a
+      ><a name="732"
+      > </a
+      ><a name="733" class="Symbol"
+      >-&gt;</a
+      ><a name="735"
+      > </a
+      ><a name="736" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="744"
+      > </a
+      ><a name="745" href="Views.html#682" class="Bound"
+      >A</a
+      ><a name="746"
+      >
+  </a
+      ><a name="749" href="Views.html#749" class="InductiveConstructor"
+      >join</a
+      ><a name="753"
+      > </a
+      ><a name="754" class="Symbol"
+      >:</a
+      ><a name="755"
+      > </a
+      ><a name="756" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="764"
+      > </a
+      ><a name="765" href="Views.html#682" class="Bound"
+      >A</a
+      ><a name="766"
+      > </a
+      ><a name="767" class="Symbol"
+      >-&gt;</a
+      ><a name="769"
+      > </a
+      ><a name="770" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="778"
+      > </a
+      ><a name="779" href="Views.html#682" class="Bound"
+      >A</a
+      ><a name="780"
+      > </a
+      ><a name="781" class="Symbol"
+      >-&gt;</a
+      ><a name="783"
+      > </a
+      ><a name="784" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="792"
+      > </a
+      ><a name="793" href="Views.html#682" class="Bound"
+      >A</a
+      ><a name="794"
+      >
+
+</a
+      ><a name="796" href="Views.html#796" class="Function"
+      >join-list-empty</a
+      ><a name="811"
+      > </a
+      ><a name="812" class="Symbol"
+      >:</a
+      ><a name="813"
+      > </a
+      ><a name="814" class="Symbol"
+      >{</a
+      ><a name="815" href="Views.html#815" class="Bound"
+      >A</a
+      ><a name="816"
+      > </a
+      ><a name="817" class="Symbol"
+      >:</a
+      ><a name="818"
+      > </a
+      ><a name="819" class="PrimitiveType"
+      >Set</a
+      ><a name="822" class="Symbol"
+      >}</a
+      ><a name="823"
+      > </a
+      ><a name="824" class="Symbol"
+      >-&gt;</a
+      ><a name="826"
+      > </a
+      ><a name="827" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="835"
+      > </a
+      ><a name="836" href="Views.html#815" class="Bound"
+      >A</a
+      ><a name="837"
+      >
+</a
+      ><a name="838" href="Views.html#796" class="Function"
+      >join-list-empty</a
+      ><a name="853"
+      > </a
+      ><a name="854" class="Symbol"
+      >=</a
+      ><a name="855"
+      > </a
+      ><a name="856" href="Views.html#705" class="InductiveConstructor"
+      >nil</a
+      ><a name="859"
+      >
+
+</a
+      ><a name="861" href="Views.html#861" class="Function"
+      >join-list-single</a
+      ><a name="877"
+      > </a
+      ><a name="878" class="Symbol"
+      >:</a
+      ><a name="879"
+      > </a
+      ><a name="880" class="Symbol"
+      >{</a
+      ><a name="881" href="Views.html#881" class="Bound"
+      >A</a
+      ><a name="882"
+      > </a
+      ><a name="883" class="Symbol"
+      >:</a
+      ><a name="884"
+      > </a
+      ><a name="885" class="PrimitiveType"
+      >Set</a
+      ><a name="888" class="Symbol"
+      >}</a
+      ><a name="889"
+      > </a
+      ><a name="890" class="Symbol"
+      >-&gt;</a
+      ><a name="892"
+      > </a
+      ><a name="893" href="Views.html#881" class="Bound"
+      >A</a
+      ><a name="894"
+      > </a
+      ><a name="895" class="Symbol"
+      >-&gt;</a
+      ><a name="897"
+      > </a
+      ><a name="898" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="906"
+      > </a
+      ><a name="907" href="Views.html#881" class="Bound"
+      >A</a
+      ><a name="908"
+      >
+</a
+      ><a name="909" href="Views.html#861" class="Function"
+      >join-list-single</a
+      ><a name="925"
+      > </a
+      ><a name="926" class="Symbol"
+      >=</a
+      ><a name="927"
+      > </a
+      ><a name="928" href="Views.html#724" class="InductiveConstructor"
+      >unit</a
+      ><a name="932"
+      >
+
+</a
+      ><a name="934" href="Views.html#934" class="Function"
+      >join-list-append</a
+      ><a name="950"
+      > </a
+      ><a name="951" class="Symbol"
+      >:</a
+      ><a name="952"
+      > </a
+      ><a name="953" class="Symbol"
+      >{</a
+      ><a name="954" href="Views.html#954" class="Bound"
+      >A</a
+      ><a name="955"
+      > </a
+      ><a name="956" class="Symbol"
+      >:</a
+      ><a name="957"
+      > </a
+      ><a name="958" class="PrimitiveType"
+      >Set</a
+      ><a name="961" class="Symbol"
+      >}</a
+      ><a name="962"
+      > </a
+      ><a name="963" class="Symbol"
+      >-&gt;</a
+      ><a name="965"
+      > </a
+      ><a name="966" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="974"
+      > </a
+      ><a name="975" href="Views.html#954" class="Bound"
+      >A</a
+      ><a name="976"
+      > </a
+      ><a name="977" class="Symbol"
+      >-&gt;</a
+      ><a name="979"
+      > </a
+      ><a name="980" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="988"
+      > </a
+      ><a name="989" href="Views.html#954" class="Bound"
+      >A</a
+      ><a name="990"
+      > </a
+      ><a name="991" class="Symbol"
+      >-&gt;</a
+      ><a name="993"
+      > </a
+      ><a name="994" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" href="Views.html#954" class="Bound"
+      >A</a
+      ><a name="1004"
+      >
+</a
+      ><a name="1005" href="Views.html#934" class="Function"
+      >join-list-append</a
+      ><a name="1021"
+      > </a
+      ><a name="1022" href="Views.html#1022" class="Bound"
+      >l</a
+      ><a name="1023"
+      > </a
+      ><a name="1024" href="Views.html#1024" class="Bound"
+      >r</a
+      ><a name="1025"
+      > </a
+      ><a name="1026" class="Symbol"
+      >=</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" href="Views.html#749" class="InductiveConstructor"
+      >join</a
+      ><a name="1032"
+      > </a
+      ><a name="1033" href="Views.html#1022" class="Bound"
+      >l</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" href="Views.html#1024" class="Bound"
+      >r</a
+      ><a name="1036"
+      >
+
+</a
+      ><a name="1038" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" class="Symbol"
+      >:</a
+      ><a name="1053"
+      > </a
+      ><a name="1054" class="Symbol"
+      >{</a
+      ><a name="1055" href="Views.html#1055" class="Bound"
+      >A</a
+      ><a name="1056"
+      > </a
+      ><a name="1057" href="Views.html#1057" class="Bound"
+      >B</a
+      ><a name="1058"
+      > </a
+      ><a name="1059" class="Symbol"
+      >:</a
+      ><a name="1060"
+      > </a
+      ><a name="1061" class="PrimitiveType"
+      >Set</a
+      ><a name="1064" class="Symbol"
+      >}</a
+      ><a name="1065"
+      > </a
+      ><a name="1066" class="Symbol"
+      >-&gt;</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" class="Symbol"
+      >(</a
+      ><a name="1070" href="Views.html#1055" class="Bound"
+      >A</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" class="Symbol"
+      >-&gt;</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" href="Views.html#1057" class="Bound"
+      >B</a
+      ><a name="1076" class="Symbol"
+      >)</a
+      ><a name="1077"
+      > </a
+      ><a name="1078" class="Symbol"
+      >-&gt;</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" href="Views.html#1055" class="Bound"
+      >A</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" class="Symbol"
+      >-&gt;</a
+      ><a name="1094"
+      > </a
+      ><a name="1095" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="1103"
+      > </a
+      ><a name="1104" href="Views.html#1057" class="Bound"
+      >B</a
+      ><a name="1105"
+      >
+</a
+      ><a name="1106" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" href="Views.html#1120" class="Bound"
+      >f</a
+      ><a name="1121"
+      > </a
+      ><a name="1122" href="Views.html#705" class="InductiveConstructor"
+      >nil</a
+      ><a name="1125"
+      > </a
+      ><a name="1126" class="Symbol"
+      >=</a
+      ><a name="1127"
+      > </a
+      ><a name="1128" href="Views.html#705" class="InductiveConstructor"
+      >nil</a
+      ><a name="1131"
+      >
+</a
+      ><a name="1132" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" href="Views.html#1146" class="Bound"
+      >f</a
+      ><a name="1147"
+      > </a
+      ><a name="1148" class="Symbol"
+      >(</a
+      ><a name="1149" href="Views.html#724" class="InductiveConstructor"
+      >unit</a
+      ><a name="1153"
+      > </a
+      ><a name="1154" href="Views.html#1154" class="Bound"
+      >x</a
+      ><a name="1155" class="Symbol"
+      >)</a
+      ><a name="1156"
+      > </a
+      ><a name="1157" class="Symbol"
+      >=</a
+      ><a name="1158"
+      > </a
+      ><a name="1159" href="Views.html#724" class="InductiveConstructor"
+      >unit</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" class="Symbol"
+      >(</a
+      ><a name="1165" href="Views.html#1146" class="Bound"
+      >f</a
+      ><a name="1166"
+      > </a
+      ><a name="1167" href="Views.html#1154" class="Bound"
+      >x</a
+      ><a name="1168" class="Symbol"
+      >)</a
+      ><a name="1169"
+      >
+</a
+      ><a name="1170" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" href="Views.html#1184" class="Bound"
+      >f</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" class="Symbol"
+      >(</a
+      ><a name="1187" href="Views.html#749" class="InductiveConstructor"
+      >join</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" href="Views.html#1192" class="Bound"
+      >l</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" href="Views.html#1194" class="Bound"
+      >r</a
+      ><a name="1195" class="Symbol"
+      >)</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" class="Symbol"
+      >=</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="Views.html#749" class="InductiveConstructor"
+      >join</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" class="Symbol"
+      >(</a
+      ><a name="1205" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="1218"
+      > </a
+      ><a name="1219" href="Views.html#1184" class="Bound"
+      >f</a
+      ><a name="1220"
+      > </a
+      ><a name="1221" href="Views.html#1192" class="Bound"
+      >l</a
+      ><a name="1222" class="Symbol"
+      >)</a
+      ><a name="1223"
+      > </a
+      ><a name="1224" class="Symbol"
+      >(</a
+      ><a name="1225" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" href="Views.html#1184" class="Bound"
+      >f</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" href="Views.html#1194" class="Bound"
+      >r</a
+      ><a name="1242" class="Symbol"
+      >)</a
+      ><a name="1243"
+      >
+
+</a
+      ><a name="1245" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1247"
+      > </a
+      ><a name="1248" class="Symbol"
+      >:</a
+      ><a name="1249"
+      > </a
+      ><a name="1250" class="Symbol"
+      >{</a
+      ><a name="1251" href="Views.html#1251" class="Bound"
+      >A</a
+      ><a name="1252"
+      > </a
+      ><a name="1253" class="Symbol"
+      >:</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" class="PrimitiveType"
+      >Set</a
+      ><a name="1258" class="Symbol"
+      >}</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" class="Symbol"
+      >-&gt;</a
+      ><a name="1262"
+      > </a
+      ><a name="1263" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="1271"
+      > </a
+      ><a name="1272" href="Views.html#1251" class="Bound"
+      >A</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" class="Symbol"
+      >-&gt;</a
+      ><a name="1276"
+      > </a
+      ><a name="1277" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" href="Views.html#1251" class="Bound"
+      >A</a
+      ><a name="1283"
+      >
+</a
+      ><a name="1284" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1286"
+      > </a
+      ><a name="1287" href="Views.html#705" class="InductiveConstructor"
+      >nil</a
+      ><a name="1290"
+      > </a
+      ><a name="1291" class="Symbol"
+      >=</a
+      ><a name="1292"
+      > </a
+      ><a name="1293" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="1296"
+      >
+</a
+      ><a name="1297" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1299"
+      > </a
+      ><a name="1300" class="Symbol"
+      >(</a
+      ><a name="1301" href="Views.html#724" class="InductiveConstructor"
+      >unit</a
+      ><a name="1305"
+      > </a
+      ><a name="1306" href="Views.html#1306" class="Bound"
+      >x</a
+      ><a name="1307" class="Symbol"
+      >)</a
+      ><a name="1308"
+      > </a
+      ><a name="1309" class="Symbol"
+      >=</a
+      ><a name="1310"
+      > </a
+      ><a name="1311" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="1315"
+      > </a
+      ><a name="1316" href="Views.html#1306" class="Bound"
+      >x</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="1321"
+      >
+</a
+      ><a name="1322" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1324"
+      > </a
+      ><a name="1325" class="Symbol"
+      >(</a
+      ><a name="1326" href="Views.html#749" class="InductiveConstructor"
+      >join</a
+      ><a name="1330"
+      > </a
+      ><a name="1331" href="Views.html#1331" class="Bound"
+      >l</a
+      ><a name="1332"
+      > </a
+      ><a name="1333" href="Views.html#1333" class="Bound"
+      >r</a
+      ><a name="1334" class="Symbol"
+      >)</a
+      ><a name="1335"
+      > </a
+      ><a name="1336" class="Symbol"
+      >=</a
+      ><a name="1337"
+      > </a
+      ><a name="1338" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="1349"
+      > </a
+      ><a name="1350" class="Symbol"
+      >(</a
+      ><a name="1351" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1353"
+      > </a
+      ><a name="1354" href="Views.html#1331" class="Bound"
+      >l</a
+      ><a name="1355" class="Symbol"
+      >)</a
+      ><a name="1356"
+      > </a
+      ><a name="1357" class="Symbol"
+      >(</a
+      ><a name="1358" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1360"
+      > </a
+      ><a name="1361" href="Views.html#1333" class="Bound"
+      >r</a
+      ><a name="1362" class="Symbol"
+      >)</a
+      ><a name="1363"
+      >
+
+</a
+      ><a name="1365" href="Views.html#1365" class="Function"
+      >from</a
+      ><a name="1369"
+      > </a
+      ><a name="1370" class="Symbol"
+      >:</a
+      ><a name="1371"
+      > </a
+      ><a name="1372" class="Symbol"
+      >{</a
+      ><a name="1373" href="Views.html#1373" class="Bound"
+      >A</a
+      ><a name="1374"
+      > </a
+      ><a name="1375" class="Symbol"
+      >:</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" class="PrimitiveType"
+      >Set</a
+      ><a name="1380" class="Symbol"
+      >}</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" class="Symbol"
+      >-&gt;</a
+      ><a name="1384"
+      > </a
+      ><a name="1385" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="1389"
+      > </a
+      ><a name="1390" href="Views.html#1373" class="Bound"
+      >A</a
+      ><a name="1391"
+      > </a
+      ><a name="1392" class="Symbol"
+      >-&gt;</a
+      ><a name="1394"
+      > </a
+      ><a name="1395" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="1403"
+      > </a
+      ><a name="1404" href="Views.html#1373" class="Bound"
+      >A</a
+      ><a name="1405"
+      >
+</a
+      ><a name="1406" href="Views.html#1365" class="Function"
+      >from</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="1414"
+      > </a
+      ><a name="1415" class="Symbol"
+      >=</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" href="Views.html#705" class="InductiveConstructor"
+      >nil</a
+      ><a name="1420"
+      >
+</a
+      ><a name="1421" href="Views.html#1365" class="Function"
+      >from</a
+      ><a name="1425"
+      > </a
+      ><a name="1426" class="Symbol"
+      >(</a
+      ><a name="1427" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="1431"
+      > </a
+      ><a name="1432" href="Views.html#1432" class="Bound"
+      >x</a
+      ><a name="1433"
+      > </a
+      ><a name="1434" href="Views.html#1434" class="Bound"
+      >xs</a
+      ><a name="1436" class="Symbol"
+      >)</a
+      ><a name="1437"
+      > </a
+      ><a name="1438" class="Symbol"
+      >=</a
+      ><a name="1439"
+      > </a
+      ><a name="1440" href="Views.html#749" class="InductiveConstructor"
+      >join</a
+      ><a name="1444"
+      > </a
+      ><a name="1445" class="Symbol"
+      >(</a
+      ><a name="1446" href="Views.html#724" class="InductiveConstructor"
+      >unit</a
+      ><a name="1450"
+      > </a
+      ><a name="1451" href="Views.html#1432" class="Bound"
+      >x</a
+      ><a name="1452" class="Symbol"
+      >)</a
+      ><a name="1453"
+      > </a
+      ><a name="1454" class="Symbol"
+      >(</a
+      ><a name="1455" href="Views.html#1365" class="Function"
+      >from</a
+      ><a name="1459"
+      > </a
+      ><a name="1460" href="Views.html#1434" class="Bound"
+      >xs</a
+      ><a name="1462" class="Symbol"
+      >)</a
+      ><a name="1463"
+      >
+
+</a
+      ><a name="1465" href="Views.html#1465" class="Function"
+      >is-retraction</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" class="Symbol"
+      >:</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" class="Symbol"
+      >{</a
+      ><a name="1482" href="Views.html#1482" class="Bound"
+      >A</a
+      ><a name="1483"
+      > </a
+      ><a name="1484" class="Symbol"
+      >:</a
+      ><a name="1485"
+      > </a
+      ><a name="1486" class="PrimitiveType"
+      >Set</a
+      ><a name="1489" class="Symbol"
+      >}</a
+      ><a name="1490"
+      > </a
+      ><a name="1491" class="Symbol"
+      >-&gt;</a
+      ><a name="1493"
+      > </a
+      ><a name="1494" class="Symbol"
+      >(</a
+      ><a name="1495" href="Views.html#1495" class="Bound"
+      >xs</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" class="Symbol"
+      >:</a
+      ><a name="1499"
+      > </a
+      ><a name="1500" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" href="Views.html#1482" class="Bound"
+      >A</a
+      ><a name="1506" class="Symbol"
+      >)</a
+      ><a name="1507"
+      > </a
+      ><a name="1508" class="Symbol"
+      >-&gt;</a
+      ><a name="1510"
+      > </a
+      ><a name="1511" class="Symbol"
+      >(</a
+      ><a name="1512" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1514"
+      > </a
+      ><a name="1515" class="Symbol"
+      >(</a
+      ><a name="1516" href="Views.html#1365" class="Function"
+      >from</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" href="Views.html#1495" class="Bound"
+      >xs</a
+      ><a name="1523" class="Symbol"
+      >))</a
+      ><a name="1525"
+      > </a
+      ><a name="1526" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="1527"
+      > </a
+      ><a name="1528" href="Views.html#1495" class="Bound"
+      >xs</a
+      ><a name="1530"
+      >
+</a
+      ><a name="1531" href="Views.html#1465" class="Function"
+      >is-retraction</a
+      ><a name="1544"
+      > </a
+      ><a name="1545" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="1548"
+      > </a
+      ><a name="1549" class="Symbol"
+      >=</a
+      ><a name="1550"
+      > </a
+      ><a name="1551" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="1555"
+      >
+</a
+      ><a name="1556" href="Views.html#1465" class="Function"
+      >is-retraction</a
+      ><a name="1569"
+      > </a
+      ><a name="1570" class="Symbol"
+      >(</a
+      ><a name="1571" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="1575"
+      > </a
+      ><a name="1576" href="Views.html#1576" class="Bound"
+      >x</a
+      ><a name="1577"
+      > </a
+      ><a name="1578" href="Views.html#1578" class="Bound"
+      >xs</a
+      ><a name="1580" class="Symbol"
+      >)</a
+      ><a name="1581"
+      > </a
+      ><a name="1582" class="Symbol"
+      >=</a
+      ><a name="1583"
+      > </a
+      ><a name="1584" href="Identity.html#1771" class="Function"
+      >ap</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" class="Symbol"
+      >(</a
+      ><a name="1588" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="1592"
+      > </a
+      ><a name="1593" href="Views.html#1576" class="Bound"
+      >x</a
+      ><a name="1594" class="Symbol"
+      >)</a
+      ><a name="1595"
+      > </a
+      ><a name="1596" class="Symbol"
+      >(</a
+      ><a name="1597" href="Views.html#1465" class="Function"
+      >is-retraction</a
+      ><a name="1610"
+      > </a
+      ><a name="1611" href="Views.html#1578" class="Bound"
+      >xs</a
+      ><a name="1613" class="Symbol"
+      >)</a
+      ><a name="1614"
+      >
+
+</a
+      ><a name="1616" class="Comment"
+      >-- Join lists satisfy the properties</a
+      ><a name="1652"
+      >
+</a
+      ><a name="1653" href="Views.html#1653" class="Function"
+      >empty-resp</a
+      ><a name="1663"
+      > </a
+      ><a name="1664" class="Symbol"
+      >:</a
+      ><a name="1665"
+      > </a
+      ><a name="1666" class="Symbol"
+      >{</a
+      ><a name="1667" href="Views.html#1667" class="Bound"
+      >A</a
+      ><a name="1668"
+      > </a
+      ><a name="1669" class="Symbol"
+      >:</a
+      ><a name="1670"
+      > </a
+      ><a name="1671" class="PrimitiveType"
+      >Set</a
+      ><a name="1674" class="Symbol"
+      >}</a
+      ><a name="1675"
+      > </a
+      ><a name="1676" class="Symbol"
+      >-&gt;</a
+      ><a name="1678"
+      > </a
+      ><a name="1679" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1681"
+      > </a
+      ><a name="1682" class="Symbol"
+      >(</a
+      ><a name="1683" href="Views.html#796" class="Function"
+      >join-list-empty</a
+      ><a name="1698"
+      > </a
+      ><a name="1699" class="Symbol"
+      >{</a
+      ><a name="1700" href="Views.html#1667" class="Bound"
+      >A</a
+      ><a name="1701" class="Symbol"
+      >})</a
+      ><a name="1703"
+      > </a
+      ><a name="1704" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="1705"
+      > </a
+      ><a name="1706" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="1709"
+      >
+</a
+      ><a name="1710" href="Views.html#1653" class="Function"
+      >empty-resp</a
+      ><a name="1720"
+      > </a
+      ><a name="1721" class="Symbol"
+      >=</a
+      ><a name="1722"
+      > </a
+      ><a name="1723" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="1727"
+      >
+
+</a
+      ><a name="1729" href="Views.html#1729" class="Function"
+      >single-resp</a
+      ><a name="1740"
+      > </a
+      ><a name="1741" class="Symbol"
+      >:</a
+      ><a name="1742"
+      > </a
+      ><a name="1743" class="Symbol"
+      >{</a
+      ><a name="1744" href="Views.html#1744" class="Bound"
+      >A</a
+      ><a name="1745"
+      > </a
+      ><a name="1746" class="Symbol"
+      >:</a
+      ><a name="1747"
+      > </a
+      ><a name="1748" class="PrimitiveType"
+      >Set</a
+      ><a name="1751" class="Symbol"
+      >}</a
+      ><a name="1752"
+      > </a
+      ><a name="1753" class="Symbol"
+      >-&gt;</a
+      ><a name="1755"
+      > </a
+      ><a name="1756" class="Symbol"
+      >(</a
+      ><a name="1757" href="Views.html#1757" class="Bound"
+      >a</a
+      ><a name="1758"
+      > </a
+      ><a name="1759" class="Symbol"
+      >:</a
+      ><a name="1760"
+      > </a
+      ><a name="1761" href="Views.html#1744" class="Bound"
+      >A</a
+      ><a name="1762" class="Symbol"
+      >)</a
+      ><a name="1763"
+      > </a
+      ><a name="1764" class="Symbol"
+      >-&gt;</a
+      ><a name="1766"
+      > </a
+      ><a name="1767" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1769"
+      > </a
+      ><a name="1770" class="Symbol"
+      >(</a
+      ><a name="1771" href="Views.html#861" class="Function"
+      >join-list-single</a
+      ><a name="1787"
+      > </a
+      ><a name="1788" href="Views.html#1757" class="Bound"
+      >a</a
+      ><a name="1789" class="Symbol"
+      >)</a
+      ><a name="1790"
+      > </a
+      ><a name="1791" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="1792"
+      > </a
+      ><a name="1793" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="1797"
+      > </a
+      ><a name="1798" href="Views.html#1757" class="Bound"
+      >a</a
+      ><a name="1799"
+      > </a
+      ><a name="1800" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="1803"
+      >
+</a
+      ><a name="1804" href="Views.html#1729" class="Function"
+      >single-resp</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" class="Symbol"
+      >_</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" class="Symbol"
+      >=</a
+      ><a name="1819"
+      > </a
+      ><a name="1820" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="1824"
+      >
+
+</a
+      ><a name="1826" href="Views.html#1826" class="Function"
+      >append-resp</a
+      ><a name="1837"
+      > </a
+      ><a name="1838" class="Symbol"
+      >:</a
+      ><a name="1839"
+      > </a
+      ><a name="1840" class="Symbol"
+      >{</a
+      ><a name="1841" href="Views.html#1841" class="Bound"
+      >A</a
+      ><a name="1842"
+      > </a
+      ><a name="1843" class="Symbol"
+      >:</a
+      ><a name="1844"
+      > </a
+      ><a name="1845" class="PrimitiveType"
+      >Set</a
+      ><a name="1848" class="Symbol"
+      >}</a
+      ><a name="1849"
+      > </a
+      ><a name="1850" class="Symbol"
+      >-&gt;</a
+      ><a name="1852"
+      > </a
+      ><a name="1853" class="Symbol"
+      >(</a
+      ><a name="1854" href="Views.html#1854" class="Bound"
+      >xs</a
+      ><a name="1856"
+      > </a
+      ><a name="1857" href="Views.html#1857" class="Bound"
+      >ys</a
+      ><a name="1859"
+      > </a
+      ><a name="1860" class="Symbol"
+      >:</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="1870"
+      > </a
+      ><a name="1871" href="Views.html#1841" class="Bound"
+      >A</a
+      ><a name="1872" class="Symbol"
+      >)</a
+      ><a name="1873"
+      > </a
+      ><a name="1874" class="Symbol"
+      >-&gt;</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1879"
+      > </a
+      ><a name="1880" class="Symbol"
+      >(</a
+      ><a name="1881" href="Views.html#934" class="Function"
+      >join-list-append</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" href="Views.html#1854" class="Bound"
+      >xs</a
+      ><a name="1900"
+      > </a
+      ><a name="1901" href="Views.html#1857" class="Bound"
+      >ys</a
+      ><a name="1903" class="Symbol"
+      >)</a
+      ><a name="1904"
+      > </a
+      ><a name="1905" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="1906"
+      > </a
+      ><a name="1907" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="1918"
+      > </a
+      ><a name="1919" class="Symbol"
+      >(</a
+      ><a name="1920" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1922"
+      > </a
+      ><a name="1923" href="Views.html#1854" class="Bound"
+      >xs</a
+      ><a name="1925" class="Symbol"
+      >)</a
+      ><a name="1926"
+      > </a
+      ><a name="1927" class="Symbol"
+      >(</a
+      ><a name="1928" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="1930"
+      > </a
+      ><a name="1931" href="Views.html#1857" class="Bound"
+      >ys</a
+      ><a name="1933" class="Symbol"
+      >)</a
+      ><a name="1934"
+      >
+</a
+      ><a name="1935" href="Views.html#1826" class="Function"
+      >append-resp</a
+      ><a name="1946"
+      > </a
+      ><a name="1947" class="Symbol"
+      >_</a
+      ><a name="1948"
+      > </a
+      ><a name="1949" class="Symbol"
+      >_</a
+      ><a name="1950"
+      > </a
+      ><a name="1951" class="Symbol"
+      >=</a
+      ><a name="1952"
+      > </a
+      ><a name="1953" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="1957"
+      >
+
+</a
+      ><a name="1959" href="Views.html#1959" class="Function"
+      >map-resp</a
+      ><a name="1967"
+      > </a
+      ><a name="1968" class="Symbol"
+      >:</a
+      ><a name="1969"
+      > </a
+      ><a name="1970" class="Symbol"
+      >{</a
+      ><a name="1971" href="Views.html#1971" class="Bound"
+      >A</a
+      ><a name="1972"
+      > </a
+      ><a name="1973" href="Views.html#1973" class="Bound"
+      >B</a
+      ><a name="1974"
+      > </a
+      ><a name="1975" class="Symbol"
+      >:</a
+      ><a name="1976"
+      > </a
+      ><a name="1977" class="PrimitiveType"
+      >Set</a
+      ><a name="1980" class="Symbol"
+      >}</a
+      ><a name="1981"
+      > </a
+      ><a name="1982" class="Symbol"
+      >-&gt;</a
+      ><a name="1984"
+      > </a
+      ><a name="1985" class="Symbol"
+      >(</a
+      ><a name="1986" href="Views.html#1986" class="Bound"
+      >f</a
+      ><a name="1987"
+      > </a
+      ><a name="1988" class="Symbol"
+      >:</a
+      ><a name="1989"
+      > </a
+      ><a name="1990" href="Views.html#1971" class="Bound"
+      >A</a
+      ><a name="1991"
+      > </a
+      ><a name="1992" class="Symbol"
+      >-&gt;</a
+      ><a name="1994"
+      > </a
+      ><a name="1995" href="Views.html#1973" class="Bound"
+      >B</a
+      ><a name="1996" class="Symbol"
+      >)</a
+      ><a name="1997"
+      > </a
+      ><a name="1998" class="Symbol"
+      >-&gt;</a
+      ><a name="2000"
+      > </a
+      ><a name="2001" class="Symbol"
+      >(</a
+      ><a name="2002" href="Views.html#2002" class="Bound"
+      >xs</a
+      ><a name="2004"
+      > </a
+      ><a name="2005" class="Symbol"
+      >:</a
+      ><a name="2006"
+      > </a
+      ><a name="2007" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="2015"
+      > </a
+      ><a name="2016" href="Views.html#1971" class="Bound"
+      >A</a
+      ><a name="2017" class="Symbol"
+      >)</a
+      ><a name="2018"
+      > </a
+      ><a name="2019" class="Symbol"
+      >-&gt;</a
+      ><a name="2021"
+      > </a
+      ><a name="2022" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="2024"
+      > </a
+      ><a name="2025" class="Symbol"
+      >(</a
+      ><a name="2026" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="2039"
+      > </a
+      ><a name="2040" href="Views.html#1986" class="Bound"
+      >f</a
+      ><a name="2041"
+      > </a
+      ><a name="2042" href="Views.html#2002" class="Bound"
+      >xs</a
+      ><a name="2044" class="Symbol"
+      >)</a
+      ><a name="2045"
+      > </a
+      ><a name="2046" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="2047"
+      > </a
+      ><a name="2048" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="2056"
+      > </a
+      ><a name="2057" href="Views.html#1986" class="Bound"
+      >f</a
+      ><a name="2058"
+      > </a
+      ><a name="2059" class="Symbol"
+      >(</a
+      ><a name="2060" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="2062"
+      > </a
+      ><a name="2063" href="Views.html#2002" class="Bound"
+      >xs</a
+      ><a name="2065" class="Symbol"
+      >)</a
+      ><a name="2066"
+      >
+</a
+      ><a name="2067" href="Views.html#1959" class="Function"
+      >map-resp</a
+      ><a name="2075"
+      > </a
+      ><a name="2076" href="Views.html#2076" class="Bound"
+      >f</a
+      ><a name="2077"
+      > </a
+      ><a name="2078" href="Views.html#705" class="InductiveConstructor"
+      >nil</a
+      ><a name="2081"
+      > </a
+      ><a name="2082" class="Symbol"
+      >=</a
+      ><a name="2083"
+      > </a
+      ><a name="2084" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="2088"
+      >
+</a
+      ><a name="2089" href="Views.html#1959" class="Function"
+      >map-resp</a
+      ><a name="2097"
+      > </a
+      ><a name="2098" href="Views.html#2098" class="Bound"
+      >f</a
+      ><a name="2099"
+      > </a
+      ><a name="2100" class="Symbol"
+      >(</a
+      ><a name="2101" href="Views.html#724" class="InductiveConstructor"
+      >unit</a
+      ><a name="2105"
+      > </a
+      ><a name="2106" href="Views.html#2106" class="Bound"
+      >x</a
+      ><a name="2107" class="Symbol"
+      >)</a
+      ><a name="2108"
+      > </a
+      ><a name="2109" class="Symbol"
+      >=</a
+      ><a name="2110"
+      > </a
+      ><a name="2111" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="2115"
+      >
+</a
+      ><a name="2116" href="Views.html#1959" class="Function"
+      >map-resp</a
+      ><a name="2124"
+      > </a
+      ><a name="2125" href="Views.html#2125" class="Bound"
+      >f</a
+      ><a name="2126"
+      > </a
+      ><a name="2127" class="Symbol"
+      >(</a
+      ><a name="2128" href="Views.html#749" class="InductiveConstructor"
+      >join</a
+      ><a name="2132"
+      > </a
+      ><a name="2133" href="Views.html#2133" class="Bound"
+      >l</a
+      ><a name="2134"
+      > </a
+      ><a name="2135" href="Views.html#2135" class="Bound"
+      >r</a
+      ><a name="2136" class="Symbol"
+      >)</a
+      ><a name="2137"
+      > </a
+      ><a name="2138" class="Keyword"
+      >with</a
+      ><a name="2142"
+      > </a
+      ><a name="2143" href="Views.html#1959" class="Function"
+      >map-resp</a
+      ><a name="2151"
+      > </a
+      ><a name="2152" href="Views.html#2125" class="Bound"
+      >f</a
+      ><a name="2153"
+      > </a
+      ><a name="2154" href="Views.html#2133" class="Bound"
+      >l</a
+      ><a name="2155"
+      >
+</a
+      ><a name="2156" class="Symbol"
+      >...</a
+      ><a name="2159"
+      > </a
+      ><a name="2160" class="Symbol"
+      >|</a
+      ><a name="2161"
+      > </a
+      ><a name="2162" href="Views.html#2162" class="Bound"
+      >p&#8343;</a
+      ><a name="2164"
+      > </a
+      ><a name="2165" class="Keyword"
+      >with</a
+      ><a name="2169"
+      > </a
+      ><a name="2170" href="Views.html#1959" class="Function"
+      >map-resp</a
+      ><a name="2178"
+      > </a
+      ><a name="2179" href="Views.html#2125" class="Bound"
+      >f</a
+      ><a name="2180"
+      > </a
+      ><a name="2181" href="Views.html#2135" class="Bound"
+      >r</a
+      ><a name="2182"
+      >
+</a
+      ><a name="2183" class="Symbol"
+      >...</a
+      ><a name="2186"
+      > </a
+      ><a name="2187" class="Symbol"
+      >|</a
+      ><a name="2188"
+      > </a
+      ><a name="2189" href="Views.html#2189" class="Bound"
+      >p&#7523;</a
+      ><a name="2191"
+      > </a
+      ><a name="2192" class="Symbol"
+      >=</a
+      ><a name="2193"
+      > </a
+      ><a name="2194" href="Identity.html#303" class="Function"
+      >trans</a
+      ><a name="2199"
+      > </a
+      ><a name="2200" class="Symbol"
+      >(</a
+      ><a name="2201" href="Identity.html#1771" class="Function"
+      >ap</a
+      ><a name="2203"
+      > </a
+      ><a name="2204" class="Symbol"
+      >(&#955;</a
+      ><a name="2206"
+      > </a
+      ><a name="2207" href="Views.html#2207" class="Bound"
+      >xs</a
+      ><a name="2209"
+      > </a
+      ><a name="2210" class="Symbol"
+      >&#8594;</a
+      ><a name="2211"
+      > </a
+      ><a name="2212" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="2223"
+      > </a
+      ><a name="2224" href="Views.html#2207" class="Bound"
+      >xs</a
+      ><a name="2226"
+      > </a
+      ><a name="2227" class="Symbol"
+      >(</a
+      ><a name="2228" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="2230"
+      > </a
+      ><a name="2231" class="Symbol"
+      >(</a
+      ><a name="2232" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="2245"
+      > </a
+      ><a name="2246" href="Views.html#2125" class="Bound"
+      >f</a
+      ><a name="2247"
+      > </a
+      ><a name="2248" href="Views.html#2135" class="Bound"
+      >r</a
+      ><a name="2249" class="Symbol"
+      >)))</a
+      ><a name="2252"
+      > </a
+      ><a name="2253" href="Views.html#2162" class="Bound"
+      >p&#8343;</a
+      ><a name="2255" class="Symbol"
+      >)</a
+      ><a name="2256"
+      > 
+           </a
+      ><a name="2269" class="Symbol"
+      >(</a
+      ><a name="2270" href="Identity.html#303" class="Function"
+      >trans</a
+      ><a name="2275"
+      > </a
+      ><a name="2276" class="Symbol"
+      >(</a
+      ><a name="2277" href="Identity.html#1771" class="Function"
+      >ap</a
+      ><a name="2279"
+      > </a
+      ><a name="2280" class="Symbol"
+      >(&#955;</a
+      ><a name="2282"
+      > </a
+      ><a name="2283" href="Views.html#2283" class="Bound"
+      >ys</a
+      ><a name="2285"
+      > </a
+      ><a name="2286" class="Symbol"
+      >&#8594;</a
+      ><a name="2287"
+      > </a
+      ><a name="2288" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="2299"
+      > </a
+      ><a name="2300" class="Symbol"
+      >(</a
+      ><a name="2301" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="2309"
+      > </a
+      ><a name="2310" href="Views.html#2125" class="Bound"
+      >f</a
+      ><a name="2311"
+      > </a
+      ><a name="2312" class="Symbol"
+      >(</a
+      ><a name="2313" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="2315"
+      > </a
+      ><a name="2316" href="Views.html#2133" class="Bound"
+      >l</a
+      ><a name="2317" class="Symbol"
+      >))</a
+      ><a name="2319"
+      > </a
+      ><a name="2320" href="Views.html#2283" class="Bound"
+      >ys</a
+      ><a name="2322" class="Symbol"
+      >)</a
+      ><a name="2323"
+      > </a
+      ><a name="2324" href="Views.html#2189" class="Bound"
+      >p&#7523;</a
+      ><a name="2326" class="Symbol"
+      >)</a
+      ><a name="2327"
+      > 
+           </a
+      ><a name="2340" class="Symbol"
+      >(</a
+      ><a name="2341" href="Views.html#515" class="Postulate"
+      >list-map-append-commutes</a
+      ><a name="2365"
+      > </a
+      ><a name="2366" class="Symbol"
+      >{</a
+      ><a name="2367"
+      >xs </a
+      ><a name="2370" class="Symbol"
+      >=</a
+      ><a name="2371"
+      > </a
+      ><a name="2372" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="2374"
+      > </a
+      ><a name="2375" href="Views.html#2133" class="Bound"
+      >l</a
+      ><a name="2376" class="Symbol"
+      >}</a
+      ><a name="2377"
+      > </a
+      ><a name="2378" class="Symbol"
+      >{</a
+      ><a name="2379"
+      >ys </a
+      ><a name="2382" class="Symbol"
+      >=</a
+      ><a name="2383"
+      > </a
+      ><a name="2384" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="2386"
+      > </a
+      ><a name="2387" href="Views.html#2135" class="Bound"
+      >r</a
+      ><a name="2388" class="Symbol"
+      >}</a
+      ><a name="2389"
+      > </a
+      ><a name="2390" class="Symbol"
+      >{</a
+      ><a name="2391"
+      >f </a
+      ><a name="2393" class="Symbol"
+      >=</a
+      ><a name="2394"
+      > </a
+      ><a name="2395" href="Views.html#2125" class="Bound"
+      >f</a
+      ><a name="2396" class="Symbol"
+      >}))</a
+      ><a name="2399"
+      >
+
+</a
+      ><a name="2401" class="Comment"
+      >-- Quotient method</a
+      ><a name="2419"
+      >
+</a
+      ><a name="2420" href="Views.html#2420" class="Function"
+      >rel</a
+      ><a name="2423"
+      > </a
+      ><a name="2424" class="Symbol"
+      >:</a
+      ><a name="2425"
+      > </a
+      ><a name="2426" class="Symbol"
+      >{</a
+      ><a name="2427" href="Views.html#2427" class="Bound"
+      >X</a
+      ><a name="2428"
+      > </a
+      ><a name="2429" class="Symbol"
+      >:</a
+      ><a name="2430"
+      > </a
+      ><a name="2431" class="PrimitiveType"
+      >Set</a
+      ><a name="2434" class="Symbol"
+      >}</a
+      ><a name="2435"
+      > </a
+      ><a name="2436" class="Symbol"
+      >-&gt;</a
+      ><a name="2438"
+      > </a
+      ><a name="2439" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="2447"
+      > </a
+      ><a name="2448" href="Views.html#2427" class="Bound"
+      >X</a
+      ><a name="2449"
+      > </a
+      ><a name="2450" class="Symbol"
+      >-&gt;</a
+      ><a name="2452"
+      > </a
+      ><a name="2453" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="2461"
+      > </a
+      ><a name="2462" href="Views.html#2427" class="Bound"
+      >X</a
+      ><a name="2463"
+      > </a
+      ><a name="2464" class="Symbol"
+      >-&gt;</a
+      ><a name="2466"
+      > </a
+      ><a name="2467" class="PrimitiveType"
+      >Set</a
+      ><a name="2470"
+      >
+</a
+      ><a name="2471" href="Views.html#2420" class="Function"
+      >rel</a
+      ><a name="2474"
+      > </a
+      ><a name="2475" href="Views.html#2475" class="Bound"
+      >x</a
+      ><a name="2476"
+      > </a
+      ><a name="2477" href="Views.html#2477" class="Bound"
+      >y</a
+      ><a name="2478"
+      > </a
+      ><a name="2479" class="Symbol"
+      >=</a
+      ><a name="2480"
+      > </a
+      ><a name="2481" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="2483"
+      > </a
+      ><a name="2484" href="Views.html#2475" class="Bound"
+      >x</a
+      ><a name="2485"
+      > </a
+      ><a name="2486" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="2487"
+      > </a
+      ><a name="2488" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="2490"
+      > </a
+      ><a name="2491" href="Views.html#2477" class="Bound"
+      >y</a
+      ><a name="2492"
+      >
+
+</a
+      ><a name="2494" href="Views.html#2494" class="Function"
+      >rel-refl</a
+      ><a name="2502"
+      > </a
+      ><a name="2503" class="Symbol"
+      >:</a
+      ><a name="2504"
+      > </a
+      ><a name="2505" class="Symbol"
+      >{</a
+      ><a name="2506" href="Views.html#2506" class="Bound"
+      >X</a
+      ><a name="2507"
+      > </a
+      ><a name="2508" class="Symbol"
+      >:</a
+      ><a name="2509"
+      > </a
+      ><a name="2510" class="PrimitiveType"
+      >Set</a
+      ><a name="2513" class="Symbol"
+      >}</a
+      ><a name="2514"
+      > </a
+      ><a name="2515" class="Symbol"
+      >-&gt;</a
+      ><a name="2517"
+      > </a
+      ><a name="2518" class="Symbol"
+      >(</a
+      ><a name="2519" href="Views.html#2519" class="Bound"
+      >x</a
+      ><a name="2520"
+      > </a
+      ><a name="2521" class="Symbol"
+      >:</a
+      ><a name="2522"
+      > </a
+      ><a name="2523" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="2531"
+      > </a
+      ><a name="2532" href="Views.html#2506" class="Bound"
+      >X</a
+      ><a name="2533" class="Symbol"
+      >)</a
+      ><a name="2534"
+      > </a
+      ><a name="2535" class="Symbol"
+      >-&gt;</a
+      ><a name="2537"
+      > </a
+      ><a name="2538" href="Views.html#2420" class="Function"
+      >rel</a
+      ><a name="2541"
+      > </a
+      ><a name="2542" href="Views.html#2519" class="Bound"
+      >x</a
+      ><a name="2543"
+      > </a
+      ><a name="2544" href="Views.html#2519" class="Bound"
+      >x</a
+      ><a name="2545"
+      >
+</a
+      ><a name="2546" href="Views.html#2494" class="Function"
+      >rel-refl</a
+      ><a name="2554"
+      > </a
+      ><a name="2555" href="Views.html#2555" class="Bound"
+      >x</a
+      ><a name="2556"
+      > </a
+      ><a name="2557" class="Symbol"
+      >=</a
+      ><a name="2558"
+      > </a
+      ><a name="2559" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="2563"
+      >
+
+</a
+      ><a name="2565" class="Keyword"
+      >open</a
+      ><a name="2569"
+      > </a
+      ><a name="2570" class="Keyword"
+      >import</a
+      ><a name="2576"
+      > </a
+      ><a name="2577" href="QuotientUntruncated.html#1" class="Module"
+      >QuotientUntruncated</a
+      ><a name="2596"
+      > </a
+      ><a name="2597" class="Comment"
+      >-- Quotient is now the type we're interested in.</a
+      ><a name="2645"
+      >
+</a
+      ><a name="2646" class="Keyword"
+      >open</a
+      ><a name="2650"
+      > </a
+      ><a name="2651" class="Keyword"
+      >import</a
+      ><a name="2657"
+      > </a
+      ><a name="2658" href="QuotientBinaryRec.html#1" class="Module"
+      >QuotientBinaryRec</a
+      ><a name="2675"
+      >
+
+</a
+      ><a name="2677" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="2693"
+      > </a
+      ><a name="2694" class="Symbol"
+      >:</a
+      ><a name="2695"
+      > </a
+      ><a name="2696" class="Symbol"
+      >(</a
+      ><a name="2697" href="Views.html#2697" class="Bound"
+      >A</a
+      ><a name="2698"
+      > </a
+      ><a name="2699" class="Symbol"
+      >:</a
+      ><a name="2700"
+      > </a
+      ><a name="2701" class="PrimitiveType"
+      >Set</a
+      ><a name="2704" class="Symbol"
+      >)</a
+      ><a name="2705"
+      > </a
+      ><a name="2706" class="Symbol"
+      >-&gt;</a
+      ><a name="2708"
+      > </a
+      ><a name="2709" class="PrimitiveType"
+      >Set</a
+      ><a name="2712"
+      >
+</a
+      ><a name="2713" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="2729"
+      > </a
+      ><a name="2730" href="Views.html#2730" class="Bound"
+      >A</a
+      ><a name="2731"
+      > </a
+      ><a name="2732" class="Symbol"
+      >=</a
+      ><a name="2733"
+      > </a
+      ><a name="2734" href="QuotientUntruncated.html#179" class="Function"
+      >Quotient</a
+      ><a name="2742"
+      > </a
+      ><a name="2743" class="Symbol"
+      >(</a
+      ><a name="2744" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="2752"
+      > </a
+      ><a name="2753" href="Views.html#2730" class="Bound"
+      >A</a
+      ><a name="2754" class="Symbol"
+      >)</a
+      ><a name="2755"
+      > </a
+      ><a name="2756" href="Views.html#2420" class="Function"
+      >rel</a
+      ><a name="2759"
+      > </a
+      ><a name="2760" href="Views.html#2494" class="Function"
+      >rel-refl</a
+      ><a name="2768"
+      >
+
+</a
+      ><a name="2770" href="Views.html#2770" class="Function"
+      >toQuotient</a
+      ><a name="2780"
+      > </a
+      ><a name="2781" class="Symbol"
+      >:</a
+      ><a name="2782"
+      > </a
+      ><a name="2783" class="Symbol"
+      >{</a
+      ><a name="2784" href="Views.html#2784" class="Bound"
+      >A</a
+      ><a name="2785"
+      > </a
+      ><a name="2786" class="Symbol"
+      >:</a
+      ><a name="2787"
+      > </a
+      ><a name="2788" class="PrimitiveType"
+      >Set</a
+      ><a name="2791" class="Symbol"
+      >}</a
+      ><a name="2792"
+      > </a
+      ><a name="2793" class="Symbol"
+      >-&gt;</a
+      ><a name="2795"
+      > </a
+      ><a name="2796" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="2804"
+      > </a
+      ><a name="2805" href="Views.html#2784" class="Bound"
+      >A</a
+      ><a name="2806"
+      > </a
+      ><a name="2807" class="Symbol"
+      >-&gt;</a
+      ><a name="2809"
+      > </a
+      ><a name="2810" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="2826"
+      > </a
+      ><a name="2827" href="Views.html#2784" class="Bound"
+      >A</a
+      ><a name="2828"
+      >
+</a
+      ><a name="2829" href="Views.html#2770" class="Function"
+      >toQuotient</a
+      ><a name="2839"
+      > </a
+      ><a name="2840" class="Symbol"
+      >{</a
+      ><a name="2841" href="Views.html#2841" class="Bound"
+      >A</a
+      ><a name="2842" class="Symbol"
+      >}</a
+      ><a name="2843"
+      > </a
+      ><a name="2844" href="Views.html#2844" class="Bound"
+      >x</a
+      ><a name="2845"
+      > </a
+      ><a name="2846" class="Symbol"
+      >=</a
+      ><a name="2847"
+      > </a
+      ><a name="2848" href="QuotientUntruncated.html#216" class="Function"
+      >box</a
+      ><a name="2851"
+      > </a
+      ><a name="2852" class="Symbol"
+      >(</a
+      ><a name="2853" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="2861"
+      > </a
+      ><a name="2862" href="Views.html#2841" class="Bound"
+      >A</a
+      ><a name="2863" class="Symbol"
+      >)</a
+      ><a name="2864"
+      > </a
+      ><a name="2865" href="Views.html#2420" class="Function"
+      >rel</a
+      ><a name="2868"
+      > </a
+      ><a name="2869" href="Views.html#2494" class="Function"
+      >rel-refl</a
+      ><a name="2877"
+      > </a
+      ><a name="2878" href="Views.html#2844" class="Bound"
+      >x</a
+      ><a name="2879"
+      >
+
+</a
+      ><a name="2881" href="Views.html#2881" class="Function"
+      >from'</a
+      ><a name="2886"
+      > </a
+      ><a name="2887" class="Symbol"
+      >:</a
+      ><a name="2888"
+      > </a
+      ><a name="2889" class="Symbol"
+      >{</a
+      ><a name="2890" href="Views.html#2890" class="Bound"
+      >A</a
+      ><a name="2891"
+      > </a
+      ><a name="2892" class="Symbol"
+      >:</a
+      ><a name="2893"
+      > </a
+      ><a name="2894" class="PrimitiveType"
+      >Set</a
+      ><a name="2897" class="Symbol"
+      >}</a
+      ><a name="2898"
+      > </a
+      ><a name="2899" class="Symbol"
+      >-&gt;</a
+      ><a name="2901"
+      > </a
+      ><a name="2902" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="2906"
+      > </a
+      ><a name="2907" href="Views.html#2890" class="Bound"
+      >A</a
+      ><a name="2908"
+      > </a
+      ><a name="2909" class="Symbol"
+      >-&gt;</a
+      ><a name="2911"
+      > </a
+      ><a name="2912" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="2928"
+      > </a
+      ><a name="2929" href="Views.html#2890" class="Bound"
+      >A</a
+      ><a name="2930"
+      >
+</a
+      ><a name="2931" href="Views.html#2881" class="Function"
+      >from'</a
+      ><a name="2936"
+      > </a
+      ><a name="2937" href="Views.html#2937" class="Bound"
+      >x</a
+      ><a name="2938"
+      > </a
+      ><a name="2939" class="Symbol"
+      >=</a
+      ><a name="2940"
+      > </a
+      ><a name="2941" href="Views.html#2770" class="Function"
+      >toQuotient</a
+      ><a name="2951"
+      > </a
+      ><a name="2952" class="Symbol"
+      >(</a
+      ><a name="2953" href="Views.html#1365" class="Function"
+      >from</a
+      ><a name="2957"
+      > </a
+      ><a name="2958" href="Views.html#2937" class="Bound"
+      >x</a
+      ><a name="2959" class="Symbol"
+      >)</a
+      ><a name="2960"
+      >
+
+</a
+      ><a name="2962" href="Views.html#2962" class="Function"
+      >to'</a
+      ><a name="2965"
+      > </a
+      ><a name="2966" class="Symbol"
+      >:</a
+      ><a name="2967"
+      > </a
+      ><a name="2968" class="Symbol"
+      >{</a
+      ><a name="2969" href="Views.html#2969" class="Bound"
+      >A</a
+      ><a name="2970"
+      > </a
+      ><a name="2971" class="Symbol"
+      >:</a
+      ><a name="2972"
+      > </a
+      ><a name="2973" class="PrimitiveType"
+      >Set</a
+      ><a name="2976" class="Symbol"
+      >}</a
+      ><a name="2977"
+      > </a
+      ><a name="2978" class="Symbol"
+      >-&gt;</a
+      ><a name="2980"
+      > </a
+      ><a name="2981" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="2997"
+      > </a
+      ><a name="2998" href="Views.html#2969" class="Bound"
+      >A</a
+      ><a name="2999"
+      > </a
+      ><a name="3000" class="Symbol"
+      >-&gt;</a
+      ><a name="3002"
+      > </a
+      ><a name="3003" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="3007"
+      > </a
+      ><a name="3008" href="Views.html#2969" class="Bound"
+      >A</a
+      ><a name="3009"
+      >
+</a
+      ><a name="3010" href="Views.html#2962" class="Function"
+      >to'</a
+      ><a name="3013"
+      > </a
+      ><a name="3014" class="Symbol"
+      >{</a
+      ><a name="3015" href="Views.html#3015" class="Bound"
+      >A</a
+      ><a name="3016" class="Symbol"
+      >}</a
+      ><a name="3017"
+      > </a
+      ><a name="3018" href="Views.html#3018" class="Bound"
+      >q</a
+      ><a name="3019"
+      > </a
+      ><a name="3020" class="Symbol"
+      >=</a
+      ><a name="3021"
+      > </a
+      ><a name="3022" href="QuotientUntruncated.html#540" class="Function"
+      >Quotient-rec</a
+      ><a name="3034"
+      > </a
+      ><a name="3035" class="Symbol"
+      >(</a
+      ><a name="3036" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="3044"
+      > </a
+      ><a name="3045" href="Views.html#3015" class="Bound"
+      >A</a
+      ><a name="3046" class="Symbol"
+      >)</a
+      ><a name="3047"
+      > </a
+      ><a name="3048" href="Views.html#2420" class="Function"
+      >rel</a
+      ><a name="3051"
+      > </a
+      ><a name="3052" href="Views.html#2494" class="Function"
+      >rel-refl</a
+      ><a name="3060"
+      > </a
+      ><a name="3061" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="3063"
+      > </a
+      ><a name="3064" class="Symbol"
+      >(&#955;</a
+      ><a name="3066"
+      > </a
+      ><a name="3067" href="Views.html#3067" class="Bound"
+      >x</a
+      ><a name="3068"
+      > </a
+      ><a name="3069" href="Views.html#3069" class="Bound"
+      >y</a
+      ><a name="3070"
+      > </a
+      ><a name="3071" href="Views.html#3071" class="Bound"
+      >z</a
+      ><a name="3072"
+      > </a
+      ><a name="3073" class="Symbol"
+      >&#8594;</a
+      ><a name="3074"
+      > </a
+      ><a name="3075" href="Views.html#3071" class="Bound"
+      >z</a
+      ><a name="3076" class="Symbol"
+      >)</a
+      ><a name="3077"
+      > </a
+      ><a name="3078" href="Views.html#3018" class="Bound"
+      >q</a
+      ><a name="3079"
+      >
+
+</a
+      ><a name="3081" href="Views.html#3081" class="Function"
+      >join-list-empty'</a
+      ><a name="3097"
+      > </a
+      ><a name="3098" class="Symbol"
+      >:</a
+      ><a name="3099"
+      > </a
+      ><a name="3100" class="Symbol"
+      >{</a
+      ><a name="3101" href="Views.html#3101" class="Bound"
+      >A</a
+      ><a name="3102"
+      > </a
+      ><a name="3103" class="Symbol"
+      >:</a
+      ><a name="3104"
+      > </a
+      ><a name="3105" class="PrimitiveType"
+      >Set</a
+      ><a name="3108" class="Symbol"
+      >}</a
+      ><a name="3109"
+      > </a
+      ><a name="3110" class="Symbol"
+      >-&gt;</a
+      ><a name="3112"
+      > </a
+      ><a name="3113" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="3129"
+      > </a
+      ><a name="3130" href="Views.html#3101" class="Bound"
+      >A</a
+      ><a name="3131"
+      >
+</a
+      ><a name="3132" href="Views.html#3081" class="Function"
+      >join-list-empty'</a
+      ><a name="3148"
+      > </a
+      ><a name="3149" class="Symbol"
+      >=</a
+      ><a name="3150"
+      > </a
+      ><a name="3151" href="Views.html#2770" class="Function"
+      >toQuotient</a
+      ><a name="3161"
+      > </a
+      ><a name="3162" href="Views.html#796" class="Function"
+      >join-list-empty</a
+      ><a name="3177"
+      >
+
+</a
+      ><a name="3179" href="Views.html#3179" class="Function"
+      >join-list-single'</a
+      ><a name="3196"
+      > </a
+      ><a name="3197" class="Symbol"
+      >:</a
+      ><a name="3198"
+      > </a
+      ><a name="3199" class="Symbol"
+      >{</a
+      ><a name="3200" href="Views.html#3200" class="Bound"
+      >A</a
+      ><a name="3201"
+      > </a
+      ><a name="3202" class="Symbol"
+      >:</a
+      ><a name="3203"
+      > </a
+      ><a name="3204" class="PrimitiveType"
+      >Set</a
+      ><a name="3207" class="Symbol"
+      >}</a
+      ><a name="3208"
+      > </a
+      ><a name="3209" class="Symbol"
+      >-&gt;</a
+      ><a name="3211"
+      > </a
+      ><a name="3212" href="Views.html#3200" class="Bound"
+      >A</a
+      ><a name="3213"
+      > </a
+      ><a name="3214" class="Symbol"
+      >-&gt;</a
+      ><a name="3216"
+      > </a
+      ><a name="3217" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="3233"
+      > </a
+      ><a name="3234" href="Views.html#3200" class="Bound"
+      >A</a
+      ><a name="3235"
+      >
+</a
+      ><a name="3236" href="Views.html#3179" class="Function"
+      >join-list-single'</a
+      ><a name="3253"
+      > </a
+      ><a name="3254" href="Views.html#3254" class="Bound"
+      >x</a
+      ><a name="3255"
+      > </a
+      ><a name="3256" class="Symbol"
+      >=</a
+      ><a name="3257"
+      > </a
+      ><a name="3258" href="Views.html#2770" class="Function"
+      >toQuotient</a
+      ><a name="3268"
+      > </a
+      ><a name="3269" class="Symbol"
+      >(</a
+      ><a name="3270" href="Views.html#861" class="Function"
+      >join-list-single</a
+      ><a name="3286"
+      > </a
+      ><a name="3287" href="Views.html#3254" class="Bound"
+      >x</a
+      ><a name="3288" class="Symbol"
+      >)</a
+      ><a name="3289"
+      >
+
+</a
+      ><a name="3291" href="Views.html#3291" class="Function"
+      >join-list-append'</a
+      ><a name="3308"
+      > </a
+      ><a name="3309" class="Symbol"
+      >:</a
+      ><a name="3310"
+      > </a
+      ><a name="3311" class="Symbol"
+      >{</a
+      ><a name="3312" href="Views.html#3312" class="Bound"
+      >A</a
+      ><a name="3313"
+      > </a
+      ><a name="3314" class="Symbol"
+      >:</a
+      ><a name="3315"
+      > </a
+      ><a name="3316" class="PrimitiveType"
+      >Set</a
+      ><a name="3319" class="Symbol"
+      >}</a
+      ><a name="3320"
+      > </a
+      ><a name="3321" class="Symbol"
+      >-&gt;</a
+      ><a name="3323"
+      > </a
+      ><a name="3324" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="3340"
+      > </a
+      ><a name="3341" href="Views.html#3312" class="Bound"
+      >A</a
+      ><a name="3342"
+      > </a
+      ><a name="3343" class="Symbol"
+      >-&gt;</a
+      ><a name="3345"
+      > </a
+      ><a name="3346" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="3362"
+      > </a
+      ><a name="3363" href="Views.html#3312" class="Bound"
+      >A</a
+      ><a name="3364"
+      > </a
+      ><a name="3365" class="Symbol"
+      >-&gt;</a
+      ><a name="3367"
+      > </a
+      ><a name="3368" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="3384"
+      > </a
+      ><a name="3385" href="Views.html#3312" class="Bound"
+      >A</a
+      ><a name="3386"
+      >
+</a
+      ><a name="3387" href="Views.html#3291" class="Function"
+      >join-list-append'</a
+      ><a name="3404"
+      > </a
+      ><a name="3405" class="Symbol"
+      >{</a
+      ><a name="3406" href="Views.html#3406" class="Bound"
+      >A</a
+      ><a name="3407" class="Symbol"
+      >}</a
+      ><a name="3408"
+      > </a
+      ><a name="3409" href="Views.html#3409" class="Bound"
+      >l</a
+      ><a name="3410"
+      > </a
+      ><a name="3411" href="Views.html#3411" class="Bound"
+      >r</a
+      ><a name="3412"
+      > </a
+      ><a name="3413" class="Symbol"
+      >=</a
+      ><a name="3414"
+      > </a
+      ><a name="3415" href="QuotientBinaryRec.html#1185" class="Function"
+      >Quotient-rec-2</a
+      ><a name="3429"
+      > </a
+      ><a name="3430" class="Symbol"
+      >(</a
+      ><a name="3431" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="3439"
+      > </a
+      ><a name="3440" href="Views.html#3406" class="Bound"
+      >A</a
+      ><a name="3441" class="Symbol"
+      >)</a
+      ><a name="3442"
+      > </a
+      ><a name="3443" href="Views.html#2420" class="Function"
+      >rel</a
+      ><a name="3446"
+      > </a
+      ><a name="3447" href="Views.html#2494" class="Function"
+      >rel-refl</a
+      ><a name="3455"
+      > </a
+      ><a name="3456" class="Symbol"
+      >(</a
+      ><a name="3457" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="3473"
+      > </a
+      ><a name="3474" href="Views.html#3406" class="Bound"
+      >A</a
+      ><a name="3475" class="Symbol"
+      >)</a
+      ><a name="3476"
+      > </a
+      ><a name="3477" class="Symbol"
+      >(&#955;</a
+      ><a name="3479"
+      > </a
+      ><a name="3480" href="Views.html#3480" class="Bound"
+      >l&#8321;</a
+      ><a name="3482"
+      > </a
+      ><a name="3483" href="Views.html#3483" class="Bound"
+      >r&#8321;</a
+      ><a name="3485"
+      > </a
+      ><a name="3486" class="Symbol"
+      >&#8594;</a
+      ><a name="3487"
+      > </a
+      ><a name="3488" href="Views.html#2770" class="Function"
+      >toQuotient</a
+      ><a name="3498"
+      > </a
+      ><a name="3499" class="Symbol"
+      >(</a
+      ><a name="3500" href="Views.html#934" class="Function"
+      >join-list-append</a
+      ><a name="3516"
+      > </a
+      ><a name="3517" href="Views.html#3480" class="Bound"
+      >l&#8321;</a
+      ><a name="3519"
+      > </a
+      ><a name="3520" href="Views.html#3483" class="Bound"
+      >r&#8321;</a
+      ><a name="3522" class="Symbol"
+      >))</a
+      ><a name="3524"
+      > </a
+      ><a name="3525" class="Symbol"
+      >(&#955;</a
+      ><a name="3527"
+      > </a
+      ><a name="3528" href="Views.html#3528" class="Bound"
+      >a</a
+      ><a name="3529"
+      > </a
+      ><a name="3530" href="Views.html#3530" class="Bound"
+      >b</a
+      ><a name="3531"
+      > </a
+      ><a name="3532" href="Views.html#3532" class="Bound"
+      >c</a
+      ><a name="3533"
+      > </a
+      ><a name="3534" href="Views.html#3534" class="Bound"
+      >d</a
+      ><a name="3535"
+      > </a
+      ><a name="3536" href="Views.html#3536" class="Bound"
+      >x</a
+      ><a name="3537"
+      > </a
+      ><a name="3538" href="Views.html#3538" class="Bound"
+      >x&#8321;</a
+      ><a name="3540"
+      > </a
+      ><a name="3541" class="Symbol"
+      >&#8594;</a
+      ><a name="3542"
+      > </a
+      ><a name="3543" href="QuotientUntruncated.html#266" class="Postulate"
+      >quot</a
+      ><a name="3547"
+      > </a
+      ><a name="3548" class="Symbol"
+      >(</a
+      ><a name="3549" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="3557"
+      > </a
+      ><a name="3558" href="Views.html#3406" class="Bound"
+      >A</a
+      ><a name="3559" class="Symbol"
+      >)</a
+      ><a name="3560"
+      > </a
+      ><a name="3561" href="Views.html#2420" class="Function"
+      >rel</a
+      ><a name="3564"
+      > </a
+      ><a name="3565" href="Views.html#2494" class="Function"
+      >rel-refl</a
+      ><a name="3573"
+      > </a
+      ><a name="3574" class="Symbol"
+      >(</a
+      ><a name="3575" href="Views.html#749" class="InductiveConstructor"
+      >join</a
+      ><a name="3579"
+      > </a
+      ><a name="3580" href="Views.html#3528" class="Bound"
+      >a</a
+      ><a name="3581"
+      > </a
+      ><a name="3582" href="Views.html#3530" class="Bound"
+      >b</a
+      ><a name="3583" class="Symbol"
+      >)</a
+      ><a name="3584"
+      > </a
+      ><a name="3585" class="Symbol"
+      >(</a
+      ><a name="3586" href="Views.html#749" class="InductiveConstructor"
+      >join</a
+      ><a name="3590"
+      > </a
+      ><a name="3591" href="Views.html#3532" class="Bound"
+      >c</a
+      ><a name="3592"
+      > </a
+      ><a name="3593" href="Views.html#3534" class="Bound"
+      >d</a
+      ><a name="3594" class="Symbol"
+      >)</a
+      ><a name="3595"
+      > </a
+      ><a name="3596" class="Symbol"
+      >(</a
+      ><a name="3597" href="Identity.html#1877" class="Function"
+      >ap-2</a
+      ><a name="3601"
+      > </a
+      ><a name="3602" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="3613"
+      > </a
+      ><a name="3614" href="Views.html#3536" class="Bound"
+      >x</a
+      ><a name="3615"
+      > </a
+      ><a name="3616" href="Views.html#3538" class="Bound"
+      >x&#8321;</a
+      ><a name="3618" class="Symbol"
+      >))</a
+      ><a name="3620"
+      > </a
+      ><a name="3621" href="Views.html#3409" class="Bound"
+      >l</a
+      ><a name="3622"
+      > </a
+      ><a name="3623" href="Views.html#3411" class="Bound"
+      >r</a
+      ><a name="3624"
+      >
+
+</a
+      ><a name="3626" href="Views.html#3626" class="Function"
+      >join-list-map'</a
+      ><a name="3640"
+      > </a
+      ><a name="3641" class="Symbol"
+      >:</a
+      ><a name="3642"
+      > </a
+      ><a name="3643" class="Symbol"
+      >{</a
+      ><a name="3644" href="Views.html#3644" class="Bound"
+      >A</a
+      ><a name="3645"
+      > </a
+      ><a name="3646" href="Views.html#3646" class="Bound"
+      >B</a
+      ><a name="3647"
+      > </a
+      ><a name="3648" class="Symbol"
+      >:</a
+      ><a name="3649"
+      > </a
+      ><a name="3650" class="PrimitiveType"
+      >Set</a
+      ><a name="3653" class="Symbol"
+      >}</a
+      ><a name="3654"
+      > </a
+      ><a name="3655" class="Symbol"
+      >-&gt;</a
+      ><a name="3657"
+      > </a
+      ><a name="3658" class="Symbol"
+      >(</a
+      ><a name="3659" href="Views.html#3659" class="Bound"
+      >f</a
+      ><a name="3660"
+      > </a
+      ><a name="3661" class="Symbol"
+      >:</a
+      ><a name="3662"
+      > </a
+      ><a name="3663" href="Views.html#3644" class="Bound"
+      >A</a
+      ><a name="3664"
+      > </a
+      ><a name="3665" class="Symbol"
+      >-&gt;</a
+      ><a name="3667"
+      > </a
+      ><a name="3668" href="Views.html#3646" class="Bound"
+      >B</a
+      ><a name="3669" class="Symbol"
+      >)</a
+      ><a name="3670"
+      > </a
+      ><a name="3671" class="Symbol"
+      >-&gt;</a
+      ><a name="3673"
+      > </a
+      ><a name="3674" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="3690"
+      > </a
+      ><a name="3691" href="Views.html#3644" class="Bound"
+      >A</a
+      ><a name="3692"
+      > </a
+      ><a name="3693" class="Symbol"
+      >-&gt;</a
+      ><a name="3695"
+      > </a
+      ><a name="3696" href="Views.html#2677" class="Function"
+      >JoinListQuotient</a
+      ><a name="3712"
+      > </a
+      ><a name="3713" href="Views.html#3646" class="Bound"
+      >B</a
+      ><a name="3714"
+      >
+</a
+      ><a name="3715" href="Views.html#3626" class="Function"
+      >join-list-map'</a
+      ><a name="3729"
+      > </a
+      ><a name="3730" class="Symbol"
+      >{</a
+      ><a name="3731" href="Views.html#3731" class="Bound"
+      >A</a
+      ><a name="3732" class="Symbol"
+      >}</a
+      ><a name="3733"
+      > </a
+      ><a name="3734" class="Symbol"
+      >{</a
+      ><a name="3735" href="Views.html#3735" class="Bound"
+      >B</a
+      ><a name="3736" class="Symbol"
+      >}</a
+      ><a name="3737"
+      > </a
+      ><a name="3738" href="Views.html#3738" class="Bound"
+      >f</a
+      ><a name="3739"
+      > </a
+      ><a name="3740" href="Views.html#3740" class="Bound"
+      >xs</a
+      ><a name="3742"
+      > </a
+      ><a name="3743" class="Symbol"
+      >=</a
+      ><a name="3744"
+      > </a
+      ><a name="3745" href="QuotientUntruncated.html#540" class="Function"
+      >Quotient-rec</a
+      ><a name="3757"
+      > </a
+      ><a name="3758" class="Symbol"
+      >(</a
+      ><a name="3759" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="3767"
+      > </a
+      ><a name="3768" href="Views.html#3731" class="Bound"
+      >A</a
+      ><a name="3769" class="Symbol"
+      >)</a
+      ><a name="3770"
+      > </a
+      ><a name="3771" href="Views.html#2420" class="Function"
+      >rel</a
+      ><a name="3774"
+      > </a
+      ><a name="3775" href="Views.html#2494" class="Function"
+      >rel-refl</a
+      ><a name="3783"
+      > </a
+      ><a name="3784" class="Symbol"
+      >(&#955;</a
+      ><a name="3786"
+      > </a
+      ><a name="3787" href="Views.html#3787" class="Bound"
+      >x</a
+      ><a name="3788"
+      > </a
+      ><a name="3789" class="Symbol"
+      >&#8594;</a
+      ><a name="3790"
+      > </a
+      ><a name="3791" href="Views.html#2770" class="Function"
+      >toQuotient</a
+      ><a name="3801"
+      > </a
+      ><a name="3802" class="Symbol"
+      >(</a
+      ><a name="3803" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="3816"
+      > </a
+      ><a name="3817" href="Views.html#3738" class="Bound"
+      >f</a
+      ><a name="3818"
+      > </a
+      ><a name="3819" href="Views.html#3787" class="Bound"
+      >x</a
+      ><a name="3820" class="Symbol"
+      >))</a
+      ><a name="3822"
+      > </a
+      ><a name="3823" class="Symbol"
+      >(&#955;</a
+      ><a name="3825"
+      > </a
+      ><a name="3826" href="Views.html#3826" class="Bound"
+      >x</a
+      ><a name="3827"
+      > </a
+      ><a name="3828" href="Views.html#3828" class="Bound"
+      >y</a
+      ><a name="3829"
+      > </a
+      ><a name="3830" href="Views.html#3830" class="Bound"
+      >x&#8321;</a
+      ><a name="3832"
+      > </a
+      ><a name="3833" class="Symbol"
+      >&#8594;</a
+      ><a name="3834"
+      > </a
+      ><a name="3835" href="QuotientUntruncated.html#266" class="Postulate"
+      >quot</a
+      ><a name="3839"
+      > </a
+      ><a name="3840" class="Symbol"
+      >(</a
+      ><a name="3841" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="3849"
+      > </a
+      ><a name="3850" href="Views.html#3735" class="Bound"
+      >B</a
+      ><a name="3851" class="Symbol"
+      >)</a
+      ><a name="3852"
+      > </a
+      ><a name="3853" href="Views.html#2420" class="Function"
+      >rel</a
+      ><a name="3856"
+      > </a
+      ><a name="3857" href="Views.html#2494" class="Function"
+      >rel-refl</a
+      ><a name="3865"
+      > </a
+      ><a name="3866" class="Symbol"
+      >(</a
+      ><a name="3867" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="3880"
+      > </a
+      ><a name="3881" href="Views.html#3738" class="Bound"
+      >f</a
+      ><a name="3882"
+      > </a
+      ><a name="3883" href="Views.html#3826" class="Bound"
+      >x</a
+      ><a name="3884" class="Symbol"
+      >)</a
+      ><a name="3885"
+      > </a
+      ><a name="3886" class="Symbol"
+      >(</a
+      ><a name="3887" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="3900"
+      > </a
+      ><a name="3901" href="Views.html#3738" class="Bound"
+      >f</a
+      ><a name="3902"
+      > </a
+      ><a name="3903" href="Views.html#3828" class="Bound"
+      >y</a
+      ><a name="3904" class="Symbol"
+      >)</a
+      ><a name="3905"
+      > </a
+      ><a name="3906" class="Symbol"
+      >(</a
+      ><a name="3907" href="Identity.html#303" class="Function"
+      >trans</a
+      ><a name="3912"
+      > </a
+      ><a name="3913" class="Symbol"
+      >(</a
+      ><a name="3914" href="Views.html#1959" class="Function"
+      >map-resp</a
+      ><a name="3922"
+      > </a
+      ><a name="3923" href="Views.html#3738" class="Bound"
+      >f</a
+      ><a name="3924"
+      > </a
+      ><a name="3925" href="Views.html#3826" class="Bound"
+      >x</a
+      ><a name="3926" class="Symbol"
+      >)</a
+      ><a name="3927"
+      > </a
+      ><a name="3928" class="Symbol"
+      >(</a
+      ><a name="3929" href="Identity.html#303" class="Function"
+      >trans</a
+      ><a name="3934"
+      > </a
+      ><a name="3935" class="Symbol"
+      >(</a
+      ><a name="3936" href="Identity.html#1771" class="Function"
+      >ap</a
+      ><a name="3938"
+      > </a
+      ><a name="3939" class="Symbol"
+      >(</a
+      ><a name="3940" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="3948"
+      > </a
+      ><a name="3949" href="Views.html#3738" class="Bound"
+      >f</a
+      ><a name="3950" class="Symbol"
+      >)</a
+      ><a name="3951"
+      > </a
+      ><a name="3952" href="Views.html#3830" class="Bound"
+      >x&#8321;</a
+      ><a name="3954" class="Symbol"
+      >)</a
+      ><a name="3955"
+      > </a
+      ><a name="3956" class="Symbol"
+      >(</a
+      ><a name="3957" href="Identity.html#383" class="Function"
+      >sym</a
+      ><a name="3960"
+      > </a
+      ><a name="3961" class="Symbol"
+      >(</a
+      ><a name="3962" href="Views.html#1959" class="Function"
+      >map-resp</a
+      ><a name="3970"
+      > </a
+      ><a name="3971" href="Views.html#3738" class="Bound"
+      >f</a
+      ><a name="3972"
+      > </a
+      ><a name="3973" href="Views.html#3828" class="Bound"
+      >y</a
+      ><a name="3974" class="Symbol"
+      >)))))</a
+      ><a name="3979"
+      > </a
+      ><a name="3980" href="Views.html#3740" class="Bound"
+      >xs</a
+      ><a name="3982"
+      >
+
+</a
+      ><a name="3984" class="Comment"
+      >-- Join lists satisfy the properties</a
+      ><a name="4020"
+      >
+</a
+      ><a name="4021" href="Views.html#4021" class="Function"
+      >empty-resp'</a
+      ><a name="4032"
+      > </a
+      ><a name="4033" class="Symbol"
+      >:</a
+      ><a name="4034"
+      > </a
+      ><a name="4035" class="Symbol"
+      >{</a
+      ><a name="4036" href="Views.html#4036" class="Bound"
+      >A</a
+      ><a name="4037"
+      > </a
+      ><a name="4038" class="Symbol"
+      >:</a
+      ><a name="4039"
+      > </a
+      ><a name="4040" class="PrimitiveType"
+      >Set</a
+      ><a name="4043" class="Symbol"
+      >}</a
+      ><a name="4044"
+      > </a
+      ><a name="4045" class="Symbol"
+      >-&gt;</a
+      ><a name="4047"
+      > </a
+      ><a name="4048" href="Views.html#2962" class="Function"
+      >to'</a
+      ><a name="4051"
+      > </a
+      ><a name="4052" class="Symbol"
+      >(</a
+      ><a name="4053" href="Views.html#3081" class="Function"
+      >join-list-empty'</a
+      ><a name="4069"
+      > </a
+      ><a name="4070" class="Symbol"
+      >{</a
+      ><a name="4071" href="Views.html#4036" class="Bound"
+      >A</a
+      ><a name="4072" class="Symbol"
+      >})</a
+      ><a name="4074"
+      > </a
+      ><a name="4075" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="4076"
+      > </a
+      ><a name="4077" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="4080"
+      >
+</a
+      ><a name="4081" href="Views.html#4021" class="Function"
+      >empty-resp'</a
+      ><a name="4092"
+      > </a
+      ><a name="4093" class="Symbol"
+      >=</a
+      ><a name="4094"
+      > </a
+      ><a name="4095" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="4099"
+      >
+
+</a
+      ><a name="4101" href="Views.html#4101" class="Function"
+      >single-resp'</a
+      ><a name="4113"
+      > </a
+      ><a name="4114" class="Symbol"
+      >:</a
+      ><a name="4115"
+      > </a
+      ><a name="4116" class="Symbol"
+      >{</a
+      ><a name="4117" href="Views.html#4117" class="Bound"
+      >A</a
+      ><a name="4118"
+      > </a
+      ><a name="4119" class="Symbol"
+      >:</a
+      ><a name="4120"
+      > </a
+      ><a name="4121" class="PrimitiveType"
+      >Set</a
+      ><a name="4124" class="Symbol"
+      >}</a
+      ><a name="4125"
+      > </a
+      ><a name="4126" class="Symbol"
+      >-&gt;</a
+      ><a name="4128"
+      > </a
+      ><a name="4129" class="Symbol"
+      >(</a
+      ><a name="4130" href="Views.html#4130" class="Bound"
+      >a</a
+      ><a name="4131"
+      > </a
+      ><a name="4132" class="Symbol"
+      >:</a
+      ><a name="4133"
+      > </a
+      ><a name="4134" href="Views.html#4117" class="Bound"
+      >A</a
+      ><a name="4135" class="Symbol"
+      >)</a
+      ><a name="4136"
+      > </a
+      ><a name="4137" class="Symbol"
+      >-&gt;</a
+      ><a name="4139"
+      > </a
+      ><a name="4140" href="Views.html#2962" class="Function"
+      >to'</a
+      ><a name="4143"
+      > </a
+      ><a name="4144" class="Symbol"
+      >(</a
+      ><a name="4145" href="Views.html#3179" class="Function"
+      >join-list-single'</a
+      ><a name="4162"
+      > </a
+      ><a name="4163" href="Views.html#4130" class="Bound"
+      >a</a
+      ><a name="4164" class="Symbol"
+      >)</a
+      ><a name="4165"
+      > </a
+      ><a name="4166" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="4167"
+      > </a
+      ><a name="4168" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="4172"
+      > </a
+      ><a name="4173" href="Views.html#4130" class="Bound"
+      >a</a
+      ><a name="4174"
+      > </a
+      ><a name="4175" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="4178"
+      >
+</a
+      ><a name="4179" href="Views.html#4101" class="Function"
+      >single-resp'</a
+      ><a name="4191"
+      > </a
+      ><a name="4192" class="Symbol"
+      >_</a
+      ><a name="4193"
+      > </a
+      ><a name="4194" class="Symbol"
+      >=</a
+      ><a name="4195"
+      > </a
+      ><a name="4196" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="4200"
+      >
+
+</a
+      ><a name="4202" class="Comment"
+      >-- TODO: Prove this</a
+      ><a name="4221"
+      >
+</a
+      ><a name="4222" class="Comment"
+      >--append-resp' : {A : Set} -&gt; (xs ys : JoinListQuotient A) -&gt; to' (join-list-append' xs ys) &#8801; list-append (to' xs) (to' ys)</a
+      ><a name="4345"
+      >
+</a
+      ><a name="4346" class="Comment"
+      >--append-resp' xs ys = {!!} --is-retraction (list-append (to' xs) (to' ys))</a
+      ><a name="4421"
+      >
+
+</a
+      ><a name="4423" class="Comment"
+      >-- TODO: Prove this</a
+      ><a name="4442"
+      >
+</a
+      ><a name="4443" class="Comment"
+      >--map-resp' : {A B : Set} -&gt; (f : A -&gt; B) -&gt; (xs : JoinListQuotient A) -&gt; to' (join-list-map' f xs) &#8801; list-map f (to' xs)</a
+      ><a name="4564"
+      >
+</a
+      ><a name="4565" class="Comment"
+      >--map-resp' f x = {!!}</a
+      ><a name="4587"
+      >
+
+</a
+      ><a name="4589" class="Comment"
+      >-- Sigma type method</a
+      ><a name="4609"
+      >
+</a
+      ><a name="4610" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="4623"
+      > </a
+      ><a name="4624" class="Symbol"
+      >:</a
+      ><a name="4625"
+      > </a
+      ><a name="4626" class="PrimitiveType"
+      >Set</a
+      ><a name="4629"
+      > </a
+      ><a name="4630" class="Symbol"
+      >-&gt;</a
+      ><a name="4632"
+      > </a
+      ><a name="4633" class="PrimitiveType"
+      >Set</a
+      ><a name="4636"
+      >
+</a
+      ><a name="4637" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="4650"
+      > </a
+      ><a name="4651" href="Views.html#4651" class="Bound"
+      >A</a
+      ><a name="4652"
+      > </a
+      ><a name="4653" class="Symbol"
+      >=</a
+      ><a name="4654"
+      > </a
+      ><a name="4655" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="4656"
+      > </a
+      ><a name="4657" class="Symbol"
+      >(</a
+      ><a name="4658" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="4666"
+      > </a
+      ><a name="4667" href="Views.html#4651" class="Bound"
+      >A</a
+      ><a name="4668" class="Symbol"
+      >)</a
+      ><a name="4669"
+      > </a
+      ><a name="4670" class="Symbol"
+      >(&#955;</a
+      ><a name="4672"
+      > </a
+      ><a name="4673" href="Views.html#4673" class="Bound"
+      >xs</a
+      ><a name="4675"
+      > </a
+      ><a name="4676" class="Symbol"
+      >&#8594;</a
+      ><a name="4677"
+      > </a
+      ><a name="4678" href="Views.html#1365" class="Function"
+      >from</a
+      ><a name="4682"
+      > </a
+      ><a name="4683" class="Symbol"
+      >(</a
+      ><a name="4684" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="4686"
+      > </a
+      ><a name="4687" href="Views.html#4673" class="Bound"
+      >xs</a
+      ><a name="4689" class="Symbol"
+      >)</a
+      ><a name="4690"
+      > </a
+      ><a name="4691" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="4692"
+      > </a
+      ><a name="4693" href="Views.html#4673" class="Bound"
+      >xs</a
+      ><a name="4695" class="Symbol"
+      >)</a
+      ><a name="4696"
+      >
+
+</a
+      ><a name="4698" href="Views.html#4698" class="Function"
+      >toSigma</a
+      ><a name="4705"
+      > </a
+      ><a name="4706" class="Symbol"
+      >:</a
+      ><a name="4707"
+      > </a
+      ><a name="4708" class="Symbol"
+      >{</a
+      ><a name="4709" href="Views.html#4709" class="Bound"
+      >A</a
+      ><a name="4710"
+      > </a
+      ><a name="4711" class="Symbol"
+      >:</a
+      ><a name="4712"
+      > </a
+      ><a name="4713" class="PrimitiveType"
+      >Set</a
+      ><a name="4716" class="Symbol"
+      >}</a
+      ><a name="4717"
+      > </a
+      ><a name="4718" class="Symbol"
+      >-&gt;</a
+      ><a name="4720"
+      > </a
+      ><a name="4721" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="4729"
+      > </a
+      ><a name="4730" href="Views.html#4709" class="Bound"
+      >A</a
+      ><a name="4731"
+      > </a
+      ><a name="4732" class="Symbol"
+      >-&gt;</a
+      ><a name="4734"
+      > </a
+      ><a name="4735" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="4748"
+      > </a
+      ><a name="4749" href="Views.html#4709" class="Bound"
+      >A</a
+      ><a name="4750"
+      >
+</a
+      ><a name="4751" href="Views.html#4698" class="Function"
+      >toSigma</a
+      ><a name="4758"
+      > </a
+      ><a name="4759" href="Views.html#4759" class="Bound"
+      >x</a
+      ><a name="4760"
+      > </a
+      ><a name="4761" class="Symbol"
+      >=</a
+      ><a name="4762"
+      > </a
+      ><a name="4763" href="Views.html#1365" class="Function"
+      >from</a
+      ><a name="4767"
+      > </a
+      ><a name="4768" class="Symbol"
+      >(</a
+      ><a name="4769" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="4771"
+      > </a
+      ><a name="4772" href="Views.html#4759" class="Bound"
+      >x</a
+      ><a name="4773" class="Symbol"
+      >)</a
+      ><a name="4774"
+      > </a
+      ><a name="4775" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="4776"
+      > </a
+      ><a name="4777" href="Identity.html#1771" class="Function"
+      >ap</a
+      ><a name="4779"
+      > </a
+      ><a name="4780" href="Views.html#1365" class="Function"
+      >from</a
+      ><a name="4784"
+      > </a
+      ><a name="4785" class="Symbol"
+      >(</a
+      ><a name="4786" href="Views.html#1465" class="Function"
+      >is-retraction</a
+      ><a name="4799"
+      > </a
+      ><a name="4800" class="Symbol"
+      >(</a
+      ><a name="4801" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="4803"
+      > </a
+      ><a name="4804" href="Views.html#4759" class="Bound"
+      >x</a
+      ><a name="4805" class="Symbol"
+      >))</a
+      ><a name="4807"
+      >
+
+</a
+      ><a name="4809" href="Views.html#4809" class="Function"
+      >fromSigma</a
+      ><a name="4818"
+      > </a
+      ><a name="4819" class="Symbol"
+      >:</a
+      ><a name="4820"
+      > </a
+      ><a name="4821" class="Symbol"
+      >{</a
+      ><a name="4822" href="Views.html#4822" class="Bound"
+      >A</a
+      ><a name="4823"
+      > </a
+      ><a name="4824" class="Symbol"
+      >:</a
+      ><a name="4825"
+      > </a
+      ><a name="4826" class="PrimitiveType"
+      >Set</a
+      ><a name="4829" class="Symbol"
+      >}</a
+      ><a name="4830"
+      > </a
+      ><a name="4831" class="Symbol"
+      >-&gt;</a
+      ><a name="4833"
+      > </a
+      ><a name="4834" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="4847"
+      > </a
+      ><a name="4848" href="Views.html#4822" class="Bound"
+      >A</a
+      ><a name="4849"
+      > </a
+      ><a name="4850" class="Symbol"
+      >-&gt;</a
+      ><a name="4852"
+      > </a
+      ><a name="4853" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="4861"
+      > </a
+      ><a name="4862" href="Views.html#4822" class="Bound"
+      >A</a
+      ><a name="4863"
+      >
+</a
+      ><a name="4864" href="Views.html#4809" class="Function"
+      >fromSigma</a
+      ><a name="4873"
+      > </a
+      ><a name="4874" class="Symbol"
+      >=</a
+      ><a name="4875"
+      > </a
+      ><a name="4876" href="Sigma.html#186" class="Function"
+      >&#931;.fst</a
+      ><a name="4881"
+      >
+
+</a
+      ><a name="4883" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="4887"
+      > </a
+      ><a name="4888" class="Symbol"
+      >:</a
+      ><a name="4889"
+      > </a
+      ><a name="4890" class="Symbol"
+      >{</a
+      ><a name="4891" href="Views.html#4891" class="Bound"
+      >A</a
+      ><a name="4892"
+      > </a
+      ><a name="4893" class="Symbol"
+      >:</a
+      ><a name="4894"
+      > </a
+      ><a name="4895" class="PrimitiveType"
+      >Set</a
+      ><a name="4898" class="Symbol"
+      >}</a
+      ><a name="4899"
+      > </a
+      ><a name="4900" class="Symbol"
+      >-&gt;</a
+      ><a name="4902"
+      > </a
+      ><a name="4903" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="4916"
+      > </a
+      ><a name="4917" href="Views.html#4891" class="Bound"
+      >A</a
+      ><a name="4918"
+      > </a
+      ><a name="4919" class="Symbol"
+      >-&gt;</a
+      ><a name="4921"
+      > </a
+      ><a name="4922" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="4926"
+      > </a
+      ><a name="4927" href="Views.html#4891" class="Bound"
+      >A</a
+      ><a name="4928"
+      >
+</a
+      ><a name="4929" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="4933"
+      > </a
+      ><a name="4934" href="Views.html#4934" class="Bound"
+      >xs</a
+      ><a name="4936"
+      > </a
+      ><a name="4937" class="Symbol"
+      >=</a
+      ><a name="4938"
+      > </a
+      ><a name="4939" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="4941"
+      > </a
+      ><a name="4942" class="Symbol"
+      >(</a
+      ><a name="4943" href="Views.html#4809" class="Function"
+      >fromSigma</a
+      ><a name="4952"
+      > </a
+      ><a name="4953" href="Views.html#4934" class="Bound"
+      >xs</a
+      ><a name="4955" class="Symbol"
+      >)</a
+      ><a name="4956"
+      >
+
+</a
+      ><a name="4958" href="Views.html#4958" class="Function"
+      >from''</a
+      ><a name="4964"
+      > </a
+      ><a name="4965" class="Symbol"
+      >:</a
+      ><a name="4966"
+      > </a
+      ><a name="4967" class="Symbol"
+      >{</a
+      ><a name="4968" href="Views.html#4968" class="Bound"
+      >A</a
+      ><a name="4969"
+      > </a
+      ><a name="4970" class="Symbol"
+      >:</a
+      ><a name="4971"
+      > </a
+      ><a name="4972" class="PrimitiveType"
+      >Set</a
+      ><a name="4975" class="Symbol"
+      >}</a
+      ><a name="4976"
+      > </a
+      ><a name="4977" class="Symbol"
+      >-&gt;</a
+      ><a name="4979"
+      > </a
+      ><a name="4980" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="4984"
+      > </a
+      ><a name="4985" href="Views.html#4968" class="Bound"
+      >A</a
+      ><a name="4986"
+      > </a
+      ><a name="4987" class="Symbol"
+      >-&gt;</a
+      ><a name="4989"
+      > </a
+      ><a name="4990" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="5003"
+      > </a
+      ><a name="5004" href="Views.html#4968" class="Bound"
+      >A</a
+      ><a name="5005"
+      >
+</a
+      ><a name="5006" href="Views.html#4958" class="Function"
+      >from''</a
+      ><a name="5012"
+      > </a
+      ><a name="5013" href="Views.html#5013" class="Bound"
+      >xs</a
+      ><a name="5015"
+      > </a
+      ><a name="5016" class="Symbol"
+      >=</a
+      ><a name="5017"
+      > </a
+      ><a name="5018" href="Views.html#4698" class="Function"
+      >toSigma</a
+      ><a name="5025"
+      > </a
+      ><a name="5026" class="Symbol"
+      >(</a
+      ><a name="5027" href="Views.html#1365" class="Function"
+      >from</a
+      ><a name="5031"
+      > </a
+      ><a name="5032" href="Views.html#5013" class="Bound"
+      >xs</a
+      ><a name="5034" class="Symbol"
+      >)</a
+      ><a name="5035"
+      >
+
+</a
+      ><a name="5037" href="Views.html#5037" class="Function"
+      >join-list-empty''</a
+      ><a name="5054"
+      > </a
+      ><a name="5055" class="Symbol"
+      >:</a
+      ><a name="5056"
+      > </a
+      ><a name="5057" class="Symbol"
+      >{</a
+      ><a name="5058" href="Views.html#5058" class="Bound"
+      >A</a
+      ><a name="5059"
+      > </a
+      ><a name="5060" class="Symbol"
+      >:</a
+      ><a name="5061"
+      > </a
+      ><a name="5062" class="PrimitiveType"
+      >Set</a
+      ><a name="5065" class="Symbol"
+      >}</a
+      ><a name="5066"
+      > </a
+      ><a name="5067" class="Symbol"
+      >-&gt;</a
+      ><a name="5069"
+      > </a
+      ><a name="5070" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="5083"
+      > </a
+      ><a name="5084" href="Views.html#5058" class="Bound"
+      >A</a
+      ><a name="5085"
+      >
+</a
+      ><a name="5086" href="Views.html#5037" class="Function"
+      >join-list-empty''</a
+      ><a name="5103"
+      > </a
+      ><a name="5104" class="Symbol"
+      >=</a
+      ><a name="5105"
+      > </a
+      ><a name="5106" href="Views.html#4698" class="Function"
+      >toSigma</a
+      ><a name="5113"
+      > </a
+      ><a name="5114" href="Views.html#796" class="Function"
+      >join-list-empty</a
+      ><a name="5129"
+      >
+
+</a
+      ><a name="5131" href="Views.html#5131" class="Function"
+      >join-list-single''</a
+      ><a name="5149"
+      > </a
+      ><a name="5150" class="Symbol"
+      >:</a
+      ><a name="5151"
+      > </a
+      ><a name="5152" class="Symbol"
+      >{</a
+      ><a name="5153" href="Views.html#5153" class="Bound"
+      >A</a
+      ><a name="5154"
+      > </a
+      ><a name="5155" class="Symbol"
+      >:</a
+      ><a name="5156"
+      > </a
+      ><a name="5157" class="PrimitiveType"
+      >Set</a
+      ><a name="5160" class="Symbol"
+      >}</a
+      ><a name="5161"
+      > </a
+      ><a name="5162" class="Symbol"
+      >-&gt;</a
+      ><a name="5164"
+      > </a
+      ><a name="5165" href="Views.html#5153" class="Bound"
+      >A</a
+      ><a name="5166"
+      > </a
+      ><a name="5167" class="Symbol"
+      >-&gt;</a
+      ><a name="5169"
+      > </a
+      ><a name="5170" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="5183"
+      > </a
+      ><a name="5184" href="Views.html#5153" class="Bound"
+      >A</a
+      ><a name="5185"
+      >
+</a
+      ><a name="5186" href="Views.html#5131" class="Function"
+      >join-list-single''</a
+      ><a name="5204"
+      > </a
+      ><a name="5205" href="Views.html#5205" class="Bound"
+      >a</a
+      ><a name="5206"
+      > </a
+      ><a name="5207" class="Symbol"
+      >=</a
+      ><a name="5208"
+      > </a
+      ><a name="5209" href="Views.html#4698" class="Function"
+      >toSigma</a
+      ><a name="5216"
+      > </a
+      ><a name="5217" class="Symbol"
+      >(</a
+      ><a name="5218" href="Views.html#861" class="Function"
+      >join-list-single</a
+      ><a name="5234"
+      > </a
+      ><a name="5235" href="Views.html#5205" class="Bound"
+      >a</a
+      ><a name="5236" class="Symbol"
+      >)</a
+      ><a name="5237"
+      >
+
+</a
+      ><a name="5239" href="Views.html#5239" class="Function"
+      >join-list-append''</a
+      ><a name="5257"
+      > </a
+      ><a name="5258" class="Symbol"
+      >:</a
+      ><a name="5259"
+      > </a
+      ><a name="5260" class="Symbol"
+      >{</a
+      ><a name="5261" href="Views.html#5261" class="Bound"
+      >A</a
+      ><a name="5262"
+      > </a
+      ><a name="5263" class="Symbol"
+      >:</a
+      ><a name="5264"
+      > </a
+      ><a name="5265" class="PrimitiveType"
+      >Set</a
+      ><a name="5268" class="Symbol"
+      >}</a
+      ><a name="5269"
+      > </a
+      ><a name="5270" class="Symbol"
+      >-&gt;</a
+      ><a name="5272"
+      > </a
+      ><a name="5273" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="5286"
+      > </a
+      ><a name="5287" href="Views.html#5261" class="Bound"
+      >A</a
+      ><a name="5288"
+      > </a
+      ><a name="5289" class="Symbol"
+      >-&gt;</a
+      ><a name="5291"
+      > </a
+      ><a name="5292" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="5305"
+      > </a
+      ><a name="5306" href="Views.html#5261" class="Bound"
+      >A</a
+      ><a name="5307"
+      > </a
+      ><a name="5308" class="Symbol"
+      >-&gt;</a
+      ><a name="5310"
+      > </a
+      ><a name="5311" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="5324"
+      > </a
+      ><a name="5325" href="Views.html#5261" class="Bound"
+      >A</a
+      ><a name="5326"
+      >
+</a
+      ><a name="5327" href="Views.html#5239" class="Function"
+      >join-list-append''</a
+      ><a name="5345"
+      > </a
+      ><a name="5346" href="Views.html#5346" class="Bound"
+      >l</a
+      ><a name="5347"
+      > </a
+      ><a name="5348" href="Views.html#5348" class="Bound"
+      >r</a
+      ><a name="5349"
+      > </a
+      ><a name="5350" class="Symbol"
+      >=</a
+      ><a name="5351"
+      > </a
+      ><a name="5352" href="Views.html#4698" class="Function"
+      >toSigma</a
+      ><a name="5359"
+      > </a
+      ><a name="5360" class="Symbol"
+      >(</a
+      ><a name="5361" href="Views.html#934" class="Function"
+      >join-list-append</a
+      ><a name="5377"
+      > </a
+      ><a name="5378" class="Symbol"
+      >(</a
+      ><a name="5379" href="Views.html#4809" class="Function"
+      >fromSigma</a
+      ><a name="5388"
+      > </a
+      ><a name="5389" href="Views.html#5346" class="Bound"
+      >l</a
+      ><a name="5390" class="Symbol"
+      >)</a
+      ><a name="5391"
+      > </a
+      ><a name="5392" class="Symbol"
+      >(</a
+      ><a name="5393" href="Views.html#4809" class="Function"
+      >fromSigma</a
+      ><a name="5402"
+      > </a
+      ><a name="5403" href="Views.html#5348" class="Bound"
+      >r</a
+      ><a name="5404" class="Symbol"
+      >))</a
+      ><a name="5406"
+      >
+
+</a
+      ><a name="5408" href="Views.html#5408" class="Function"
+      >join-list-map''</a
+      ><a name="5423"
+      > </a
+      ><a name="5424" class="Symbol"
+      >:</a
+      ><a name="5425"
+      > </a
+      ><a name="5426" class="Symbol"
+      >{</a
+      ><a name="5427" href="Views.html#5427" class="Bound"
+      >A</a
+      ><a name="5428"
+      > </a
+      ><a name="5429" href="Views.html#5429" class="Bound"
+      >B</a
+      ><a name="5430"
+      > </a
+      ><a name="5431" class="Symbol"
+      >:</a
+      ><a name="5432"
+      > </a
+      ><a name="5433" class="PrimitiveType"
+      >Set</a
+      ><a name="5436" class="Symbol"
+      >}</a
+      ><a name="5437"
+      > </a
+      ><a name="5438" class="Symbol"
+      >-&gt;</a
+      ><a name="5440"
+      > </a
+      ><a name="5441" class="Symbol"
+      >(</a
+      ><a name="5442" href="Views.html#5442" class="Bound"
+      >f</a
+      ><a name="5443"
+      > </a
+      ><a name="5444" class="Symbol"
+      >:</a
+      ><a name="5445"
+      > </a
+      ><a name="5446" href="Views.html#5427" class="Bound"
+      >A</a
+      ><a name="5447"
+      > </a
+      ><a name="5448" class="Symbol"
+      >-&gt;</a
+      ><a name="5450"
+      > </a
+      ><a name="5451" href="Views.html#5429" class="Bound"
+      >B</a
+      ><a name="5452" class="Symbol"
+      >)</a
+      ><a name="5453"
+      > </a
+      ><a name="5454" class="Symbol"
+      >-&gt;</a
+      ><a name="5456"
+      > </a
+      ><a name="5457" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="5470"
+      > </a
+      ><a name="5471" href="Views.html#5427" class="Bound"
+      >A</a
+      ><a name="5472"
+      > </a
+      ><a name="5473" class="Symbol"
+      >-&gt;</a
+      ><a name="5475"
+      > </a
+      ><a name="5476" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="5489"
+      > </a
+      ><a name="5490" href="Views.html#5429" class="Bound"
+      >B</a
+      ><a name="5491"
+      >
+</a
+      ><a name="5492" href="Views.html#5408" class="Function"
+      >join-list-map''</a
+      ><a name="5507"
+      > </a
+      ><a name="5508" href="Views.html#5508" class="Bound"
+      >f</a
+      ><a name="5509"
+      > </a
+      ><a name="5510" href="Views.html#5510" class="Bound"
+      >xs</a
+      ><a name="5512"
+      > </a
+      ><a name="5513" class="Symbol"
+      >=</a
+      ><a name="5514"
+      > </a
+      ><a name="5515" href="Views.html#4698" class="Function"
+      >toSigma</a
+      ><a name="5522"
+      > </a
+      ><a name="5523" class="Symbol"
+      >(</a
+      ><a name="5524" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="5537"
+      > </a
+      ><a name="5538" href="Views.html#5508" class="Bound"
+      >f</a
+      ><a name="5539"
+      > </a
+      ><a name="5540" class="Symbol"
+      >(</a
+      ><a name="5541" href="Views.html#4809" class="Function"
+      >fromSigma</a
+      ><a name="5550"
+      > </a
+      ><a name="5551" href="Views.html#5510" class="Bound"
+      >xs</a
+      ><a name="5553" class="Symbol"
+      >))</a
+      ><a name="5555"
+      >
+
+</a
+      ><a name="5557" class="Comment"
+      >-- Join lists satisfy the properties</a
+      ><a name="5593"
+      >
+</a
+      ><a name="5594" href="Views.html#5594" class="Function"
+      >empty-resp''</a
+      ><a name="5606"
+      > </a
+      ><a name="5607" class="Symbol"
+      >:</a
+      ><a name="5608"
+      > </a
+      ><a name="5609" class="Symbol"
+      >{</a
+      ><a name="5610" href="Views.html#5610" class="Bound"
+      >A</a
+      ><a name="5611"
+      > </a
+      ><a name="5612" class="Symbol"
+      >:</a
+      ><a name="5613"
+      > </a
+      ><a name="5614" class="PrimitiveType"
+      >Set</a
+      ><a name="5617" class="Symbol"
+      >}</a
+      ><a name="5618"
+      > </a
+      ><a name="5619" class="Symbol"
+      >-&gt;</a
+      ><a name="5621"
+      > </a
+      ><a name="5622" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="5626"
+      > </a
+      ><a name="5627" class="Symbol"
+      >(</a
+      ><a name="5628" href="Views.html#5037" class="Function"
+      >join-list-empty''</a
+      ><a name="5645"
+      > </a
+      ><a name="5646" class="Symbol"
+      >{</a
+      ><a name="5647" href="Views.html#5610" class="Bound"
+      >A</a
+      ><a name="5648" class="Symbol"
+      >})</a
+      ><a name="5650"
+      > </a
+      ><a name="5651" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="5652"
+      > </a
+      ><a name="5653" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="5656"
+      >
+</a
+      ><a name="5657" href="Views.html#5594" class="Function"
+      >empty-resp''</a
+      ><a name="5669"
+      > </a
+      ><a name="5670" class="Symbol"
+      >=</a
+      ><a name="5671"
+      > </a
+      ><a name="5672" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="5676"
+      >
+
+</a
+      ><a name="5678" href="Views.html#5678" class="Function"
+      >single-resp''</a
+      ><a name="5691"
+      > </a
+      ><a name="5692" class="Symbol"
+      >:</a
+      ><a name="5693"
+      > </a
+      ><a name="5694" class="Symbol"
+      >{</a
+      ><a name="5695" href="Views.html#5695" class="Bound"
+      >A</a
+      ><a name="5696"
+      > </a
+      ><a name="5697" class="Symbol"
+      >:</a
+      ><a name="5698"
+      > </a
+      ><a name="5699" class="PrimitiveType"
+      >Set</a
+      ><a name="5702" class="Symbol"
+      >}</a
+      ><a name="5703"
+      > </a
+      ><a name="5704" class="Symbol"
+      >-&gt;</a
+      ><a name="5706"
+      > </a
+      ><a name="5707" class="Symbol"
+      >(</a
+      ><a name="5708" href="Views.html#5708" class="Bound"
+      >a</a
+      ><a name="5709"
+      > </a
+      ><a name="5710" class="Symbol"
+      >:</a
+      ><a name="5711"
+      > </a
+      ><a name="5712" href="Views.html#5695" class="Bound"
+      >A</a
+      ><a name="5713" class="Symbol"
+      >)</a
+      ><a name="5714"
+      > </a
+      ><a name="5715" class="Symbol"
+      >-&gt;</a
+      ><a name="5717"
+      > </a
+      ><a name="5718" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="5722"
+      > </a
+      ><a name="5723" class="Symbol"
+      >(</a
+      ><a name="5724" href="Views.html#5131" class="Function"
+      >join-list-single''</a
+      ><a name="5742"
+      > </a
+      ><a name="5743" href="Views.html#5708" class="Bound"
+      >a</a
+      ><a name="5744" class="Symbol"
+      >)</a
+      ><a name="5745"
+      > </a
+      ><a name="5746" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="5747"
+      > </a
+      ><a name="5748" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="5752"
+      > </a
+      ><a name="5753" href="Views.html#5708" class="Bound"
+      >a</a
+      ><a name="5754"
+      > </a
+      ><a name="5755" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="5758"
+      >
+</a
+      ><a name="5759" href="Views.html#5678" class="Function"
+      >single-resp''</a
+      ><a name="5772"
+      > </a
+      ><a name="5773" class="Symbol"
+      >_</a
+      ><a name="5774"
+      > </a
+      ><a name="5775" class="Symbol"
+      >=</a
+      ><a name="5776"
+      > </a
+      ><a name="5777" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="5781"
+      >
+
+</a
+      ><a name="5783" href="Views.html#5783" class="Function"
+      >append-resp''</a
+      ><a name="5796"
+      > </a
+      ><a name="5797" class="Symbol"
+      >:</a
+      ><a name="5798"
+      > </a
+      ><a name="5799" class="Symbol"
+      >{</a
+      ><a name="5800" href="Views.html#5800" class="Bound"
+      >A</a
+      ><a name="5801"
+      > </a
+      ><a name="5802" class="Symbol"
+      >:</a
+      ><a name="5803"
+      > </a
+      ><a name="5804" class="PrimitiveType"
+      >Set</a
+      ><a name="5807" class="Symbol"
+      >}</a
+      ><a name="5808"
+      > </a
+      ><a name="5809" class="Symbol"
+      >-&gt;</a
+      ><a name="5811"
+      > </a
+      ><a name="5812" class="Symbol"
+      >(</a
+      ><a name="5813" href="Views.html#5813" class="Bound"
+      >xs</a
+      ><a name="5815"
+      > </a
+      ><a name="5816" href="Views.html#5816" class="Bound"
+      >ys</a
+      ><a name="5818"
+      > </a
+      ><a name="5819" class="Symbol"
+      >:</a
+      ><a name="5820"
+      > </a
+      ><a name="5821" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="5834"
+      > </a
+      ><a name="5835" href="Views.html#5800" class="Bound"
+      >A</a
+      ><a name="5836" class="Symbol"
+      >)</a
+      ><a name="5837"
+      > </a
+      ><a name="5838" class="Symbol"
+      >-&gt;</a
+      ><a name="5840"
+      > </a
+      ><a name="5841" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="5845"
+      > </a
+      ><a name="5846" class="Symbol"
+      >(</a
+      ><a name="5847" href="Views.html#5239" class="Function"
+      >join-list-append''</a
+      ><a name="5865"
+      > </a
+      ><a name="5866" href="Views.html#5813" class="Bound"
+      >xs</a
+      ><a name="5868"
+      > </a
+      ><a name="5869" href="Views.html#5816" class="Bound"
+      >ys</a
+      ><a name="5871" class="Symbol"
+      >)</a
+      ><a name="5872"
+      > </a
+      ><a name="5873" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="5874"
+      > </a
+      ><a name="5875" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="5886"
+      > </a
+      ><a name="5887" class="Symbol"
+      >(</a
+      ><a name="5888" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="5892"
+      > </a
+      ><a name="5893" href="Views.html#5813" class="Bound"
+      >xs</a
+      ><a name="5895" class="Symbol"
+      >)</a
+      ><a name="5896"
+      > </a
+      ><a name="5897" class="Symbol"
+      >(</a
+      ><a name="5898" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="5902"
+      > </a
+      ><a name="5903" href="Views.html#5816" class="Bound"
+      >ys</a
+      ><a name="5905" class="Symbol"
+      >)</a
+      ><a name="5906"
+      >
+</a
+      ><a name="5907" href="Views.html#5783" class="Function"
+      >append-resp''</a
+      ><a name="5920"
+      > </a
+      ><a name="5921" href="Views.html#5921" class="Bound"
+      >xs</a
+      ><a name="5923"
+      > </a
+      ><a name="5924" href="Views.html#5924" class="Bound"
+      >ys</a
+      ><a name="5926"
+      > </a
+      ><a name="5927" class="Symbol"
+      >=</a
+      ><a name="5928"
+      > </a
+      ><a name="5929" href="Views.html#1465" class="Function"
+      >is-retraction</a
+      ><a name="5942"
+      > </a
+      ><a name="5943" class="Symbol"
+      >(</a
+      ><a name="5944" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="5955"
+      > </a
+      ><a name="5956" class="Symbol"
+      >(</a
+      ><a name="5957" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="5961"
+      > </a
+      ><a name="5962" href="Views.html#5921" class="Bound"
+      >xs</a
+      ><a name="5964" class="Symbol"
+      >)</a
+      ><a name="5965"
+      > </a
+      ><a name="5966" class="Symbol"
+      >(</a
+      ><a name="5967" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="5971"
+      > </a
+      ><a name="5972" href="Views.html#5924" class="Bound"
+      >ys</a
+      ><a name="5974" class="Symbol"
+      >))</a
+      ><a name="5976"
+      >
+
+</a
+      ><a name="5978" href="Views.html#5978" class="Function"
+      >map-resp''</a
+      ><a name="5988"
+      > </a
+      ><a name="5989" class="Symbol"
+      >:</a
+      ><a name="5990"
+      > </a
+      ><a name="5991" class="Symbol"
+      >{</a
+      ><a name="5992" href="Views.html#5992" class="Bound"
+      >A</a
+      ><a name="5993"
+      > </a
+      ><a name="5994" href="Views.html#5994" class="Bound"
+      >B</a
+      ><a name="5995"
+      > </a
+      ><a name="5996" class="Symbol"
+      >:</a
+      ><a name="5997"
+      > </a
+      ><a name="5998" class="PrimitiveType"
+      >Set</a
+      ><a name="6001" class="Symbol"
+      >}</a
+      ><a name="6002"
+      > </a
+      ><a name="6003" class="Symbol"
+      >-&gt;</a
+      ><a name="6005"
+      > </a
+      ><a name="6006" class="Symbol"
+      >(</a
+      ><a name="6007" href="Views.html#6007" class="Bound"
+      >f</a
+      ><a name="6008"
+      > </a
+      ><a name="6009" class="Symbol"
+      >:</a
+      ><a name="6010"
+      > </a
+      ><a name="6011" href="Views.html#5992" class="Bound"
+      >A</a
+      ><a name="6012"
+      > </a
+      ><a name="6013" class="Symbol"
+      >-&gt;</a
+      ><a name="6015"
+      > </a
+      ><a name="6016" href="Views.html#5994" class="Bound"
+      >B</a
+      ><a name="6017" class="Symbol"
+      >)</a
+      ><a name="6018"
+      > </a
+      ><a name="6019" class="Symbol"
+      >-&gt;</a
+      ><a name="6021"
+      > </a
+      ><a name="6022" class="Symbol"
+      >(</a
+      ><a name="6023" href="Views.html#6023" class="Bound"
+      >xs</a
+      ><a name="6025"
+      > </a
+      ><a name="6026" class="Symbol"
+      >:</a
+      ><a name="6027"
+      > </a
+      ><a name="6028" href="Views.html#4610" class="Function"
+      >JoinListSigma</a
+      ><a name="6041"
+      > </a
+      ><a name="6042" href="Views.html#5992" class="Bound"
+      >A</a
+      ><a name="6043" class="Symbol"
+      >)</a
+      ><a name="6044"
+      > </a
+      ><a name="6045" class="Symbol"
+      >-&gt;</a
+      ><a name="6047"
+      > </a
+      ><a name="6048" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="6052"
+      > </a
+      ><a name="6053" class="Symbol"
+      >(</a
+      ><a name="6054" href="Views.html#5408" class="Function"
+      >join-list-map''</a
+      ><a name="6069"
+      > </a
+      ><a name="6070" href="Views.html#6007" class="Bound"
+      >f</a
+      ><a name="6071"
+      > </a
+      ><a name="6072" href="Views.html#6023" class="Bound"
+      >xs</a
+      ><a name="6074" class="Symbol"
+      >)</a
+      ><a name="6075"
+      > </a
+      ><a name="6076" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="6077"
+      > </a
+      ><a name="6078" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="6086"
+      > </a
+      ><a name="6087" href="Views.html#6007" class="Bound"
+      >f</a
+      ><a name="6088"
+      > </a
+      ><a name="6089" class="Symbol"
+      >(</a
+      ><a name="6090" href="Views.html#4883" class="Function"
+      >to''</a
+      ><a name="6094"
+      > </a
+      ><a name="6095" href="Views.html#6023" class="Bound"
+      >xs</a
+      ><a name="6097" class="Symbol"
+      >)</a
+      ><a name="6098"
+      >
+</a
+      ><a name="6099" href="Views.html#5978" class="Function"
+      >map-resp''</a
+      ><a name="6109"
+      > </a
+      ><a name="6110" href="Views.html#6110" class="Bound"
+      >f</a
+      ><a name="6111"
+      > </a
+      ><a name="6112" href="Views.html#6112" class="Bound"
+      >x</a
+      ><a name="6113"
+      > </a
+      ><a name="6114" class="Symbol"
+      >=</a
+      ><a name="6115"
+      > </a
+      ><a name="6116" href="Identity.html#303" class="Function"
+      >trans</a
+      ><a name="6121"
+      > </a
+      ><a name="6122" class="Symbol"
+      >(</a
+      ><a name="6123" href="Views.html#1465" class="Function"
+      >is-retraction</a
+      ><a name="6136"
+      > </a
+      ><a name="6137" class="Symbol"
+      >(</a
+      ><a name="6138" href="Views.html#1245" class="Function"
+      >to</a
+      ><a name="6140"
+      > </a
+      ><a name="6141" class="Symbol"
+      >(</a
+      ><a name="6142" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="6155"
+      > </a
+      ><a name="6156" href="Views.html#6110" class="Bound"
+      >f</a
+      ><a name="6157"
+      > </a
+      ><a name="6158" class="Symbol"
+      >(</a
+      ><a name="6159" href="Views.html#4809" class="Function"
+      >fromSigma</a
+      ><a name="6168"
+      > </a
+      ><a name="6169" href="Views.html#6112" class="Bound"
+      >x</a
+      ><a name="6170" class="Symbol"
+      >))))</a
+      ><a name="6174"
+      > </a
+      ><a name="6175" class="Symbol"
+      >(</a
+      ><a name="6176" href="Views.html#1959" class="Function"
+      >map-resp</a
+      ><a name="6184"
+      > </a
+      ><a name="6185" href="Views.html#6110" class="Bound"
+      >f</a
+      ><a name="6186"
+      > </a
+      ><a name="6187" class="Symbol"
+      >(</a
+      ><a name="6188" href="Views.html#4809" class="Function"
+      >fromSigma</a
+      ><a name="6197"
+      > </a
+      ><a name="6198" href="Views.html#6112" class="Bound"
+      >x</a
+      ><a name="6199" class="Symbol"
+      >))</a
+      ><a name="6201"
+      >
+
+</a
+      ><a name="6203" class="Comment"
+      >-- Spec stuff</a
+      ><a name="6216"
+      >
+</a
+      ><a name="6217" href="Views.html#6217" class="Function"
+      >Iso</a
+      ><a name="6220"
+      > </a
+      ><a name="6221" class="Symbol"
+      >:</a
+      ><a name="6222"
+      > </a
+      ><a name="6223" class="Symbol"
+      >{</a
+      ><a name="6224" href="Views.html#6224" class="Bound"
+      >a</a
+      ><a name="6225"
+      > </a
+      ><a name="6226" class="Symbol"
+      >:</a
+      ><a name="6227"
+      > </a
+      ><a name="6228" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="6233" class="Symbol"
+      >}</a
+      ><a name="6234"
+      > </a
+      ><a name="6235" class="Symbol"
+      >-&gt;</a
+      ><a name="6237"
+      > </a
+      ><a name="6238" class="PrimitiveType"
+      >Set</a
+      ><a name="6241"
+      > </a
+      ><a name="6242" href="Views.html#6224" class="Bound"
+      >a</a
+      ><a name="6243"
+      > </a
+      ><a name="6244" class="Symbol"
+      >&#8594;</a
+      ><a name="6245"
+      > </a
+      ><a name="6246" class="PrimitiveType"
+      >Set</a
+      ><a name="6249"
+      > </a
+      ><a name="6250" href="Views.html#6224" class="Bound"
+      >a</a
+      ><a name="6251"
+      > </a
+      ><a name="6252" class="Symbol"
+      >&#8594;</a
+      ><a name="6253"
+      > </a
+      ><a name="6254" class="PrimitiveType"
+      >Set</a
+      ><a name="6257"
+      > </a
+      ><a name="6258" href="Views.html#6224" class="Bound"
+      >a</a
+      ><a name="6259"
+      >
+</a
+      ><a name="6260" href="Views.html#6217" class="Function"
+      >Iso</a
+      ><a name="6263"
+      > </a
+      ><a name="6264" href="Views.html#6264" class="Bound"
+      >A</a
+      ><a name="6265"
+      > </a
+      ><a name="6266" href="Views.html#6266" class="Bound"
+      >B</a
+      ><a name="6267"
+      > </a
+      ><a name="6268" class="Symbol"
+      >=</a
+      ><a name="6269"
+      > </a
+      ><a name="6270" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="6271"
+      > </a
+      ><a name="6272" class="Symbol"
+      >(</a
+      ><a name="6273" href="Views.html#6264" class="Bound"
+      >A</a
+      ><a name="6274"
+      > </a
+      ><a name="6275" class="Symbol"
+      >&#8594;</a
+      ><a name="6276"
+      > </a
+      ><a name="6277" href="Views.html#6266" class="Bound"
+      >B</a
+      ><a name="6278" class="Symbol"
+      >)</a
+      ><a name="6279"
+      > </a
+      ><a name="6280" class="Symbol"
+      >(\</a
+      ><a name="6282" href="Views.html#6282" class="Bound"
+      >f</a
+      ><a name="6283"
+      > </a
+      ><a name="6284" class="Symbol"
+      >&#8594;</a
+      ><a name="6285"
+      > 
+          </a
+      ><a name="6297" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="6298"
+      > </a
+      ><a name="6299" class="Symbol"
+      >(</a
+      ><a name="6300" href="Views.html#6266" class="Bound"
+      >B</a
+      ><a name="6301"
+      > </a
+      ><a name="6302" class="Symbol"
+      >&#8594;</a
+      ><a name="6303"
+      > </a
+      ><a name="6304" href="Views.html#6264" class="Bound"
+      >A</a
+      ><a name="6305" class="Symbol"
+      >)</a
+      ><a name="6306"
+      > </a
+      ><a name="6307" class="Symbol"
+      >(\</a
+      ><a name="6309" href="Views.html#6309" class="Bound"
+      >g</a
+      ><a name="6310"
+      > </a
+      ><a name="6311" class="Symbol"
+      >&#8594;</a
+      ><a name="6312"
+      > 
+          </a
+      ><a name="6324" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="6325"
+      > </a
+      ><a name="6326" class="Symbol"
+      >((</a
+      ><a name="6328" href="Views.html#6328" class="Bound"
+      >x</a
+      ><a name="6329"
+      > </a
+      ><a name="6330" class="Symbol"
+      >:</a
+      ><a name="6331"
+      > </a
+      ><a name="6332" href="Views.html#6264" class="Bound"
+      >A</a
+      ><a name="6333" class="Symbol"
+      >)</a
+      ><a name="6334"
+      > </a
+      ><a name="6335" class="Symbol"
+      >&#8594;</a
+      ><a name="6336"
+      > </a
+      ><a name="6337" href="Identity.html#78" class="Datatype"
+      >Id</a
+      ><a name="6339"
+      > </a
+      ><a name="6340" href="Views.html#6264" class="Bound"
+      >A</a
+      ><a name="6341"
+      > </a
+      ><a name="6342" class="Symbol"
+      >(</a
+      ><a name="6343" href="Views.html#6309" class="Bound"
+      >g</a
+      ><a name="6344"
+      > </a
+      ><a name="6345" class="Symbol"
+      >(</a
+      ><a name="6346" href="Views.html#6282" class="Bound"
+      >f</a
+      ><a name="6347"
+      > </a
+      ><a name="6348" href="Views.html#6328" class="Bound"
+      >x</a
+      ><a name="6349" class="Symbol"
+      >))</a
+      ><a name="6351"
+      > </a
+      ><a name="6352" href="Views.html#6328" class="Bound"
+      >x</a
+      ><a name="6353" class="Symbol"
+      >)</a
+      ><a name="6354"
+      > </a
+      ><a name="6355" class="Symbol"
+      >(\</a
+      ><a name="6357" href="Views.html#6357" class="Bound"
+      >_</a
+      ><a name="6358"
+      > </a
+      ><a name="6359" class="Symbol"
+      >&#8594;</a
+      ><a name="6360"
+      > 
+             </a
+      ><a name="6375" class="Symbol"
+      >(</a
+      ><a name="6376" href="Views.html#6376" class="Bound"
+      >x</a
+      ><a name="6377"
+      > </a
+      ><a name="6378" class="Symbol"
+      >:</a
+      ><a name="6379"
+      > </a
+      ><a name="6380" href="Views.html#6266" class="Bound"
+      >B</a
+      ><a name="6381" class="Symbol"
+      >)</a
+      ><a name="6382"
+      > </a
+      ><a name="6383" class="Symbol"
+      >&#8594;</a
+      ><a name="6384"
+      > </a
+      ><a name="6385" href="Identity.html#78" class="Datatype"
+      >Id</a
+      ><a name="6387"
+      > </a
+      ><a name="6388" href="Views.html#6266" class="Bound"
+      >B</a
+      ><a name="6389"
+      > </a
+      ><a name="6390" class="Symbol"
+      >(</a
+      ><a name="6391" href="Views.html#6282" class="Bound"
+      >f</a
+      ><a name="6392"
+      > </a
+      ><a name="6393" class="Symbol"
+      >(</a
+      ><a name="6394" href="Views.html#6309" class="Bound"
+      >g</a
+      ><a name="6395"
+      > </a
+      ><a name="6396" href="Views.html#6376" class="Bound"
+      >x</a
+      ><a name="6397" class="Symbol"
+      >))</a
+      ><a name="6399"
+      > </a
+      ><a name="6400" href="Views.html#6376" class="Bound"
+      >x</a
+      ><a name="6401" class="Symbol"
+      >)))</a
+      ><a name="6404"
+      >
+
+</a
+      ><a name="6406" class="Keyword"
+      >postulate</a
+      ><a name="6415"
+      >
+  </a
+      ><a name="6418" href="Views.html#6418" class="Postulate"
+      >ua</a
+      ><a name="6420"
+      > </a
+      ><a name="6421" class="Symbol"
+      >:</a
+      ><a name="6422"
+      > </a
+      ><a name="6423" class="Symbol"
+      >(</a
+      ><a name="6424" href="Views.html#6424" class="Bound"
+      >A</a
+      ><a name="6425"
+      > </a
+      ><a name="6426" href="Views.html#6426" class="Bound"
+      >B</a
+      ><a name="6427"
+      > </a
+      ><a name="6428" class="Symbol"
+      >:</a
+      ><a name="6429"
+      > </a
+      ><a name="6430" class="PrimitiveType"
+      >Set</a
+      ><a name="6433" class="Symbol"
+      >)</a
+      ><a name="6434"
+      > </a
+      ><a name="6435" class="Symbol"
+      >-&gt;</a
+      ><a name="6437"
+      > </a
+      ><a name="6438" href="Views.html#6217" class="Function"
+      >Iso</a
+      ><a name="6441"
+      > </a
+      ><a name="6442" href="Views.html#6424" class="Bound"
+      >A</a
+      ><a name="6443"
+      > </a
+      ><a name="6444" href="Views.html#6426" class="Bound"
+      >B</a
+      ><a name="6445"
+      > </a
+      ><a name="6446" class="Symbol"
+      >-&gt;</a
+      ><a name="6448"
+      > </a
+      ><a name="6449" href="Views.html#6424" class="Bound"
+      >A</a
+      ><a name="6450"
+      > </a
+      ><a name="6451" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="6452"
+      > </a
+      ><a name="6453" href="Views.html#6426" class="Bound"
+      >B</a
+      ><a name="6454"
+      >
+
+</a
+      ><a name="6456" href="Views.html#6456" class="Function"
+      >Sequence</a
+      ><a name="6464"
+      > </a
+      ><a name="6465" class="Symbol"
+      >:</a
+      ><a name="6466"
+      > </a
+      ><a name="6467" class="PrimitiveType"
+      >Set&#8321;</a
+      ><a name="6471"
+      >
+</a
+      ><a name="6472" href="Views.html#6456" class="Function"
+      >Sequence</a
+      ><a name="6480"
+      > </a
+      ><a name="6481" class="Symbol"
+      >=</a
+      ><a name="6482"
+      > 
+         </a
+      ><a name="6493" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="6494"
+      > </a
+      ><a name="6495" class="PrimitiveType"
+      >Set</a
+      ><a name="6498"
+      > </a
+      ><a name="6499" class="Symbol"
+      >(&#955;</a
+      ><a name="6501"
+      > </a
+      ><a name="6502" href="Views.html#6502" class="Bound"
+      >A</a
+      ><a name="6503"
+      > </a
+      ><a name="6504" class="Symbol"
+      >-&gt;</a
+      ><a name="6506"
+      >
+         </a
+      ><a name="6516" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="6517"
+      > </a
+      ><a name="6518" class="PrimitiveType"
+      >Set</a
+      ><a name="6521"
+      > </a
+      ><a name="6522" class="Symbol"
+      >(&#955;</a
+      ><a name="6524"
+      > </a
+      ><a name="6525" href="Views.html#6525" class="Bound"
+      >seq</a
+      ><a name="6528"
+      > </a
+      ><a name="6529" class="Symbol"
+      >-&gt;</a
+      ><a name="6531"
+      >
+         </a
+      ><a name="6541" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="6542"
+      > </a
+      ><a name="6543" class="Symbol"
+      >(</a
+      ><a name="6544" href="Views.html#6525" class="Bound"
+      >seq</a
+      ><a name="6547" class="Symbol"
+      >)</a
+      ><a name="6548"
+      >                               </a
+      ><a name="6579" class="Symbol"
+      >(&#955;</a
+      ><a name="6581"
+      > </a
+      ><a name="6582" href="Views.html#6582" class="Bound"
+      >empty</a
+      ><a name="6587"
+      > </a
+      ><a name="6588" class="Symbol"
+      >-&gt;</a
+      ><a name="6590"
+      >
+         </a
+      ><a name="6600" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="6601"
+      > </a
+      ><a name="6602" class="Symbol"
+      >(</a
+      ><a name="6603" href="Views.html#6502" class="Bound"
+      >A</a
+      ><a name="6604"
+      > </a
+      ><a name="6605" class="Symbol"
+      >-&gt;</a
+      ><a name="6607"
+      > </a
+      ><a name="6608" href="Views.html#6525" class="Bound"
+      >seq</a
+      ><a name="6611" class="Symbol"
+      >)</a
+      ><a name="6612"
+      >                          </a
+      ><a name="6638" class="Symbol"
+      >(&#955;</a
+      ><a name="6640"
+      > </a
+      ><a name="6641" href="Views.html#6641" class="Bound"
+      >single</a
+      ><a name="6647"
+      > </a
+      ><a name="6648" class="Symbol"
+      >-&gt;</a
+      ><a name="6650"
+      > 
+         </a
+      ><a name="6661" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="6662"
+      > </a
+      ><a name="6663" class="Symbol"
+      >(</a
+      ><a name="6664" href="Views.html#6525" class="Bound"
+      >seq</a
+      ><a name="6667"
+      > </a
+      ><a name="6668" class="Symbol"
+      >-&gt;</a
+      ><a name="6670"
+      > </a
+      ><a name="6671" href="Views.html#6525" class="Bound"
+      >seq</a
+      ><a name="6674"
+      > </a
+      ><a name="6675" class="Symbol"
+      >-&gt;</a
+      ><a name="6677"
+      > </a
+      ><a name="6678" href="Views.html#6525" class="Bound"
+      >seq</a
+      ><a name="6681" class="Symbol"
+      >)</a
+      ><a name="6682"
+      >                 </a
+      ><a name="6699" class="Symbol"
+      >(&#955;</a
+      ><a name="6701"
+      > </a
+      ><a name="6702" href="Views.html#6702" class="Bound"
+      >append</a
+      ><a name="6708"
+      > </a
+      ><a name="6709" class="Symbol"
+      >-&gt;</a
+      ><a name="6711"
+      >
+           </a
+      ><a name="6723" class="Symbol"
+      >((</a
+      ><a name="6725" href="Views.html#6502" class="Bound"
+      >A</a
+      ><a name="6726"
+      > </a
+      ><a name="6727" class="Symbol"
+      >-&gt;</a
+      ><a name="6729"
+      > </a
+      ><a name="6730" href="Views.html#6502" class="Bound"
+      >A</a
+      ><a name="6731" class="Symbol"
+      >)</a
+      ><a name="6732"
+      > </a
+      ><a name="6733" class="Symbol"
+      >-&gt;</a
+      ><a name="6735"
+      > </a
+      ><a name="6736" href="Views.html#6525" class="Bound"
+      >seq</a
+      ><a name="6739"
+      > </a
+      ><a name="6740" class="Symbol"
+      >-&gt;</a
+      ><a name="6742"
+      > </a
+      ><a name="6743" href="Views.html#6525" class="Bound"
+      >seq</a
+      ><a name="6746" class="Symbol"
+      >)</a
+      ><a name="6747"
+      > </a
+      ><a name="6748" class="Comment"
+      >-- map</a
+      ><a name="6754"
+      >
+         </a
+      ><a name="6764" class="Symbol"
+      >)))))</a
+      ><a name="6769"
+      >
+
+</a
+      ><a name="6771" href="Views.html#6771" class="Function"
+      >ListSeq</a
+      ><a name="6778"
+      > </a
+      ><a name="6779" class="Symbol"
+      >:</a
+      ><a name="6780"
+      > </a
+      ><a name="6781" class="Symbol"
+      >(</a
+      ><a name="6782" href="Views.html#6782" class="Bound"
+      >A</a
+      ><a name="6783"
+      > </a
+      ><a name="6784" class="Symbol"
+      >:</a
+      ><a name="6785"
+      > </a
+      ><a name="6786" class="PrimitiveType"
+      >Set</a
+      ><a name="6789" class="Symbol"
+      >)</a
+      ><a name="6790"
+      > </a
+      ><a name="6791" class="Symbol"
+      >-&gt;</a
+      ><a name="6793"
+      > </a
+      ><a name="6794" href="Views.html#6456" class="Function"
+      >Sequence</a
+      ><a name="6802"
+      >
+</a
+      ><a name="6803" href="Views.html#6771" class="Function"
+      >ListSeq</a
+      ><a name="6810"
+      > </a
+      ><a name="6811" href="Views.html#6811" class="Bound"
+      >A</a
+      ><a name="6812"
+      > </a
+      ><a name="6813" class="Symbol"
+      >=</a
+      ><a name="6814"
+      > </a
+      ><a name="6815" href="Views.html#6811" class="Bound"
+      >A</a
+      ><a name="6816"
+      > </a
+      ><a name="6817" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="6818"
+      > </a
+      ><a name="6819" class="Symbol"
+      >(</a
+      ><a name="6820" href="Views.html#114" class="Datatype"
+      >List</a
+      ><a name="6824"
+      > </a
+      ><a name="6825" href="Views.html#6811" class="Bound"
+      >A</a
+      ><a name="6826"
+      > </a
+      ><a name="6827" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="6828"
+      > </a
+      ><a name="6829" class="Symbol"
+      >(</a
+      ><a name="6830" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="6833"
+      > </a
+      ><a name="6834" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="6835"
+      > </a
+      ><a name="6836" class="Symbol"
+      >((&#955;</a
+      ><a name="6839"
+      > </a
+      ><a name="6840" href="Views.html#6840" class="Bound"
+      >x</a
+      ><a name="6841"
+      > </a
+      ><a name="6842" class="Symbol"
+      >&#8594;</a
+      ><a name="6843"
+      > </a
+      ><a name="6844" href="Views.html#158" class="InductiveConstructor"
+      >cons</a
+      ><a name="6848"
+      > </a
+      ><a name="6849" href="Views.html#6840" class="Bound"
+      >x</a
+      ><a name="6850"
+      > </a
+      ><a name="6851" href="Views.html#143" class="InductiveConstructor"
+      >nil</a
+      ><a name="6854" class="Symbol"
+      >)</a
+      ><a name="6855"
+      > </a
+      ><a name="6856" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="6857"
+      > </a
+      ><a name="6858" class="Symbol"
+      >(</a
+      ><a name="6859" href="Views.html#188" class="Function"
+      >list-append</a
+      ><a name="6870"
+      > </a
+      ><a name="6871" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="6872"
+      > </a
+      ><a name="6873" href="Views.html#317" class="Function"
+      >list-map</a
+      ><a name="6881" class="Symbol"
+      >))))</a
+      ><a name="6885"
+      >
+
+</a
+      ><a name="6887" class="Comment"
+      >-- This does not satisfy the specifcation: &quot;JoinList A&quot; is not</a
+      ><a name="6949"
+      >
+</a
+      ><a name="6950" class="Comment"
+      >-- isomorphic to &quot;ListSeq A&quot;.</a
+      ><a name="6979"
+      >
+</a
+      ><a name="6980" href="Views.html#6980" class="Function"
+      >JoinListSeq</a
+      ><a name="6991"
+      > </a
+      ><a name="6992" class="Symbol"
+      >:</a
+      ><a name="6993"
+      > </a
+      ><a name="6994" class="Symbol"
+      >(</a
+      ><a name="6995" href="Views.html#6995" class="Bound"
+      >A</a
+      ><a name="6996"
+      > </a
+      ><a name="6997" class="Symbol"
+      >:</a
+      ><a name="6998"
+      > </a
+      ><a name="6999" class="PrimitiveType"
+      >Set</a
+      ><a name="7002" class="Symbol"
+      >)</a
+      ><a name="7003"
+      > </a
+      ><a name="7004" class="Symbol"
+      >-&gt;</a
+      ><a name="7006"
+      > </a
+      ><a name="7007" href="Views.html#6456" class="Function"
+      >Sequence</a
+      ><a name="7015"
+      >
+</a
+      ><a name="7016" href="Views.html#6980" class="Function"
+      >JoinListSeq</a
+      ><a name="7027"
+      > </a
+      ><a name="7028" href="Views.html#7028" class="Bound"
+      >A</a
+      ><a name="7029"
+      > </a
+      ><a name="7030" class="Symbol"
+      >=</a
+      ><a name="7031"
+      > </a
+      ><a name="7032" href="Views.html#7028" class="Bound"
+      >A</a
+      ><a name="7033"
+      > </a
+      ><a name="7034" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="7035"
+      > </a
+      ><a name="7036" class="Symbol"
+      >(</a
+      ><a name="7037" href="Views.html#672" class="Datatype"
+      >JoinList</a
+      ><a name="7045"
+      > </a
+      ><a name="7046" href="Views.html#7028" class="Bound"
+      >A</a
+      ><a name="7047"
+      > </a
+      ><a name="7048" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="7049"
+      > </a
+      ><a name="7050" class="Symbol"
+      >(</a
+      ><a name="7051" href="Views.html#705" class="InductiveConstructor"
+      >nil</a
+      ><a name="7054"
+      > </a
+      ><a name="7055" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="7056"
+      > </a
+      ><a name="7057" class="Symbol"
+      >(</a
+      ><a name="7058" href="Views.html#724" class="InductiveConstructor"
+      >unit</a
+      ><a name="7062"
+      > </a
+      ><a name="7063" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="7064"
+      > </a
+      ><a name="7065" class="Symbol"
+      >(</a
+      ><a name="7066" href="Views.html#934" class="Function"
+      >join-list-append</a
+      ><a name="7082"
+      > </a
+      ><a name="7083" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="7084"
+      > </a
+      ><a name="7085" href="Views.html#1038" class="Function"
+      >join-list-map</a
+      ><a name="7098" class="Symbol"
+      >))))</a
+      ><a name="7102"
+      >
+
+</a
+      ><a name="7104" class="Comment"
+      >-- Unfolding this and applying some rule that &#8801; for &#931;-types can be</a
+      ><a name="7170"
+      >
+</a
+      ><a name="7171" class="Comment"
+      >-- done via &#8801; on first field and transport rules for the second will</a
+      ><a name="7239"
+      >
+</a
+      ><a name="7240" class="Comment"
+      >-- lead us to the desired properties on the methods, if we also use</a
+      ><a name="7307"
+      >
+</a
+      ><a name="7308" class="Comment"
+      >-- the rules for transport on equalities obtained from applying</a
+      ><a name="7371"
+      >
+</a
+      ><a name="7372" class="Comment"
+      >-- univalence.</a
+      ><a name="7386"
+      >
+</a
+      ><a name="7387" class="Comment"
+      >-- spec : (A : Set) -&gt; Iso (List A) (JoinList A) -&gt; ListSeq A &#8801; JoinListSeq A</a
+      ><a name="7464"
+      >
+</a
+      ><a name="7465" class="Comment"
+      >-- spec A iso = &#931;-&#8801; refl </a
+      ><a name="7490"
+      >
+</a
+      ><a name="7491" class="Comment"
+      >--   (&#931;-&#8801; (ua (List A) (JoinList A) iso) </a
+      ><a name="7532"
+      >
+</a
+      ><a name="7533" class="Comment"
+      >--   (&#931;-&#8801; {!!}</a
+      ><a name="7547"
+      >
+</a
+      ><a name="7548" class="Comment"
+      >--   (&#931;-&#8801; {!!} </a
+      ><a name="7563"
+      >
+</a
+      ><a name="7564" class="Comment"
+      >--   (&#931;-&#8801; {!!} </a
+      ><a name="7579"
+      >
+</a
+      ><a name="7580" class="Comment"
+      >--   {!!}))))</a
+      ><a name="7593"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>
