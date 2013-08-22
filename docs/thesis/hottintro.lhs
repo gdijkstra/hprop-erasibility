@@ -488,9 +488,9 @@ equalities.
 We need to show that for every |x y : A|, |x == y| is contractible: we
 need to find a proof |c : x == y| and show that any other proof of |x
 == y| is equal to |c|. An obvious candidate for |c| is |p x y|. To
-show that |c == p x y|, we use (one-sided) induction on |c|, fixing
-the |y|, so we need to prove that |refl == p y y|. Instead of doing
-this directly, we first prove something more general:
+show that |c == p x y|, we use based path induction on |c|, fixing the
+|y|, so we need to prove that |refl == p y y|. Instead of doing this
+directly, we first prove something more general:
 
 \begin{code}
   lemma : (x y : A) (q : x == y) -> p x y == q circ p y y  
