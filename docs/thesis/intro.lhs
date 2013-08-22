@@ -105,6 +105,8 @@ instead of |Sigma A (\ x -> B x)|, for brevity.
 \paragraph{Code} 
 
 The accompanying code can be found in the appropriate {\textsc GitHub}
-repository\footnote{\url{https://github.com/gdijkstra/hprop-erasibility}}. The
-file \verb+README.agda+ contains information where to find which
-module corresponds to which chapter of this thesis.
+repository\footnote{\url{https://github.com/gdijkstra/hprop-erasibility}
+  and for a browsable variant with syntax colouring:
+  \url{http://gdijkstra.github.io/hprop-erasibility/}}. The file
+\verb+README.agda+ contains information where to find which module
+corresponds to which chapter of this thesis.
