@@ -1,1 +1,432 @@
-My GitHub Page
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >index</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Keyword"
+      >module</a
+      ><a name="7"
+      > </a
+      ><a name="8" href="index.html#1" class="Module"
+      >index</a
+      ><a name="13"
+      > </a
+      ><a name="14" class="Keyword"
+      >where</a
+      ><a name="19"
+      >
+
+</a
+      ><a name="21" class="Comment"
+      >-- Library stuff</a
+      ><a name="37"
+      >
+
+</a
+      ><a name="39" class="Keyword"
+      >import</a
+      ><a name="45"
+      > </a
+      ><a name="46" href="Levels.html#1" class="Module"
+      >Levels</a
+      ><a name="52"
+      >
+</a
+      ><a name="53" class="Keyword"
+      >import</a
+      ><a name="59"
+      > </a
+      ><a name="60" href="Naturals.html#1" class="Module"
+      >Naturals</a
+      ><a name="68"
+      >
+</a
+      ><a name="69" class="Keyword"
+      >import</a
+      ><a name="75"
+      > </a
+      ><a name="76" href="Product.html#1" class="Module"
+      >Product</a
+      ><a name="83"
+      >
+</a
+      ><a name="84" class="Keyword"
+      >import</a
+      ><a name="90"
+      > </a
+      ><a name="91" href="Sigma.html#1" class="Module"
+      >Sigma</a
+      ><a name="96"
+      >
+</a
+      ><a name="97" class="Keyword"
+      >import</a
+      ><a name="103"
+      > </a
+      ><a name="104" href="Unit.html#1" class="Module"
+      >Unit</a
+      ><a name="108"
+      >
+</a
+      ><a name="109" class="Keyword"
+      >import</a
+      ><a name="115"
+      > </a
+      ><a name="116" href="Empty.html#1" class="Module"
+      >Empty</a
+      ><a name="121"
+      >
+
+</a
+      ><a name="123" class="Comment"
+      >-- Chapter 2: Homotopy type theory</a
+      ><a name="157"
+      >
+
+</a
+      ><a name="159" class="Keyword"
+      >import</a
+      ><a name="165"
+      > </a
+      ><a name="166" href="Identity.html#1" class="Module"
+      >Identity</a
+      ><a name="174"
+      >
+</a
+      ><a name="175" class="Comment"
+      >-- Definition of identity types along with proofs of several of its</a
+      ><a name="242"
+      >
+</a
+      ><a name="243" class="Comment"
+      >-- properties and definitions of functions such as &quot;transport&quot;.</a
+      ><a name="306"
+      >
+
+</a
+      ><a name="308" class="Keyword"
+      >import</a
+      ><a name="314"
+      > </a
+      ><a name="315" href="UIP.html#1" class="Module"
+      >UIP</a
+      ><a name="318"
+      >
+</a
+      ><a name="319" class="Comment"
+      >-- Proof of UIP using dependent pattern matching (which can also be</a
+      ><a name="386"
+      >
+</a
+      ><a name="387" class="Comment"
+      >-- read as a proof of UIP using J and K). Proof of K using UIP.</a
+      ><a name="450"
+      >
+
+</a
+      ><a name="452" class="Keyword"
+      >import</a
+      ><a name="458"
+      > </a
+      ><a name="459" href="Truncation.html#1" class="Module"
+      >Truncation</a
+      ><a name="469"
+      >
+</a
+      ><a name="470" class="Comment"
+      >-- Definition of truncation levels.</a
+      ><a name="505"
+      >
+
+</a
+      ><a name="507" class="Keyword"
+      >import</a
+      ><a name="513"
+      > </a
+      ><a name="514" href="Proposition.html#1" class="Module"
+      >Proposition</a
+      ><a name="525"
+      >
+</a
+      ><a name="526" class="Comment"
+      >-- Definition of hProp using truncation levels. Proof that this is</a
+      ><a name="592"
+      >
+</a
+      ><a name="593" class="Comment"
+      >-- coinhabited with the definition using proof irrelevance.</a
+      ><a name="652"
+      >
+
+</a
+      ><a name="654" class="Keyword"
+      >import</a
+      ><a name="660"
+      > </a
+      ><a name="661" href="Circle.html#1" class="Module"
+      >Circle</a
+      ><a name="667"
+      >
+</a
+      ><a name="668" class="Comment"
+      >-- Definition of the circle as a HIT.</a
+      ><a name="705"
+      >
+
+</a
+      ><a name="707" class="Keyword"
+      >import</a
+      ><a name="713"
+      > </a
+      ><a name="714" href="Interval.html#1" class="Module"
+      >Interval</a
+      ><a name="722"
+      >
+</a
+      ><a name="723" class="Comment"
+      >-- Definition of the interval as a HIT.</a
+      ><a name="762"
+      >
+
+</a
+      ><a name="764" class="Keyword"
+      >import</a
+      ><a name="770"
+      > </a
+      ><a name="771" href="IntervalFunctionExtensionality.html#1" class="Module"
+      >IntervalFunctionExtensionality</a
+      ><a name="801"
+      >
+</a
+      ><a name="802" class="Comment"
+      >-- Proof of function extensionality using the interval type.</a
+      ><a name="862"
+      >
+
+</a
+      ><a name="864" class="Keyword"
+      >import</a
+      ><a name="870"
+      > </a
+      ><a name="871" href="IntervalFunctions.html#1" class="Module"
+      >IntervalFunctions</a
+      ><a name="888"
+      >
+</a
+      ><a name="889" class="Comment"
+      >-- Examples of functions on the interval that are definitionally</a
+      ><a name="953"
+      >
+</a
+      ><a name="954" class="Comment"
+      >-- dissimilar, but propositionally equal to eachother.</a
+      ><a name="1008"
+      >
+
+</a
+      ><a name="1010" class="Keyword"
+      >import</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" href="FreeSemigroup.html#1" class="Module"
+      >FreeSemigroup</a
+      ><a name="1030"
+      >
+</a
+      ><a name="1031" class="Comment"
+      >-- Definition of a free semigroup as a HIT.</a
+      ><a name="1074"
+      >
+
+</a
+      ><a name="1076" class="Keyword"
+      >import</a
+      ><a name="1082"
+      > </a
+      ><a name="1083" href="Univalence.html#1" class="Module"
+      >Univalence</a
+      ><a name="1093"
+      >
+</a
+      ><a name="1094" class="Comment"
+      >-- Definition of equivalence and the univalence axiom, along with the</a
+      ><a name="1163"
+      >
+</a
+      ><a name="1164" class="Comment"
+      >-- computation rule.</a
+      ><a name="1184"
+      >
+
+</a
+      ><a name="1186" class="Keyword"
+      >import</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" href="Monoid.html#1" class="Module"
+      >Monoid</a
+      ><a name="1199"
+      >
+</a
+      ><a name="1200" class="Comment"
+      >-- Example of the use of univalence to transport things along</a
+      ><a name="1261"
+      >
+</a
+      ><a name="1262" class="Comment"
+      >-- isomorphisms.</a
+      ><a name="1278"
+      >
+
+</a
+      ><a name="1280" class="Comment"
+      >-- Chapter 3: Applications of homotopy type theory</a
+      ><a name="1330"
+      >
+
+</a
+      ><a name="1332" class="Keyword"
+      >import</a
+      ><a name="1338"
+      > </a
+      ><a name="1339" href="QuotientUntruncated.html#1" class="Module"
+      >QuotientUntruncated</a
+      ><a name="1358"
+      >
+</a
+      ><a name="1359" class="Comment"
+      >-- Construction of quotient types via HITs.</a
+      ><a name="1402"
+      >
+
+</a
+      ><a name="1404" class="Keyword"
+      >import</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" href="QuotientBinaryRec.html#1" class="Module"
+      >QuotientBinaryRec</a
+      ><a name="1428"
+      >
+</a
+      ><a name="1429" class="Comment"
+      >-- Recursion principle for binary operations on quotients.</a
+      ><a name="1487"
+      >
+
+</a
+      ><a name="1489" class="Keyword"
+      >import</a
+      ><a name="1495"
+      > </a
+      ><a name="1496" href="Views.html#1" class="Module"
+      >Views</a
+      ><a name="1501"
+      >
+</a
+      ><a name="1502" class="Comment"
+      >-- The JoinList example of non-isomorphic views as seen in the thesis.</a
+      ><a name="1572"
+      >
+
+</a
+      ><a name="1574" class="Keyword"
+      >import</a
+      ><a name="1580"
+      > </a
+      ><a name="1581" href="RetractIso.html#1" class="Module"
+      >RetractIso</a
+      ><a name="1591"
+      >
+</a
+      ><a name="1592" class="Comment"
+      >-- Proof of the fact that if we have a retract r : A -&gt; B, then B is</a
+      ><a name="1660"
+      >
+</a
+      ><a name="1661" class="Comment"
+      >-- isomorphic to A/~ with x ~ y defined as r x &#8801; r y. We prove it for</a
+      ><a name="1730"
+      >
+</a
+      ><a name="1731" class="Comment"
+      >-- both the construction using quotients via HITs as the &#931;-type</a
+      ><a name="1794"
+      >
+</a
+      ><a name="1795" class="Comment"
+      >-- construction.</a
+      ><a name="1811"
+      >
+
+</a
+      ><a name="1813" class="Comment"
+      >-- Chapter 4: Erasing propositions</a
+      ><a name="1847"
+      >
+
+</a
+      ><a name="1849" class="Keyword"
+      >import</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" href="Log.html#1" class="Module"
+      >Log</a
+      ><a name="1859"
+      >
+</a
+      ><a name="1860" class="Keyword"
+      >import</a
+      ><a name="1866"
+      > </a
+      ><a name="1867" href="Quicksort.html#1" class="Module"
+      >Quicksort</a
+      ><a name="1876"
+      >
+</a
+      ><a name="1877" class="Keyword"
+      >import</a
+      ><a name="1883"
+      > </a
+      ><a name="1884" href="PredicatesOnNaturals.html#1" class="Module"
+      >PredicatesOnNaturals</a
+      ><a name="1904"
+      >
+</a
+      ><a name="1905" class="Keyword"
+      >import</a
+      ><a name="1911"
+      > </a
+      ><a name="1912" href="Irrelevance.html#1" class="Module"
+      >Irrelevance</a
+      ><a name="1923"
+      >
+</a
+      ><a name="1924" class="Keyword"
+      >import</a
+      ><a name="1930"
+      > </a
+      ><a name="1931" href="Elem.html#1" class="Module"
+      >Elem</a
+      ><a name="1935"
+      >
+</a
+      ><a name="1936" class="Keyword"
+      >import</a
+      ><a name="1942"
+      > </a
+      ><a name="1943" href="Proposition.html#1" class="Module"
+      >Proposition</a
+      ><a name="1954"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>
