@@ -3,6 +3,7 @@
 module Elem where
 
 open import Naturals
+open import PredicatesOnNaturals
 
 data List (A : Set) : Set where
   [] : List A

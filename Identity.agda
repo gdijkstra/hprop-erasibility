@@ -7,40 +7,47 @@ open import Levels
 data Id {a} (A : Set a) (x : A) : A → Set a where
   refl : Id A x x
 
+module IdentityTypesEquivalenceRelation {a : Level} {A : Set a} where
+  _≡_ : (x y : A) → Set a
+  x ≡ y = Id _ x y
+  
+  -- reflexivitiy is witnessed by refl.
 
-_≡_ : {a : Level} {A : Set a} (x y : A) → Set a
-x ≡ y = Id _ x y
-
-trans : {a : Level} {A : Set a} {x y z : A} -> Id A x y -> Id A y z -> Id A x z
-trans refl q = q
-
-sym : {a : Level} {A : Set a} {x y : A} -> Id A x y -> Id A y x
-sym refl = refl 
+  trans : {x y z : A} -> Id A x y -> Id A y z -> Id A x z
+  trans refl q = q
+  
+  sym : {x y : A} -> Id A x y -> Id A y x
+  sym refl = refl 
+  
+open IdentityTypesEquivalenceRelation public
 
 -- Identity types give us a groupoid.
-infix 8 _∘_
-
-_∘_ : {a : Level} {A : Set a} {x y z : A} -> Id A x y -> Id A y z -> Id A x z
-p ∘ q = trans p q
-
-_⁻¹ : {a : Level} {A : Set a} {x y : A} → Id A x y → Id A y x
-p ⁻¹ = sym p 
-
-assoc : {a : Level} {A : Set a} {x y z w : A} (p : x ≡ y) (q : y ≡ z) (r : z ≡ w)
-      → (p ∘ (q ∘ r)) ≡ ((p ∘ q) ∘ r)
-assoc refl refl refl = refl
-
-refl-left-identity : {a : Level} {A : Set a} {x y : A} (p : x ≡ y) → (refl ∘ p) ≡ p
-refl-left-identity refl = refl
-
-refl-right-identity : {a : Level} {A : Set a} {x y : A} (p : x ≡ y) → (p ∘ refl) ≡ p
-refl-right-identity refl = refl
-
-left-inverse-refl : {a : Level} {A : Set a} {x y : A} (p : x ≡ y) → (p ⁻¹ ∘ p) ≡ refl
-left-inverse-refl refl = refl
-
-right-inverse-refl : {a : Level} {A : Set a} {x y : A} (p : x ≡ y) → (p ∘ p ⁻¹) ≡ refl
-right-inverse-refl refl = refl
+module IdentityTypesGroupoid {a : Level} {A : Set a} where
+  infix 8 _∘_
+  
+  _∘_ : {x y z : A} -> Id A x y -> Id A y z -> Id A x z
+  p ∘ q = trans p q
+  
+  _⁻¹ : {x y : A} → Id A x y → Id A y x
+  p ⁻¹ = sym p 
+  
+  assoc : {x y z w : A} (p : x ≡ y) (q : y ≡ z) (r : z ≡ w)
+        → (p ∘ (q ∘ r)) ≡ ((p ∘ q) ∘ r)
+  assoc refl refl refl = refl
+  
+  refl-left-identity : {x y : A} (p : x ≡ y) → (refl ∘ p) ≡ p
+  refl-left-identity refl = refl
+  
+  refl-right-identity : {x y : A} (p : x ≡ y) → (p ∘ refl) ≡ p
+  refl-right-identity refl = refl
+  
+  left-inverse-refl : {x y : A} (p : x ≡ y) → (p ⁻¹ ∘ p) ≡ refl
+  left-inverse-refl refl = refl
+  
+  right-inverse-refl : {x y : A} (p : x ≡ y) → (p ∘ p ⁻¹) ≡ refl
+  right-inverse-refl refl = refl
+  
+open IdentityTypesGroupoid public
 
 -- Whisker properties
 anti-whisker-right : {a : Level} {A : Set a} {x y z : A} (p : y ≡ z) {q r : x ≡ y}
@@ -58,7 +65,6 @@ ap f refl = refl
 
 ap-2 : {a b c : Level} {A : Set a} {B : Set b} {C : Set c} {x x' : A} {y y' : B} (f : A -> B -> C) -> x ≡ x' -> y ≡ y' -> f x y ≡ f x' y'
 ap-2 f refl refl = refl
-
 
 cong : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A -> B) -> x ≡ y -> f x ≡ f y
 cong = ap

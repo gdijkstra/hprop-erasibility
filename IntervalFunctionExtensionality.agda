@@ -1,11 +1,12 @@
 {-# OPTIONS --without-K #-}
 
-module IntervalExtensionality where
+module IntervalFunctionExtensionality where
 
 open import Levels
 open import Identity
 open import Interval
 
+-- (x y : A) -> x ≡ y and Interval -> A are coinhabited.
 ≡⇒Interval : {A : Set} {x y : A} -> x ≡ y -> I -> A
 ≡⇒Interval {A} {x} {y} p i = I-rec {A} x y p i
 
@@ -17,13 +18,6 @@ flip f b a = f a b
 
 ext : (A B : Set) (f g : A -> B) (α : (x : A) -> f x ≡ g x) -> f ≡ g
 ext A B f g α = Interval⇒≡ (flip (λ a → ≡⇒Interval (α a)))
-
--- Are (Interval -> A) and (x y : A) -> Id A x y  isomorphic?
-left : {A : Set} {x y : A} -> (p : x ≡ y) -> (Interval⇒≡ (≡⇒Interval p)) ≡ p
-left {A} {x} {.x} refl = βseg x x refl
-
-right : {A : Set} (p : I -> A) -> (≡⇒Interval (Interval⇒≡ p)) ≡ p
-right {A} p = {!!}
 
 -- Example of using function extensionality
 open import Naturals

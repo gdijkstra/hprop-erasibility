@@ -29,14 +29,7 @@ isTruncated : {a : Level} → ℕ₋₂ → Set a → Set a
 isTruncated ⟨-2⟩  A = isContractible A
 isTruncated (S n) A = (x : A) → (y : A) → isTruncated n (Id A x y)
 
-hProp : {a : Level} → Set a → Set a
-hProp A = isTruncated ⟨-1⟩ A
+-- hProp is defined in the Proposition module.
 
 hSet : {a : Level} → Set a → Set a
 hSet A = isTruncated ⟨0⟩ A
-
--- Filtration property
---truncatedFiltration : {a : Level} → (A : Set a) → (n : ℕ₋₂) → isTruncated n A → isTruncated (S n) A
---truncatedFiltration A ⟨-2⟩ (center , xToCenter) = {!!} -- TODO: Finish this.
---truncatedFiltration A (S n) proof = λ x y → truncatedFiltration (Id A x y) n (proof x y)
-

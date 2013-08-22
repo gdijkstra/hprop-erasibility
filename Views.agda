@@ -18,6 +18,11 @@ list-map : {A B : Set} -> (A -> B) -> List A -> List B
 list-map f nil = nil
 list-map f (cons x xs) = cons (f x) (list-map f xs)
 
+-- This can be proved, but we will postulate it for now.
+postulate
+  list-map-append-commutes : {A B : Set} {xs ys : List A} {f : A → B}
+    → list-append (list-map f xs) (list-map f ys) ≡ list-map f (list-append xs ys)
+
 data JoinList (A : Set) : Set where
   nil : JoinList A
   unit : A -> JoinList A
@@ -63,9 +68,60 @@ append-resp _ _ = refl
 map-resp : {A B : Set} -> (f : A -> B) -> (xs : JoinList A) -> to (join-list-map f xs) ≡ list-map f (to xs)
 map-resp f nil = refl
 map-resp f (unit x) = refl
-map-resp f (join l r) = {!!} -- use recursive call to reduce goal to
-                             -- showing that "map f (to l) ++ map f
-                             -- (to r) ≡ map f (to l ++ to r)"
+map-resp f (join l r) with map-resp f l
+... | pₗ with map-resp f r
+... | pᵣ = trans (ap (λ xs → list-append xs (to (join-list-map f r))) pₗ) 
+           (trans (ap (λ ys → list-append (list-map f (to l)) ys) pᵣ) 
+           (list-map-append-commutes {xs = to l} {ys = to r} {f = f}))
+
+-- Quotient method
+rel : {X : Set} -> JoinList X -> JoinList X -> Set
+rel x y = to x ≡ to y
+
+rel-refl : {X : Set} -> (x : JoinList X) -> rel x x
+rel-refl x = refl
+
+open import QuotientUntruncated -- Quotient is now the type we're interested in.
+open import QuotientBinaryRec
+
+JoinListQuotient : (A : Set) -> Set
+JoinListQuotient A = Quotient (JoinList A) rel rel-refl
+
+toQuotient : {A : Set} -> JoinList A -> JoinListQuotient A
+toQuotient {A} x = box (JoinList A) rel rel-refl x
+
+from' : {A : Set} -> List A -> JoinListQuotient A
+from' x = toQuotient (from x)
+
+to' : {A : Set} -> JoinListQuotient A -> List A
+to' {A} q = Quotient-rec (JoinList A) rel rel-refl to (λ x y z → z) q
+
+join-list-empty' : {A : Set} -> JoinListQuotient A
+join-list-empty' = toQuotient join-list-empty
+
+join-list-single' : {A : Set} -> A -> JoinListQuotient A
+join-list-single' x = toQuotient (join-list-single x)
+
+join-list-append' : {A : Set} -> JoinListQuotient A -> JoinListQuotient A -> JoinListQuotient A
+join-list-append' {A} l r = Quotient-rec-2 (JoinList A) rel rel-refl (JoinListQuotient A) (λ l₁ r₁ → toQuotient (join-list-append l₁ r₁)) (λ a b c d x x₁ → quot (JoinList A) rel rel-refl (join a b) (join c d) (ap-2 list-append x x₁)) l r
+
+join-list-map' : {A B : Set} -> (f : A -> B) -> JoinListQuotient A -> JoinListQuotient B
+join-list-map' {A} {B} f xs = Quotient-rec (JoinList A) rel rel-refl (λ x → toQuotient (join-list-map f x)) (λ x y x₁ → quot (JoinList B) rel rel-refl (join-list-map f x) (join-list-map f y) (trans (map-resp f x) (trans (ap (list-map f) x₁) (sym (map-resp f y))))) xs
+
+-- Join lists satisfy the properties
+empty-resp' : {A : Set} -> to' (join-list-empty' {A}) ≡ nil
+empty-resp' = refl
+
+single-resp' : {A : Set} -> (a : A) -> to' (join-list-single' a) ≡ cons a nil
+single-resp' _ = refl
+
+-- TODO: Prove this
+--append-resp' : {A : Set} -> (xs ys : JoinListQuotient A) -> to' (join-list-append' xs ys) ≡ list-append (to' xs) (to' ys)
+--append-resp' xs ys = {!!} --is-retraction (list-append (to' xs) (to' ys))
+
+-- TODO: Prove this
+--map-resp' : {A B : Set} -> (f : A -> B) -> (xs : JoinListQuotient A) -> to' (join-list-map' f xs) ≡ list-map f (to' xs)
+--map-resp' f x = {!!}
 
 -- Sigma type method
 JoinListSigma : Set -> Set
@@ -106,53 +162,7 @@ append-resp'' : {A : Set} -> (xs ys : JoinListSigma A) -> to'' (join-list-append
 append-resp'' xs ys = is-retraction (list-append (to'' xs) (to'' ys))
 
 map-resp'' : {A B : Set} -> (f : A -> B) -> (xs : JoinListSigma A) -> to'' (join-list-map'' f xs) ≡ list-map f (to'' xs)
-map-resp'' f x = trans (is-retraction (to (join-list-map f (Σ.fst x)))) (map-resp f (fromSigma x))
-
--- Quotient method
-rel : {X : Set} -> JoinList X -> JoinList X -> Set
-rel x y = to x ≡ to y
-
-rel-refl : {X : Set} -> (x : JoinList X) -> rel x x
-rel-refl x = refl
-
-open import QuotientUntruncated -- Quotient is now the type we're interested in.
-
-JoinListQuotient : (A : Set) -> Set
-JoinListQuotient A = Quotient (JoinList A) rel rel-refl
-
-toQuotient : {A : Set} -> JoinList A -> JoinListQuotient A
-toQuotient {A} x = box (JoinList A) rel rel-refl x
-
-from' : {A : Set} -> List A -> JoinListQuotient A
-from' x = toQuotient (from x)
-
-to' : {A : Set} -> JoinListQuotient A -> List A
-to' {A} q = Quotient-rec (JoinList A) rel rel-refl to (λ x y z → z) q
-
-join-list-empty' : {A : Set} -> JoinListQuotient A
-join-list-empty' = toQuotient join-list-empty
-
-join-list-single' : {A : Set} -> A -> JoinListQuotient A
-join-list-single' x = toQuotient (join-list-single x)
-
-join-list-append' : {A : Set} -> JoinListQuotient A -> JoinListQuotient A -> JoinListQuotient A
-join-list-append' {A} l r = Quotient-rec-2 (JoinList A) rel rel-refl (λ l₁ r₁ → toQuotient (join-list-append l₁ r₁)) (λ a b c d x x₁ → quot (JoinList A) rel rel-refl (join a b) (join c d) (ap-2 list-append x x₁)) l r
-
-join-list-map' : {A B : Set} -> (f : A -> B) -> JoinListQuotient A -> JoinListQuotient B
-join-list-map' {A} {B} f xs = Quotient-rec (JoinList A) rel rel-refl (λ x → toQuotient (join-list-map f x)) (λ x y x₁ → quot (JoinList B) rel rel-refl (join-list-map f x) (join-list-map f y) (trans (map-resp f x) (trans (ap (list-map f) x₁) (sym (map-resp f y))))) xs
-
--- Join lists satisfy the properties
-empty-resp' : {A : Set} -> to' (join-list-empty' {A}) ≡ nil
-empty-resp' = refl
-
-single-resp' : {A : Set} -> (a : A) -> to' (join-list-single' a) ≡ cons a nil
-single-resp' _ = refl
-
-append-resp' : {A : Set} -> (xs ys : JoinListQuotient A) -> to' (join-list-append' xs ys) ≡ list-append (to' xs) (to' ys)
-append-resp' xs ys = {!!}
-
-map-resp' : {A B : Set} -> (f : A -> B) -> (xs : JoinListQuotient A) -> to' (join-list-map' f xs) ≡ list-map f (to' xs)
-map-resp' f x = {!!}
+map-resp'' f x = trans (is-retraction (to (join-list-map f (fromSigma x)))) (map-resp f (fromSigma x))
 
 -- Spec stuff
 Iso : {a : Level} -> Set a → Set a → Set a
@@ -187,10 +197,10 @@ JoinListSeq A = A , (JoinList A , (nil , (unit , (join-list-append , join-list-m
 -- lead us to the desired properties on the methods, if we also use
 -- the rules for transport on equalities obtained from applying
 -- univalence.
-spec : (A : Set) -> Iso (List A) (JoinList A) -> ListSeq A ≡ JoinListSeq A
-spec A iso = Σ-≡ refl 
-  (Σ-≡ (ua (List A) (JoinList A) iso) 
-  (Σ-≡ {!!}
-  (Σ-≡ {!!} 
-  (Σ-≡ {!!} 
-  {!!}))))
+-- spec : (A : Set) -> Iso (List A) (JoinList A) -> ListSeq A ≡ JoinListSeq A
+-- spec A iso = Σ-≡ refl 
+--   (Σ-≡ (ua (List A) (JoinList A) iso) 
+--   (Σ-≡ {!!}
+--   (Σ-≡ {!!} 
+--   (Σ-≡ {!!} 
+--   {!!}))))

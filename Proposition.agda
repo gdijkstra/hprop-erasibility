@@ -8,6 +8,9 @@ open import Identity
 open import Sigma
 open import Truncation
 
+hProp : {a : Level} → Set a → Set a
+hProp A = isTruncated ⟨-1⟩ A
+
 proofIrrelevance : {a : Level} → Set a → Set a
 proofIrrelevance A = (x y : A) → x ≡ y
 
@@ -25,12 +28,14 @@ proofIrrelevance⇒hProp {A = A} p x y = p x y , (λ q → sym (canon-path q))
     canon-path : {x y : A} (q : x ≡ y) →  q ≡ p x y
     canon-path {.y} {y} refl = anti-whisker-right (p y y) (lemma (p y y))
 
-proofIrrelevance⇒inhabitedContractible : {a : Level} → (A : Set a) → proofIrrelevance A → (A → isContractible A)
-proofIrrelevance⇒inhabitedContractible A proofIrr a = a , proofIrr a
+proofIrrelevance⇒inhabitedContractible : {a : Level} → {A : Set a} → proofIrrelevance A → (A → isContractible A)
+proofIrrelevance⇒inhabitedContractible proofIrr a = a , proofIrr a
 
-inhabitedContractible⇒proofIrrelevance : {a : Level} → (A : Set a) → (A → isContractible A) → proofIrrelevance A
-inhabitedContractible⇒proofIrrelevance A contr x y with contr x
-inhabitedContractible⇒proofIrrelevance A contr x y | center , center≡ = trans (sym (center≡ x)) (center≡ y)
+inhabitedContractible⇒proofIrrelevance : {a : Level} → {A : Set a} → (A → isContractible A) → proofIrrelevance A
+inhabitedContractible⇒proofIrrelevance contr x y with contr x
+inhabitedContractible⇒proofIrrelevance contr x y | center , center≡ = trans (sym (center≡ x)) (center≡ y)
+
+-- TODO: This should be in an another module.
 
 isConstant : {a b : Level} {A : Set a} {B : Set b} → (f : A → B) → Set (a ⊔ b)
 isConstant {A = A} f = (x y : A) → (f x ≡ f y)
@@ -78,7 +83,7 @@ makeIrrelevantWorks (center , center≡) f x = ap f (center≡ x)
 -- B x is a bit more involved. We cannot simply make the x : A
 -- irrelevant, because can still be relevant to the function B. So we
 -- also have to make B irrelevant.
-makeIrrelevantDep : {a b : Level} {A : Set a} {B : A -> Set b} 
+makeIrrelevantDep : {a b : Level} {A : Set a} {B : A → Set b} 
                   → (pf : isContractible A) 
                   → (f : (x : A) → B x) 
                   → (.(x : A) → (makeIrrelevant {a} {suc b} {A} {Set b} pf B x))
@@ -135,8 +140,6 @@ makeIrrelevantIndexedDepWorks : {a b c : Level} {I : Set a} {A : I → Set b} {B
 makeIrrelevantIndexedDepWorks pf f i x with pf i
 makeIrrelevantIndexedDepWorks pf f i x | center , center≡ = apd (f i) (center≡ x)
 
--- TODO: Write all the work in terms of the indexed results.
-
 -- Trying to make it work for hProp. In this case we still need to
 -- prove that hProp implies .A → isContractible A.
 makeIrrelevant' : {a b : Level} {A : Set a} {B : Set b} → (.A → isContractible A) → (f : A → B) → (.A → B)
@@ -146,14 +149,3 @@ makeIrrelevant' pf f x | center , _ = f center
 makeIrrelevantWorks' : {a b : Level} {A : Set a} {B : Set b} → (pf : .A → isContractible A) → (f : A → B) → (x : A) → (makeIrrelevant' pf f x) ≡ f x
 makeIrrelevantWorks' pf f x with pf x
 makeIrrelevantWorks' pf f x | center , center≡ = ap f (center≡ x)
-
--- _≤_ is in hProp for every x, y in ℕ, making use of dependent
--- pattern matching.
-x≤y-in-hprop : (x y : ℕ) → proofIrrelevance (x ≤ y)
-x≤y-in-hprop .0 y (leZ .y) (leZ .y) = refl
-x≤y-in-hprop .(S x) .(S y) (leS x y x≤y₁) (leS .x .y x≤y₂) = ap (leS x y) (x≤y-in-hprop x y x≤y₁ x≤y₂)
-
--- Similarly, for every x in ℕ, isEven x is in hProp.
-isEven-x-in-hProp : (x : ℕ) → proofIrrelevance (isEven x)
-isEven-x-in-hProp .0 isEvenZ isEvenZ = refl
-isEven-x-in-hProp .(S (S n)) (isEvenSS .n p₁) (isEvenSS n p₂) = ap (isEvenSS n) (isEven-x-in-hProp n p₁ p₂)

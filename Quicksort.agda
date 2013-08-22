@@ -70,43 +70,24 @@ qsAccRec P m1 m2 .(x :: xs) (qsAccCons x xs p₁ p₂) = m2 x xs p₁ p₂ (qsAc
 quicksortRec : (xs : List ℕ) → qsAcc xs → List ℕ
 quicksortRec = qsAccRec (λ _ _ → List ℕ) [] (λ x _ _ _ rec₁ rec₂ → append rec₁ (x :: rec₂))
 
--- TODO: write proof of (xs : List ℕ) → qsAcc xs
-
--- TODO: Proof that qsAcc is in hProp.
--- Uses K.
+-- Attempt at proving that qsAcc xs is in hProp.
 base : (xs : List ℕ) (p : Id (List ℕ) xs []) (qs₁ : qsAcc xs) → Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) qsAccNil)
 base .[] refl qsAccNil = refl
 
-step : (xs : List ℕ) (qs₁ : qsAcc xs) (x : ℕ) (xs₁ : List ℕ) 
-      (h₁ : qsAcc (filter (gt x) xs₁))
-      (h₂ : qsAcc (filter (λ b → ¬ gt x b) xs₁)) →
-      (ind₁ : (p : Id (List ℕ) xs (filter (gt x) xs₁)) →
-       Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) h₁)) →
-      (ind₂ : (p : Id (List ℕ) xs (filter (λ b → ¬ gt x b) xs₁)) →
-       Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) h₂)) →
-      (p : Id (List ℕ) xs (x :: xs₁)) →
-      Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) (qsAccCons x xs₁ h₁ h₂))
-step .(x :: []) (qsAccCons .x .[] qs₁ qs₂) x [] qsAccNil qsAccNil ind₁ ind₂ refl = {!!}
-step .(x :: (x₁ :: xs₁)) qs₁ x (x₁ :: xs₁) h₁ h₂ ind₁ ind₂ refl = {!!}
-
--- Goal: (x : ℕ) (xs₁ : List ℕ) (h₁ : qsAcc (filter (gt x) xs₁))
+-- step : (xs : List ℕ) (qs₁ : qsAcc xs) (x : ℕ) (xs₁ : List ℕ) 
+--       (h₁ : qsAcc (filter (gt x) xs₁))
 --       (h₂ : qsAcc (filter (λ b → ¬ gt x b) xs₁)) →
---       ((p : Id (List ℕ) xs (filter (gt x) xs₁)) →
---        Id (qsAcc xs) qs₁ (transport (sym p) h₁)) →
---       ((p : Id (List ℕ) xs (filter (λ b → ¬ gt x b) xs₁)) →
---        Id (qsAcc xs) qs₁ (transport (sym p) h₂)) →
+--       (ind₁ : (p : Id (List ℕ) xs (filter (gt x) xs₁)) →
+--        Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) h₁)) →
+--       (ind₂ : (p : Id (List ℕ) xs (filter (λ b → ¬ gt x b) xs₁)) →
+--        Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) h₂)) →
 --       (p : Id (List ℕ) xs (x :: xs₁)) →
---       Id (qsAcc xs) qs₁ (transport (sym p) (qsAccCons x xs₁ h₁ h₂))
--- ————————————————————————————————————————————————————————————
--- qs₂ : qsAcc xs
--- qs₁ : qsAcc xs
--- xs  : List ℕ
+--       Id (qsAcc xs) qs₁ (transport {B = qsAcc} (sym p) (qsAccCons x xs₁ h₁ h₂))
+-- step .(x :: []) (qsAccCons .x .[] qs₁ qs₂) x [] qsAccNil qsAccNil ind₁ ind₂ refl = {!!}
+-- step .(x :: (x₁ :: xs₁)) qs₁ x (x₁ :: xs₁) h₁ h₂ ind₁ ind₂ refl = {!!}
+
+-- qsIrr : (xs : List ℕ) → proofIrrelevance (qsAcc xs)
+-- qsIrr xs qs₁ qs₂ = qsAccRec (λ xs' qs' → ((p : xs ≡ xs') → qs₁ ≡ transport (sym p) qs')) (λ p → base xs p qs₁) {!!} xs qs₂ refl
 
 
-qsIrr : (xs : List ℕ) → proofIrrelevance (qsAcc xs)
-qsIrr xs qs₁ qs₂ = qsAccRec (λ xs' qs' → ((p : xs ≡ xs') → qs₁ ≡ transport (sym p) qs')) (λ p → base xs p qs₁) {!!} xs qs₂ refl
-
--- qsIrrWithK : (xs : List ℕ) → proofIrrelevance (qsAcc xs)
--- qsIrrWithK .[] qsAccNil qsAccNil = refl
--- qsIrrWithK .(x :: xs) (qsAccCons .x .xs qs₁ qs₂) (qsAccCons x xs qs₃ qs₄) = {!!}
 
