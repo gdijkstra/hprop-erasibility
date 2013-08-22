@@ -5,7 +5,7 @@ module QuotientExamples where
 open import Identity
 
 open import Naturals
-open import UnitVersusInterval
+open import Unit
 open import Sigma
 open import Proposition
 
