@@ -859,7 +859,7 @@ instance of |Monoid B| can then also be shown to be isomorphic to
 we have a proof |p : A == B|, then we can use |transport| to create an
 inhabitant of |Monoid B| using |ma| and |p|. We can then prove that
 the resulting instance of |Monoid B| is propositionally equal to |ma|
-using |apd|. However, writing |transport| and |apd| function that
+using |apd|. However, writing |transport| and |apd| functions that
 works with isomorphisms instead of propositional equalities will not
 work in \MLTT, as we cannot access the information about how the types
 are constructed, to figure out where the isomorphisms have to be
