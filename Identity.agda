@@ -69,7 +69,7 @@ ap-2 f refl refl = refl
 cong : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A -> B) -> x ≡ y -> f x ≡ f y
 cong = ap
 
--- Dependent action on points.
+-- Dependent action on paths.
 apd : {a b : Level} {A : Set a} {B : A → Set b} {a₁ a₂ : A} → (f : (x : A) → B x) → (β : Id A a₁ a₂)
   → Id (B a₂) (transport β (f a₁)) (f a₂)
 apd f refl = refl
