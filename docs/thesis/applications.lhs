@@ -430,7 +430,7 @@ beginning of the proof looks like this:
     (to : Other A -> List A)
     -> Iso (List A) (Other A) from to
     -> ListImplA == OtherImplA
-  spec from to iso =  SigmaEq (ua (List A) (JoinList A) iso) 
+  spec from to iso =  SigmaEq (ua (List A) (Other A) iso) 
                       (SigmaEq  goal0
                       (SigmaEq  goal1
                       (SigmaEq  goal2

@@ -10,7 +10,7 @@ open import Irrelevance
 
 data List (A : Set) : Set where
   [] : List A
-  _::_ : A -> List A → List A
+  _::_ : A → List A → List A
 
 append : {A : Set} → List A → List A → List A
 append [] ys       = ys
@@ -26,14 +26,14 @@ data Bool : Set where
 
 
 
-gt : ℕ -> ℕ -> Bool
+gt : ℕ → ℕ → Bool
 gt Z     Z     = False
 gt Z     (S n) = False
 gt (S n) Z     = True
 gt (S n) (S m) = gt n m
 
 -- x <= y
-le : ℕ -> ℕ -> Bool
+le : ℕ → ℕ → Bool
 le a b = ¬ (gt a b)
 
 filter : {A : Set} → (A → Bool) → List A → List A

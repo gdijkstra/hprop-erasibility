@@ -7,7 +7,7 @@ open import PredicatesOnNaturals
 
 data List (A : Set) : Set where
   [] : List A
-  _::_ : A -> List A → List A
+  _::_ : A → List A → List A
 
 length : {A : Set} → List A → ℕ
 length [] = Z

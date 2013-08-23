@@ -3,10 +3,8 @@
 module PredicatesOnNaturals where
 
 open import Naturals
-open import Levels
 open import Identity
 open import Sigma
-open import Truncation
 open import Proposition
 
 -- "Less than or equal" relation on naturals

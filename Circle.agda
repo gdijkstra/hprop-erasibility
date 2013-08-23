@@ -2,8 +2,6 @@
 
 module Circle where
 
-open import Naturals
-open import Levels
 open import Identity
 
 private
@@ -26,19 +24,19 @@ Circle-ind : {B : Circle → Set}
 Circle-ind b _ #base = b
 
 Circle-rec : {B : Set} 
-       -> (b : B)
-       -> (p : b ≡ b)
-       -> Circle -> B
+       → (b : B)
+       → (p : b ≡ b)
+       → Circle → B
 Circle-rec a _ #base = a
 
--- -- Computation rules
+-- Computation rules
 postulate
   βloop-rec : {B : Set} 
-           -> (b : B)
-           -> (p : b ≡ b)
-           -> ap (Circle-rec b p) loop ≡ p
+           → (b : B)
+           → (p : b ≡ b)
+           → ap (Circle-rec b p) loop ≡ p
 
   βloop-ind : {B : Circle → Set} 
-           -> (b : B base)
-           -> (p : (transport {B = B} loop b) ≡ b)
-           -> apd {B = B} (Circle-ind b p) loop ≡ p
+           → (b : B base)
+           → (p : (transport {B = B} loop b) ≡ b)
+           → apd {B = B} (Circle-ind b p) loop ≡ p

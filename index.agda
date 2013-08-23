@@ -47,7 +47,7 @@ import Univalence
 -- computation rule.
 
 import Monoid
--- Example of the use of univalence to transport things along
+-- Example of the use of univalence to transport stuff along
 -- isomorphisms.
 
 -- Chapter 3: Applications of homotopy type theory
@@ -62,16 +62,34 @@ import Views
 -- The JoinList example of non-isomorphic views as seen in the thesis.
 
 import RetractIso
--- Proof of the fact that if we have a retract r : A -> B, then B is
+-- Proof of the fact that if we have a retract r : A → B, then B is
 -- isomorphic to A/~ with x ~ y defined as r x ≡ r y. We prove it for
 -- both the construction using quotients via HITs as the Σ-type
 -- construction.
 
 -- Chapter 4: Erasing propositions
 
-import Log
-import Quicksort
-import PredicatesOnNaturals
-import Irrelevance
 import Elem
+-- The "elem" example from the thesis.
+
+import Log
+-- Example of a Bove-Capretta predicate that admits proof irrelevance.
+
+import Quicksort
+-- Attempt at proving that the Bove-Capretta predicate for "qs" admits
+-- proof irrelevance.
+
+
+import PredicatesOnNaturals
+-- Examples of collapsible families that are also internally
+-- collapsible.
+
+import Irrelevance
+-- Some basic results on the irrelevance mechanism of Agda.
+
 import Proposition
+-- Some experiments in creating an irrelevant version out of a
+-- function that eliminates hProps. We only have results for
+-- contractible types (i.e. inhabited hProps) and their indexed
+-- versions, as we cannot "pattern match" on an hProp being either
+-- empty or inhabited.

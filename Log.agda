@@ -3,12 +3,10 @@
 module Log where
 
 open import Naturals
-open import Levels
 open import Identity
-open import Truncation
 open import Proposition
 
-div2 : ℕ -> ℕ
+div2 : ℕ → ℕ
 div2 Z = Z
 div2 (S Z) = Z
 div2 (S (S n)) = S (div2 n)

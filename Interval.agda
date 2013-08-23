@@ -32,15 +32,15 @@ I-ind b₀ b₁ _ #one  = b₁
 
 
 I-rec : {B : Set} 
-       -> (b₀ b₁ : B)
-       -> (p : b₀ ≡ b₁)
-       -> I -> B
+       → (b₀ b₁ : B)
+       → (p : b₀ ≡ b₁)
+       → I → B
 I-rec a b _ #zero = a
 I-rec a b _ #one  = b
 
 -- Computation rules
 postulate
   βseg : {A : Set} 
-       -> (b₀ b₁ : A)
-       -> (p : b₀ ≡ b₁)
-       -> ap (I-rec b₀ b₁ p) seg ≡ p
+       → (b₀ b₁ : A)
+       → (p : b₀ ≡ b₁)
+       → ap (I-rec b₀ b₁ p) seg ≡ p

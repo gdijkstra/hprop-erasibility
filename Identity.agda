@@ -13,10 +13,10 @@ module IdentityTypesEquivalenceRelation {a : Level} {A : Set a} where
   
   -- reflexivitiy is witnessed by refl.
 
-  trans : {x y z : A} -> Id A x y -> Id A y z -> Id A x z
+  trans : {x y z : A} → Id A x y → Id A y z → Id A x z
   trans refl q = q
   
-  sym : {x y : A} -> Id A x y -> Id A y x
+  sym : {x y : A} → Id A x y → Id A y x
   sym refl = refl 
   
 open IdentityTypesEquivalenceRelation public
@@ -25,7 +25,7 @@ open IdentityTypesEquivalenceRelation public
 module IdentityTypesGroupoid {a : Level} {A : Set a} where
   infix 8 _∘_
   
-  _∘_ : {x y z : A} -> Id A x y -> Id A y z -> Id A x z
+  _∘_ : {x y z : A} → Id A x y → Id A y z → Id A x z
   p ∘ q = trans p q
   
   _⁻¹ : {x y : A} → Id A x y → Id A y x
@@ -49,24 +49,29 @@ module IdentityTypesGroupoid {a : Level} {A : Set a} where
   
 open IdentityTypesGroupoid public
 
--- Whisker properties
-anti-whisker-right : {a : Level} {A : Set a} {x y z : A} (p : y ≡ z) {q r : x ≡ y}
+-- Injectivity or "whisker" properties of "trans".
+∘-injective-left : {a : Level} {A : Set a} {x y z : A} (p : y ≡ z) {q r : x ≡ y}
     → (q ∘ p) ≡ (r ∘ p) → q ≡ r
-anti-whisker-right refl {q} {r} h = trans (sym (refl-right-identity q)) (trans h (refl-right-identity r))
+∘-injective-left refl {q} {r} h = trans (sym (refl-right-identity q)) (trans h (refl-right-identity r))
+
+∘-injective-right : {a : Level} {A : Set a} {x y z : A} (p : x ≡ y) {q r : y ≡ z}
+    → (p ∘ q) ≡ (p ∘ r) → q ≡ r
+∘-injective-right refl h = h
+
 
 -- We can transport values across fibers along paths in the base
 -- space.
-transport : {a b : Level} {A : Set a} {B : A -> Set b} {x y : A} -> x ≡ y -> B x -> B y
+transport : {a b : Level} {A : Set a} {B : A → Set b} {x y : A} → x ≡ y → B x → B y
 transport refl bx = bx
 
 -- Functorial action on paths.
-ap : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A -> B) -> x ≡ y -> f x ≡ f y
+ap : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A → B) → x ≡ y → f x ≡ f y
 ap f refl = refl
 
-ap-2 : {a b c : Level} {A : Set a} {B : Set b} {C : Set c} {x x' : A} {y y' : B} (f : A -> B -> C) -> x ≡ x' -> y ≡ y' -> f x y ≡ f x' y'
+ap-2 : {a b c : Level} {A : Set a} {B : Set b} {C : Set c} {x x' : A} {y y' : B} (f : A → B → C) → x ≡ x' → y ≡ y' → f x y ≡ f x' y'
 ap-2 f refl refl = refl
 
-cong : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A -> B) -> x ≡ y -> f x ≡ f y
+cong : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A → B) → x ≡ y → f x ≡ f y
 cong = ap
 
 -- Dependent action on paths.

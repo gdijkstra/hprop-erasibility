@@ -6,17 +6,17 @@ open import Levels
 open import Identity
 open import Interval
 
--- (x y : A) -> x ≡ y and Interval -> A are coinhabited.
-≡⇒Interval : {A : Set} {x y : A} -> x ≡ y -> I -> A
+-- (x y : A) → x ≡ y and Interval → A are coinhabited.
+≡⇒Interval : {A : Set} {x y : A} → x ≡ y → I → A
 ≡⇒Interval {A} {x} {y} p i = I-rec {A} x y p i
 
-Interval⇒≡ : {A : Set} -> (p : I -> A) -> (p zer) ≡ (p one)
+Interval⇒≡ : {A : Set} → (p : I → A) → (p zer) ≡ (p one)
 Interval⇒≡ p = ap p seg
 
-flip : {A B C : Set} -> (A -> B -> C) -> (B -> A -> C)
+flip : {A B C : Set} → (A → B → C) → (B → A → C)
 flip f b a = f a b
 
-ext : (A B : Set) (f g : A -> B) (α : (x : A) -> f x ≡ g x) -> f ≡ g
+ext : (A B : Set) (f g : A → B) (α : (x : A) → f x ≡ g x) → f ≡ g
 ext A B f g α = Interval⇒≡ (flip (λ a → ≡⇒Interval (α a)))
 
 -- Example of using function extensionality

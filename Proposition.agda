@@ -26,7 +26,7 @@ proofIrrelevance⇒hProp {A = A} p x y = p x y , (λ q → sym (canon-path q))
     lemma refl = refl
 
     canon-path : {x y : A} (q : x ≡ y) →  q ≡ p x y
-    canon-path {.y} {y} refl = anti-whisker-right (p y y) (lemma (p y y))
+    canon-path {.y} {y} refl = ∘-injective-left (p y y) (lemma (p y y))
 
 proofIrrelevance⇒inhabitedContractible : {a : Level} → {A : Set a} → proofIrrelevance A → (A → isContractible A)
 proofIrrelevance⇒inhabitedContractible proofIrr a = a , proofIrr a
@@ -35,14 +35,13 @@ inhabitedContractible⇒proofIrrelevance : {a : Level} → {A : Set a} → (A �
 inhabitedContractible⇒proofIrrelevance contr x y with contr x
 inhabitedContractible⇒proofIrrelevance contr x y | center , center≡ = trans (sym (center≡ x)) (center≡ y)
 
--- TODO: This should be in an another module.
-
 isConstant : {a b : Level} {A : Set a} {B : Set b} → (f : A → B) → Set (a ⊔ b)
 isConstant {A = A} f = (x y : A) → (f x ≡ f y)
 
 -- One thing that follows from the above is that every function out of
 -- an h-proposition is constant, up to propositional equality.
-hPropConstantFunction : {a b : Level} {A : Set a} {B : Set b} → hProp A → (f : A → B) → isConstant f
+hPropConstantFunction : {a b : Level} {A : Set a} {B : Set b} → hProp A → (f : A → B) 
+                      → isConstant f
 hPropConstantFunction p f x y = ap f (hProp⇒proofIrrelevance p x y)
 
 -- This also holds for dependent functions f : (x : A) → B x, but we
@@ -54,20 +53,6 @@ hPropConstantFunctionDep : {a b : Level} {A : Set a} {B : A → Set b}
                          → (x y : A) 
                          → (transport (hProp⇒proofIrrelevance p x y) (f x) ≡ f y)
 hPropConstantFunctionDep {A = A} p f x y = apd f (hProp⇒proofIrrelevance p x y)
-
--- Irrelevant functions are constant.
-irrelevantConstantFunction : {a b : Level} {A : Set a} {B : Set b} → (f : .A → B) → isConstant f
-irrelevantConstantFunction {a} {b} {A} {B} f x _ = refl
-
--- We cannot do the following, because Id A _ _ is not an irrelevant
--- context.
--- irrelevantAllPaths : {a : Level} {A : Set a} .(x y : A) → x ≡ y
-
-irrelevantConstantFunctionDep : {a b : Level} {A : Set a} {B : .A → Set b}
-                         → (f : .(x : A) → B x) 
-                         → .(x y : A) 
-                         → f x ≡ f y
-irrelevantConstantFunctionDep _ _ _ = refl
 
 -- Given that A is contractible, we can transform a function f : A → B
 -- into an irrelevant version.

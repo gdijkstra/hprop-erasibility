@@ -841,13 +841,13 @@ theory is invariant under isomorphism. Consider for example the
 definition of a monoid:
 
 \begin{code}
-  Monoid : Universe
-  Monoid =  Sigma  (carrier    : Set) .
-            Sigma  (unit       : carrier) .
-            Sigma  (binopname  : carrier -> carrier -> carrier) .
-            Sigma  (assoc      : (x y z : carrier) -> x binop (y binop z) == (x binop y) binop z) .
-            Sigma  (unitleft   : (x : carrier) -> unit binop x == x) .
-            Sigma  (unitright  : (x : carrier) -> x binop unit == x) . top
+  Monoid : Universe -> Universe
+  Monoid A =
+            Sigma  (unit       : A) .
+            Sigma  (binopname  : A -> A -> A) .
+            Sigma  (assoc      : (x y z : A) -> x binop (y binop z) == (x binop y) binop z) .
+            Sigma  (unitleft   : (x : A) -> unit binop x == x) .
+            Sigma  (unitright  : (x : A) -> x binop unit == x) . top
 \end{code}
 
 If we have two types |A B : Universe| with an isomorphism |f : A -> B|
@@ -876,6 +876,9 @@ notion of a function |f : A -> B| being an isomorphism as follows:
   isIsomorphism : {A B : Universe} (f : A -> B) -> Universe
   isIsomorphism f = Sigma (B -> A) (\ g ->  (x : B) -> f (g x) == x times 
                                             (x : A) -> g (f x) == x)
+
+  isomrel : (A B : Universe) -> Universe
+  A isom B = Sigma (A -> B) (\f -> isIsomorphism f)
 \end{code}
 
 We want the type |isIsomorphism f| to be an \hprop, which it is when
@@ -886,7 +889,7 @@ We want the type |isIsomorphism f| to be an \hprop, which it is when
 \begin{code}
   isEquivalence : {A B : Universe} (f : A -> B) -> Universe
   isEquivalence f =  Sigma (B -> A) (\g -> (x : B) -> f (g x) == x)
-              times  Sigma (B -> A) (\h -> (x : a) -> h (f x) == x)
+              times  Sigma (B -> A) (\h -> (x : A) -> h (f x) == x)
 \end{code}
 
 This definition does satisfy the property that |isEquivalence f| can
@@ -895,11 +898,12 @@ show that |isIsomorphism f -> isEquivalence f| and |isEquivalence f ->
 isIsomorphism f|, \ie the two types are \emph{coinhabited}.
 
 Using this definition of what it means to be an equivalence, we can
-define the following relation on types:
+define the following relation on types, analogous to what we did with
+isomorphisms:
 
 \begin{code}
-  equivrel : {A B : Universe} -> Universe
-  A equivrel B = Sigma (A -> B) (\f -> isEquivalence f)
+  equivrel : (A B : Universe) -> Universe
+  A equiv B = Sigma (A -> B) (\f -> isEquivalence f)
 \end{code}
 
 It is easy to show that if two types are propositional equal, then
