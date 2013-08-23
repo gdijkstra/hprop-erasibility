@@ -9,21 +9,2135 @@
      /></head
   ><body
   ><pre
-    ><a name="1" class="Keyword"
-      >module</a
-      ><a name="7"
+    ><a name="1" class="Symbol"
+      >{-#</a
+      ><a name="4"
       > </a
-      ><a name="8" href="Univalence.html#1" class="Module"
-      >Univalence</a
-      ><a name="18"
-      > </a
-      ><a name="19" class="Keyword"
-      >where</a
-      ><a name="24"
+      ><a name="5" class="Keyword"
+      >OPTIONS</a
+      ><a name="12"
+      > --without-K </a
+      ><a name="25" class="Symbol"
+      >#-}</a
+      ><a name="28"
       >
 
+</a
+      ><a name="30" class="Keyword"
+      >module</a
+      ><a name="36"
+      > </a
+      ><a name="37" href="Univalence.html#1" class="Module"
+      >Univalence</a
+      ><a name="47"
+      > </a
+      ><a name="48" class="Keyword"
+      >where</a
+      ><a name="53"
+      >
 
+</a
+      ><a name="55" class="Keyword"
+      >open</a
+      ><a name="59"
+      > </a
+      ><a name="60" class="Keyword"
+      >import</a
+      ><a name="66"
+      > </a
+      ><a name="67" href="Levels.html#1" class="Module"
+      >Levels</a
+      ><a name="73"
+      >
+</a
+      ><a name="74" class="Keyword"
+      >open</a
+      ><a name="78"
+      > </a
+      ><a name="79" class="Keyword"
+      >import</a
+      ><a name="85"
+      > </a
+      ><a name="86" href="Sigma.html#1" class="Module"
+      >Sigma</a
+      ><a name="91"
+      >
+</a
+      ><a name="92" class="Keyword"
+      >open</a
+      ><a name="96"
+      > </a
+      ><a name="97" class="Keyword"
+      >import</a
+      ><a name="103"
+      > </a
+      ><a name="104" href="Identity.html#1" class="Module"
+      >Identity</a
+      ><a name="112"
+      >
 
+</a
+      ><a name="114" class="Comment"
+      >-- Definition of what it means for a function f : A &#8594; B to be an</a
+      ><a name="178"
+      >
+</a
+      ><a name="179" class="Comment"
+      >-- isomorphism.</a
+      ><a name="194"
+      >
+</a
+      ><a name="195" href="Univalence.html#195" class="Function"
+      >isIsomorphism</a
+      ><a name="208"
+      > </a
+      ><a name="209" class="Symbol"
+      >:</a
+      ><a name="210"
+      > </a
+      ><a name="211" class="Symbol"
+      >{</a
+      ><a name="212" href="Univalence.html#212" class="Bound"
+      >a</a
+      ><a name="213"
+      > </a
+      ><a name="214" href="Univalence.html#214" class="Bound"
+      >b</a
+      ><a name="215"
+      > </a
+      ><a name="216" class="Symbol"
+      >:</a
+      ><a name="217"
+      > </a
+      ><a name="218" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="223" class="Symbol"
+      >}</a
+      ><a name="224"
+      > </a
+      ><a name="225" class="Symbol"
+      >{</a
+      ><a name="226" href="Univalence.html#226" class="Bound"
+      >A</a
+      ><a name="227"
+      > </a
+      ><a name="228" class="Symbol"
+      >:</a
+      ><a name="229"
+      > </a
+      ><a name="230" class="PrimitiveType"
+      >Set</a
+      ><a name="233"
+      > </a
+      ><a name="234" href="Univalence.html#212" class="Bound"
+      >a</a
+      ><a name="235" class="Symbol"
+      >}</a
+      ><a name="236"
+      > </a
+      ><a name="237" class="Symbol"
+      >{</a
+      ><a name="238" href="Univalence.html#238" class="Bound"
+      >B</a
+      ><a name="239"
+      > </a
+      ><a name="240" class="Symbol"
+      >:</a
+      ><a name="241"
+      > </a
+      ><a name="242" class="PrimitiveType"
+      >Set</a
+      ><a name="245"
+      > </a
+      ><a name="246" href="Univalence.html#214" class="Bound"
+      >b</a
+      ><a name="247" class="Symbol"
+      >}</a
+      ><a name="248"
+      > </a
+      ><a name="249" class="Symbol"
+      >&#8594;</a
+      ><a name="250"
+      > </a
+      ><a name="251" class="Symbol"
+      >(</a
+      ><a name="252" href="Univalence.html#252" class="Bound"
+      >f</a
+      ><a name="253"
+      > </a
+      ><a name="254" class="Symbol"
+      >:</a
+      ><a name="255"
+      > </a
+      ><a name="256" href="Univalence.html#226" class="Bound"
+      >A</a
+      ><a name="257"
+      > </a
+      ><a name="258" class="Symbol"
+      >&#8594;</a
+      ><a name="259"
+      > </a
+      ><a name="260" href="Univalence.html#238" class="Bound"
+      >B</a
+      ><a name="261" class="Symbol"
+      >)</a
+      ><a name="262"
+      > </a
+      ><a name="263" class="Symbol"
+      >&#8594;</a
+      ><a name="264"
+      > </a
+      ><a name="265" class="PrimitiveType"
+      >Set</a
+      ><a name="268"
+      > </a
+      ><a name="269" class="Symbol"
+      >(</a
+      ><a name="270" href="Univalence.html#212" class="Bound"
+      >a</a
+      ><a name="271"
+      > </a
+      ><a name="272" href="Levels.html#117" class="Primitive Operator"
+      >&#8852;</a
+      ><a name="273"
+      > </a
+      ><a name="274" href="Univalence.html#214" class="Bound"
+      >b</a
+      ><a name="275" class="Symbol"
+      >)</a
+      ><a name="276"
+      >
+</a
+      ><a name="277" href="Univalence.html#195" class="Function"
+      >isIsomorphism</a
+      ><a name="290"
+      > </a
+      ><a name="291" class="Symbol"
+      >{</a
+      ><a name="292"
+      >A </a
+      ><a name="294" class="Symbol"
+      >=</a
+      ><a name="295"
+      > </a
+      ><a name="296" href="Univalence.html#296" class="Bound"
+      >A</a
+      ><a name="297" class="Symbol"
+      >}</a
+      ><a name="298"
+      > </a
+      ><a name="299" class="Symbol"
+      >{</a
+      ><a name="300"
+      >B </a
+      ><a name="302" class="Symbol"
+      >=</a
+      ><a name="303"
+      > </a
+      ><a name="304" href="Univalence.html#304" class="Bound"
+      >B</a
+      ><a name="305" class="Symbol"
+      >}</a
+      ><a name="306"
+      > </a
+      ><a name="307" href="Univalence.html#307" class="Bound"
+      >f</a
+      ><a name="308"
+      > </a
+      ><a name="309" class="Symbol"
+      >=</a
+      ><a name="310"
+      > </a
+      ><a name="311" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="312"
+      > </a
+      ><a name="313" class="Symbol"
+      >(</a
+      ><a name="314" href="Univalence.html#304" class="Bound"
+      >B</a
+      ><a name="315"
+      > </a
+      ><a name="316" class="Symbol"
+      >&#8594;</a
+      ><a name="317"
+      > </a
+      ><a name="318" href="Univalence.html#296" class="Bound"
+      >A</a
+      ><a name="319" class="Symbol"
+      >)</a
+      ><a name="320"
+      > </a
+      ><a name="321" class="Symbol"
+      >(\</a
+      ><a name="323"
+      > </a
+      ><a name="324" href="Univalence.html#324" class="Bound"
+      >g</a
+      ><a name="325"
+      > </a
+      ><a name="326" class="Symbol"
+      >&#8594;</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Symbol"
+      >((</a
+      ><a name="330" href="Univalence.html#330" class="Bound"
+      >x</a
+      ><a name="331"
+      > </a
+      ><a name="332" class="Symbol"
+      >:</a
+      ><a name="333"
+      > </a
+      ><a name="334" href="Univalence.html#304" class="Bound"
+      >B</a
+      ><a name="335" class="Symbol"
+      >)</a
+      ><a name="336"
+      > </a
+      ><a name="337" class="Symbol"
+      >&#8594;</a
+      ><a name="338"
+      > </a
+      ><a name="339" class="Symbol"
+      >(</a
+      ><a name="340" href="Univalence.html#307" class="Bound"
+      >f</a
+      ><a name="341"
+      > </a
+      ><a name="342" class="Symbol"
+      >(</a
+      ><a name="343" href="Univalence.html#324" class="Bound"
+      >g</a
+      ><a name="344"
+      > </a
+      ><a name="345" href="Univalence.html#330" class="Bound"
+      >x</a
+      ><a name="346" class="Symbol"
+      >))</a
+      ><a name="348"
+      > </a
+      ><a name="349" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="350"
+      > </a
+      ><a name="351" href="Univalence.html#330" class="Bound"
+      >x</a
+      ><a name="352" class="Symbol"
+      >)</a
+      ><a name="353"
+      > 
+                                                   </a
+      ><a name="406" href="Sigma.html#243" class="Record Operator"
+      >&#215;</a
+      ><a name="407"
+      > </a
+      ><a name="408" class="Symbol"
+      >((</a
+      ><a name="410" href="Univalence.html#410" class="Bound"
+      >x</a
+      ><a name="411"
+      > </a
+      ><a name="412" class="Symbol"
+      >:</a
+      ><a name="413"
+      > </a
+      ><a name="414" href="Univalence.html#296" class="Bound"
+      >A</a
+      ><a name="415" class="Symbol"
+      >)</a
+      ><a name="416"
+      > </a
+      ><a name="417" class="Symbol"
+      >&#8594;</a
+      ><a name="418"
+      > </a
+      ><a name="419" class="Symbol"
+      >(</a
+      ><a name="420" href="Univalence.html#324" class="Bound"
+      >g</a
+      ><a name="421"
+      > </a
+      ><a name="422" class="Symbol"
+      >(</a
+      ><a name="423" href="Univalence.html#307" class="Bound"
+      >f</a
+      ><a name="424"
+      > </a
+      ><a name="425" href="Univalence.html#410" class="Bound"
+      >x</a
+      ><a name="426" class="Symbol"
+      >))</a
+      ><a name="428"
+      > </a
+      ><a name="429" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="430"
+      > </a
+      ><a name="431" href="Univalence.html#410" class="Bound"
+      >x</a
+      ><a name="432" class="Symbol"
+      >))</a
+      ><a name="434"
+      >
+
+</a
+      ><a name="436" href="Univalence.html#436" class="Function Operator"
+      >_&#8771;_</a
+      ><a name="439"
+      > </a
+      ><a name="440" class="Symbol"
+      >:</a
+      ><a name="441"
+      > </a
+      ><a name="442" class="Symbol"
+      >{</a
+      ><a name="443" href="Univalence.html#443" class="Bound"
+      >a</a
+      ><a name="444"
+      > </a
+      ><a name="445" href="Univalence.html#445" class="Bound"
+      >b</a
+      ><a name="446"
+      > </a
+      ><a name="447" class="Symbol"
+      >:</a
+      ><a name="448"
+      > </a
+      ><a name="449" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="454" class="Symbol"
+      >}</a
+      ><a name="455"
+      > </a
+      ><a name="456" class="Symbol"
+      >&#8594;</a
+      ><a name="457"
+      > </a
+      ><a name="458" class="Symbol"
+      >(</a
+      ><a name="459" href="Univalence.html#459" class="Bound"
+      >A</a
+      ><a name="460"
+      > </a
+      ><a name="461" class="Symbol"
+      >:</a
+      ><a name="462"
+      > </a
+      ><a name="463" class="PrimitiveType"
+      >Set</a
+      ><a name="466"
+      > </a
+      ><a name="467" href="Univalence.html#443" class="Bound"
+      >a</a
+      ><a name="468" class="Symbol"
+      >)</a
+      ><a name="469"
+      > </a
+      ><a name="470" class="Symbol"
+      >&#8594;</a
+      ><a name="471"
+      > </a
+      ><a name="472" class="Symbol"
+      >(</a
+      ><a name="473" href="Univalence.html#473" class="Bound"
+      >B</a
+      ><a name="474"
+      > </a
+      ><a name="475" class="Symbol"
+      >:</a
+      ><a name="476"
+      > </a
+      ><a name="477" class="PrimitiveType"
+      >Set</a
+      ><a name="480"
+      > </a
+      ><a name="481" href="Univalence.html#445" class="Bound"
+      >b</a
+      ><a name="482" class="Symbol"
+      >)</a
+      ><a name="483"
+      > </a
+      ><a name="484" class="Symbol"
+      >&#8594;</a
+      ><a name="485"
+      > </a
+      ><a name="486" class="PrimitiveType"
+      >Set</a
+      ><a name="489"
+      > </a
+      ><a name="490" class="Symbol"
+      >(</a
+      ><a name="491" href="Univalence.html#443" class="Bound"
+      >a</a
+      ><a name="492"
+      > </a
+      ><a name="493" href="Levels.html#117" class="Primitive Operator"
+      >&#8852;</a
+      ><a name="494"
+      > </a
+      ><a name="495" href="Univalence.html#445" class="Bound"
+      >b</a
+      ><a name="496" class="Symbol"
+      >)</a
+      ><a name="497"
+      >
+</a
+      ><a name="498" href="Univalence.html#498" class="Bound"
+      >A</a
+      ><a name="499"
+      > </a
+      ><a name="500" href="Univalence.html#436" class="Function Operator"
+      >&#8771;</a
+      ><a name="501"
+      > </a
+      ><a name="502" href="Univalence.html#502" class="Bound"
+      >B</a
+      ><a name="503"
+      > </a
+      ><a name="504" class="Symbol"
+      >=</a
+      ><a name="505"
+      > </a
+      ><a name="506" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="507"
+      > </a
+      ><a name="508" class="Symbol"
+      >(</a
+      ><a name="509" href="Univalence.html#498" class="Bound"
+      >A</a
+      ><a name="510"
+      > </a
+      ><a name="511" class="Symbol"
+      >&#8594;</a
+      ><a name="512"
+      > </a
+      ><a name="513" href="Univalence.html#502" class="Bound"
+      >B</a
+      ><a name="514" class="Symbol"
+      >)</a
+      ><a name="515"
+      > </a
+      ><a name="516" class="Symbol"
+      >(\</a
+      ><a name="518" href="Univalence.html#518" class="Bound"
+      >f</a
+      ><a name="519"
+      > </a
+      ><a name="520" class="Symbol"
+      >&#8594;</a
+      ><a name="521"
+      > </a
+      ><a name="522" href="Univalence.html#195" class="Function"
+      >isIsomorphism</a
+      ><a name="535"
+      > </a
+      ><a name="536" href="Univalence.html#518" class="Bound"
+      >f</a
+      ><a name="537" class="Symbol"
+      >)</a
+      ><a name="538"
+      >
+
+</a
+      ><a name="540" class="Comment"
+      >-- Propositional equality implies isomorphism.</a
+      ><a name="586"
+      >
+</a
+      ><a name="587" href="Univalence.html#587" class="Function"
+      >&#8801;&#8658;&#8771;</a
+      ><a name="590"
+      > </a
+      ><a name="591" class="Symbol"
+      >:</a
+      ><a name="592"
+      > </a
+      ><a name="593" class="Symbol"
+      >{</a
+      ><a name="594" href="Univalence.html#594" class="Bound"
+      >a</a
+      ><a name="595"
+      > </a
+      ><a name="596" class="Symbol"
+      >:</a
+      ><a name="597"
+      > </a
+      ><a name="598" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="603" class="Symbol"
+      >}</a
+      ><a name="604"
+      > </a
+      ><a name="605" class="Symbol"
+      >&#8594;</a
+      ><a name="606"
+      > </a
+      ><a name="607" class="Symbol"
+      >(</a
+      ><a name="608" href="Univalence.html#608" class="Bound"
+      >A</a
+      ><a name="609"
+      > </a
+      ><a name="610" href="Univalence.html#610" class="Bound"
+      >B</a
+      ><a name="611"
+      > </a
+      ><a name="612" class="Symbol"
+      >:</a
+      ><a name="613"
+      > </a
+      ><a name="614" class="PrimitiveType"
+      >Set</a
+      ><a name="617"
+      > </a
+      ><a name="618" href="Univalence.html#594" class="Bound"
+      >a</a
+      ><a name="619" class="Symbol"
+      >)</a
+      ><a name="620"
+      > </a
+      ><a name="621" class="Symbol"
+      >&#8594;</a
+      ><a name="622"
+      > </a
+      ><a name="623" href="Univalence.html#608" class="Bound"
+      >A</a
+      ><a name="624"
+      > </a
+      ><a name="625" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="626"
+      > </a
+      ><a name="627" href="Univalence.html#610" class="Bound"
+      >B</a
+      ><a name="628"
+      > </a
+      ><a name="629" class="Symbol"
+      >&#8594;</a
+      ><a name="630"
+      > </a
+      ><a name="631" href="Univalence.html#608" class="Bound"
+      >A</a
+      ><a name="632"
+      > </a
+      ><a name="633" href="Univalence.html#436" class="Function Operator"
+      >&#8771;</a
+      ><a name="634"
+      > </a
+      ><a name="635" href="Univalence.html#610" class="Bound"
+      >B</a
+      ><a name="636"
+      >
+</a
+      ><a name="637" href="Univalence.html#587" class="Function"
+      >&#8801;&#8658;&#8771;</a
+      ><a name="640"
+      > </a
+      ><a name="641" class="DottedPattern Symbol"
+      >.</a
+      ><a name="642" href="Univalence.html#644" class="DottedPattern Bound"
+      >B</a
+      ><a name="643"
+      > </a
+      ><a name="644" href="Univalence.html#644" class="Bound"
+      >B</a
+      ><a name="645"
+      > </a
+      ><a name="646" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="650"
+      > </a
+      ><a name="651" class="Symbol"
+      >=</a
+      ><a name="652"
+      > </a
+      ><a name="653" class="Symbol"
+      >(&#955;</a
+      ><a name="655"
+      > </a
+      ><a name="656" href="Univalence.html#656" class="Bound"
+      >x</a
+      ><a name="657"
+      > </a
+      ><a name="658" class="Symbol"
+      >&#8594;</a
+      ><a name="659"
+      > </a
+      ><a name="660" href="Univalence.html#656" class="Bound"
+      >x</a
+      ><a name="661" class="Symbol"
+      >)</a
+      ><a name="662"
+      > </a
+      ><a name="663" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="664"
+      > </a
+      ><a name="665" class="Symbol"
+      >((&#955;</a
+      ><a name="668"
+      > </a
+      ><a name="669" href="Univalence.html#669" class="Bound"
+      >x</a
+      ><a name="670"
+      > </a
+      ><a name="671" class="Symbol"
+      >&#8594;</a
+      ><a name="672"
+      > </a
+      ><a name="673" href="Univalence.html#669" class="Bound"
+      >x</a
+      ><a name="674" class="Symbol"
+      >)</a
+      ><a name="675"
+      > </a
+      ><a name="676" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="677"
+      > </a
+      ><a name="678" class="Symbol"
+      >((&#955;</a
+      ><a name="681"
+      > </a
+      ><a name="682" href="Univalence.html#682" class="Bound"
+      >x</a
+      ><a name="683"
+      > </a
+      ><a name="684" class="Symbol"
+      >&#8594;</a
+      ><a name="685"
+      > </a
+      ><a name="686" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="690" class="Symbol"
+      >)</a
+      ><a name="691"
+      > </a
+      ><a name="692" href="Sigma.html#312" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="693"
+      > </a
+      ><a name="694" class="Symbol"
+      >(&#955;</a
+      ><a name="696"
+      > </a
+      ><a name="697" href="Univalence.html#697" class="Bound"
+      >x</a
+      ><a name="698"
+      > </a
+      ><a name="699" class="Symbol"
+      >&#8594;</a
+      ><a name="700"
+      > </a
+      ><a name="701" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="705" class="Symbol"
+      >)))</a
+      ><a name="708"
+      > 
+
+</a
+      ><a name="711" class="Comment"
+      >-- Unfortunately, isIsomorphism f need not be in hProp. This</a
+      ><a name="771"
+      >
+</a
+      ><a name="772" class="Comment"
+      >-- complicates further matters (the details of which are not too</a
+      ><a name="836"
+      >
+</a
+      ><a name="837" class="Comment"
+      >-- relevant for this thesis), so we need an alternative notion:</a
+      ><a name="900"
+      >
+</a
+      ><a name="901" class="Comment"
+      >-- equivalence.</a
+      ><a name="916"
+      >
+</a
+      ><a name="917" href="Univalence.html#917" class="Function"
+      >isEquivalence</a
+      ><a name="930"
+      > </a
+      ><a name="931" class="Symbol"
+      >:</a
+      ><a name="932"
+      > </a
+      ><a name="933" class="Symbol"
+      >{</a
+      ><a name="934" href="Univalence.html#934" class="Bound"
+      >a</a
+      ><a name="935"
+      > </a
+      ><a name="936" href="Univalence.html#936" class="Bound"
+      >b</a
+      ><a name="937"
+      > </a
+      ><a name="938" class="Symbol"
+      >:</a
+      ><a name="939"
+      > </a
+      ><a name="940" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="945" class="Symbol"
+      >}</a
+      ><a name="946"
+      > </a
+      ><a name="947" class="Symbol"
+      >{</a
+      ><a name="948" href="Univalence.html#948" class="Bound"
+      >A</a
+      ><a name="949"
+      > </a
+      ><a name="950" class="Symbol"
+      >:</a
+      ><a name="951"
+      > </a
+      ><a name="952" class="PrimitiveType"
+      >Set</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="Univalence.html#934" class="Bound"
+      >a</a
+      ><a name="957" class="Symbol"
+      >}</a
+      ><a name="958"
+      > </a
+      ><a name="959" class="Symbol"
+      >{</a
+      ><a name="960" href="Univalence.html#960" class="Bound"
+      >B</a
+      ><a name="961"
+      > </a
+      ><a name="962" class="Symbol"
+      >:</a
+      ><a name="963"
+      > </a
+      ><a name="964" class="PrimitiveType"
+      >Set</a
+      ><a name="967"
+      > </a
+      ><a name="968" href="Univalence.html#936" class="Bound"
+      >b</a
+      ><a name="969" class="Symbol"
+      >}</a
+      ><a name="970"
+      > </a
+      ><a name="971" class="Symbol"
+      >&#8594;</a
+      ><a name="972"
+      > </a
+      ><a name="973" class="Symbol"
+      >(</a
+      ><a name="974" href="Univalence.html#974" class="Bound"
+      >f</a
+      ><a name="975"
+      > </a
+      ><a name="976" class="Symbol"
+      >:</a
+      ><a name="977"
+      > </a
+      ><a name="978" href="Univalence.html#948" class="Bound"
+      >A</a
+      ><a name="979"
+      > </a
+      ><a name="980" class="Symbol"
+      >&#8594;</a
+      ><a name="981"
+      > </a
+      ><a name="982" href="Univalence.html#960" class="Bound"
+      >B</a
+      ><a name="983" class="Symbol"
+      >)</a
+      ><a name="984"
+      > </a
+      ><a name="985" class="Symbol"
+      >&#8594;</a
+      ><a name="986"
+      > </a
+      ><a name="987" class="PrimitiveType"
+      >Set</a
+      ><a name="990"
+      > </a
+      ><a name="991" class="Symbol"
+      >(</a
+      ><a name="992" href="Univalence.html#934" class="Bound"
+      >a</a
+      ><a name="993"
+      > </a
+      ><a name="994" href="Levels.html#117" class="Primitive Operator"
+      >&#8852;</a
+      ><a name="995"
+      > </a
+      ><a name="996" href="Univalence.html#936" class="Bound"
+      >b</a
+      ><a name="997" class="Symbol"
+      >)</a
+      ><a name="998"
+      >
+</a
+      ><a name="999" href="Univalence.html#917" class="Function"
+      >isEquivalence</a
+      ><a name="1012"
+      > </a
+      ><a name="1013" class="Symbol"
+      >{</a
+      ><a name="1014"
+      >A </a
+      ><a name="1016" class="Symbol"
+      >=</a
+      ><a name="1017"
+      > </a
+      ><a name="1018" href="Univalence.html#1018" class="Bound"
+      >A</a
+      ><a name="1019" class="Symbol"
+      >}</a
+      ><a name="1020"
+      > </a
+      ><a name="1021" class="Symbol"
+      >{</a
+      ><a name="1022"
+      >B </a
+      ><a name="1024" class="Symbol"
+      >=</a
+      ><a name="1025"
+      > </a
+      ><a name="1026" href="Univalence.html#1026" class="Bound"
+      >B</a
+      ><a name="1027" class="Symbol"
+      >}</a
+      ><a name="1028"
+      > </a
+      ><a name="1029" href="Univalence.html#1029" class="Bound"
+      >f</a
+      ><a name="1030"
+      > </a
+      ><a name="1031" class="Symbol"
+      >=</a
+      ><a name="1032"
+      > </a
+      ><a name="1033" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" class="Symbol"
+      >(</a
+      ><a name="1036" href="Univalence.html#1026" class="Bound"
+      >B</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" class="Symbol"
+      >&#8594;</a
+      ><a name="1039"
+      > </a
+      ><a name="1040" href="Univalence.html#1018" class="Bound"
+      >A</a
+      ><a name="1041" class="Symbol"
+      >)</a
+      ><a name="1042"
+      > </a
+      ><a name="1043" class="Symbol"
+      >(\</a
+      ><a name="1045" href="Univalence.html#1045" class="Bound"
+      >g</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" class="Symbol"
+      >&#8594;</a
+      ><a name="1048"
+      > </a
+      ><a name="1049" class="Symbol"
+      >(</a
+      ><a name="1050" href="Univalence.html#1050" class="Bound"
+      >x</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" class="Symbol"
+      >:</a
+      ><a name="1053"
+      > </a
+      ><a name="1054" href="Univalence.html#1026" class="Bound"
+      >B</a
+      ><a name="1055" class="Symbol"
+      >)</a
+      ><a name="1056"
+      > </a
+      ><a name="1057" class="Symbol"
+      >&#8594;</a
+      ><a name="1058"
+      > </a
+      ><a name="1059" class="Symbol"
+      >(</a
+      ><a name="1060" href="Univalence.html#1029" class="Bound"
+      >f</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" class="Symbol"
+      >(</a
+      ><a name="1063" href="Univalence.html#1045" class="Bound"
+      >g</a
+      ><a name="1064"
+      > </a
+      ><a name="1065" href="Univalence.html#1050" class="Bound"
+      >x</a
+      ><a name="1066" class="Symbol"
+      >))</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="1070"
+      > </a
+      ><a name="1071" href="Univalence.html#1050" class="Bound"
+      >x</a
+      ><a name="1072" class="Symbol"
+      >)</a
+      ><a name="1073"
+      >
+                               </a
+      ><a name="1105" href="Sigma.html#243" class="Record Operator"
+      >&#215;</a
+      ><a name="1106"
+      >  </a
+      ><a name="1108" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="1109"
+      > </a
+      ><a name="1110" class="Symbol"
+      >(</a
+      ><a name="1111" href="Univalence.html#1026" class="Bound"
+      >B</a
+      ><a name="1112"
+      > </a
+      ><a name="1113" class="Symbol"
+      >&#8594;</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" href="Univalence.html#1018" class="Bound"
+      >A</a
+      ><a name="1116" class="Symbol"
+      >)</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" class="Symbol"
+      >(\</a
+      ><a name="1120" href="Univalence.html#1120" class="Bound"
+      >h</a
+      ><a name="1121"
+      > </a
+      ><a name="1122" class="Symbol"
+      >&#8594;</a
+      ><a name="1123"
+      > </a
+      ><a name="1124" class="Symbol"
+      >(</a
+      ><a name="1125" href="Univalence.html#1125" class="Bound"
+      >x</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" class="Symbol"
+      >:</a
+      ><a name="1128"
+      > </a
+      ><a name="1129" href="Univalence.html#1018" class="Bound"
+      >A</a
+      ><a name="1130" class="Symbol"
+      >)</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" class="Symbol"
+      >&#8594;</a
+      ><a name="1133"
+      > </a
+      ><a name="1134" class="Symbol"
+      >(</a
+      ><a name="1135" href="Univalence.html#1120" class="Bound"
+      >h</a
+      ><a name="1136"
+      > </a
+      ><a name="1137" class="Symbol"
+      >(</a
+      ><a name="1138" href="Univalence.html#1029" class="Bound"
+      >f</a
+      ><a name="1139"
+      > </a
+      ><a name="1140" href="Univalence.html#1125" class="Bound"
+      >x</a
+      ><a name="1141" class="Symbol"
+      >))</a
+      ><a name="1143"
+      > </a
+      ><a name="1144" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" href="Univalence.html#1125" class="Bound"
+      >x</a
+      ><a name="1147" class="Symbol"
+      >)</a
+      ><a name="1148"
+      >
+
+</a
+      ><a name="1150" href="Univalence.html#1150" class="Function Operator"
+      >_&#8773;_</a
+      ><a name="1153"
+      > </a
+      ><a name="1154" class="Symbol"
+      >:</a
+      ><a name="1155"
+      > </a
+      ><a name="1156" class="Symbol"
+      >{</a
+      ><a name="1157" href="Univalence.html#1157" class="Bound"
+      >a</a
+      ><a name="1158"
+      > </a
+      ><a name="1159" href="Univalence.html#1159" class="Bound"
+      >b</a
+      ><a name="1160"
+      > </a
+      ><a name="1161" class="Symbol"
+      >:</a
+      ><a name="1162"
+      > </a
+      ><a name="1163" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="1168" class="Symbol"
+      >}</a
+      ><a name="1169"
+      > </a
+      ><a name="1170" class="Symbol"
+      >&#8594;</a
+      ><a name="1171"
+      > </a
+      ><a name="1172" class="Symbol"
+      >(</a
+      ><a name="1173" href="Univalence.html#1173" class="Bound"
+      >A</a
+      ><a name="1174"
+      > </a
+      ><a name="1175" class="Symbol"
+      >:</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" class="PrimitiveType"
+      >Set</a
+      ><a name="1180"
+      > </a
+      ><a name="1181" href="Univalence.html#1157" class="Bound"
+      >a</a
+      ><a name="1182" class="Symbol"
+      >)</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" class="Symbol"
+      >&#8594;</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" class="Symbol"
+      >(</a
+      ><a name="1187" href="Univalence.html#1187" class="Bound"
+      >B</a
+      ><a name="1188"
+      > </a
+      ><a name="1189" class="Symbol"
+      >:</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" class="PrimitiveType"
+      >Set</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" href="Univalence.html#1159" class="Bound"
+      >b</a
+      ><a name="1196" class="Symbol"
+      >)</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" class="Symbol"
+      >&#8594;</a
+      ><a name="1199"
+      > </a
+      ><a name="1200" class="PrimitiveType"
+      >Set</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" class="Symbol"
+      >(</a
+      ><a name="1205" href="Univalence.html#1157" class="Bound"
+      >a</a
+      ><a name="1206"
+      > </a
+      ><a name="1207" href="Levels.html#117" class="Primitive Operator"
+      >&#8852;</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" href="Univalence.html#1159" class="Bound"
+      >b</a
+      ><a name="1210" class="Symbol"
+      >)</a
+      ><a name="1211"
+      >
+</a
+      ><a name="1212" href="Univalence.html#1212" class="Bound"
+      >A</a
+      ><a name="1213"
+      > </a
+      ><a name="1214" href="Univalence.html#1150" class="Function Operator"
+      >&#8773;</a
+      ><a name="1215"
+      > </a
+      ><a name="1216" href="Univalence.html#1216" class="Bound"
+      >B</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" class="Symbol"
+      >=</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" href="Sigma.html#98" class="Record"
+      >&#931;</a
+      ><a name="1221"
+      > </a
+      ><a name="1222" class="Symbol"
+      >(</a
+      ><a name="1223" href="Univalence.html#1212" class="Bound"
+      >A</a
+      ><a name="1224"
+      > </a
+      ><a name="1225" class="Symbol"
+      >&#8594;</a
+      ><a name="1226"
+      > </a
+      ><a name="1227" href="Univalence.html#1216" class="Bound"
+      >B</a
+      ><a name="1228" class="Symbol"
+      >)</a
+      ><a name="1229"
+      > </a
+      ><a name="1230" class="Symbol"
+      >(\</a
+      ><a name="1232" href="Univalence.html#1232" class="Bound"
+      >f</a
+      ><a name="1233"
+      > </a
+      ><a name="1234" class="Symbol"
+      >&#8594;</a
+      ><a name="1235"
+      > </a
+      ><a name="1236" href="Univalence.html#917" class="Function"
+      >isEquivalence</a
+      ><a name="1249"
+      > </a
+      ><a name="1250" href="Univalence.html#1232" class="Bound"
+      >f</a
+      ><a name="1251" class="Symbol"
+      >)</a
+      ><a name="1252"
+      >
+
+</a
+      ><a name="1254" href="Univalence.html#1254" class="Function"
+      >toEquiv</a
+      ><a name="1261"
+      > </a
+      ><a name="1262" class="Symbol"
+      >:</a
+      ><a name="1263"
+      > </a
+      ><a name="1264" class="Symbol"
+      >{</a
+      ><a name="1265" href="Univalence.html#1265" class="Bound"
+      >a</a
+      ><a name="1266"
+      > </a
+      ><a name="1267" href="Univalence.html#1267" class="Bound"
+      >b</a
+      ><a name="1268"
+      > </a
+      ><a name="1269" class="Symbol"
+      >:</a
+      ><a name="1270"
+      > </a
+      ><a name="1271" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="1276" class="Symbol"
+      >}</a
+      ><a name="1277"
+      > </a
+      ><a name="1278" class="Symbol"
+      >{</a
+      ><a name="1279" href="Univalence.html#1279" class="Bound"
+      >A</a
+      ><a name="1280"
+      > </a
+      ><a name="1281" class="Symbol"
+      >:</a
+      ><a name="1282"
+      > </a
+      ><a name="1283" class="PrimitiveType"
+      >Set</a
+      ><a name="1286"
+      > </a
+      ><a name="1287" href="Univalence.html#1265" class="Bound"
+      >a</a
+      ><a name="1288" class="Symbol"
+      >}</a
+      ><a name="1289"
+      > </a
+      ><a name="1290" class="Symbol"
+      >{</a
+      ><a name="1291" href="Univalence.html#1291" class="Bound"
+      >B</a
+      ><a name="1292"
+      > </a
+      ><a name="1293" class="Symbol"
+      >:</a
+      ><a name="1294"
+      > </a
+      ><a name="1295" class="PrimitiveType"
+      >Set</a
+      ><a name="1298"
+      > </a
+      ><a name="1299" href="Univalence.html#1267" class="Bound"
+      >b</a
+      ><a name="1300" class="Symbol"
+      >}</a
+      ><a name="1301"
+      > </a
+      ><a name="1302" class="Symbol"
+      >&#8594;</a
+      ><a name="1303"
+      > </a
+      ><a name="1304" href="Univalence.html#1279" class="Bound"
+      >A</a
+      ><a name="1305"
+      > </a
+      ><a name="1306" href="Univalence.html#436" class="Function Operator"
+      >&#8771;</a
+      ><a name="1307"
+      > </a
+      ><a name="1308" href="Univalence.html#1291" class="Bound"
+      >B</a
+      ><a name="1309"
+      > </a
+      ><a name="1310" class="Symbol"
+      >&#8594;</a
+      ><a name="1311"
+      > </a
+      ><a name="1312" href="Univalence.html#1279" class="Bound"
+      >A</a
+      ><a name="1313"
+      > </a
+      ><a name="1314" href="Univalence.html#1150" class="Function Operator"
+      >&#8773;</a
+      ><a name="1315"
+      > </a
+      ><a name="1316" href="Univalence.html#1291" class="Bound"
+      >B</a
+      ><a name="1317"
+      >
+</a
+      ><a name="1318" href="Univalence.html#1254" class="Function"
+      >toEquiv</a
+      ><a name="1325"
+      > </a
+      ><a name="1326" class="Symbol"
+      >(</a
+      ><a name="1327" href="Univalence.html#1327" class="Bound"
+      >fst</a
+      ><a name="1330"
+      > </a
+      ><a name="1331" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1332"
+      > </a
+      ><a name="1333" class="Symbol"
+      >(</a
+      ><a name="1334" href="Univalence.html#1334" class="Bound"
+      >fst'</a
+      ><a name="1338"
+      > </a
+      ><a name="1339" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1340"
+      > </a
+      ><a name="1341" class="Symbol"
+      >(</a
+      ><a name="1342" href="Univalence.html#1342" class="Bound"
+      >fst''</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" href="Sigma.html#312" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1349"
+      > </a
+      ><a name="1350" href="Univalence.html#1350" class="Bound"
+      >snd</a
+      ><a name="1353" class="Symbol"
+      >)))</a
+      ><a name="1356"
+      > </a
+      ><a name="1357" class="Symbol"
+      >=</a
+      ><a name="1358"
+      > </a
+      ><a name="1359" href="Univalence.html#1327" class="Bound"
+      >fst</a
+      ><a name="1362"
+      > </a
+      ><a name="1363" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1364"
+      > </a
+      ><a name="1365" class="Symbol"
+      >((</a
+      ><a name="1367" href="Univalence.html#1334" class="Bound"
+      >fst'</a
+      ><a name="1371"
+      > </a
+      ><a name="1372" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1373"
+      > </a
+      ><a name="1374" href="Univalence.html#1342" class="Bound"
+      >fst''</a
+      ><a name="1379" class="Symbol"
+      >)</a
+      ><a name="1380"
+      > </a
+      ><a name="1381" href="Sigma.html#312" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1382"
+      > </a
+      ><a name="1383" class="Symbol"
+      >(</a
+      ><a name="1384" href="Univalence.html#1334" class="Bound"
+      >fst'</a
+      ><a name="1388"
+      > </a
+      ><a name="1389" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1390"
+      > </a
+      ><a name="1391" href="Univalence.html#1350" class="Bound"
+      >snd</a
+      ><a name="1394" class="Symbol"
+      >))</a
+      ><a name="1396"
+      >
+
+</a
+      ><a name="1398" class="Comment"
+      >-- Propositional equality implies equivalence.</a
+      ><a name="1444"
+      >
+</a
+      ><a name="1445" href="Univalence.html#1445" class="Function"
+      >&#8801;&#8658;&#8773;</a
+      ><a name="1448"
+      > </a
+      ><a name="1449" class="Symbol"
+      >:</a
+      ><a name="1450"
+      > </a
+      ><a name="1451" class="Symbol"
+      >{</a
+      ><a name="1452" href="Univalence.html#1452" class="Bound"
+      >a</a
+      ><a name="1453"
+      > </a
+      ><a name="1454" class="Symbol"
+      >:</a
+      ><a name="1455"
+      > </a
+      ><a name="1456" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="1461" class="Symbol"
+      >}</a
+      ><a name="1462"
+      > </a
+      ><a name="1463" class="Symbol"
+      >&#8594;</a
+      ><a name="1464"
+      > </a
+      ><a name="1465" class="Symbol"
+      >(</a
+      ><a name="1466" href="Univalence.html#1466" class="Bound"
+      >A</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" href="Univalence.html#1468" class="Bound"
+      >B</a
+      ><a name="1469"
+      > </a
+      ><a name="1470" class="Symbol"
+      >:</a
+      ><a name="1471"
+      > </a
+      ><a name="1472" class="PrimitiveType"
+      >Set</a
+      ><a name="1475"
+      > </a
+      ><a name="1476" href="Univalence.html#1452" class="Bound"
+      >a</a
+      ><a name="1477" class="Symbol"
+      >)</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" class="Symbol"
+      >&#8594;</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" href="Univalence.html#1466" class="Bound"
+      >A</a
+      ><a name="1482"
+      > </a
+      ><a name="1483" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="1484"
+      > </a
+      ><a name="1485" href="Univalence.html#1468" class="Bound"
+      >B</a
+      ><a name="1486"
+      > </a
+      ><a name="1487" class="Symbol"
+      >&#8594;</a
+      ><a name="1488"
+      > </a
+      ><a name="1489" href="Univalence.html#1466" class="Bound"
+      >A</a
+      ><a name="1490"
+      > </a
+      ><a name="1491" href="Univalence.html#1150" class="Function Operator"
+      >&#8773;</a
+      ><a name="1492"
+      > </a
+      ><a name="1493" href="Univalence.html#1468" class="Bound"
+      >B</a
+      ><a name="1494"
+      >
+</a
+      ><a name="1495" href="Univalence.html#1445" class="Function"
+      >&#8801;&#8658;&#8773;</a
+      ><a name="1498"
+      > </a
+      ><a name="1499" class="DottedPattern Symbol"
+      >.</a
+      ><a name="1500" href="Univalence.html#1502" class="DottedPattern Bound"
+      >B</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" href="Univalence.html#1502" class="Bound"
+      >B</a
+      ><a name="1503"
+      > </a
+      ><a name="1504" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="1508"
+      > </a
+      ><a name="1509" class="Symbol"
+      >=</a
+      ><a name="1510"
+      > </a
+      ><a name="1511" class="Symbol"
+      >(&#955;</a
+      ><a name="1513"
+      > </a
+      ><a name="1514" href="Univalence.html#1514" class="Bound"
+      >x</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" class="Symbol"
+      >&#8594;</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="Univalence.html#1514" class="Bound"
+      >x</a
+      ><a name="1519" class="Symbol"
+      >)</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1522"
+      >
+                  </a
+      ><a name="1541" class="Symbol"
+      >(((&#955;</a
+      ><a name="1545"
+      > </a
+      ><a name="1546" href="Univalence.html#1546" class="Bound"
+      >x</a
+      ><a name="1547"
+      > </a
+      ><a name="1548" class="Symbol"
+      >&#8594;</a
+      ><a name="1549"
+      > </a
+      ><a name="1550" href="Univalence.html#1546" class="Bound"
+      >x</a
+      ><a name="1551" class="Symbol"
+      >)</a
+      ><a name="1552"
+      > </a
+      ><a name="1553" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1554"
+      > </a
+      ><a name="1555" class="Symbol"
+      >(&#955;</a
+      ><a name="1557"
+      > </a
+      ><a name="1558" href="Univalence.html#1558" class="Bound"
+      >x</a
+      ><a name="1559"
+      > </a
+      ><a name="1560" class="Symbol"
+      >&#8594;</a
+      ><a name="1561"
+      > </a
+      ><a name="1562" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="1566" class="Symbol"
+      >))</a
+      ><a name="1568"
+      > </a
+      ><a name="1569" href="Sigma.html#312" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" class="Symbol"
+      >((&#955;</a
+      ><a name="1574"
+      > </a
+      ><a name="1575" href="Univalence.html#1575" class="Bound"
+      >x</a
+      ><a name="1576"
+      > </a
+      ><a name="1577" class="Symbol"
+      >&#8594;</a
+      ><a name="1578"
+      > </a
+      ><a name="1579" href="Univalence.html#1575" class="Bound"
+      >x</a
+      ><a name="1580" class="Symbol"
+      >)</a
+      ><a name="1581"
+      > </a
+      ><a name="1582" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1583"
+      > </a
+      ><a name="1584" class="Symbol"
+      >(&#955;</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" href="Univalence.html#1587" class="Bound"
+      >x</a
+      ><a name="1588"
+      > </a
+      ><a name="1589" class="Symbol"
+      >&#8594;</a
+      ><a name="1590"
+      > </a
+      ><a name="1591" href="Identity.html#125" class="InductiveConstructor"
+      >refl</a
+      ><a name="1595" class="Symbol"
+      >)))</a
+      ><a name="1598"
+      >
+
+</a
+      ><a name="1600" class="Comment"
+      >-- The univalence axiom in all its glory.</a
+      ><a name="1641"
+      >
+</a
+      ><a name="1642" class="Keyword"
+      >postulate</a
+      ><a name="1651"
+      >
+  </a
+      ><a name="1654" href="Univalence.html#1654" class="Postulate"
+      >Univalence</a
+      ><a name="1664"
+      > </a
+      ><a name="1665" class="Symbol"
+      >:</a
+      ><a name="1666"
+      > </a
+      ><a name="1667" class="Symbol"
+      >{</a
+      ><a name="1668" href="Univalence.html#1668" class="Bound"
+      >a</a
+      ><a name="1669"
+      > </a
+      ><a name="1670" class="Symbol"
+      >:</a
+      ><a name="1671"
+      > </a
+      ><a name="1672" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="1677" class="Symbol"
+      >}</a
+      ><a name="1678"
+      > </a
+      ><a name="1679" class="Symbol"
+      >(</a
+      ><a name="1680" href="Univalence.html#1680" class="Bound"
+      >A</a
+      ><a name="1681"
+      > </a
+      ><a name="1682" href="Univalence.html#1682" class="Bound"
+      >B</a
+      ><a name="1683"
+      > </a
+      ><a name="1684" class="Symbol"
+      >:</a
+      ><a name="1685"
+      > </a
+      ><a name="1686" class="PrimitiveType"
+      >Set</a
+      ><a name="1689"
+      > </a
+      ><a name="1690" href="Univalence.html#1668" class="Bound"
+      >a</a
+      ><a name="1691" class="Symbol"
+      >)</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" class="Symbol"
+      >&#8594;</a
+      ><a name="1694"
+      > </a
+      ><a name="1695" href="Univalence.html#917" class="Function"
+      >isEquivalence</a
+      ><a name="1708"
+      > </a
+      ><a name="1709" class="Symbol"
+      >(</a
+      ><a name="1710" href="Univalence.html#1445" class="Function"
+      >&#8801;&#8658;&#8773;</a
+      ><a name="1713"
+      > </a
+      ><a name="1714" href="Univalence.html#1680" class="Bound"
+      >A</a
+      ><a name="1715"
+      > </a
+      ><a name="1716" href="Univalence.html#1682" class="Bound"
+      >B</a
+      ><a name="1717" class="Symbol"
+      >)</a
+      ><a name="1718"
+      >
+
+</a
+      ><a name="1720" class="Comment"
+      >-- Corollary that is the most useful for us, assuming A and B are</a
+      ><a name="1785"
+      >
+</a
+      ><a name="1786" class="Comment"
+      >-- hSets.</a
+      ><a name="1795"
+      >
+</a
+      ><a name="1796" href="Univalence.html#1796" class="Function"
+      >univalence</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" class="Symbol"
+      >:</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" class="Symbol"
+      >{</a
+      ><a name="1810" href="Univalence.html#1810" class="Bound"
+      >a</a
+      ><a name="1811"
+      > </a
+      ><a name="1812" class="Symbol"
+      >:</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="1819" class="Symbol"
+      >}</a
+      ><a name="1820"
+      > </a
+      ><a name="1821" class="Symbol"
+      >&#8594;</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" class="Symbol"
+      >(</a
+      ><a name="1824" href="Univalence.html#1824" class="Bound"
+      >A</a
+      ><a name="1825"
+      > </a
+      ><a name="1826" href="Univalence.html#1826" class="Bound"
+      >B</a
+      ><a name="1827"
+      > </a
+      ><a name="1828" class="Symbol"
+      >:</a
+      ><a name="1829"
+      > </a
+      ><a name="1830" class="PrimitiveType"
+      >Set</a
+      ><a name="1833"
+      > </a
+      ><a name="1834" href="Univalence.html#1810" class="Bound"
+      >a</a
+      ><a name="1835" class="Symbol"
+      >)</a
+      ><a name="1836"
+      > </a
+      ><a name="1837" class="Symbol"
+      >&#8594;</a
+      ><a name="1838"
+      > </a
+      ><a name="1839" href="Univalence.html#1824" class="Bound"
+      >A</a
+      ><a name="1840"
+      > </a
+      ><a name="1841" href="Univalence.html#436" class="Function Operator"
+      >&#8771;</a
+      ><a name="1842"
+      > </a
+      ><a name="1843" href="Univalence.html#1826" class="Bound"
+      >B</a
+      ><a name="1844"
+      > </a
+      ><a name="1845" class="Symbol"
+      >&#8594;</a
+      ><a name="1846"
+      > </a
+      ><a name="1847" href="Univalence.html#1824" class="Bound"
+      >A</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="1850"
+      > </a
+      ><a name="1851" href="Univalence.html#1826" class="Bound"
+      >B</a
+      ><a name="1852"
+      >
+</a
+      ><a name="1853" href="Univalence.html#1796" class="Function"
+      >univalence</a
+      ><a name="1863"
+      > </a
+      ><a name="1864" href="Univalence.html#1864" class="Bound"
+      >A</a
+      ><a name="1865"
+      > </a
+      ><a name="1866" href="Univalence.html#1866" class="Bound"
+      >B</a
+      ><a name="1867"
+      > </a
+      ><a name="1868" href="Univalence.html#1868" class="Bound"
+      >pf</a
+      ><a name="1870"
+      > </a
+      ><a name="1871" class="Keyword"
+      >with</a
+      ><a name="1875"
+      > </a
+      ><a name="1876" href="Univalence.html#1654" class="Postulate"
+      >Univalence</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" href="Univalence.html#1864" class="Bound"
+      >A</a
+      ><a name="1888"
+      > </a
+      ><a name="1889" href="Univalence.html#1866" class="Bound"
+      >B</a
+      ><a name="1890"
+      >
+</a
+      ><a name="1891" href="Univalence.html#1796" class="Function"
+      >univalence</a
+      ><a name="1901"
+      > </a
+      ><a name="1902" href="Univalence.html#1902" class="Bound"
+      >A</a
+      ><a name="1903"
+      > </a
+      ><a name="1904" href="Univalence.html#1904" class="Bound"
+      >B</a
+      ><a name="1905"
+      > </a
+      ><a name="1906" href="Univalence.html#1906" class="Bound"
+      >pf</a
+      ><a name="1908"
+      > </a
+      ><a name="1909" class="Symbol"
+      >|</a
+      ><a name="1910"
+      > </a
+      ><a name="1911" class="Symbol"
+      >((</a
+      ><a name="1913" href="Univalence.html#1913" class="Bound"
+      >&#8773;&#8658;&#8801;</a
+      ><a name="1916"
+      > </a
+      ><a name="1917" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1918"
+      > </a
+      ><a name="1919" class="Symbol"
+      >_)</a
+      ><a name="1921"
+      > </a
+      ><a name="1922" href="Sigma.html#312" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1923"
+      > </a
+      ><a name="1924" class="Symbol"
+      >_)</a
+      ><a name="1926"
+      > </a
+      ><a name="1927" class="Symbol"
+      >=</a
+      ><a name="1928"
+      > </a
+      ><a name="1929" href="Univalence.html#1913" class="Bound"
+      >&#8773;&#8658;&#8801;</a
+      ><a name="1932"
+      > </a
+      ><a name="1933" class="Symbol"
+      >(</a
+      ><a name="1934" href="Univalence.html#1254" class="Function"
+      >toEquiv</a
+      ><a name="1941"
+      > </a
+      ><a name="1942" href="Univalence.html#1906" class="Bound"
+      >pf</a
+      ><a name="1944" class="Symbol"
+      >)</a
+      ><a name="1945"
+      >
+
+</a
+      ><a name="1947" class="Comment"
+      >-- Computation rules.</a
+      ><a name="1968"
+      >
+</a
+      ><a name="1969" class="Keyword"
+      >postulate</a
+      ><a name="1978"
+      >
+  </a
+      ><a name="1981" href="Univalence.html#1981" class="Postulate"
+      >uacomp</a
+      ><a name="1987"
+      > </a
+      ><a name="1988" class="Symbol"
+      >:</a
+      ><a name="1989"
+      > </a
+      ><a name="1990" class="Symbol"
+      >{</a
+      ><a name="1991" href="Univalence.html#1991" class="Bound"
+      >a</a
+      ><a name="1992"
+      > </a
+      ><a name="1993" class="Symbol"
+      >:</a
+      ><a name="1994"
+      > </a
+      ><a name="1995" href="Levels.html#63" class="Postulate"
+      >Level</a
+      ><a name="2000" class="Symbol"
+      >}</a
+      ><a name="2001"
+      >
+           </a
+      ><a name="2013" class="Symbol"
+      >{</a
+      ><a name="2014" href="Univalence.html#2014" class="Bound"
+      >A</a
+      ><a name="2015"
+      > </a
+      ><a name="2016" href="Univalence.html#2016" class="Bound"
+      >B</a
+      ><a name="2017"
+      > </a
+      ><a name="2018" class="Symbol"
+      >:</a
+      ><a name="2019"
+      > </a
+      ><a name="2020" class="PrimitiveType"
+      >Set</a
+      ><a name="2023"
+      > </a
+      ><a name="2024" href="Univalence.html#1991" class="Bound"
+      >a</a
+      ><a name="2025" class="Symbol"
+      >}</a
+      ><a name="2026"
+      >
+           </a
+      ><a name="2038" class="Symbol"
+      >{</a
+      ><a name="2039" href="Univalence.html#2039" class="Bound"
+      >f</a
+      ><a name="2040"
+      > </a
+      ><a name="2041" class="Symbol"
+      >:</a
+      ><a name="2042"
+      > </a
+      ><a name="2043" href="Univalence.html#2014" class="Bound"
+      >A</a
+      ><a name="2044"
+      > </a
+      ><a name="2045" class="Symbol"
+      >&#8594;</a
+      ><a name="2046"
+      > </a
+      ><a name="2047" href="Univalence.html#2016" class="Bound"
+      >B</a
+      ><a name="2048" class="Symbol"
+      >}</a
+      ><a name="2049"
+      >
+           </a
+      ><a name="2061" class="Symbol"
+      >{</a
+      ><a name="2062" href="Univalence.html#2062" class="Bound"
+      >eq</a
+      ><a name="2064"
+      > </a
+      ><a name="2065" class="Symbol"
+      >:</a
+      ><a name="2066"
+      > </a
+      ><a name="2067" href="Univalence.html#195" class="Function"
+      >isIsomorphism</a
+      ><a name="2080"
+      > </a
+      ><a name="2081" href="Univalence.html#2039" class="Bound"
+      >f</a
+      ><a name="2082" class="Symbol"
+      >}</a
+      ><a name="2083"
+      >
+           </a
+      ><a name="2095" class="Symbol"
+      >{</a
+      ><a name="2096" href="Univalence.html#2096" class="Bound"
+      >x</a
+      ><a name="2097"
+      > </a
+      ><a name="2098" class="Symbol"
+      >:</a
+      ><a name="2099"
+      > </a
+      ><a name="2100" href="Univalence.html#2014" class="Bound"
+      >A</a
+      ><a name="2101" class="Symbol"
+      >}</a
+      ><a name="2102"
+      >
+        </a
+      ><a name="2111" class="Symbol"
+      >&#8594;</a
+      ><a name="2112"
+      > </a
+      ><a name="2113" class="Symbol"
+      >(</a
+      ><a name="2114" href="Identity.html#1790" class="Function"
+      >transport</a
+      ><a name="2123"
+      > </a
+      ><a name="2124" class="Symbol"
+      >{</a
+      ><a name="2125"
+      >B </a
+      ><a name="2127" class="Symbol"
+      >=</a
+      ><a name="2128"
+      > </a
+      ><a name="2129" class="Symbol"
+      >&#955;</a
+      ><a name="2130"
+      > </a
+      ><a name="2131" href="Univalence.html#2131" class="Bound"
+      >X</a
+      ><a name="2132"
+      > </a
+      ><a name="2133" class="Symbol"
+      >&#8594;</a
+      ><a name="2134"
+      > </a
+      ><a name="2135" href="Univalence.html#2131" class="Bound"
+      >X</a
+      ><a name="2136" class="Symbol"
+      >}</a
+      ><a name="2137"
+      > </a
+      ><a name="2138" class="Symbol"
+      >(</a
+      ><a name="2139" href="Univalence.html#1796" class="Function"
+      >univalence</a
+      ><a name="2149"
+      > </a
+      ><a name="2150" href="Univalence.html#2014" class="Bound"
+      >A</a
+      ><a name="2151"
+      > </a
+      ><a name="2152" href="Univalence.html#2016" class="Bound"
+      >B</a
+      ><a name="2153"
+      > </a
+      ><a name="2154" class="Symbol"
+      >(</a
+      ><a name="2155" href="Univalence.html#2039" class="Bound"
+      >f</a
+      ><a name="2156"
+      > </a
+      ><a name="2157" href="Sigma.html#169" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2158"
+      > </a
+      ><a name="2159" href="Univalence.html#2062" class="Bound"
+      >eq</a
+      ><a name="2161" class="Symbol"
+      >))</a
+      ><a name="2163"
+      > </a
+      ><a name="2164" href="Univalence.html#2096" class="Bound"
+      >x</a
+      ><a name="2165" class="Symbol"
+      >)</a
+      ><a name="2166"
+      > </a
+      ><a name="2167" href="Identity.html#214" class="Function Operator"
+      >&#8801;</a
+      ><a name="2168"
+      > </a
+      ><a name="2169" href="Univalence.html#2039" class="Bound"
+      >f</a
+      ><a name="2170"
+      > </a
+      ><a name="2171" href="Univalence.html#2096" class="Bound"
+      >x</a
+      ><a name="2172"
+      >
 </a
       ></pre
     ></body
