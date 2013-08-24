@@ -27,7 +27,7 @@ in studying continuous {deformations} \index{continuous
   deformation}. The simplest case of this is continuously deforming
 one point into another point, which is called a \emph{path}. A path in
 a space |X| from point |x| to |y| is a continuous function |p : [0,1]
--> X|, \st |p 0 = x| and |p y = y|, also notated as |p : x ~~> y|.
+-> X|, \st |p 0 = x| and |p 1 = y|, also notated as |p : x ~~> y|.
 The set of all paths in |X| can be also considered as a space. In this
 space, called the \emph{path space} \index{path space} of |X|, we
 again can look at the paths. Suppose we have two paths |p, q : [0,1]
@@ -80,9 +80,9 @@ paths, for which the same equations can be shown to hold up to higher
 homotopy. What we get is a tower of homotopies for which we have these
 groupoid-like structure at every level, in which the equations hold up
 to homotopy one level higher. This structure is called a \inftygrpd
-structure. It was proposed in \citet{pursuing} that this notion
-homotopy theory should be the study of these \inftygrpds, as these
-should capture all the interesting homotopy properties of a space.
+structure. It was proposed in \citet{pursuing} that homotopy theory
+should be the study of these \inftygrpds, as these should capture all
+the interesting homotopy properties of a space.
 
 \section{Identity types of \MLTT}
 \label{sec:identitytypes}
@@ -164,8 +164,9 @@ to the |Id A x y| notation, when it is a bit harder to infer the type
 parameter.
 
 Using the identity types and their induction principles, we can show
-that it is an equivalence relation, \ie given |A : Universe| and |x y z :
-A|, we can find inhabitants of the following types:
+that propositional equality is an equivalence relation, \ie given |A :
+Universe| and |x y z : A|, we can find inhabitants of the following
+types:
 
 \begin{itemize}
 \item |refl   : Id A x x|
@@ -221,8 +222,8 @@ seem to be natural properties of a notion of equality.
 
 When doing certified programming, we sometimes want to show one (more
 optimised) function to be equal to another (naively implemented)
-function. In these cases is often useful to have the principle of
-function extensionality:
+function. In these cases it is often necessary to have the principle
+of function extensionality:
 
 \begin{code}
   functionExtensionality  :   (A B : Universe) -> (f g : A -> B)
@@ -240,7 +241,7 @@ equal. Now consider the functions |f = \n -> n + 0| and |g = \n -> 0 +
 n|, with the usual definition of |+ : Nat -> Nat -> Nat| by recursion
 on the first argument, we can prove that |(n : Nat) -> f n == g n|,
 but not that |f == g|, since that would imply they are definitionally
-equal, which they are not: one reduces to |\ n -> 0|, whereas the
+equal, which they are not: one reduces to |\ n -> n|, whereas the
 other reduces to |\ n -> n + 0|.
 
 \paragraph{Uniqueness of identity proofs}
@@ -269,7 +270,7 @@ over \MLTT\footnote{This actually means that all the code we write,
   should be safe. The assumption is that every definition given by
   pattern matching that passes the \withoutk check, can be rewritten
   using the elimination principles. As such, we will sometimes use
-  pattern matching for our definition.}
+  pattern matching for our definition.}.
 
 As a complement to~|J|, Streicher introduced the induction
 principle~|K|:
@@ -691,7 +692,7 @@ is a \ntype{1}.
 
 \subsection{Coherence issues}
 
-Equalities at different levels interact with eachother: if we add
+Equalities at different levels interact with each other: if we add
 equalities at one level, \eg paths between points, it may also
 generate new paths at other levels, \eg new homotopies between paths
 that previously did not exist. One example of this is
@@ -811,7 +812,7 @@ A|:
 The other way around can also be done:
 
 \begin{code}
-  intervaltoeq : {A : Set} -> (p : Interval -> A) -> (p zer) ≡ (p one)
+  intervaltoeq : {A : Set} -> (p : Interval -> A) -> (p zero) ≡ (p one)
   intervaltoeq p = ap p seg
 \end{code}
 
@@ -950,7 +951,7 @@ such isomorphisms: |id| and |not|. Using |ua|, these isomorphisms map
 to different proofs of |Bool == Bool|. |id| maps to |refl| and |not|
 to something that is not equal to |refl|. This means that the universe
 of \hsets violates \UIP. It can be shown to be a \ntype{1} instead. In
-fact, the universe of \ntype{n} is not an \ntype{n} but an
+fact, the universe of \ntypes{n} is not an \ntype{n} but an
 \ntype{(n+1)}~\citep{ntypes}.
 
 \section{Implementation}
@@ -992,10 +993,10 @@ takes an expression |t : Nat| and produces a canonical term |t' : Nat|
 along with a proof that |t == t'|. The proof of equality may use the
 univalence axiom.
 
-\hits can also be implemented by adding axioms for the extra
+\Hits can also be implemented by adding axioms for the extra
 paths. The elimination principles also can be implemented by adding
 the computation rules for paths as axioms. One then has to be careful
-to not do pattern matching on \hits. In Agda one can hide things in
+not to pattern match on \hits. In Agda one can hide things in
 such a way that one can export an elimination principle in which the
 computation rules for the points hold definitionally and the other
 rules propositionally, while also making direct pattern matching

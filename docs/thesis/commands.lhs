@@ -38,7 +38,7 @@
 \newcommand{\coqprops}{|Prop|s\xspace}
 \newcommand{\coqtypes}{|Type|s\xspace}
 \newcommand{\coqsets}{|Set|s\xspace}
-\newcommand{\withoutk}{\verb+--without-K+}
+\newcommand{\withoutk}{\verb+--without-K+\xspace}
 \newcommand{\ghcrewriterules}{\textsc{GHC} rewrite rules\xspace}
 \newcommand{\todoi}[1]{\todo[inline]{#1}}
 \newcommand{\contribution}[1]{\begin{quote}%
@@ -69,7 +69,7 @@
 
 \newcommand{\researchquestionA}{%
 \begin{quote}%
-  What is \hott and why is it interesting to do programming in?%
+  What is \hott and why is it interesting to do programming in it?%
 \end{quote}%
 }
 

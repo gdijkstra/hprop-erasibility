@@ -3,18 +3,18 @@
 
 One of the tricky things that comes up sooner or later when one
 designs a type system or a logic, is the defining a right notion of
-equality. When type checking a term, one needs a certain concept of
+equality. When type checking a term, one needs a suitable concept of
 equality, \eg when one type checks an application |f a| and we know
 that |f : A -> B| and we know that |a : X|, we have to check that |A|
-and |X| are equal in some way. In \MLTT, |A| and |X| need to be
-\emph{definitionally equal} (denoted in this thesis by |A === X|): if
-we reduce both |A| and |X| to their normal forms, they need to be
-syntactically equal.
+and |X| are equal in some way. In \MLTT \citep{mltt}, |A| and |X| need
+to be \emph{definitionally equal} (denoted in this thesis by |A ===
+X|): if we reduce both |A| and |X| to their normal forms, they need to
+be syntactically equal.
 
 We also want to be able to reason about equality in the type theory
-itself, \eg use it to show that two programs behave in the same way,
-when given the same input. The notion of equality internal to a type
-theory is called a \emph{propositional equality} (in this thesis
+itself, \eg to use it to show that two programs behave in the same
+way, when given the same input. The notion of equality internal to a
+type theory is called a \emph{propositional equality} (in this thesis
 denoted by |==|). In \MLTT, propositional equality is defined using
 the so called \emph{identity types}: an inductive family with |refl|
 as its only constructor. This construction essentially imports

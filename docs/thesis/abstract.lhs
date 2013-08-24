@@ -10,9 +10,9 @@
   provide an introduction to \hott geared toward programmers familiar
   with dependently typed programming, but unfamiliar with topology. We
   will present applications of \hott to programming, such as quotient
-  types and dealing with views on abstract types. Apart from this, we
-  will discuss the use of \hprops to identify parts of a program that
-  are not needed at run-time, compare it to existing methods present
-  in Coq and Agda and discuss whether this can be used to optimise our
+  types and dealing with views on abstract types. Furthermore, we will
+  discuss the use of \hprops to identify parts of a program that are
+  not needed at run-time, compare it to existing methods present in
+  Coq and Agda and discuss whether this can be used to optimise
   programs.
 \end{abstract}
