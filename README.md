@@ -16,3 +16,5 @@ theory aimed specifically towards computer scientists, as opposed to
 mathematicians. As such, the focus will be on programming applications
 of new concepts such as higher inductive types and univalence, instead
 of studying models of the type theory.
+
+A syntax-highlighted and browsable version of the code can be found [here](http://gdijkstra.github.io/hprop-erasibility).
