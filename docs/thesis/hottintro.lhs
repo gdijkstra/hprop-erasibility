@@ -410,6 +410,8 @@ distinguish between loops that go around the hole and those that do
 not. In this case, simple geometric intuition leads us to an answer of
 a problem that took decades to solve.
 
+\todoi{Dit mag wel wat enthousiaster}
+
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
 \includegraphics[width=\textwidth]{img/K0.pdf}
@@ -903,7 +905,7 @@ work in \MLTT. If we try to write the following functions:
           → transport beta (f x) isom f y
 \end{code}
 
-we will find ourselves stuck. We want to write a data-generic program
+we will find ourselves stuck. We want to write a type-generic program
 that applies the isomorphism at the right places, but we cannot access
 the information about how the types are constructed.
 

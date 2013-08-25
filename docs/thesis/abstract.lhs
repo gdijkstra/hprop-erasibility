@@ -14,7 +14,7 @@
   discuss the use of \hprops to identify parts of a program that are
   not needed at run-time, compare it to existing methods present in
   Coq and Agda and discuss whether this can be used to optimise
-  programs. Such an approach works if in plain \MLTT. In \hott,
+  programs. Such an approach works in plain \MLTT. In \hott,
   however, the approach not work in general, but we can identify
   several cases in which it still works.
 \end{abstract}

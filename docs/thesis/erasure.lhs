@@ -780,8 +780,8 @@ of the given indices.
 Apart from requiring a decision procedure that gives us, for every
 index |i : I|, an inhabitant of |A i| or a proof that |A i| is empty,
 we need a bound on the time complexity of this procedure. If we want
-to analyse the complexity of the functions, we need a deeper embedding
-of the language they are written in. Examples of this approach can be
+to analyse the complexity of the functions, we need an embedding of
+the language they are written in. Examples of this approach can be
 found in \cite{sorted} and \cite{timecomplexity}. In
 \cite{timecomplexity} the functions are written using a monad that
 keeps track of how many ``ticks'' are needed to evaluate the function
@@ -809,7 +809,7 @@ non-constant, on what variable do we want it to depend?
 Apart from these questions, approaches such as the |Thunk| monad, are
 prone to ``cheating'': we can just write our decision procedure the
 normal way and then write |return 1 decisionProcedure| to make sure it
-has the right type. To prevent this, we can extend our embedding of
+has the right type. To prevent this, we can deepen our embedding of
 the programming language in such a way, that the users can write the
 program completely in this language. Such a language, if it is
 complete enough, will most likely make writing programs unnecessarily
@@ -832,13 +832,13 @@ collapsibility. The purpose of the collapsibility optimisations is to
 optimise the evaluation of terms in the empty context. In \hott
 however, we postulate extra equalities in order to implement
 univalence or \hits. ``Run-time'' for these programs does therefore
-not mean evaluation in the empty context, but a context that can
-possibly contain the aforementioned postulates. To stress the
-difference in what contexts we are considering to do the evaluation
-in, we will talk about internal collapsible for the empty context case
-and indexed \hprops in for the \hott case. In this section we will
-investigate what these differences mean when trying to optimise our
-programs.
+not mean evaluation in the empty context, but evaluation in a context
+that can possibly contain the aforementioned postulates. To stress
+this difference in what contexts we are considering to do the
+evaluation in, we will talk about internal collapsible for the empty
+context case and indexed \hprops in for the \hott case. In this
+section we will investigate what these differences mean when trying to
+optimise our programs.
 
 When postulating extra propositional equalities, we obviously lose the
 canonicity property, hence we can no longer say that propositional

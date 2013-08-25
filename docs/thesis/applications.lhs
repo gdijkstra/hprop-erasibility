@@ -35,15 +35,15 @@ often happens that we have defined a data type that has more structure
 than we want to expose via the interface. An example of this is
 encoding sets as lists: we want to regard two lists as encoding the
 same set if they contain the same elements, no matter what the
-multiplicity of every elements is and how the list is ordered. Another
-class of examples is those arising from situations in which we want to
-encode our data in such a way that certain operations on the data can
-be implemented more efficiently. An example of this is implementing a
-dictionary with a binary search tree: there are multiple binary search
-trees that represent the same dictionary, \ie contain the same
-key-value pairs. If we pass two different trees representing the same
-dictionary \index{dictionary} to an operation, we want the operation
-to yield the same results.
+multiplicity of every elements is or how the list is ordered. Other
+examples where quotient types can be useful are the situations in
+which we want to encode our data in such a way that certain operations
+on the data can be implemented more efficiently. An example of this is
+implementing a dictionary with a binary search tree: there are
+multiple binary search trees that represent the same dictionary, \ie
+contain the same key-value pairs. If we pass two different trees
+representing the same dictionary \index{dictionary} to an operation,
+we want the operation to yield the same results.
 
 To make the above more precise, suppose we have defined a data type of
 binary search trees, |BST : Universe|, along with a relation |rel :
@@ -498,14 +498,15 @@ further reduce using the ``computation'' rule for univalence:
 We have reduced |goal0| to the proof obligation |from [] ==
 otherEmpty|. We can apply the same steps to the other goals and
 recover the properties we formulated earlier. As we have now seen,
-this method the specification of an abstract type to giving a nested
-\sigmatype specifying the interface and a concrete view specifying the
-behaviour. We now get to prove properties of the abstract type without
-having to add numerous properties to the interface.
+using this method, giving a specification of an abstract type amounts
+to giving a nested \sigmatype specifying the interface and a concrete
+view specifying the behaviour. We now get to prove properties of the
+abstract type without having to add numerous properties to the
+interface.
 
 With the current ``implementation'' of \hott done by adding things
 such as univalence as axioms, we have to do all this rewriting by
-hand, but if we a version of univalence available that computes, we
+hand, but if we have a version of univalence available that computes, we
 automatically arrive at the desired properties. 
 
 \subsection{Reasoning with views}

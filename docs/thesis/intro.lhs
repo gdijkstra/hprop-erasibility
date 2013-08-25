@@ -56,14 +56,15 @@ homotopy we know from topology. This discovery spawned a lot of
 interest, as it meant that the language of type theory can be used to
 prove theorems about homotopy theory. It is also regarded as an
 interesting foundation of mathematics, as it makes working with
-isomorphic structures a lot more convenient than foundations based on
-set theory. There are already several introductions on the subject
-(\eg \citet{awodeysurvey}, \citet{pelayosurvey} and
-\citet{rijkehott}). There has been a special year in 2012--2013 on the
-subject at the Institute of Advance Study in Princeton, which has
-culminated in a book \citep{hottbook}, giving a very complete overview
-of the results. The focus of these materials is on \hott as a
-foundation of mathematics and its use in formalising mathematics.
+isomorphic structures a lot more convenient than is the case when
+working with foundations based on set theory. There are already
+several introductions on the subject (\eg \citet{awodeysurvey},
+\citet{pelayosurvey} and \citet{rijkehott}). There has been a special
+year in 2012--2013 on the subject at the Institute of Advance Study in
+Princeton, which has culminated in a book \citep{hottbook}, giving a
+very complete overview of the results. The focus of these materials is
+on \hott as a foundation of mathematics and its use in formalising
+mathematics.
 
 The materials mentioned above assume the reader to have experience
 with homotopy theory and none with type theory. In this thesis instead
