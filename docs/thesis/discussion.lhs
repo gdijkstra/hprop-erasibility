@@ -37,6 +37,8 @@ univalence axiom. Seeing as most types in programming applications are
 type theory in which everything is \ntruncated{1} and the only
 \ntype{1} which is not a \hset is a univalent universe of all \hsets.
 
+\newpage
+
 Giving up pattern matching altogether is quite drastic. There are
 still a lot of cases in which (dependent) pattern matching is still
 valid and can be transformed to an expression using only elimination

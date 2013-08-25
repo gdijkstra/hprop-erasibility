@@ -26,19 +26,20 @@ imports definitional equality into the type theory. However, the
 resulting structure is not exactly definitional equality: as we will
 see at various points in this thesis, it is valid to add as axioms
 extra propositional equalities between terms that are not
-definitionally equal. We can force the two notions to coincide by
-adding an \emph{equality reflection} rule, \ie a rule that states that
-if we have a proof |p : x == y| are propositionally equal, then |x ===
-y| also holds. Since type checking makes use of definitional equality,
-to show that two terms are definitionally equal, we may need to
-produce a proof of propositional equality first. This proof search
-means that type checking becomes undecidable. Even though it is
-undecidable in general, it still works out for enough cases to be
-useful, as is exemplified by Nuprl \citep{nuprl}. One advantage of
-adding equality reflection is that we can prove useful things such as
-function extensionality (|((x : A) -> f x == g x) -> f == g|),
-something that we cannot prove if we leave the equality reflection
-rule out.
+definitionally equal.
+
+We can force the two notions to coincide by adding an \emph{equality
+  reflection} rule, \ie a rule that states that if we have a proof |p
+: x == y| are propositionally equal, then |x === y| also holds. Since
+type checking makes use of definitional equality, to show that two
+terms are definitionally equal, we may need to produce a proof of
+propositional equality first. This proof search means that type
+checking becomes undecidable. Even though it is undecidable in
+general, it still works out for enough cases to be useful, as is
+exemplified by Nuprl \citep{nuprl}. One advantage of adding equality
+reflection is that we can prove useful things such as function
+extensionality (|((x : A) -> f x == g x) -> f == g|), something that
+we cannot prove if we leave the equality reflection rule out.
 
 The study of \emph{intensional type theory}, \ie type theory without
 the equality reflection rule, involves finding out why we cannot prove

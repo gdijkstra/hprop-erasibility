@@ -104,7 +104,11 @@ graphs of the original function for every input. Since we can only
 construct finite values, being able to produce such a call graph
 essentially means that the function terminates for that input. We can
 then write a new function that structurally recurses on the call
-graph. In our quicksort case we get the following inductive family:
+graph. 
+
+\newpage
+
+In our quicksort case we get the following inductive family:
 
 \begin{code}
   data qsAcc : List Nat -> Universe where
@@ -275,6 +279,8 @@ pattern match and we have a proof of our Bove-Capretta predicate for
 that particular pattern match, we can prove falsity, hence we can use
 |False_rect| do deal with the missing pattern match.
 
+\newpage
+
 \subsection{Impredicativity}
 
 So far we have seen how \coqprop differs from \coqset with respect to
@@ -331,6 +337,8 @@ this can be done as follows:
       fst   : A
       .snd  : B fst
 \end{code}
+
+\newpage
 
 To ensure that irrelevant arguments are indeed irrelevant to the
 computation at hand, Agda has several criteria that it checks. First
@@ -392,8 +400,11 @@ irrelevant arguments, \ie we want to prove the following:
 Agda does not accept this, because the term |x == y| uses irrelevant
 arguments in a relevant context: |x == y|. If we instead package the
 irrelevant arguments in an inductive type, we can prove that the two
-values of the packaged type are propositionally equal. Consider the
-following record type with only one irrelevant field:
+values of the packaged type are propositionally equal.
+
+\newpage 
+
+Consider the following record type with only one irrelevant field:
 
 \begin{code}
   record Squash (A : Universe) : Universe where
@@ -447,6 +458,8 @@ case that one part of a term has to be definitionally equal to another
 part in order to be well-typed, we can leave out (presuppose) the
 latter part if we have already established that the term is
 well-typed.
+
+\newpage
 
 The authors describe their optimisations in the context of Epigram. In
 this system, the user writes programs in a high-level language that
@@ -625,8 +638,12 @@ working with an intensional type theory, we do not have the
 tells us that propositional equality implies definitional
 equality. This might lead us to think that internalising the above
 definition will not work, as we seemingly cannot say anything about
-definitional equality from within \MLTT. Let us consider the following
-variation: for all terms |x|, |y| there exists a term |p| such that
+definitional equality from within \MLTT. 
+
+\newpage
+
+Let us consider the following variation: for all terms |x|, |y| there
+exists a term |p| such that
 
 \begin{code}
   /- x, y : D i implies /- p : x == y
@@ -685,8 +702,12 @@ function we want to optimise, \eg given a function |f : (i : I) -> (x
 the |x : D i| in order for the function to
 typecheck. However, we can use Agda's irrelevance mechanism to instead
 generate a function in which the collapsible argument is marked as
-irrelevant, \ie we want to write the following function (for the
-non-dependent case):
+irrelevant.
+
+\newpage
+
+The goal is now to write the following function (for the non-dependent
+case):
 
 \begin{code}
   optimiseFunction : 
@@ -742,6 +763,8 @@ definition:
 If we then replace the occurrence of |isInternallyCollapsible| in the
 type signature of |optimiseFunction| with
 |isInternallyCollapsibleDecidable|
+
+\newpage
 
 \subsection{Time complexity issues}
 
@@ -917,8 +940,15 @@ have to definitionally equal. So if we want to optimise the
 elimination operators of \hits that are \hprops, such as the interval,
 we need to look at what paths the non-trivial paths are mapped to. If
 these are all mapped to |refl|, then the points all get mapped to
-definitionally equal points. Checking such a property can become
-difficult, as we can tell from this rather silly example:
+definitionally equal points. 
+
+\newpage
+
+Suppose that |f| is the function that we are constructing using the
+elimination principle of some \hit |H|, which happens to be a
+\hprop. We want to verify that |ap f| maps every path to
+|refl|. Checking this property can become difficult, as we can tell
+from this rather silly example:
 
 \begin{code}
   data nattruncated : Universe where
@@ -938,9 +968,9 @@ with non-dependent eliminator:
               -> nattruncated -> B
 \end{code}
 
-If we were to check that all paths between |0| and |n| are mapped to a
-|refl| between inhabitants of |B|, we have to check that |p| satisfies
-this property, which we cannot do.
+If we were to check that all paths between |0| and |n| are mapped to
+|refl|, we have to check that |p| satisfies this property, which we
+cannot do.
 
 \subsection{Internally optimising \hprops}
 
@@ -958,6 +988,8 @@ follows:
   isIndexedhPropDecidable I A = (i : I) 
     -> (isContractible (A i)) oplus (A i -> bottom)
 \end{code}
+
+\newpage
 
 \section{Conclusions}
 
@@ -1007,13 +1039,12 @@ version actually improves on the complexity. We have looked at ways to
 enforce time complexities in the user-provided proofs. Our conclusion
 is that this is not viable.
 
-As we have mentioned previously, collapsible families look a lot like
-families of \hprops. When internalising the collapsibility concept and
-the optimisation, we only considered the non-\hott case, \ie no
-univalence and no \hits. We have looked at extending the optimisations
-to the \hott case, but as we lose canonicity the optimised versions
-may no longer yield the same results as the original function, with
-respect to definitional equality. We have identified cases in which
-this is the case and cases in which definitional equality actually is
-preserved. We also argue that detecting whether the latter is the
-case, is not decidable in general.
+Collapsible families look a lot like families of \hprops. When
+internalising the collapsibility concept and the optimisation, we only
+considered the non-\hott case, \ie no univalence and no \hits. We have
+looked at extending the optimisations to the \hott case, but as we
+lose canonicity the optimised versions may no longer yield the same
+results as the original function, with respect to definitional
+equality. We have identified cases in which this is the case and cases
+in which definitional equality actually is preserved. We also argue
+that detecting such cases is undecidable.
