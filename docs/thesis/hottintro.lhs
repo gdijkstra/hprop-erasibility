@@ -883,7 +883,7 @@ notion of a function |f : A -> B| being an isomorphism as follows:
                                             (x : A) -> g (f x) == x)
 
   isomrel : (A B : Universe) -> Universe
-  A isom B = Sigma (A -> B) (\f -> isIsomorphism f)
+  A isom B = Sigma (f : A -> B) (isIsomorphism f)
 \end{code}
 
 We want the type |isIsomorphism f| to be an \hprop, which it is when

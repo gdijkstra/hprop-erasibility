@@ -512,7 +512,7 @@ which can be established by the following equational reasoning:
 
 \begin{code}
       xs
-  == { isom }
+  == { isomm }
       from (to xs)
   == { [] isleftunitof listappend }
       from ([] listappend to xs)
@@ -520,7 +520,7 @@ which can be established by the following equational reasoning:
       from (to otherEmpty ++ to xs)
   == { specof otherAppend }
       from (to (otherAppend otherEmpty xs))
-  == { isom }
+  == { isomm }
       otherAppend otherEmpty xs
 \end{code}
 

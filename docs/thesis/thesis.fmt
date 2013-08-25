@@ -15,7 +15,7 @@
 %format circ			= "\circ"
 
 %format not			= "not"
-%format .			= "\mbox{ }."
+%format .			= "\mbox{ }.\mbox{ }"
 %format implies			= "\mbox{implies}"
 %format dots                    = "\cdots"
 %format record			= "\mathbf{record}"
@@ -131,7 +131,7 @@
 %format ua                      = "univalence"
 %format univalencecomp          = "univalence\mbox{-}comp"
 %format leftunitapp             = "le\!ft\mbox{-}unit\mbox{-}append"
-%format isom     		= "\mbox{isomorphism}"
+%format isomm     		= "\mbox{isomorphism}"
 %format isleftunitof		= "\mbox{is left unit of}"
 %format specof			= "\mbox{specification of}"
 %format isretract		= "is\mbox{-}retract"

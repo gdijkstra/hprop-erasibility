@@ -10,7 +10,7 @@ preview : thesis.pdf
 thesis.pdf : thesis.tex $(lhsfiles) thesis.bib
 	rubber -d thesis.tex
 
-thesis.tex : $(lhsfiles)
+thesis.tex : $(lhsfiles) thesis.fmt
 	lhs2TeX -o thesis.tex thesis.lhs
 
 clean :
