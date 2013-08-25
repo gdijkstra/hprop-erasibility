@@ -12,29 +12,37 @@ X|): if we reduce both |A| and |X| to their normal forms, they need to
 be syntactically equal.
 
 We also want to be able to reason about equality in the type theory
-itself \todo{Introduce the term ``internal''}, \eg to use it to show
-that two programs behave in the same way, when given the same
-input. The notion of equality internal to a type theory is called a
-\emph{propositional equality} (in this thesis denoted by |==|). In
-\MLTT, propositional equality is defined using the so called
-\emph{identity types}: an inductive family with |refl| as its only
-constructor. This construction essentially imports definitional
-equality into the type theory. However, the resulting structure is not
-exactly definitional equality. \todo{Why not?} We can force the two
-notions to coincide by adding an \emph{equality reflection} rule, \ie
-a rule that states that if we have a proof |p : x == y| are
-propositionally equal, then |x === y| also holds. Since type checking
-makes use of definitional equality, to show that two terms are
-definitionally equal, we may need to produce a proof of propositional
-equality first. This proof search means that type checking becomes
-undecidable. However, adding equality reflection does mean that we can
-prove useful things such as function extensionality (|((x : A) -> f x
-== g x) -> f == g|), something that we cannot prove if we leave the
-equality reflection rule out. \todo{Cite Nuprl?}
+itself: we want to use it in our programs (or proofs) written in the
+type theory language, \eg to show that two programs behave in the same
+way, when given the same input. If we have a version of a
+meta-theoretical concept, such as definitional equality, that can be
+expressed in the language of type theory itself, we call such a
+version of the concept \emph{internal}. The notion of equality
+internal to a type theory is called a \emph{propositional equality}
+(in this thesis denoted by |==|). In \MLTT, propositional equality is
+defined using the so called \emph{identity types}: an inductive family
+with |refl| as its only constructor. This construction essentially
+imports definitional equality into the type theory. However, the
+resulting structure is not exactly definitional equality: as we will
+see at various points in this thesis, it is valid to add as axioms
+extra propositional equalities between terms that are not
+definitionally equal. We can force the two notions to coincide by
+adding an \emph{equality reflection} rule, \ie a rule that states that
+if we have a proof |p : x == y| are propositionally equal, then |x ===
+y| also holds. Since type checking makes use of definitional equality,
+to show that two terms are definitionally equal, we may need to
+produce a proof of propositional equality first. This proof search
+means that type checking becomes undecidable. Even though it is
+undecidable in general, it still works out for enough cases to be
+useful, as is exemplified by Nuprl \citep{nuprl}. One advantage of
+adding equality reflection is that we can prove useful things such as
+function extensionality (|((x : A) -> f x == g x) -> f == g|),
+something that we cannot prove if we leave the equality reflection
+rule out.
 
 The study of \emph{intensional type theory}, \ie type theory without
 the equality reflection rule, involves finding out why we cannot prove
-certain properties about propositional equality that were deemed to be
+certain properties about propositional equality that are deemed to be
 natural properties for a notion of equality, such as function
 extensionality and \UIP. This eventually led to the discovery of
 \hott, an interpretation of types and their identity types in the
@@ -45,16 +53,16 @@ language of homotopy theory:
 The discovery was that propositional equality behaves just like the
 homotopy we know from topology. This discovery spawned a lot of
 interest, as it meant that the language of type theory can be used to
-prove theorems about homotopy theory and in general that type theory
-becomes an interesting foundation of mathematics \todo{Why?}. As such, there are
-already several introductions on the subject (\eg
-\citet{awodeysurvey}, \citet{pelayosurvey} and
-\citet{rijkehott}). There has also been a special year in 2012--2013
-on the subject at the Institute of Advance Study in Princeton, which
-has culminated in a book \citep{hottbook}, giving a very complete
-overview of the results. The focus of these materials is on \hott as a
-foundation of mathematics and its use in formalising
-mathematics. 
+prove theorems about homotopy theory. It is also regarded as an
+interesting foundation of mathematics, as it makes working with
+isomorphic structures a lot more convenient than foundations based on
+set theory. There are already several introductions on the subject
+(\eg \citet{awodeysurvey}, \citet{pelayosurvey} and
+\citet{rijkehott}). There has been a special year in 2012--2013 on the
+subject at the Institute of Advance Study in Princeton, which has
+culminated in a book \citep{hottbook}, giving a very complete overview
+of the results. The focus of these materials is on \hott as a
+foundation of mathematics and its use in formalising mathematics.
 
 The materials mentioned above assume the reader to have experience
 with homotopy theory and none with type theory. In this thesis instead

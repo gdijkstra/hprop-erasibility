@@ -138,3 +138,5 @@
 %format isretract		= "is\mbox{-}retract"
 %format JoinListWrong		= "JoinList\ (A/\!\!\sim)"
 %format JoinListRight		= "(JoinList\ A)/\!\!\sim"
+%format transportiso		= "transport\mbox{-}iso"
+%format apdiso			= "apd\mbox{-}iso"

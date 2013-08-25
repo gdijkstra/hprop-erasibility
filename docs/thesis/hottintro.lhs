@@ -1,4 +1,4 @@
-wo\chapter{Homotopy type theory}
+\chapter{Homotopy type theory}
 \label{chap:hottintro}
 
 As was briefly mentioned in~\cref{chap:intro}, homotopy type theory
@@ -233,8 +233,10 @@ of function extensionality:
 
 \end{code}
 
-However, in \MLTT there is no term of that type. Since this theory has
-the canonicity property\todo{leg canonicity property uit}, having a
+However, in \MLTT there is no term of that type. The theory satisfies
+the so called canonicity property: if we have a judgement |/- p :
+tau|, where |tau| is some inductive type, |p| normalises to a term
+built up solely of constructors. This means that if we have a
 propositional equality in the empty context, \ie | /- p : x == y |, we
 know that |p| must be canonical: it is definitionally equal to
 |refl|. In order for |/- refl : x == y| to type check, we then know
@@ -347,6 +349,8 @@ to type theory. As such, we can use it to explain why one cannot prove
 |K| using |J| (\cref{sec:interpret}), using a couple of
 illustrations.
 
+\newpage
+
 \subsection{Interpreting \UIP and |K|}
 \label{sec:interpret}
 
@@ -400,9 +404,8 @@ use the same trick as with |J|, as the end point is fixed. Contracting
 a loop to |refl| does not always work, as can be seen
 in~\cref{fig:k}. If we have a hole in our space, then we can
 distinguish between loops that go around the hole and those that do
-not.
-
-\todo{Note that geometric intuition really helps us here.}
+not. In this case, simple geometric intuition leads us to an answer of
+a problem that took decades to solve.
 
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
@@ -508,10 +511,10 @@ show that |p y y == p y y circ p y y|. Combining this with |p y y circ
 refl| and the fact that |\ q -> p circ q| is injective for any |p|, we
 get that |p y y == refl|.
 
-The definition of \hprop via proof irrelevance fits the classical
-\todo{classical and traditional, make clear!} view of propositions and
-their proofs: we only care about whether or not we have a proof of a
-proposition and do not distinguish between two proofs of the same
+The definition of \hprop via proof irrelevance fits the traditional
+and classical (in the sense of classical logic) view of propositions
+and their proofs: we only care about whether or not we have a proof of
+a proposition and do not distinguish between two proofs of the same
 proposition.
 
 Another important case are the \ntypes{0}, also called \emph{\hsets},
@@ -868,16 +871,29 @@ inhabitant of |Monoid B| using |ma| and |p|. We can then prove that
 the resulting instance of |Monoid B| is propositionally equal to |ma|
 using |apd|. However, writing |transport| and |apd| functions that
 works with isomorphisms instead of propositional equalities will not
-work in \MLTT, as we cannot access the information about how the types
-are constructed, to figure out where the isomorphisms have to be
-applied. \todo{Write down what we explicitly mean here: more code!}
+work in \MLTT. If we try to write the following functions:
 
-\emph{Univalence} gives us an internal account of this principle. It
-roughly says that isomorphic types are propositionally equal, so all
-the tools to manipulate propositional equalities now also can be
-applied to isomorphisms. But before we can formulate the univalence
-axiom, we need to introduce some new terminology. We can define the
-notion of a function |f : A -> B| being an isomorphism as follows:
+\begin{code}
+  transportiso  : {A : Universe} {B : A -> Universe} {x y : A} 
+                -> x isom y -> B x -> B y
+
+
+  apdiso  : {A : Universe} {B : A → Universe} {x y : A} 
+          → (f : (a : A) → B a) → (beta : x isom y)
+          → transport beta (f x) isom f y
+\end{code}
+
+we will find ourselves stuck. We want to write a data-generic program
+that applies the isomorphism at the right places, but we cannot access
+the information about how the types are constructed.
+
+\emph{Univalence} gives us an internal account of the principle that
+everything we construct is invariant under isomorphism. It roughly
+says that isomorphic types are propositionally equal, so all the tools
+to manipulate propositional equalities now also can be applied to
+isomorphisms. But before we can formulate the univalence axiom, we
+need to introduce some new terminology. We can define the notion of a
+function |f : A -> B| being an isomorphism as follows:
 
 \begin{code}
   isIsomorphism : {A B : Universe} (f : A -> B) -> Universe

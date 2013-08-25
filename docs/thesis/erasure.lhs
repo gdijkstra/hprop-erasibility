@@ -756,13 +756,15 @@ of the given indices.
 
 Apart from requiring a decision procedure that gives us, for every
 index |i : I|, an inhabitant of |A i| or a proof that |A i| is empty,
-we need a bound on the time complexity of this procedure. One
-approach, taken in \cite{timecomplexity} to prove time complexities of
-functions, is to write the functions with a monad that keeps track of
-how many ``ticks'' are needed to evaluate the function for the given
-input, called the |Thunk| monad. |Thunk : Nat -> Universe -> Universe|
-is implemented as an abstract type that comes with the following
-primitives:
+we need a bound on the time complexity of this procedure. If we want
+to analyse the complexity of the functions, we need a deeper embedding
+of the language they are written in. Examples of this approach can be
+found in \cite{sorted} and \cite{timecomplexity}. In
+\cite{timecomplexity} the functions are written using a monad that
+keeps track of how many ``ticks'' are needed to evaluate the function
+for the given input, called the |Thunk| monad. |Thunk : Nat ->
+Universe -> Universe| is implemented as an abstract type that comes
+with the following primitives:
 
 \begin{itemize}
 \item |step : (a : Universe) -> (n : Nat) -> Thunk n a -> Thunk (n+1) a|
@@ -775,21 +777,18 @@ The user has to write its programs using these primitives. A similar
 approach has also been used in \citet{twansorting} to count the number
 of comparisons needed for various comparison-based sorting algorithms.
 
-\todoi{Also mention Wouters Sorted paper?}
-
 Using this to enforce a time bound on the decision procedure is not
-too trivial. We first need to establish what kind of time limit we
-want: do we want a constant time complexity, as we have with the
+entirely trivial. We first need to establish what kind of time limit
+we want: do we want a constant time complexity, as we have with the
 concrete collapsibility optimisation? If we want it to be
 non-constant, on what variable do we want it to depend?
 
 Apart from these questions, approaches such as the |Thunk| monad, are
 prone to ``cheating'': we can just write our decision procedure the
 normal way and then write |return 1 decisionProcedure| to make sure it
-has the right type. To prevent this, we can extend the list of
-primitives in such a way, that the users can write the program
-completely in this language. \todo{Make a deeper embedding of the
-  language so we can analyse things.}  Such a language, if it is
+has the right type. To prevent this, we can extend our embedding of
+the programming language in such a way, that the users can write the
+program completely in this language. Such a language, if it is
 complete enough, will most likely make writing programs unnecessarily
 complex for the user.
 
@@ -801,20 +800,22 @@ improves complexity proves to be a lot more difficult.
 \section{Indexed \hprops and \hott}
 \label{sec:indhprops}
 
-\todoi{Make the difference that we consider optimising evaluation in
-  the empty context and evaluation in ``\hott'' context.}
-
 In~\cref{sec:truncations} we have seen that \hprops are exactly those
 types that obey proof irrelevance. If we generalise this internal
 notion to the indexed case we arrive at something we previously have
 called internal collapsibility. We have also seen that if we restrict
 ourselves to the empty context, internal collapsibility implies
-collapsibility. In \hott, we are interested in postulating extra
-equalities needed to talk about univalence or \hits. To stress the
-difference in what contexts we are considering, we will talk about
-internal collapsible for the empty context case and indexed \hprops in
-the other case. In this section we will investigate what these
-differences mean when trying to optimise our programs.
+collapsibility. The purpose of the collapsibility optimisations is to
+optimise the evaluation of terms in the empty context. In \hott
+however, we postulate extra equalities in order to implement
+univalence or \hits. ``Run-time'' for these programs does therefore
+not mean evaluation in the empty context, but a context that can
+possibly contain the aforementioned postulates. To stress the
+difference in what contexts we are considering to do the evaluation
+in, we will talk about internal collapsible for the empty context case
+and indexed \hprops in for the \hott case. In this section we will
+investigate what these differences mean when trying to optimise our
+programs.
 
 When postulating extra propositional equalities, we obviously lose the
 canonicity property, hence we can no longer say that propositional
@@ -969,13 +970,10 @@ sure it is a proposition and has no computational effect on
 non-propositions is handled by limiting the elimination of these
 propositions: we may only eliminate into other propositions. Singleton
 elimination is an exception to this rule, which does not play well
-with \hott and the univalence axiom. Proof irrelevance of the
-propositions in Coq is assumed when extracting a development, but not
-something that is enforced inside Coq, nor is it provable
-internally. Using univalence we can construct a term that behaves
-differently in Coq as it does in the extracted version.
-
-\todoi{The above needs to be a bit more readable!}
+with \hott and the univalence axiom, as it means that the equality
+used by Coq gets falsely recognised as a singleton type, even though
+it is provably not one. Using univalence we can construct a term that
+behaves differently in Coq as it does in the extracted version.
 
 Agda allows the user to indicate that a type is a proposition when
 referring to that type, instead of having to annotate it when defining

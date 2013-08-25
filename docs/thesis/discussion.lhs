@@ -43,8 +43,8 @@ valid and can be transformed to an expression using only elimination
 principles. An interesting future research direction is to take the
 elaboration process described in
 \citet{eliminatingdependentpatternmatching}, which critically depends
-on axiom |K| \todo{that computes}, and see how one can uncover
-conditions in which |K| is not necessary for the elaboration to work.
+on |K|, and see how one can uncover conditions in which |K| is not
+necessary for the elaboration to work.
 
 There is also a lot of work to be done on \hits. As of yet, a
 well-defined syntax for \hits and a generic way to derive the

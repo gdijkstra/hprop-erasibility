@@ -1,4 +1,4 @@
-\documentclass[a4paper,10pt,draft]{report}
+\documentclass[a4paper,10pt]{report}
 
 %include thesis.fmt
 
