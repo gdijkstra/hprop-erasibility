@@ -46,7 +46,7 @@ To make the above more precise, suppose we have defined a data type of
 binary search trees, |BST : Universe|, along with a relation |rel :
 BST -> BST -> hProp| \st |x ~ y == top| if and only if |x| and |y| are
 comprised of the same key-value pairs, and |x ~ y == bottom|
-otherwise. Suppose we have an insertion operation |insert :
+otherwise. Suppose we have an insertion operation |insert| of type |
 KeyValuePair -> BST -> BST| and a lookup function |lookup : Key -> BST
 -> Maybe Value|. We can formulate the properties that should hold:
 
@@ -324,10 +324,10 @@ described in type theory as a nested \sigmatype \citep{abstractsigma},
 \eg a sequence abstract type can be described as follows:
 
 \begin{code}
-Sequence =  Sigma  (seq     : Set -> Set)                                 .
-            Sigma  (empty   : (A : Set) -> (seq A))                       .
-            Sigma  (single  : (A : Set) -> A -> seq A)                    . 
-            Sigma  (append  : (A : Set) -> seq A -> seq A -> seq A)       .
+Sequence =  Sigma  (seq     : Set -> Set)                                 dot
+            Sigma  (empty   : (A : Set) -> (seq A))                       dot
+            Sigma  (single  : (A : Set) -> A -> seq A)                    dot 
+            Sigma  (append  : (A : Set) -> seq A -> seq A -> seq A)       dot
                    (map     : (A B : Set) -> (A -> B) -> seq A -> seq B) 
 \end{code}
 
@@ -394,7 +394,7 @@ propositionally equal as well:
 
 \begin{code}
   SigmaEq :  {A : Universe} {B : A -> Universe}
-             {s s' : Sigma (x : A) . B x}
+             {s s' : Sigma (x : A) dot B x}
              (p : fst s ≡ fst s')
              (q : transport B p (snd s) ≡ snd s')
         ->   s == s'
@@ -415,10 +415,10 @@ to use univalence directly once. We consider the following definitions
 where we fix the type parameter |A : Universe|:
 
 \begin{code}
-  SequenceA =  Sigma  (seqA     : Set) .
-               Sigma  (emptyA   : seqA) .
-               Sigma  (singleA  : A -> seqA) . 
-               Sigma  (appendA  : seqA -> seqA -> seqA) .
+  SequenceA =  Sigma  (seqA     : Set) dot
+               Sigma  (emptyA   : seqA) dot
+               Sigma  (singleA  : A -> seqA) dot 
+               Sigma  (appendA  : seqA -> seqA -> seqA) dot
                       (mapA     : (A -> A) -> seqA -> seqA) 
 
 \end{code}
@@ -442,7 +442,7 @@ the proof looks like this:
 \end{code}
 
 The first goal, |goal0|, has type |fst (transport (ua (List A)
-(JoinList A) iso) ([], (\x -> [x], (listapp, map)))) ==
+(JoinList A) iso)| \\ |([], (\x -> [x], (listapp, map)))) ==
 otherEmpty|. The left hand side of the equation is stuck, as we made
 use of the univalence axiom. However, we can prove that the first
 field of |transport| applied to the dependent pair, is |transport|
@@ -455,7 +455,7 @@ SigmaTransport :
   {ctx ctx' : Ctx}
   {x : A ctx} {y : B ctx x}
   (pf : ctx == ctx') ->
-  fst (transport (\ c -> Sigma (x : A c) . B c x)) pf (x , y)) == transport (\ c -> A c) pf x
+  fst (transport (\ c -> Sigma (x : A c) dot B c x)) pf (x , y)) == transport (\ c -> A c) pf x
 \end{code}
 
 If we apply this to |goal0|, we now need to show that \\ |transport (\
@@ -603,7 +603,7 @@ functions:
 \item |from' : JoinList' -> JoinListA|
 \end{itemize}
 
-The isomorphism between |JoinList'| and |ListA| is witnessed by |to
+The isomorphism between |JoinList'| and |ListA| is witnessed by \\ |to
 circ from' : JoinList' -> ListA| and |to' circ from : ListA ->
 JoinListA|. The |empty| of |JoinList'| is |to' nil|, which means
 that we need to establish |to (from' (to' nil)) == []|. We can reduce
@@ -647,12 +647,18 @@ pretend our retraction-section pair is actually an isomorphism.
 
 \subsubsection{Non-isomorphic views via definable quotients}
 
-It so happens that the quotient |Aquote| is definable. We can use the
-type |Sigma (x : A) . s (r x) == x|, \ie restrict |A| to those
-inhabitants for which |s| and |r| are isomorphisms. The function |box
-: A -> Sigma (x : A) . s (r x) == x| is then defined by |\ x -> (s (r
-x)) , ap s (isretract (r x))|, where |isretract : (x : B) -> r (s x)
-== x|.
+It so happens that the quotient |Aquote| is definable: it can be
+defined as the type |Sigma (x : A) dot s (r x) == x|, \ie restrict |A|
+to those inhabitants \st (the lifted versions of) |s| and |r| become
+isomorphisms. The function |box| is then defined by:
+
+\begin{code}
+ box : A -> Sigma (x : A) dot s (r x) == x
+ box x = (s (r x)) , ap s (isretract (r x))
+\end{code}
+
+where |isretract : (x : B) -> r (s x) == x| witnesses the fact that
+|r| and |s| form a retraction-section pair.
 
 Notice that for the quotient type we have the |\ x -> s (r x)| in the
 ``deconstructor'' (\ie in the function |from' : JoinList' -> JoinList

@@ -15,8 +15,9 @@
 %format circ			= "\circ"
 
 %format not			= "not"
-%format .			= "\mbox{ }.\mbox{ }"
+%format .			= "\mbox{ }."
 %format implies			= "\mbox{implies}"
+%format dot			= "\mbox{ }.\mbox{ }"
 %format dots                    = "\cdots"
 %format record			= "\mathbf{record}"
 %format constructor		= "\mathbf{constructor}"

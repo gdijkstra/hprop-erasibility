@@ -202,8 +202,9 @@ the fact that if we have |x == y|, we can substitute any occurrence of
 Using |transport| we can now formulate the dependent version of |ap|:
 
 \begin{code}
-  apd : {A : Universe} {B : A → Universe} {x y : A} → (f : (a : A) → B a) → (beta : x == y)
-  → transport beta (f x) == f y
+  apd  : {A : Universe} {B : A → Universe} {x y : A} 
+       → (f : (a : A) → B a) → (beta : x == y)
+       → transport beta (f x) == f y
 \end{code}
 
 The resulting equality is an equality of between points in |B y|. Of
@@ -431,7 +432,7 @@ theory is with the following definition:
 
 \begin{code}
 isContractible : Universe -> Universe
-isContractible A = Sigma (center : A) . ((x : A) -> Id A center x)
+isContractible A = Sigma (center : A) dot ((x : A) -> Id A center x)
 \end{code}
 
 This can be interpreted as having a point |center| \st there is a path
@@ -486,7 +487,8 @@ example of how one can proof things about equalities between
 equalities.
 
 \begin{code}
-  piimplieshprop : (A : Universe) -> (p : proofIrrelevance A) -> isprop A
+  piimplieshprop  : (A : Universe) 
+                  -> (p : proofIrrelevance A) -> isprop A
 \end{code}
 
 We need to show that for every |x y : A|, |x == y| is contractible: we
@@ -535,7 +537,7 @@ to the type by adding axioms. This is the subject of
 
 \paragraph{Notation} Sometimes we will use the notation |A : hProp| to
 indicate that |A| is a type that is an \hprop. In an actual
-implementation |hProp| would be defined as |Sigma (A : Universe) .
+implementation |hProp| would be defined as |Sigma (A : Universe) dot
 (istruncated minusone A)|. When we refer to |A|, we are usually not
 interested in an inhabitant of the \sigmatype, but in the first field
 of that inhabitant, \ie the |A : Universe|. The same holds for the
@@ -848,11 +850,11 @@ definition of a monoid:
 \begin{code}
   Monoid : Universe -> Universe
   Monoid A =
-            Sigma  (unit       : A) .
-            Sigma  (binopname  : A -> A -> A) .
-            Sigma  (assoc      : (x y z : A) -> x binop (y binop z) == (x binop y) binop z) .
-            Sigma  (unitleft   : (x : A) -> unit binop x == x) .
-            Sigma  (unitright  : (x : A) -> x binop unit == x) . top
+            Sigma  (unit       : A) dot
+            Sigma  (binopname  : A -> A -> A) dot
+            Sigma  (assoc      : (x y z : A) -> x binop (y binop z) == (x binop y) binop z) dot
+            Sigma  (unitleft   : (x : A) -> unit binop x == x) dot
+            Sigma  (unitright  : (x : A) -> x binop unit == x) dot top
 \end{code}
 
 If we have two types |A B : Universe| with an isomorphism |f : A -> B|
@@ -879,7 +881,7 @@ notion of a function |f : A -> B| being an isomorphism as follows:
 
 \begin{code}
   isIsomorphism : {A B : Universe} (f : A -> B) -> Universe
-  isIsomorphism f = Sigma (B -> A) (\ g ->  (x : B) -> f (g x) == x times 
+  isIsomorphism f = Sigma (g : B -> A) dot ((x : B) -> f (g x) == x times 
                                             (x : A) -> g (f x) == x)
 
   isomrel : (A B : Universe) -> Universe
@@ -893,8 +895,8 @@ We want the type |isIsomorphism f| to be an \hprop, which it is when
 
 \begin{code}
   isEquivalence : {A B : Universe} (f : A -> B) -> Universe
-  isEquivalence f =  Sigma (B -> A) (\g -> (x : B) -> f (g x) == x)
-              times  Sigma (B -> A) (\h -> (x : A) -> h (f x) == x)
+  isEquivalence f =  Sigma (g : B -> A) dot ((x : B) -> f (g x) == x)
+              times  Sigma (g : B -> A) dot ((x : A) -> h (f x) == x)
 \end{code}
 
 This definition does satisfy the property that |isEquivalence f| can
@@ -908,7 +910,7 @@ isomorphisms:
 
 \begin{code}
   equivrel : (A B : Universe) -> Universe
-  A equiv B = Sigma (A -> B) (\f -> isEquivalence f)
+  A equiv B = Sigma (f : A -> B) dot (isEquivalence f)
 \end{code}
 
 It is easy to show that if two types are propositional equal, then

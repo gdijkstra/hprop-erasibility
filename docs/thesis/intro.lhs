@@ -100,7 +100,7 @@ be valid Agda syntax. We will use the notation |A : Universe| instead
 of |A : Set|, in order to avoid confusion between types and the \hott
 notion of \hsets. We will also refrain from mentioning levels and
 essentially assume that these are automatically inferred. For
-\sigmatypes, we will sometimes use the notation |Sigma (x : A) . B x|
+\sigmatypes, we will sometimes use the notation |Sigma (x : A) dot B x|
 instead of |Sigma A (\ x -> B x)|, for brevity.
 
 \paragraph{Code} 

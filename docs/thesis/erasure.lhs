@@ -15,7 +15,7 @@ that tells us whether the second list is a sorted permutation of the
 first one, we can to write a term of the following type:
 
 \begin{code}
-  sort : (xs : List Nat) -> Sigma (ys : List Nat) (isSorted xs ys)
+  sort : (xs : List Nat) -> Sigma (ys : List Nat) dot (isSorted xs ys)
 \end{code}
 
 To implement such a function, we need to provide for every list a
@@ -175,7 +175,7 @@ The extracted version of |sig| consists of a single constructor
 |exist|, with a single field of type |A|. Since this is
 isomorphic the type |A| itself, Coq optimises this away during
 extraction. This means |sort : (xs : List Nat) -> Sigma (ys : List
-Nat) (isSorted xs ys)| gets extracted to a function |sort' : List Nat
+Nat) dot (isSorted xs ys)| gets extracted to a function |sort' : List Nat
 -> List Nat|.
 
 When erasing all the \coqprop parts from our program, we do want to
@@ -357,36 +357,36 @@ irrelevant type is constant:
 
 \begin{code}
   irrelevantConstantFunction  :  {A : Universe} {B : Universe} 
-                              →  (f : .A → B) → (x y : A) → f x ≡ f y
+                              →  (f : .A → B) → (x y : A) → f x == f y
   irrelevantConstantFunction f x y = refl
 \end{code}
 
-There is no need to use the congruence rule for |≡|, since the |x| and
+There is no need to use the congruence rule for |==|, since the |x| and
 |y| are ignored when the type checker compares |f x| to |f y|, when
 type checking the |refl|. The result can be easily generalised to
 dependent functions:
 
 \begin{code}
   irrelevantConstantDepFunction  :  {A : Universe} {B : .A → Universe} 
-                                 →  (f : .(x : A) → B x) → (x y : A) → f x ≡ f y
+                                 →  (f : .(x : A) → B x) → (x y : A) → f x == f y
   irrelevantConstantDepFunction f x y = refl
 \end{code}
 
 Note that we do not only annotate |(x : A)| with a dot, but also
 occurrence of |A| in the type |B : A -> Universe|, otherwise we are
 not allowed to write |B x| as we would use an irrelevant argument in a
-relevant context. When checking |irrelevantConstantDepFunction|, the
-term |f x ≡ f y| type checks, without having to transport one value
-along some path, because the types |B x| and |B y| are regarded as
-definitionally equal by the type checking, ignoring the |x| and
-|y|. Just as before, there is no need to use the (dependent)
-congruence rule; a |refl| suffices.
+relevant context. When checking the term
+|irrelevantConstantDepFunction|, the term |f x == f y| type checks,
+without having to transport one value along some path, because the
+types |B x| and |B y| are regarded as definitionally equal by the type
+checking, ignoring the |x| and |y|. Just as before, there is no need
+to use the (dependent) congruence rule; a |refl| suffices.
 
 We would also like to show that we have proof irrelevance for
 irrelevant arguments, \ie we want to prove the following:
 
 \begin{code}
-  irrelevantProofIrrelevance : {A : Universe} .(x y : A) → x ≡ y
+  irrelevantProofIrrelevance : {A : Universe} .(x y : A) → x == y
 \end{code}
 
 Agda does not accept this, because the term |x == y| uses irrelevant
@@ -406,7 +406,7 @@ Using this type, we can now formulate the proof irrelevance principle
 for irrelevant arguments and prove it:
 
 \begin{code}
-  squashProofIrrelevance : {A : Universe} (x y : Squash A) → x ≡ y
+  squashProofIrrelevance : {A : Universe} (x y : Squash A) → x == y
   squashProofIrrelevance x y = refl
 \end{code}
 
@@ -946,7 +946,7 @@ this property, which we cannot do.
 The optimisation given in~\cref{sec:intcolopt} of course still is a
 valid transformation for the \hott case. The proof of a family |D : I
 -> Universe| being an indexed \hprop is again not enough for us to be
-able to write the |optimiseFunction| term. What we called
+able to write the term |optimiseFunction|. What we called
 |isInternallyCollapsibleDecidable| is that we internally need a
 witness of the fact that every \hprop in the family is either
 contractible or empty, so we could have written the property as
