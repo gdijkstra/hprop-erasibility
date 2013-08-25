@@ -611,8 +611,9 @@ Recall the definition of a collapsible family\footnote{The definition
   the following sections we will limit ourselves to the case where we
   have only one index for presentation purposes. All the results given
   can be easily generalised to allow more indices.} : given an
-inductive family |D| indexed by the type |I|, |D| is collapsible if
-for every index |i : I| and terms |x|, |y|, the following holds:
+inductive family |D| indexed by the type |I|, we say that |D| is
+collapsible if for every index |i : I| and terms |x|, |y|, the
+following holds:
 
 \begin{code}
   /- x, y : D i implies /- x === y
@@ -717,7 +718,7 @@ irrelevant contexts, which the function |f| does not provide, so we
 cannot use that one. We need to find another way to produce an |D
 i|. We might try to extract it from the proof of
 |isInternallyCollapsible I D|, but this proof only tells us how the
-inhabitants of every |D i| are related to eachother with propositional
+inhabitants of every |D i| are related to each other with propositional
 equality. From this proof we cannot tell whether some |D i| is
 inhabited or empty.
 
@@ -774,6 +775,8 @@ The user has to write its programs using these primitives. A similar
 approach has also been used in \citet{twansorting} to count the number
 of comparisons needed for various comparison-based sorting algorithms.
 
+\todoi{Also mention Wouters Sorted paper?}
+
 Using this to enforce a time bound on the decision procedure is not
 too trivial. We first need to establish what kind of time limit we
 want: do we want a constant time complexity, as we have with the
@@ -785,9 +788,10 @@ prone to ``cheating'': we can just write our decision procedure the
 normal way and then write |return 1 decisionProcedure| to make sure it
 has the right type. To prevent this, we can extend the list of
 primitives in such a way, that the users can write the program
-completely in this language. Such a language, if it is complete
-enough, will most likely make writing programs unnecessarily complex
-for the user.
+completely in this language. \todo{Make a deeper embedding of the
+  language so we can analyse things.}  Such a language, if it is
+complete enough, will most likely make writing programs unnecessarily
+complex for the user.
 
 Even though we can internalise certain conditions under which certain
 transformations are safe (preserve definitional equality), along with
@@ -797,14 +801,17 @@ improves complexity proves to be a lot more difficult.
 \section{Indexed \hprops and \hott}
 \label{sec:indhprops}
 
-In~\cref{sec:truncations} we have seen that \hprops are exactly
-those types that obey proof irrelevance. If we generalise this
-internal notion to the indexed case we arrive at something we
-previously have called internal collapsibility. We have also seen that
-if we restrict ourselves to the empty context, internal collapsibility
-implies collapsibility. In \hott, we are interested in postulating
-extra equalities needed to talk about univalence or \hits. To stress
-the difference in what contexts we are considering, we will talk about
+\todoi{Make the difference that we consider optimising evaluation in
+  the empty context and evaluation in ``\hott'' context.}
+
+In~\cref{sec:truncations} we have seen that \hprops are exactly those
+types that obey proof irrelevance. If we generalise this internal
+notion to the indexed case we arrive at something we previously have
+called internal collapsibility. We have also seen that if we restrict
+ourselves to the empty context, internal collapsibility implies
+collapsibility. In \hott, we are interested in postulating extra
+equalities needed to talk about univalence or \hits. To stress the
+difference in what contexts we are considering, we will talk about
 internal collapsible for the empty context case and indexed \hprops in
 the other case. In this section we will investigate what these
 differences mean when trying to optimise our programs.
@@ -967,6 +974,8 @@ propositions in Coq is assumed when extracting a development, but not
 something that is enforced inside Coq, nor is it provable
 internally. Using univalence we can construct a term that behaves
 differently in Coq as it does in the extracted version.
+
+\todoi{The above needs to be a bit more readable!}
 
 Agda allows the user to indicate that a type is a proposition when
 referring to that type, instead of having to annotate it when defining

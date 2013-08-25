@@ -12,14 +12,15 @@ X|): if we reduce both |A| and |X| to their normal forms, they need to
 be syntactically equal.
 
 We also want to be able to reason about equality in the type theory
-itself, \eg to use it to show that two programs behave in the same
-way, when given the same input. The notion of equality internal to a
-type theory is called a \emph{propositional equality} (in this thesis
-denoted by |==|). In \MLTT, propositional equality is defined using
-the so called \emph{identity types}: an inductive family with |refl|
-as its only constructor. This construction essentially imports
-definitional equality into the type theory. However, the resulting
-structure is not exactly definitional equality. We can force the two
+itself \todo{Introduce the term ``internal''}, \eg to use it to show
+that two programs behave in the same way, when given the same
+input. The notion of equality internal to a type theory is called a
+\emph{propositional equality} (in this thesis denoted by |==|). In
+\MLTT, propositional equality is defined using the so called
+\emph{identity types}: an inductive family with |refl| as its only
+constructor. This construction essentially imports definitional
+equality into the type theory. However, the resulting structure is not
+exactly definitional equality. \todo{Why not?} We can force the two
 notions to coincide by adding an \emph{equality reflection} rule, \ie
 a rule that states that if we have a proof |p : x == y| are
 propositionally equal, then |x === y| also holds. Since type checking
@@ -29,10 +30,10 @@ equality first. This proof search means that type checking becomes
 undecidable. However, adding equality reflection does mean that we can
 prove useful things such as function extensionality (|((x : A) -> f x
 == g x) -> f == g|), something that we cannot prove if we leave the
-equality reflection rule out.
+equality reflection rule out. \todo{Cite Nuprl?}
 
 The study of \emph{intensional type theory}, \ie type theory without
-the equality reflection rule, involved finding out why we cannot prove
+the equality reflection rule, involves finding out why we cannot prove
 certain properties about propositional equality that were deemed to be
 natural properties for a notion of equality, such as function
 extensionality and \UIP. This eventually led to the discovery of
@@ -45,10 +46,10 @@ The discovery was that propositional equality behaves just like the
 homotopy we know from topology. This discovery spawned a lot of
 interest, as it meant that the language of type theory can be used to
 prove theorems about homotopy theory and in general that type theory
-becomes an interesting foundation of mathematics. As such, there are
+becomes an interesting foundation of mathematics \todo{Why?}. As such, there are
 already several introductions on the subject (\eg
 \citet{awodeysurvey}, \citet{pelayosurvey} and
-\citet{rijkesurvey}). There has also been a special year in 2012--2013
+\citet{rijkehott}). There has also been a special year in 2012--2013
 on the subject at the Institute of Advance Study in Princeton, which
 has culminated in a book \citep{hottbook}, giving a very complete
 overview of the results. The focus of these materials is on \hott as a
@@ -108,5 +109,5 @@ The accompanying code can be found in the appropriate {\textsc GitHub}
 repository\footnote{\url{https://github.com/gdijkstra/hprop-erasibility}
   and for a browsable variant with syntax colouring:
   \url{http://gdijkstra.github.io/hprop-erasibility/}}. The file
-\verb+README.agda+ contains information where to find which module
-corresponds to which chapter of this thesis.
+\verb+index.agda+ lists for each chapter the modules that contain code
+relevant to the chapter.

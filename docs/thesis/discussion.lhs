@@ -15,7 +15,7 @@ programs.
 We have also seen the usefulness of \hits. They allow us to define
 quotient types. It is all too easy to come up with a \hit that has
 more structure than is desired: one quickly runs into \emph{coherence
-  issues}: the resulting type has too much different equalities at
+  issues}: the resulting type has too many different equalities at
 higher levels than is needed. The original definition of quotient
 types also suffered from this issue: we want it to be a \hset, but as
 could be seen from a simple example, one could easily define the
@@ -43,8 +43,8 @@ valid and can be transformed to an expression using only elimination
 principles. An interesting future research direction is to take the
 elaboration process described in
 \citet{eliminatingdependentpatternmatching}, which critically depends
-on axiom |K|, and see how one can uncover conditions in which |K| is
-not necessary for the elaboration to work.
+on axiom |K| \todo{that computes}, and see how one can uncover
+conditions in which |K| is not necessary for the elaboration to work.
 
 There is also a lot of work to be done on \hits. As of yet, a
 well-defined syntax for \hits and a generic way to derive the

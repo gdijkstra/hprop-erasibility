@@ -15,4 +15,6 @@
   not needed at run-time, compare it to existing methods present in
   Coq and Agda and discuss whether this can be used to optimise
   programs.
+
+  \todoi{Focus a bit more on the results.}
 \end{abstract}

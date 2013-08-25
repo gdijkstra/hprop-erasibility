@@ -1,4 +1,4 @@
-\chapter{Homotopy type theory}
+wo\chapter{Homotopy type theory}
 \label{chap:hottintro}
 
 As was briefly mentioned in~\cref{chap:intro}, homotopy type theory
@@ -233,16 +233,17 @@ of function extensionality:
 \end{code}
 
 However, in \MLTT there is no term of that type. Since this theory has
-the canonicity property, having a propositional equality in the empty
-context, \ie | /- p : x == y |, we know that |p| must be canonical: it
-is definitionally equal to |refl|. In order for |/- refl : x == y| to
-type check, we then know that |x| and |y| must be definitionally
-equal. Now consider the functions |f = \n -> n + 0| and |g = \n -> 0 +
-n|, with the usual definition of |+ : Nat -> Nat -> Nat| by recursion
-on the first argument, we can prove that |(n : Nat) -> f n == g n|,
-but not that |f == g|, since that would imply they are definitionally
-equal, which they are not: one reduces to |\ n -> n|, whereas the
-other reduces to |\ n -> n + 0|.
+the canonicity property\todo{leg canonicity property uit}, having a
+propositional equality in the empty context, \ie | /- p : x == y |, we
+know that |p| must be canonical: it is definitionally equal to
+|refl|. In order for |/- refl : x == y| to type check, we then know
+that |x| and |y| must be definitionally equal. Now consider the
+functions |f = \n -> n + 0| and |g = \n -> 0 + n|, with the usual
+definition of |+ : Nat -> Nat -> Nat| by recursion on the first
+argument, we can prove that |(n : Nat) -> f n == g n|, but not that |f
+== g|, since that would imply they are definitionally equal, which
+they are not: one reduces to |\ n -> n|, whereas the other reduces to
+|\ n -> n + 0|.
 
 \paragraph{Uniqueness of identity proofs}
 \label{sec:uip}
@@ -400,6 +401,8 @@ in~\cref{fig:k}. If we have a hole in our space, then we can
 distinguish between loops that go around the hole and those that do
 not.
 
+\todo{Note that geometric intuition really helps us here.}
+
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
 \includegraphics[width=\textwidth]{img/K0.pdf}
@@ -428,7 +431,7 @@ theory is with the following definition:
 
 \begin{code}
 isContractible : Universe -> Universe
-isContractible A = Sigma A (\ center -> (x : A) -> (Id A center x))
+isContractible A = Sigma (center : A) . ((x : A) -> Id A center x)
 \end{code}
 
 This can be interpreted as having a point |center| \st there is a path
@@ -503,10 +506,11 @@ show that |p y y == p y y circ p y y|. Combining this with |p y y circ
 refl| and the fact that |\ q -> p circ q| is injective for any |p|, we
 get that |p y y == refl|.
 
-The definition of \hprop via proof irrelevance fits the classical view
-of propositions and their proofs: we only care about whether or not we
-have a proof of a proposition and do not distinguish between two
-proofs of the same proposition.
+The definition of \hprop via proof irrelevance fits the classical
+\todo{classical and traditional, make clear!} view of propositions and
+their proofs: we only care about whether or not we have a proof of a
+proposition and do not distinguish between two proofs of the same
+proposition.
 
 Another important case are the \ntypes{0}, also called \emph{\hsets},
 which are perhaps the most familiar to programmers. These are the
@@ -531,7 +535,7 @@ to the type by adding axioms. This is the subject of
 
 \paragraph{Notation} Sometimes we will use the notation |A : hProp| to
 indicate that |A| is a type that is an \hprop. In an actual
-implementation |hProp| would be defined as |Sigma (A : Universe)
+implementation |hProp| would be defined as |Sigma (A : Universe) .
 (istruncated minusone A)|. When we refer to |A|, we are usually not
 interested in an inhabitant of the \sigmatype, but in the first field
 of that inhabitant, \ie the |A : Universe|. The same holds for the
@@ -864,7 +868,7 @@ using |apd|. However, writing |transport| and |apd| functions that
 works with isomorphisms instead of propositional equalities will not
 work in \MLTT, as we cannot access the information about how the types
 are constructed, to figure out where the isomorphisms have to be
-applied.
+applied. \todo{Write down what we explicitly mean here: more code!}
 
 \emph{Univalence} gives us an internal account of this principle. It
 roughly says that isomorphic types are propositionally equal, so all
