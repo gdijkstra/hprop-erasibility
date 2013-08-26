@@ -1,0 +1,129 @@
+* Title slide
+Programming in homotopy type theory and erasing propositions
+* Outline presentation?
+** Introduction \hott
+** Erasing propositions
+* Homotopy type theory
+** Introduction
+*** Introduce it in vague terms
+*** Recall Curry-Howard correspondence: table
+*** Extend table with homotopy interpretation
+*** We can interpret type theory in homotopy theory: so what?
+*** Interesting for mathematicians: why?
+*** Show all the people working on it.
+*** Research question:
+**** Why should we care?
+**** What is \hott and why is it interesting to do programming in it?
+**** Implementation details
+*** Contribution
+**** Introduction \hott aimed at \emph{programmers}
+**** Focus on applications to programming
+**** Focus on implementation issues
+** What is a homotopy?
+** Topology: study of spaces and continuous maps.
+** Homotopy: study of continuous deformations
+*** Start with a space
+*** Points in a space
+*** Paths between points
+*** Homotopies between paths
+*** Higher homotopies
+** Paths and homotopies are interesting
+*** Composition
+**** Unit element
+**** Invertible
+**** Associative
+*** Equalities hold up to homotopy one level higher
+*** \inftygrpds
+** Identity types
+*** Introduce introduction rules
+*** Introduce elimination principle
+*** Show that we can nest identity types just like homotopies
+*** Composition (|trans|)
+*** Works just like homotopies do
+** Function extensionality
+*** Does not work
+*** Why?
+** UIP
+*** Does not work
+*** Why?
+*** Introducing K
+*** Can we prove K from J?
+** J vs. K
+*** Pictures
+** n-types
+*** Classify types along their identity types
+*** What is the simplest identity type?
+**** Trivial identity type -> contractible type
+*** Definition n-truncated
+*** \hprops
+**** Proof irrelevance
+*** \hsets
+** \hits
+*** How do we define a type that violates UIP / 1-type?
+*** Canonicity ensures that we have UIP.
+*** Violate canonicity: add axioms.
+*** Higher inductive types
+*** Example: circle
+*** Example: interval
+**** Function extensionality
+** Univalence
+*** Transporting isomorphisms
+*** Monoid example
+** Applications
+*** Quotient types
+**** \hits allow us to define quotient types
+**** We show how one works with these
+*** Views on abstract types
+**** Univalence allows for a better specification of abstract types using views
+**** We extend this to non-isomorphic types using quotient types
+** Implementation efforts
+*** Status quo: use postulates
+*** Licata/Harper
+*** Sozeau/Tabareau
+*** Voevodsky's canonicity conjecture
+** Conclusion
+*** One (giant) step backwards: loss of pattern matching and canonicity
+*** Two steps forward: \hits and univalence (function extensionality and lifting of isos)
+*** Future work
+**** Computational content univalence and \hits
+**** Recover some form of pattern matching
+* Erasing propositions
+** |sort| example
+** |elem| example
+** Distinguish logical parts from program parts.
+** Prop in Coq
+** Irrelevance in Agda
+** Collapsibility in Epigram
+*** _<_ as an example of collapsible family: we can presuppose things
+*** When can do this -> definition collapsible families
+*** Concrete collapsibility
+** Internalising collapsibility
+*** Recall definition of collapsible family
+*** Looks a lot like \hProp.
+*** Does this mean we can internalise the collapsibility optimisation?
+**** Write a term that produces an erased version given a proof of collapsibility.
+**** Needs Agda's irrelevance: we can't just leave out stuff because of type checking.
+*** Internal collapsibility
+**** Does it coincide with collapsibility?
+**** Note that we do not have the equality reflection rule
+**** We want to optimise evaluation at run-time: evaluation in the empty context
+**** In plain \MLTT: internal collapsibility implies collapsibility.
+**** Are there collapsible families that are not internally collapsible?
+***** Yes: Id A x y
+**** Internal collapsibility is not enough for the optimisation
+***** We need to know whether it is inhabited or not.
+*** Internal collapsibility and \hott
+**** We have seen that things work out in plain \MLTT
+**** Does it work in \hott as well?
+**** "Run-time" evaluation no longer in the empty context
+**** We do not have that propositional equality implies definitional equality
+**** Example: functions |Iid| and |Iconstzero| on the interval are propositionally equal, but definitionally different
+**** Example: maps from |I| into |Bool| are alright.
+**** Everything needs to be mapped to |refl|
+**** Can we check this automatically?
+***** No: |nattruncated| example
+*** Conclusions
+**** 
+* Conclusions
+** 
+** 
