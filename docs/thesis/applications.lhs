@@ -695,7 +695,7 @@ have the obligation to show that we respect the relation on the
 type. With the \sigmatype it is more correctness by construction.
 
 From a computational perspective, the first approach with the quotient
-types is more desireable, as the values of the type do not carry
+types is more desirable, as the values of the type do not carry
 around any correctness proof.
 
 \section{Conclusion}

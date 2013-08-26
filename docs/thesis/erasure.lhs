@@ -700,7 +700,7 @@ function we want to optimise, \eg given a function |f : (i : I) -> (x
 : D i) -> tau|, we generally cannot produce a function
 |fsnake : (i : I) -> tau|, since we sometimes need
 the |x : D i| in order for the function to
-typecheck. However, we can use Agda's irrelevance mechanism to instead
+type check. However, we can use Agda's irrelevance mechanism to instead
 generate a function in which the collapsible argument is marked as
 irrelevant.
 

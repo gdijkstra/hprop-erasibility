@@ -76,7 +76,7 @@ equations are satisfied:
 
 This happens to not be the case: the equations do not hold in the
 strict sense. However, both sides of the equations are homotopic to
-eachother. These operations can also be defined on homotopies between
+each other. These operations can also be defined on homotopies between
 paths, for which the same equations can be shown to hold up to higher
 homotopy. What we get is a tower of homotopies for which we have these
 groupoid-like structure at every level, in which the equations hold up
@@ -336,7 +336,7 @@ The important thing to note is what kind of equalities we are talking
 about: the equations given above all hold up to propositional equality
 one level higher. The identity type |Id A x y| is of course a type and
 therefore has a groupoid structure of its own. Every type gives rise
-to a tower of groupoids that can interact with eachother: the presence
+to a tower of groupoids that can interact with each other: the presence
 of equations at one level can imply the presence of equations at a
 higher level. This is exactly the same as the way homotopies form an
 \inftygrpd, hence we have the correspondence between types and spaces
@@ -528,7 +528,7 @@ proposition.
 Another important case are the \ntypes{0}, also called \emph{\hsets},
 which are perhaps the most familiar to programmers. These are the
 types of which we have that any two inhabitants |x| and |y| are either
-equal to eachother in a unique way, or are not equal, \ie \hsets are
+equal to each other in a unique way, or are not equal, \ie \hsets are
 precisely those types that satisfy \UIP. The simplest example of a
 type that is a \hset, but not a \hprop is the type |Bool|:
 
