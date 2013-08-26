@@ -1,6 +1,6 @@
 * Title slide
 Programming in homotopy type theory and erasing propositions
-* Outline presentation?
+* Outline
 ** Introduction \hott
 ** Erasing propositions
 * Homotopy type theory
