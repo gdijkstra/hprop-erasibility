@@ -1,6 +1,6 @@
 \documentclass{beamer}
 
-%include polycode.fmt
+%include slides.fmt
 
 \usepackage[T1]{fontenc}
 
@@ -40,6 +40,8 @@
   \end{figure}%
 \end{frame}%
 }
+
+%include commands.lhs
 
 \begin{document}
 
