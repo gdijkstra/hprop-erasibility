@@ -530,7 +530,7 @@ which are perhaps the most familiar to programmers. These are the
 types of which we have that any two inhabitants |x| and |y| are either
 equal to each other in a unique way, or are not equal, \ie \hsets are
 precisely those types that satisfy \UIP. The simplest example of a
-type that is a \hset, but not a \hprop is the type |Bool|:
+type that is an \hset, but not an \hprop is the type |Bool|:
 
 \begin{code}
   data Bool : Universe where
@@ -563,8 +563,8 @@ be a \ntype{0}. In homotopy type theory, we have a way to consider a
 type as though it were an \ntype{n}, for some |n| we have chosen
 ourselves, the so called \ntruncation{n} of a type. Special cases that
 are particularly interesting are the \ntruncation{(-1)}, \ie we force
-something to be a \hprop, which is particularly useful when we want to
-do logic, and \ntruncation{0}, \ie we force something to be a
+something to be an \hprop, which is particularly useful when we want to
+do logic, and \ntruncation{0}, \ie we force something to be an
 \hset. The idea is that we add enough extra equalities to the type
 such that the higher structure collapses. This can be done using
 \hits~(\cref{sec:hit}). The general construction is rather involved
@@ -785,7 +785,7 @@ fails, is that the following diagram (the so called \emph{Mac Lane
 This shows us that the interaction of propositional equalities at the
 different levels can be quite subtle. For this reason one often
 truncates a \hit, to be sure that it is coherent enough, \eg that it
-is really a \hset.
+is really an \hset.
 
 \subsection{Interval}
 \label{sec:interval}

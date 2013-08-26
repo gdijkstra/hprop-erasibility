@@ -387,7 +387,7 @@ relevant context. When checking the term
 |irrelevantConstantDepFunction|, the term |f x == f y| type checks,
 without having to transport one value along some path, because the
 types |B x| and |B y| are regarded as definitionally equal by the type
-checking, ignoring the |x| and |y|. Just as before, there is no need
+checker, ignoring the |x| and |y|. Just as before, there is no need
 to use the (dependent) congruence rule; a |refl| suffices.
 
 We would also like to show that we have proof irrelevance for

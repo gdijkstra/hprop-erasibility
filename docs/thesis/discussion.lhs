@@ -17,15 +17,15 @@ quotient types. It is all too easy to come up with a \hit that has
 more structure than is desired: one quickly runs into \emph{coherence
   issues}: the resulting type has too many different equalities at
 higher levels than is needed. The original definition of quotient
-types also suffered from this issue: we want it to be a \hset, but as
+types also suffered from this issue: we want it to be an \hset, but as
 could be seen from a simple example, one could easily define the
-circle: the simplest type that is not a \hset. Therefore one usually
+circle: the simplest type that is not an \hset. Therefore one usually
 needs to truncate the \hit to a certain level, \eg take the
 \ntruncation{0} in the case of quotients. Truncating a type does mean
 that we have extra conditions that we need to satisfy when eliminating
 something of that particular type. In a programming setting, one
 typically only encounters \hsets, except for univalent universes of
-\hsets. Eliminating into a \hset means that the extra conditions
+\hsets. Eliminating into an \hset means that the extra conditions
 stemming from \ntruncation{0} are automatically satisfied, so in
 programming this need not be too much of a problem.
 
@@ -35,7 +35,7 @@ difficult problem is determining the computational content of the
 univalence axiom. Seeing as most types in programming applications are
 \hsets, it is already a big improvement if we get this to work for a
 type theory in which everything is \ntruncated{1} and the only
-\ntype{1} which is not a \hset is a univalent universe of all \hsets.
+\ntype{1} which is not an \hset is a univalent universe of all \hsets.
 
 \newpage
 

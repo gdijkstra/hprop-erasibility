@@ -2,7 +2,7 @@
 
 %include thesis.fmt
 
-\usepackage[firstpage]{draftwatermark} % DRAFT only obviously
+%\usepackage[firstpage]{draftwatermark} % DRAFT only obviously
 \usepackage[paper=a4paper, margin=4.3cm]{geometry}
 
 \usepackage{color}
