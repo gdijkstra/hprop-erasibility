@@ -407,10 +407,9 @@ use the same trick as with |J|, as the end point is fixed. Contracting
 a loop to |refl| does not always work, as can be seen
 in~\cref{fig:k}. If we have a hole in our space, then we can
 distinguish between loops that go around the hole and those that do
-not. In this case, simple geometric intuition leads us to an answer of
-a problem that took decades to solve.
-
-\todoi{Dit mag wel wat enthousiaster}
+not. This shows that because we can interpret type theory in homotopy
+theory, we can sometimes use our geometric intuition to answer
+problems from type theory.
 
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
