@@ -112,6 +112,9 @@ Programming in homotopy type theory and erasing propositions
 ***** Yes: Id A x y
 **** Internal collapsibility is not enough for the optimisation
 ***** We need to know whether it is inhabited or not.
+**** Time complexity issues
+***** Effectiveness of optimisation depends on time complexity
+***** Show how we can 
 *** Internal collapsibility and \hott
 **** We have seen that things work out in plain \MLTT
 **** Does it work in \hott as well?
@@ -122,8 +125,13 @@ Programming in homotopy type theory and erasing propositions
 **** Everything needs to be mapped to |refl|
 **** Can we check this automatically?
 ***** No: |nattruncated| example
-*** Conclusions
-**** 
 * Conclusions
-** 
-** 
+** Is \hott interesting to do programming in it?
+*** Yes: function extensionality, quotient types, type-generic lifting of isos
+*** Not yet: computational content is lacking / we lose pattern matching 
+** Can we use \hprops to identify parts of a program that can be erased
+*** In plain \MLTT: yes
+*** In \hott: generally not
+** Can we internalise this optimisation?
+*** Yes, if we assume extra properties
+*** Time complexity is an issue
