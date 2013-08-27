@@ -729,7 +729,6 @@ sense:
     (i : I) (x : D i)
     -> optimiseFunction I D B pf f i x == f i x
 \end{code}
-
 If we set out to write the function |optimiseFunction|, after having
 introduced all the variables, our goal is to produce something of type
 |B|. This can be done by using the function |f|, but then we need a |i
