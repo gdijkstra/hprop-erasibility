@@ -64,7 +64,7 @@
     \item Can be seen as a programming language
     \end{itemize}
   \item Agda is an implementation of \MLTT extended with pattern matching
-  \item \MLTT does not have pattern matching, but elimination principles
+  \item \MLTT itself does not have pattern matching, but elimination principles
   \end{itemize}
 \end{frame}
 
@@ -92,9 +92,12 @@
 
 \begin{frame}{Introduction \hott}
   \begin{itemize}
-  \item Interpret an equality |p : x == y| as a path in a topological space
-  \item Special year at IAS in Princeton: book
+  \item Basic idea: Interpret an equality |p : x == y| as a path in a topological space
+  \item \MLTT can be interpreted in homotopy theory
+  \item Recent field of study
+  \item Last year: special year at Institute for Advance Study in Princeton
     \begin{itemize}
+    \item Book: \emph{Homotopy type theory: univalent foundations of mathematics}
     \item Focus on formalising mathematics
     \item Aimed at mathematicians unfamiliar with type theory
     \end{itemize}
@@ -120,7 +123,8 @@
     \item Can be composed
     \item Can be inverted
     \end{itemize}
-  \item They form a groupoid \emph{up to homotopy}
+  \item<2-> The composition satisfies certain properties
+  \item<2-> They form a groupoid \emph{up to homotopy} (\inftygrpd)
   \end{itemize}
 \end{frame}
 
@@ -156,7 +160,7 @@
   \item |trans  : Id A x y -> Id A y z -> Id A x z|
   \end{itemize}
 
-  |Id A x y| is also a groupoid \emph{up to propositional equality}
+  \uncover<2->{|Id A x y| is also a groupoid \emph{up to propositional equality}}
 \end{frame}
 
 \begin{frame}{Uniqueness of identity proofs}
@@ -171,7 +175,7 @@
   \end{code}
   
   \begin{itemize}
-  \item Can we prove this using |J|?
+  \item<2-> Can we prove this using |J|?
   \end{itemize}
 \end{frame}
 
@@ -196,19 +200,18 @@
 
 \begin{frame}{\hprops and \hsets}
   \begin{itemize}
-  \item In homotopy theory we classify spaces along their homotopy
-    groupoids
+  \item In homotopy theory we classify spaces along their homotopy \inftygrpds
   \item In \hott we can classify types along their identity types
-  \item Contractible type: |Sigma (center : A) dot ((x : A) -> Id A center x)|
+  \item<2-> Contractible type: |Sigma (center : A) dot ((x : A) -> Id A center x)|
     \begin{itemize}
     \item Example: |top|
     \end{itemize}
-  \item \hprop: |(x y : A) -> isContractible (Id A x y)|
+  \item<3-> \hprop: |(x y : A) -> isContractible (Id A x y)|
     \begin{itemize}
     \item Examples: |top| and |bottom|
     \item Satisfies \emph{proof irrelevance}: |(x y : A) -> x == y|
     \end{itemize}
-  \item \hset: |(x y : A) -> isprop (Id A x y)|
+  \item<4-> \hset: |(x y : A) -> isprop (Id A x y)|
     \begin{itemize}
     \item Example: |Bool|
     \item Satisfies \emph{\UIP}
@@ -239,7 +242,7 @@
 
 \begin{frame}{Univalence}
   \begin{itemize}
-  \item Univalence: |(A B : Universe) -> A isomm B -> A == B|
+  \item Univalence: |(A B : Universe) -> A isom B -> A == B|
   \item |Type| does not satisfy \uip:
     \begin{itemize}
     \item |refl : Bool == Bool|
@@ -252,7 +255,22 @@
 \begin{frame}{Applications of \hott}
   \begin{itemize}
   \item Quotient types using \hits
+    \begin{itemize}
+    \item<2-> Example: implement sets using lists
+    \item<2-> Quotient lists by the following relation:
+      \begin{itemize}
+      \item |x ~ y| if |x| contains the same elements as |y|,
+        disregarding order and multiplicity
+      \end{itemize}
+    \end{itemize}
   \item Views for abstract types
+    \begin{itemize}
+      \item<3-> Views can be used to prove properties of abstract types
+      \item<3-> A view can be seen as a reference implementation of the abstract type
+      \item<3-> Univalence can be used to express the specification more succinctly
+      \item<3-> Approach only works for isomorphic views
+      \item<4-> We have extended this to work with non-isomorphic views as well
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -310,7 +328,7 @@
   
   \vfill
 
-  Can we provide an optimisation based on the concept of \hprops?
+  \uncover<2->{\emph{Can we provide an optimisation based on the concept of \hprops?}}
 \end{frame}
 
 \begin{frame}{Erasing propositions}
@@ -342,10 +360,10 @@
     \begin{code}
       elem : (A : Universe) (xs : List A) (i : ℕ) → .(i < length xs) → A
     \end{code}
-  \item We may not pattern match on irrelevant arguments
-  \item Irrelevant arguments may only be passed on to irrelevant contexts
+  \item<2-> We may not pattern match on irrelevant arguments
+  \item<2-> Irrelevant arguments may only be passed on to irrelevant contexts
     \begin{itemize}
-    \item This prevents us from writing |.A -> A|
+    \item<2-> This prevents us from writing |.A -> A|
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -372,8 +390,9 @@ with elimination operator
 and computation rules
 
 \begin{code}
-  ltelim P mZ mS 0      (S y)  (ltZ y)        =  mZ y
-  ltelim P mZ mS (S x)  (S y)  (ltS x y pf)   =  mS x y pf (ltelim P mZ mS x y pf)
+  ltelim P mZ mS 0      (S y)  (ltZ y)         =  mZ y
+  ltelim P mZ mS (S x)  (S y)  (ltS x y pf)    = 
+    mS x y pf (ltelim P mZ mS x y pf)
 \end{code}
 \end{frame}
 
@@ -386,7 +405,7 @@ and computation rules
   \item |p| can be erased
   \item When can we do this?
     \begin{itemize}
-    \item Collapsible family: given |I : Universe|, |D : I ->
+    \item<2-> Collapsible family: given |I : Universe|, |D : I ->
       Universe| is \emph{collapsible} if for every |x, y : D i|:
 
       \begin{code}
@@ -394,7 +413,7 @@ and computation rules
       \end{code}
 
     \end{itemize}
-  \item This looks familiar
+  \item<3-> This looks familiar
     \begin{code}
       isprop : (A : Universe) -> Universe
       isprop A = (x y : A) -> x == y
@@ -414,10 +433,10 @@ and computation rules
 
   \item Do the two concepts coincide?
     \begin{itemize}
-    \item Internal collapsibility implies collapsibility
+    \item<2-> Internal collapsibility implies collapsibility
 
       if we have |/- p : x == y|, then |p === refl| and |x === y|
-    \item The other way around does not hold 
+    \item<3-> The other way around does not hold 
       
       |Id A| is a collapsible family for every |A|, but not internally
       collapsible: we cannot prove \uip
@@ -439,9 +458,9 @@ and computation rules
     \end{code}
   \item Why internalise it in the first place?
     \begin{itemize}
-    \item Collapsibility can only be established by the compiler
-    \item It is undecidable
-    \item Internalising it means the user can provide a proof if the
+    \item<2-> Collapsibility can only be established by the compiler
+    \item<2-> It is undecidable
+    \item<2-> Internalising it means the user can provide a proof if the
       compiler fails to do so
     \end{itemize}
   \end{itemize}
@@ -461,11 +480,12 @@ and computation rules
     \item We cannot ``pattern match'' on this fact: type inhabitation is undecidable
     \end{itemize}
 
+    \uncover<2->{
     \begin{code}
       isInternallyCollapsibleDecidable : (I : Universe) (D : I -> Universe) -> Universe
       isInternallyCollapsibleDecidable I D = (i : I) 
         -> (((x y : D i) -> x == y) otimes (D i oplus (D i -> bottom)))
-    \end{code}
+    \end{code}}
 \end{frame}
 
 \begin{frame}{Internalising the collapsibility optimisation}
@@ -482,10 +502,13 @@ and computation rules
         -> optimiseFunction I D B pf f i x == f i x
     \end{code}
   \item Is it actually an optimisation?
-  \item |pf| provides us with a function |(i : I) -> D i| that we use to recover the erased value
-  \item |pf| is written by the user: no guarantees on its time
-    complexity
-  \item We can write terms in an |EDSL| that keeps track of time complexity
+    \begin{itemize}
+    \item<2-> |pf| provides us with a function |(i : I) -> D i| that
+      we use to recover the erased value
+    \item<2-> |pf| is written by the user: no guarantees on its time
+      complexity
+    \item<2-> We can write terms in an EDSL that keeps track of time complexity
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -494,11 +517,13 @@ and computation rules
   \item In ``plain'' \MLTT run-time can be seen as evaluation in the empty context
   \item In \hott we have axioms for the added equalities
   \item Does the optimisation still work?
-  \item |optimiseFunctionCorrect| still type checks
-  \item but it only establishes \emph{propositional} equality
+  \item<2-> |optimiseFunctionCorrect| still type checks
+    \begin{itemize}
+    \item<2-> But it only establishes \emph{propositional} equality
+    \item<2-> We want \emph{definitional} equality
+    \end{itemize}
   \end{itemize}
 \end{frame}
-
 
 \begin{frame}{Internal collapsibility and \hott}
 \begin{code}
@@ -557,11 +582,11 @@ with elimination principle
 
   \begin{itemize}
   \item Sometimes it does work out
-  \item Consider functions |f : I -> Bool|
-  \item |Bool| only has |refl| paths
-  \item We either have for every |i : I| that |f i === True| \\ or we
+  \item<2-> Consider functions |f : I -> Bool|
+  \item<2-> |Bool| only has |refl| paths
+  \item<2-> We either have for every |i : I| that |f i === True| \\ or we
     have for every |i : I| that |f i === False|
-  \item If the |p| argument to |Ielim| is |refl|, it is safe to
+  \item<2-> If the |p| argument to |Ielim| is |refl|, it is safe to
     presuppose the |I| argument to be |zero|
   \end{itemize}
 \end{frame}
@@ -591,7 +616,7 @@ with elimination principle
     \item |nattruncated| is an \hprop
     \item We have to check that for every |b : B| we have |p b === refl|
       \begin{itemize}
-      \item This is undecidable
+      \item<2-> This is undecidable
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -600,16 +625,16 @@ with elimination principle
   \begin{itemize}
   \item \emph{Can we provide an optimisation based on the concept of \hprops?}
     \begin{itemize}
-    \item In plain \MLTT (with Agda's irrelevance mechanism): yes, if
+    \item<2-> In plain \MLTT (with Agda's irrelevance mechanism): yes, if
       we restrict ourselves to decidable \hprops, but time complexity
       is an issue
-    \item In \hott: generally not
+    \item<2-> In \hott: generally not
     \end{itemize}
   \item \emph{Is \hott and why is interesting \\ to do programming in?}
     \begin{itemize}
-    \item Yes: we get function extensionality, quotient types, better
+    \item<3-> Yes: we get function extensionality, quotient types, better
       manipulation of isomorphic types via univalence
-    \item Not yet: computational content is lacking / we lose pattern
+    \item<3-> Not yet: computational content is lacking / we lose pattern
       matching
     \end{itemize}
   \end{itemize}
