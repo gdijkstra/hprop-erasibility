@@ -3,7 +3,7 @@
 \newcommand{\eg}{e.g.\ }
 \newcommand{\UIP}{uniqueness of identity proofs\xspace}
 \newcommand{\uip}{uniqueness of identity proofs\xspace}
-\newcommand{\MLTT}{Martin-L\"of's type theory\xspace}
+\newcommand{\MLTT}{Martin-L\"of type theory\xspace}
 \newcommand{\pitype}{$\Pi$-type\xspace}
 \newcommand{\pitypes}{$\Pi$-types\xspace}
 \newcommand{\sigmatype}{$\Sigma$-type\xspace}

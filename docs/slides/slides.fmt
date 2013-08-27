@@ -77,6 +77,7 @@
 %format topelim                 = "\top\mbox{-}elim"
 %format Delim			= "D\mbox{-}elim"
 %format nattruncated		= "\mathbb{N}\mbox{-}truncated"
+%format nattruncatedelim	= "\mathbb{N}\mbox{-}truncated\mbox{-}elim"
 %format nattruncatedelimnondep  = "\mathbb{N}\mbox{-}truncated\mbox{-}elim\mbox{-}nondep"
 %format Ielim                   = "I\mbox{-}elim"
 %format Ielimnondep             = "I\mbox{-}elim\mbox{-}nondep"

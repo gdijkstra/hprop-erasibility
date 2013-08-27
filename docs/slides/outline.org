@@ -2,15 +2,27 @@
 Programming in homotopy type theory and erasing propositions
 * Outline
 ** Introduction \hott
+** Applications of \hott to programming
 ** Erasing propositions
+** Conclusions
 * Homotopy type theory
 ** Introduction
-*** Introduce it in vague terms
-*** Recall Curry-Howard correspondence: table
-*** Extend table with homotopy interpretation
-*** We can interpret type theory in homotopy theory: so what?
-*** Interesting for mathematicians: why?
-*** Show all the people working on it.
+*** \Hott is about equality in \MLTT
+*** Equality is a difficult concept
+**** Intensional (1970s/1980s)
+***** Function extensionality (|(f g : A -> B) -> ((x : A) -> f x == g x) -> f == g|) not derivable
+***** Decidable type checking
+**** Extensional (1970s/1980s)
+***** Function extensionality derivable
+***** Undecidable type checking
+**** Heterogeneous equality
+**** Observational type theory
+*** Homotopy type theory
+**** Interpret an equality |p : x == y| as a path |p : x ~~> y|
+**** Table
+**** Lots of interest: special year at the IAS in Princeton: book summarising pretty much all the results so far
+***** Focus is on formalising mathematics
+***** Reader is assumed to be familiar with the maths part but not the type theory part
 *** Research question:
 **** Why should we care?
 **** What is \hott and why is it interesting to do programming in it?
@@ -40,9 +52,6 @@ Programming in homotopy type theory and erasing propositions
 *** Show that we can nest identity types just like homotopies
 *** Composition (|trans|)
 *** Works just like homotopies do
-** Function extensionality
-*** Does not work
-*** Why?
 ** UIP
 *** Does not work
 *** Why?
@@ -50,25 +59,26 @@ Programming in homotopy type theory and erasing propositions
 *** Can we prove K from J?
 ** J vs. K
 *** Pictures
-** n-types
+** \hprops and \hsets
 *** Classify types along their identity types
 *** What is the simplest identity type?
 **** Trivial identity type -> contractible type
-*** Definition n-truncated
 *** \hprops
 **** Proof irrelevance
 *** \hsets
-** \hits
+** How do we construct types that violate UIP?
 *** How do we define a type that violates UIP / 1-type?
 *** Canonicity ensures that we have UIP.
 *** Violate canonicity: add axioms.
-*** Higher inductive types
-*** Example: circle
-*** Example: interval
-**** Function extensionality
-** Univalence
-*** Transporting isomorphisms
-*** Monoid example
+*** \hits
+**** Higher inductive types
+**** Example: circle
+*** Univalence
+**** Isomorphism implies propositional equality.
+**** |Universe| violates \UIP: |Bool == Bool| with |refl| and |not|.
+**** Implies function extensionality.
+**** Extremely useful.
+
 ** Applications
 *** Quotient types
 **** \hits allow us to define quotient types
