@@ -845,17 +845,17 @@ The other way around can also be done:
 \end{code}
 
 Using this we can now manipulate propositional equalities in such a
-way that we can prove function extensionality. Suppose two functions
-|f g : A -> B| and a term |alpha : (x : A) -> f x == g x|. To remove
-the dependency in the type, we can use |eqtointerval|: 
+way that we can prove function extensionality. Suppose we have two
+functions |f g : A -> B| and a term |alpha : (x : A) -> f x == g
+x|. To remove the dependency in the type, we can use |eqtointerval|:
 
 \begin{code}
   \ a -> eqtointerval (alpha a) : A -> Interval -> B
 \end{code}
 
-If we flip the arguments of that term, we get a function |Interval ->
-A -> B|, which then can be turned into the desired |f == g|. The whole
-term looks as follows:
+If we flip the arguments of that term, we get a term of type |Interval
+-> A -> B|, which then can be mapped onto something of the desired
+type |f == g|. The whole term looks as follows:
 
 \begin{code}
   ext : (A B : Universe) (f g : A -> B) (alpha : (x : A) -> f x == g x) -> f == g
