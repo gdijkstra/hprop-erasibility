@@ -850,11 +850,11 @@ way that we can prove function extensionality. Suppose two functions
 the dependency in the type, we can use |eqtointerval|: 
 
 \begin{code}
-  \ a -> eqtointerval (alpha a) : A -> Interval -> A
+  \ a -> eqtointerval (alpha a) : A -> Interval -> B
 \end{code}
 
 If we flip the arguments of that term, we get a function |Interval ->
-A -> A|, which then can be turned into the desired |f == g|. The whole
+A -> B|, which then can be turned into the desired |f == g|. The whole
 term looks as follows:
 
 \begin{code}
