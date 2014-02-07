@@ -44,3 +44,8 @@ postulate
        → (b₀ b₁ : A)
        → (p : b₀ ≡ b₁)
        → ap (I-rec b₀ b₁ p) seg ≡ p
+  βseg' : {B : I → Set} 
+       → (b₀ : B zer)
+       → (b₁ : B one)
+       → (p : transport {B = B} seg b₀ ≡ b₁)
+       → apd {B = B} (I-ind b₀ b₁ p) seg ≡ p
